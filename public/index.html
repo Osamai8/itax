@@ -5,6 +5,24 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+     <!-- meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>iTax</title>
+  <!-- <link rel="shortcut icon" type="image/png" href="image/favicon.png">  -->       
+  <!-- stylesheets -->
+  <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/owl.carousel.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/blog.css"> -->
+  
+  <!-- Font Awesome -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -26,7 +44,7 @@
     -->
     <title>React App</title>
   </head>
-  <body>
+  <body data-spy="scroll" data-target="#main-nav-collapse" data-offset="100">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -40,4 +58,121 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+<!-- end: footer -->
+
+<!-- Back to top button -->
+<a id="button"></a>
+
+<script type="text/javascript">
+// Intro carousel
+$(document).ready(function(){
+$('.panel-collapse').on('show.bs.collapse', function () {
+$(this).siblings('.panel-heading').addClass('active');
+});
+$('.panel-collapse').on('hide.bs.collapse', function () {
+$(this).siblings('.panel-heading').removeClass('active');
+});
+//active menu
+var main_menu = $(".navbar ul.navbar-nav li ");
+main_menu.on('click', function() {
+main_menu.removeClass("active");
+$(this).addClass("active");
+});
+// Add smooth scrolling to all links
+$("a.scroll").on('click', function(event) {
+
+});
+});
+
+</script>
+
+ <!-- Necessary scripts  -->
+    <script type="text/javascript" src="assets/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/owl.carousel.js"></script>
+    <!-- Include jQuery -->
+    <script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>
+
+    <!-- Initialize element with Multislider -->
+<script>   
+$(document).ready(function(){
+  $('.navbar-nav').on('click', 'li', function() {
+  $('.navbar-nav li.active').removeClass('active');
+  $(this).addClass('active');
+  });
+});
+</script>
+
+<script>
+jQuery("#filters .btn").click(function(){
+    jQuery("#filters .btn").removeClass('active');
+    jQuery(this).toggleClass('active'); 
+});
+</script>
+    <script>
+    $('#exampleSlider').multislider({
+        interval: 4000,
+        slideAll: false,
+        duration: 1500
+    });
+    $('#exampleSlider1').multislider({
+        interval: 4000,
+        slideAll: false,
+        duration: 1500
+    });
+    </script> 
+<script type="text/javascript">
+  var btn = $('#button');
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 300) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
+$(".main-nav-collapse").on('click', function(event){
+     var x = document.getElementById("main-nav-collapse");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+});
+
+</script> 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $( ".dropdown-submenu" ).click(function(event) {
+        // stop bootstrap.js to hide the parents
+        event.stopPropagation();
+        // hide the open children
+        $( this ).find(".dropdown-submenu").removeClass('open');
+        // add 'open' class to all parents with class 'dropdown-submenu'
+        $( this ).parents(".dropdown-submenu").addClass('open');
+        // this is also open (or was)
+        $( this ).toggleClass('open');
+    });
+    
+});
+</script>  
+
+<!--//////////// Customer hide & show ///////-->
+<script>
+$(document).ready(function(){
+  $("#signup-email").click(function(){
+    $("#user-social").hide();
+    $("#user-signup-email").show();
+  });
+  
+});
+</script>
+
+    </body>
 </html>
