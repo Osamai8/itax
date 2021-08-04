@@ -1,5 +1,6 @@
 import React from "react";
 import logo from '../images/logo.png'
+import {Link} from 'react-router-dom'
 function Header() {
   return (
     //  site-navigation start
@@ -93,16 +94,17 @@ function Header() {
           </ul>
           <ul class="nav navbar-nav navbar-right text-uppercase">
             <li class="active">
-              <a href="index.php">home</a>
+              <Link to='/'>home</Link>
+              {/* <a href="/"></a> */}
             </li>
             <li>
-              <a href="about-us.php">about us</a>
+              <Link to="/about">about us</Link>
             </li>
             <li>
-              <a href="services.php">Services</a>
+              <Link to="/services">Services</Link>
             </li>
             <li>
-              <a href="partner_with_us.php">Partners With Us</a>
+              <Link to="/partner_with_us">Partners With Us</Link>
             </li>
             {/* <li class="dropdown" id="consultancy_tab">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -120,13 +122,13 @@ function Header() {
               </ul>
             </li> */}
             <li>
-              <a href="blog.php">Blog</a>
+              <Link to="/blog">Blog</Link>
             </li>
             <li>
-              <a href="career_with_us.php">Career</a>
+              <Link to="/career_with_us">Career</Link>
             </li>
             <li>
-              <a href="contact-us.php">contact Us</a>
+              <Link to="/contact-us">contact Us</Link>
             </li>
           </ul>
         </div>
