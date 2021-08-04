@@ -3,6 +3,8 @@ import OurTeam from "./ourTeam";
 import Header from "../../Common/header";
 import Footer from "../../Common/footer";
 import NewsLetter from '../home/newsletter'
+import aboutImage from '../../images/about/about.png'
+import teamWorkImage from '../../images/about/teamwork.jpg'
 function index() {
   return (
     <React.Fragment>
@@ -60,7 +62,7 @@ function index() {
 
                 <div class="col-md-5">
                   <img
-                    src="image\about\about.png"
+                    src={aboutImage}
                     alt="about img"
                     class="img-responsive center-block"
                     style={{ width: "100%", height: "285px" }}
@@ -96,7 +98,7 @@ function index() {
                     <h2>TEAM WORK</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}
@@ -122,7 +124,7 @@ function index() {
                     <h2>TECHNOLOGY ORIENTED</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}
@@ -148,7 +150,7 @@ function index() {
                     <h2>TIME BOUND COMMITMENT</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}
@@ -170,7 +172,7 @@ function index() {
                     <h2>TOTAL SECURITY</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}
@@ -193,7 +195,7 @@ function index() {
                     <h2>TOTAL FINANCIAL AND LEGAL SERVICES UNDER ONE ROOF</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}
@@ -218,7 +220,7 @@ function index() {
                     <h2>TAILOR MADE SOLUTIONS</h2>
                     <p>
                       <img
-                        src="image/about/teamwork.jpg"
+                        src={teamWorkImage}
                         alt="TEAM WORK"
                         class="img-responsive"
                       />{" "}

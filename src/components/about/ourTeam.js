@@ -1,5 +1,5 @@
 import React from 'react'
-
+import teamImage from '../../images/team/team1.jpg'
 function ourTeam() {
     return (
         <section class="light-skyblue-bg">
@@ -18,7 +18,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>SUBHASH CHANDRA GUPTA</h3>
@@ -75,7 +75,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>GAURAV BANSAL</h3>
@@ -132,7 +132,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>NARESH KUMAR BANSAL</h3>
@@ -189,7 +189,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>GARIMA GUPTA</h3>
@@ -246,7 +246,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>AJAYRAJ</h3>
@@ -303,7 +303,7 @@ function ourTeam() {
               <div class="col-md-4 col-lg-4">
                 <div class="single_expert">
                   <div class="expert_thumb">
-                    <img src="image/team/team1.jpg" alt="team" />
+                    <img src={teamImage} alt="team" />
                   </div>
                   <div class="experts_name text-center">
                     <h3>AJAYRAJ</h3>
