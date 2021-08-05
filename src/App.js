@@ -1,4 +1,3 @@
-import "./App.css"; 
 import Router from './route/index'
 function App() {
   return (

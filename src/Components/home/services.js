@@ -1,5 +1,6 @@
 import React from "react";
 import serviceImage from '../../images/service/s1.jpg'
+import moneyBagIcon from '../../images/service/money-bag-icon.png'
 function services() {
   return (
     <section>
@@ -23,12 +24,12 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
                     {/* <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->  */}
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -49,11 +50,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -74,11 +75,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -99,11 +100,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -124,11 +125,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -149,11 +150,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -174,11 +175,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}
@@ -199,11 +200,11 @@ function services() {
             <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src="image/service/s1.jpg" alt="" />
+                  <img src={serviceImage} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
-                    <img src={serviceImage} />
+                    <img src={moneyBagIcon} />
                     <h3>
                       <a href="service-detail.php">
                         {" "}

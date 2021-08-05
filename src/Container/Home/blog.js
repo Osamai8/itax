@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Footer from "../Common/footer";
-import Header from "../Common/header";
-import blogImage from '../images/blog/blog1.png'
-import NewsLetter from './home/newsletter'
+import Footer from "../../Common/footer";
+import Header from "../../Common/header";
+import blogImage from '../../images/blog/blog1.png'
+import NewsLetter from '../../Components/home/newsletter'
 export default class blog extends Component {
   render() {
     const styles = {

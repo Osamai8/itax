@@ -1,8 +1,8 @@
 import React, { Component } from "react"; 
-import Footer from "../Common/footer";
-import Header from "../Common/header"; 
-import NewsLetter from './home/newsletter'
-import sliderImage from '../images/slider/slider1.jpg'
+import Footer from "../../Common/footer";
+import Header from "../../Common/header"; 
+import NewsLetter from '../../Components/home/newsletter'
+import sliderImage from '../../images/slider/slider1.jpg'
 export default class career extends Component {
   render() {
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Footer from "../Common/footer";
-import Header from "../Common/header"; 
-import NewsLetter from './home/newsletter'
+import Footer from "../../Common/footer";
+import Header from "../../Common/header"; 
+import NewsLetter from '../../Components/home/newsletter'
 export default class contactUs extends Component {
   render() {
     return (

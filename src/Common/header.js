@@ -86,9 +86,9 @@ function Header() {
               </a>
             </li>
             <li>
-              <a href="user_login.php" class="btn button">
+              <Link to="/user_login" class="btn button">
                 <i class="fa fa-user" aria-hidden="true"></i> Login
-              </a>
+              </Link>
             </li>
             {/* <li><a href="#" class="btn btn-success"><i class="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
           </ul>
