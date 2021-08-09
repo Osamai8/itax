@@ -13,6 +13,11 @@ import Login from "../Container/Home/login";
 import { BrowserRouter, Route } from "react-router-dom";
 import Register from "../Container/Home/register";
 import CustomerIndex from '../Container/Customer/index'
+import ManageServices from "../Container/Customer/manageServices";
+
+import PartnerIndex from '../Container/Partner/index'
+import Profile from "../Container/Customer/profile";
+
 function index() {
   return (
     <div>
@@ -25,8 +30,15 @@ function index() {
       <Route exact path={"/career_with_us"} component={Career}/> 
       <Route exact path={"/contact-us"} component={Contact}/> 
       <Route exact path={"/user_login"} component={Login}/> 
+
+      {/* customer routes */}
       <Route exact path={"/customer_register"} component={Register}/> 
       <Route exact path={"/customer/dashboard"} component={CustomerIndex}/> 
+      <Route exact path={"/customer/manage-services"} component={ManageServices}/> 
+      <Route exact path={"/customer/my-profile"} component={Profile}/> 
+
+      {/* partner routes */}
+      <Route exact path={"/partner/dashboard"} component={PartnerIndex}/> 
 
     </BrowserRouter>
     </div>
