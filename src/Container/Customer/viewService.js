@@ -200,11 +200,11 @@ export default class viewService extends Component {
                     <div class="form-group">
                       <label
                         class="col-md-2 control-label"
-                        style="width: 20.8%;height: 105px;"
+                        style={{width: '20.6%',height: '105px'}}
                       >
                         Brief Description
                       </label>
-                      <div class="col-md-10" style="width: 79.2%;">
+                      <div class="col-md-10" style={{width: '79.2!important'}}>
                         <textarea
                           name="brief_desc"
                           class="form-control input-hide"
@@ -222,46 +222,7 @@ export default class viewService extends Component {
 
               <div class="col-md-12">
                 <div class="col-md-12 form-group">
-                  {/* <!-- <div class="text-danger" data-toggle="modal" data-target="#myModal" style="cursor: pointer;"><b>Add Additional Documents</b></div>
-  <button class="accordion-rev">Documents Submitted </button> -->
-  <!-- <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" style="margin-bottom: 5px;">Add Additional Documents</button> -->
-  <!-- <div class="panel">
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white table-responsive">
-    <tbody>
-    <tr>
-      <th width="30%">Documents Type</th>
-      <th width="20%">Date</th>
-      <th width="30%">Uploaded Documents</th>
-      <th width="30%">Previous Uploaded Document</th>
-    </tr>
-    <tr>
-      <td>Adhar Card *</td>
-      <td>xx-xx-xxxx</td>
-      <td>Uploaded Doc.</td>
-      <td>Previous Doc.</td>
-    </tr>
-    <tr>
-      <td>PAN Card *</td>
-      <td>xx-xx-xxxx</td>
-      <td>Uploaded Doc.</td>
-      <td>Previous Doc.</td>
-    </tr>
-    <tr>
-      <td>Bank Statement</td>
-      <td>xx-xx-xxxx</td>
-      <td>Uploaded Doc.</td>
-      <td>Previous Doc.</td>
-    </tr>
-    <tr>
-      <td>Additional Documents</td>
-      <td>xx-xx-xxxx</td>
-      <td>Uploaded Doc.</td>
-      <td>Previous Doc.</td>
-    </tr>
-  </tbody>
-  </table>
-  <p style="color: red;">[Note: (*) for Mandatory Field]</p>
-  </div> --> */}
+                
                   <div class="servicelist mb-10">
                     <ul class="nav nav-tabs">
                       <li class="active">
@@ -291,7 +252,7 @@ export default class viewService extends Component {
                                 class="text-danger"
                                 data-toggle="modal"
                                 data-target="#myModal"
-                                style="cursor: pointer;float: right;"
+                                style={{cursor: 'pointer',float: 'right'}}
                               >
                                 <b>
                                   Add Additional Documents{" "}
@@ -450,12 +411,12 @@ export default class viewService extends Component {
                     <div class="form-group">
                       <label
                         class="col-md-2 control-label"
-                        style="width: 20.8%;height: 105px;"
+                        style={{width: '20.8%',height: '105px'}}
                       >
                         <b>Assignee Comment</b> <br /> Name <br /> Date <br />{" "}
                         <a href="#">+ View Previous Comments</a>
                       </label>
-                      <div class="col-md-10" style="width: 79.2%;">
+                      <div class="col-md-10" style={{width: '79.2%'}}>
                         <textarea
                           name="service_comment"
                           class="form-control"
@@ -468,11 +429,11 @@ export default class viewService extends Component {
                     <div class="form-group">
                       <label
                         class="col-md-2 control-label"
-                        style="width: 20.8%;height: 105px;"
+                        style={{width: '20.8%',height: '105px'}}
                       >
                         Customer Comment
                       </label>
-                      <div class="col-md-10" style="width: 79.2%;">
+                      <div class="col-md-10" style={{width: '79.2%'}}>
                         <textarea
                           name="service_comment"
                           class="form-control"
@@ -482,19 +443,19 @@ export default class viewService extends Component {
                       </div>
                     </div>
                     <div class="form-group text-center mt-10">
-                      <button type="submit" class="button" style="margin: 0;">
+                      <button type="submit" class="button" style={{margin: "0"}}>
                         Accept
                       </button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <button
                         type="submit"
                         class="button save-btn"
-                        style="margin: 0;"
+                        style={{margin: "0"}}
                       >
                         Save
                       </button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
-                      <button type="submit" class="button" style="margin: 0;">
+                      <button type="submit" class="button" style={{margin: "0"}}>
                         Reject
                       </button>
                     </div>
@@ -518,7 +479,7 @@ export default class viewService extends Component {
                   </h4>
                 </div>
                 <div class="modal-body">
-                  <div style={additionalDoc}>
+                  <div style={styles.additionalDoc}>
                     <form
                       class="form-horizontal"
                       role="form"

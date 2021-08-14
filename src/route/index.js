@@ -10,18 +10,20 @@ import Career from "../Container/Home/careerWithUs";
 import Contact from "../Container/Home/contactUs"
 import Login from "../Container/Home/login";
 
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
 import Register from "../Container/Home/register";
 import CustomerIndex from '../Container/Customer/index'
 import ManageServices from "../Container/Customer/manageServices";
 
 import PartnerIndex from '../Container/Partner/index'
 import Profile from "../Container/Customer/profile";
+import ViewService from "../Container/Customer/viewService";
 
 function index() {
   return (
     <div>
-    <BrowserRouter>
+    <HashRouter basename="i-tax/">
+    <Switch>
       <Route exact path={"/"} component={Home}/> 
       <Route exact path={"/about"} component={About}/> 
       <Route exact path={"/services"} component={Service}/> 
@@ -36,11 +38,12 @@ function index() {
       <Route exact path={"/customer/dashboard"} component={CustomerIndex}/> 
       <Route exact path={"/customer/manage-services"} component={ManageServices}/> 
       <Route exact path={"/customer/my-profile"} component={Profile}/> 
+      <Route exact path={"/customer/view"} component={ViewService}/> 
 
       {/* partner routes */}
       <Route exact path={"/partner/dashboard"} component={PartnerIndex}/> 
-
-    </BrowserRouter>
+      </Switch>
+    </HashRouter>
     </div>
   );
 }

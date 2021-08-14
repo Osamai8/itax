@@ -48,7 +48,7 @@ export default class sideBar extends Component {
             <a
               href="#"
               class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-              onclick="w3_close()"
+              onclick={this.handleSidebar}
               title="close menu"
             >
               <i class="fa fa-remove fa-fw"></i>  Close Menu
@@ -83,7 +83,7 @@ export default class sideBar extends Component {
         {/* <!-- Overlay effect when opening sidebar on small screens --> */}
         <div
           class="w3-overlay w3-hide-large w3-animate-opacity"
-          onclick="w3_close()"
+          onclick={this.handleSidebar}
           style={{ cursor: "pointer" }}
           title="close side menu"
           id="myOverlay"
