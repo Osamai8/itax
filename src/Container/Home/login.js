@@ -1,56 +1,60 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
-import Header from "../../Common/header"; 
-import NewsLetter from '../../Components/home/newsletter'
-
+import Header from "../../Common/header";
+import NewsLetter from "../../Components/home/newsletter";
+import RestApi from "../../services/api";
+import userImage from "../../images/user.png";
 export default class login extends Component {
-
-     constructor(props) {
-        super(props)
-        this.state = {
-            activeForm :  'customer',
-            formDetails: {
-                email: '',
-                password: ''
-            }
-        }
-    }
-    onFormSubmit() {
-        
-    }
-
-    setEmail (e) { 
-        this.setState({
-            formDetails: {
-               email  : e.target.value,
-               password: this.state.formDetails.password
-            }
-        })
-    }
-    setPassword (e) { 
-        this.setState({
-            formDetails: {
-               email: this.state.formDetails.email,
-               password  : e.target.value
-            }
-        })
-    }
-
-    changeForm(type) {
-        this.setState({
-            activeForm: type
-        })
-    }
-  render() {
-      console.log("state",this.state)
-      const styles = {
-          top : {
-              top: '6px'
-          }
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeForm: "customer",
+      email: '',
+      password: '',
+      error: [],
+    };
+  }
+  onFormSubmit() {
+    let {email, password} = this.state; 
+    RestApi.login({email, password}).then((response) => {
+      console.log("reponse", response);
+      if (response.data.error) {
+        let { error } = response.data;
+        this.setState({ error: error });
       }
+      else {
+        alert("status: ", response.data.message)
+        this.setState({ error: [] });
+       
+      }
+    });
+  }
+
+  handleInputChange(e) {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  changeForm(type) {
+    this.setState({
+      activeForm: type,
+    });
+  }
+  render() {
+    // console.log("state", this.state);
+    const styles = {
+      top: {
+        top: "6px",
+      },
+    }; 
     return (
       <div>
-          <Header/>
+        <Header />
         <div class="breadcrumbpane">
           <div class="container">
             <h1 class="pull-left"> Login</h1>
@@ -71,7 +75,13 @@ export default class login extends Component {
                     <div>
                       {/* <!-- Nav tabs --> */}
                       <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation"  onClick={()=> this.changeForm('customer')} class={`${this.state.activeForm == 'customer'? 'active': ''}`}>
+                        <li
+                          role="presentation"
+                          onClick={() => this.changeForm("customer")}
+                          class={`${
+                            this.state.activeForm == "customer" ? "active" : ""
+                          }`}
+                        >
                           <a
                             // href="#customer"
                             aria-controls="home"
@@ -81,7 +91,13 @@ export default class login extends Component {
                             Customer
                           </a>
                         </li>
-                        <li role="presentation" onClick={()=> this.changeForm('partners')} class={`${this.state.activeForm == 'partners'? 'active': ''}`}>
+                        <li
+                          role="presentation"
+                          onClick={() => this.changeForm("partners")}
+                          class={`${
+                            this.state.activeForm == "partners" ? "active" : ""
+                          }`}
+                        >
                           <a
                             // href="#partners"
                             aria-controls="profile"
@@ -96,7 +112,7 @@ export default class login extends Component {
                       <div class="tab-content">
                         <div
                           role="tabpanel"
-                          class='tab-pane active'
+                          class="tab-pane active"
                           id="customer"
                         >
                           <div class="facebook-box">
@@ -118,27 +134,33 @@ export default class login extends Component {
                           <div class="or-box">
                             <span>OR</span>
                           </div>
-                          <form
-                            id="sky-form"
-                            method="POST"
-                            class="sky-form"
-                          >
+                          <form id="sky-form" method="POST" class="sky-form">
+                           
                             <fieldset>
                               <section>
                                 <div class="row">
-                                  <div class="col col-12">
-                                    <label class="input">
+                                <ul>
+                              {this.state.error && this.state.error['email']?.map((each) => {
+                               return <div style={{listStyleType: 'none'}} className="m-2 alert-danger">{each}</div>
+                              })}
+                               {this.state.error && this.state.error['password']?.map((each) => {
+                               return <div style={{listStyleType: 'none'}} className="m-2 alert-danger">{each}</div>
+                              })}
+                            </ul><br/> 
+                                  <div class="col col-12"> 
+                                    <label class="input"> 
                                       <i
                                         class="icon-append fa fa-envelope-o"
                                         style={styles.top}
                                       ></i>
                                       <input
-                                        onChange={(e)=>this.setEmail(e)}
+                                        onChange={(e) => this.handleInputChange(e)}
                                         type="email"
                                         placeholder="Email"
                                         name="email"
                                         autocomplete="off"
                                       />
+                                      {}
                                     </label>
                                   </div>
                                 </div>
@@ -152,7 +174,7 @@ export default class login extends Component {
                                         style={styles.top}
                                       ></i>
                                       <input
-                                        onChange={(e)=> this.setPassword(e)}
+                                        onChange={(e) => this.handleInputChange(e)}
                                         type="password"
                                         name="password"
                                         placeholder="Password"
@@ -175,7 +197,7 @@ export default class login extends Component {
                             </div>
                             <div class="text-center">
                               <a
-                                href="customer/dashboard.php"
+                                onClick={() => this.onFormSubmit()}
                                 type="submit"
                                 name="sign_in"
                                 class="button sign_in col"
@@ -186,110 +208,14 @@ export default class login extends Component {
                           </div>
                           <div class="login-footer clearfix">
                             <p class="pull-left">Don't have any account?</p>
-                            <a
-                              href="customer_register.php"
+                            <Link
+                              to="/register"
                               class="btn btn-login pull-right"
                             >
                               Create Account
-                            </a>
+                            </Link>
                           </div>
                         </div>
-                        {/* <div role="tabpanel" class="tab-pane" id="partners">
-                          <div class="facebook-box">
-                            <a href="#">
-                              <div class="box-icon">
-                                <i class="fa fa-facebook"></i>
-                              </div>
-                              <div class="fb-box-txt">Log in with Facebook</div>
-                            </a>
-                          </div>
-                          <div class="google-box">
-                            <a href="#">
-                              <div class="box-icon">
-                                <i class="fa fa-google"></i>
-                              </div>
-                              <div class="gp-box-txt">Log in with Google</div>
-                            </a>
-                          </div>
-                          <div class="or-box">
-                            <span>OR</span>
-                          </div>
-                          <form
-                            id="sky-form"
-                            method="POST"
-                            class="sky-form"
-                            action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
-                            novalidate="novalidate"
-                          >
-                            <fieldset>
-                              <section>
-                                <div class="row">
-                                  <div class="col col-12">
-                                    <label class="input">
-                                      <i
-                                        class="icon-append fa fa-envelope-o"
-                                        style={styles.top}
-                                      ></i>
-                                      <input
-                                        type="email"
-                                        placeholder="Email"
-                                        name="email"
-                                      />
-                                    </label>
-                                  </div>
-                                </div>
-                              </section>
-                              <section>
-                                <div class="row">
-                                  <div class="col col-12">
-                                    <label class="input">
-                                      <i
-                                        class="icon-append fa fa-lock"
-                                        style={styles.top}
-                                      ></i>
-                                      <input
-                                        type="password"
-                                        name="password"
-                                        placeholder="Password"
-                                      />
-                                    </label>
-                                  </div>
-                                </div>
-                              </section>
-                            </fieldset>
-                          </form>
-                          <div class="form-group clearfix">
-                            <div class="chkbox-group pull-left">
-                              <input type="checkbox" name="remember" />
-                              <label>Remember me</label>
-                            </div>
-                            <div class="pull-right">
-                              <a href="#" class="forgot-pw">
-                                Forgot password?
-                              </a>
-                            </div>
-                            <div class="text-center">
-                              <a
-                                href="partner/dashboard.php"
-                                type="submit"
-                                name="sign_in"
-                                class="button sign_in col"
-                              >
-                                Ok, Sign in !
-                              </a>
-                            </div>
-                          </div>
-
-                          <div class="login-footer clearfix">
-                            <p class="pull-left">Don't have any account?</p>
-                            <a
-                              href="partners_register.php"
-                              class="btn btn-login pull-right"
-                            >
-                              Create Account
-                            </a>
-                          </div>
-                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -303,7 +229,7 @@ export default class login extends Component {
                 <p>
                   <strong>Registered User Benefits...</strong>
                 </p>
-                <img src="image/user.png" />
+                <img src={userImage} />
                 <ul>
                   <li>
                     <i class="fa fa-circle"></i>File Free ITR online
@@ -326,8 +252,8 @@ export default class login extends Component {
             </div>
           </div>
         </section>
-        <NewsLetter/>
-        <Footer/>
+        <NewsLetter />
+        <Footer />
       </div>
     );
   }

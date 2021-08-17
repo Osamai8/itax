@@ -497,7 +497,7 @@ body {
     border-radius: 5px;
     background: #f3f3f3;
     font: 12px/19px 'Open Sans', Helvetica, Arial, sans-serif;
-    color: #ccc;
+    color: rgb(27, 25, 25);
     appearance: normal;
     -moz-appearance: none;
     -webkit-appearance: none;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "../../Components/home/slider";
 import Services from "../../Components/home/services";
 import videoLogo from "../../images/video.png";
@@ -8,7 +8,14 @@ import NewsLetter from "../../Components/home/newsletter";
 import Images from "../../images/index.js";
 import Header from "../../Common/header";
 import Footer from "../../Common/footer";
+import RestApi from "../../services/api";
 function Index() {
+  useEffect(() => {
+      RestApi.homePage()
+      .then((res) => {
+        console.log(res)
+      })
+  }, [])
   return (
     <>
       <Header />
