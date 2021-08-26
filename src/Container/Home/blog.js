@@ -35,7 +35,7 @@ export default class blog extends Component {
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
-                        <a href="blog-detail.php">
+                        <a href="#">
                           <h3>Business Startup Services</h3>
                         </a>
                         <strong>January 12, 2021</strong>
@@ -68,7 +68,7 @@ export default class blog extends Component {
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
-                        <a href="blog-detail.php">
+                        <a href="#">
                           <h3>Corporate Advisory</h3>
                         </a>
                         <strong>January 12, 2021</strong>
@@ -101,7 +101,7 @@ export default class blog extends Component {
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
-                        <a href="blog-detail.php">
+                        <a href="#">
                           <h3>Financial Funding and Debt Mgmt.</h3>
                         </a>
                         <strong>January 12, 2021</strong>
@@ -134,7 +134,7 @@ export default class blog extends Component {
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
-                        <a href="blog-detail.php">
+                        <a href="#">
                           <h3>Outsourcing Services</h3>
                         </a>
                         <strong>January 12, 2021</strong>
@@ -167,7 +167,7 @@ export default class blog extends Component {
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
-                        <a href="blog-detail.php">
+                        <a href="#">
                           <h3>Foreign Company Setup in India</h3>
                         </a>
                         <strong>January 12, 2021</strong>
@@ -223,7 +223,7 @@ export default class blog extends Component {
               <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                   <aside class="single_sidebar_widget search_widget">
-                    <form action="blog-detail.php">
+                    <form action="#">
                       <div class="form-group">
                         <div class="input-group">
                           <input
@@ -252,49 +252,49 @@ export default class blog extends Component {
                     <h4 class="widget_title">Blog By Category</h4>
                     <ul class="list cat-list">
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Business Startup Services</p>
                           <p>(37)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Corporate Advisory</p>
                           <p>(10)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Financial Funding and Debt Mgmt.</p>
                           <p>(03)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Outsourcing Services</p>
                           <p>(11)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Foreign Company Setup in India</p>
                           <p>(21)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>Income tax Advisory</p>
                           <p>(09)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>International Taxation</p>
                           <p>(05)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="blog-detail.php" class="d-flex">
+                        <a href="#" class="d-flex">
                           <p>FEMA and FERA Advisory</p>
                           <p>(12)</p>
                         </a>
@@ -393,7 +393,7 @@ export default class blog extends Component {
                     </div>
                     <div class="text-center">
                       <a
-                        href="blog-detail.php"
+                        href="#"
                         class="button newsletter no-pip"
                         name=""
                         id=""

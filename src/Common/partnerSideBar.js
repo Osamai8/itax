@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import {Link } from 'react-router-dom'
 export default class partnerSideBar extends Component {
   render() {
     return (
@@ -12,11 +12,11 @@ export default class partnerSideBar extends Component {
           <br />
           <div class="w3-container w3-row">
             <div class="w3-col w3-large s12 w3-bar">
-              <a href="dashboard.php">
+              <Link to="/dashboard">
                 <b>
                   <i class="fa fa-dashboard"></i> My Dashboard
                 </b>
-              </a>
+              </Link>
             </div>
           </div>
           <hr />
@@ -30,7 +30,7 @@ export default class partnerSideBar extends Component {
               <i class="fa fa-remove fa-fw"></i>  Close Menu
             </a>
             <a
-              href="my-profile.php"
+              href="#"
               class="w3-bar-item w3-button w3-padding w3-yellow"
             >
               <i class="fa fa-users fa-fw"></i>  My Profile
@@ -48,7 +48,7 @@ export default class partnerSideBar extends Component {
               id="demoDrop1"
               class="w3-bar-block w3-hide w3-padding-large w3-small"
             >
-              <a href="manage-services.php" class="w3-bar-item w3-button">
+              <a href="#" class="w3-bar-item w3-button">
                 <i class="fa fa-caret-right"></i> Manage Sevices
               </a>
               <a href="#" class="w3-bar-item w3-button">
@@ -88,7 +88,7 @@ export default class partnerSideBar extends Component {
               id="demoDrop3"
               class="w3-bar-block w3-hide w3-padding-large w3-small"
             >
-              <a href="services_list_invoice.php" class="w3-bar-item w3-button">
+              <a href="#" class="w3-bar-item w3-button">
                 <i class="fa fa-caret-right"></i> Invoice
               </a>
               <a href="#" class="w3-bar-item w3-button">

@@ -31,7 +31,7 @@ function services() {
                     {/* <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->  */}
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Business Startup Services
                       </a>
@@ -40,7 +40,7 @@ function services() {
                       Every business start-up requires a wide variety of
                       financial solutions...
                     </p>
-                    <a href="service-detail.php" class="readmore">
+                    <a href="#" class="readmore">
                       Read More...
                     </a>
                   </div>
@@ -56,7 +56,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Corporate Advisory
                       </a>
@@ -81,7 +81,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Financial Funding and Debt Mgmt.
                       </a>
@@ -106,7 +106,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Outsourcing Services
                       </a>
@@ -131,7 +131,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Foreign Company Setup in India
                       </a>
@@ -156,7 +156,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;Income tax Advisory
                       </a>
@@ -181,7 +181,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;International Taxation
                       </a>
@@ -206,7 +206,7 @@ function services() {
                   <div class="iconimagetitle">
                     <img src={moneyBagIcon} />
                     <h3>
-                      <a href="service-detail.php">
+                      <a href="#">
                         {" "}
                         &nbsp;&nbsp;FEMA and FERA Advisory
                       </a>

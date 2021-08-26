@@ -108,10 +108,10 @@ function Footer() {
                       <a href="#">Contact Us</a>
                     </li>
                     <li>
-                      <a href="term_condition.php">Terms and Conditions</a>
+                      <a href="#">Terms and Conditions</a>
                     </li>
                     <li>
-                      <a href="privacy_policy.php">Privacy Policy</a>
+                      <a href="#">Privacy Policy</a>
                     </li>
                   </ul>
                 </div>

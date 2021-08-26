@@ -29,7 +29,7 @@ export default class Home extends Component {
                   Lorem ipsum, or lipsum as it is sometimes known, is dummy text
                   used in laying out print, graphic or web designs.
                 </p>
-                <form class="example" action="action_page.php">
+                <form class="example" action="#">
                   <input
                     type="text"
                     placeholder="Service Search..."
@@ -65,19 +65,19 @@ export default class Home extends Component {
                     onmouseout="start()"
                   >
                     <li>
-                      <a href="blog.php">Refund without Adjustment</a>
+                      <a href="p">Refund without Adjustment</a>
                     </li>
                     <li>
-                      <a href="blog.php">Income tax information</a>
+                      <a href="p">Income tax information</a>
                     </li>
                     <li>
-                      <a href="blog.php">SEZ developers seek exemption</a>
+                      <a href="p">SEZ developers seek exemption</a>
                     </li>
                     <li>
-                      <a href="blog.php">Companies Filing of documents</a>
+                      <a href="p">Companies Filing of documents</a>
                     </li>
                     <li>
-                      <a href="blog.php">
+                      <a href="p">
                         Irdai on policies in electronic form
                       </a>
                     </li>
@@ -135,7 +135,7 @@ export default class Home extends Component {
                           >
                             <ul>
                               <li>
-                                <a href="events.php">
+                                <a href="#">
                                   {" "}
                                   Lorem ipsum, or lipsum as it is sometimes
                                   known, is dummy text used in laying out print,
@@ -143,7 +143,7 @@ export default class Home extends Component {
                                 </a>
                               </li>
                               <li>
-                                <a href="events.php">
+                                <a href="#">
                                   {" "}
                                   Lorem ipsum, or lipsum as it is sometimes
                                   known, is dummy text used in laying out print,
@@ -151,7 +151,7 @@ export default class Home extends Component {
                                 </a>
                               </li>
                               <li>
-                                <a href="events.php">
+                                <a href="#">
                                   {" "}
                                   Lorem ipsum, or lipsum as it is sometimes
                                   known, is dummy text used in laying out print,
@@ -172,22 +172,22 @@ export default class Home extends Component {
                       <p>
                         <div class="downloadform">
                           <ul>
-                            <a href="download_form.php">
+                            <a href="#">
                               <li>
                                 <i class="fa fa-buysellads"></i>Form
                               </li>
                             </a>
-                            <a href="faq.php">
+                            <a href="#">
                               <li>
                                 <i class="fa fa-question-circle"></i>FAQ
                               </li>
                             </a>
-                            <a href="newsletters.php">
+                            <a href="#">
                               <li>
                                 <i class="fa fa-envelope"></i>Newsletter
                               </li>
                             </a>
-                            <a href="show_videos.php">
+                            <a href="#">
                               <li>
                                 <i class="fa fa-file-video-o"></i>Videos
                               </li>
@@ -220,7 +220,7 @@ export default class Home extends Component {
             <h3>Calendar</h3>
             <div class="circle">
               <h2>2021</h2>
-              <a href="calendar_schedule.php">
+              <a href="#">
                 <img
                   class="jan"
                   title="January"

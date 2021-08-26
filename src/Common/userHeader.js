@@ -28,13 +28,13 @@ export default class userHeader extends Component {
 
               <div class="navbar-brand">
                 <span class="sr-only"></span>
-                <a href="../index.php">
+                <Link to="/">
                   <img
                     src={logo}
                     class="img-responsive center-block logo"
                     alt="logo"
                   />
-                </a>
+                </Link>
               </div>
             </div>
             <div
@@ -131,14 +131,14 @@ export default class userHeader extends Component {
             <i class="fa fa-bars"></i>  Menu
           </button>
           <span class="w3-bar-item w3-right">
-            <a href="index.php">
+            <Link to="/">
               <img
                 src={logo}
                 class="img-responsive center-block"
                 alt="logo"
                 style={{ height: "28px", background: "#fff", margin: "0" }}
               />
-            </a>
+            </Link>
           </span>
         </div>
         

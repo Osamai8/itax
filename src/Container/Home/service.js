@@ -35,7 +35,7 @@ function index() {
                         {/* <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->  */}
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Business Startup Services
                           </a>
@@ -44,7 +44,7 @@ function index() {
                           Every business start-up requires a wide variety of
                           financial solutions...
                         </p>
-                        <a href="service-detail.php" class="readmore">
+                        <a href="#" class="readmore">
                           Read More...
                         </a>
                       </div>
@@ -60,7 +60,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Corporate Advisory
                           </a>
@@ -85,7 +85,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Financial Funding and Debt Mgmt.
                           </a>
@@ -110,7 +110,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Outsourcing Services
                           </a>
@@ -135,7 +135,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Foreign Company Setup in India
                           </a>
@@ -160,7 +160,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;Income tax Advisory
                           </a>
@@ -185,7 +185,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;International Taxation
                           </a>
@@ -210,7 +210,7 @@ function index() {
                       <div class="iconimagetitle">
                         <img src={moneyBagIcon} />
                         <h3>
-                          <a href="service-detail.php">
+                          <a href="#">
                             {" "}
                             &nbsp;&nbsp;FEMA and FERA Advisory
                           </a>
