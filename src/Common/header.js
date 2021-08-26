@@ -23,13 +23,13 @@ function Header() {
           {/*  navbar logo  */}
           <div class="navbar-brand">
             <span class="sr-only"></span>
-            <a href="index.php">
+            <Link to='/'>
               <img
                 src={logo}
                 class="img-responsive center-block logo"
                 alt="logo"
               />
-            </a>
+            </Link>
           </div>
         </div>
         {/*  /.navbar-header  */}

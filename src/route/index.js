@@ -3,9 +3,8 @@ import Home from "../Container/Home";
 import HomePages from "../Container/Home/main";
 import MainCustomer from "../Container/Customer/main";
 import { HashRouter, Route, Switch } from "react-router-dom";
-
 import PartnerIndex from "../Container/Partner/index";
-
+import { loadProgressBar } from 'axios-progress-bar'
 function index() {
   return (
     <div>
@@ -22,6 +21,7 @@ function index() {
           {/* partner routes */}
           <Route exact path={"/partner/dashboard"} component={PartnerIndex} />
         </Switch>
+        <loadProgressBar/>
       </HashRouter>
     </div>
   );

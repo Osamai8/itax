@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './css/blog.css';
-import 'bootstrap/dist//css/bootstrap.min.css'
-// import './css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js' 
 import './css/owl.carousel.css';
 import './css/style.css';
 import './css/w3.css';

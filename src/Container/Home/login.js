@@ -5,31 +5,58 @@ import Header from "../../Common/header";
 import NewsLetter from "../../Components/home/newsletter";
 import RestApi from "../../services/api";
 import userImage from "../../images/user.png";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 export default class login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeForm: "customer",
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       error: [],
     };
   }
   onFormSubmit() {
-    let {email, password} = this.state; 
-    RestApi.login({email, password}).then((response) => {
+    let { email, password } = this.state;
+    RestApi.login({ email, password }).then((response) => {
       console.log("reponse", response);
       if (response.data.error) {
         let { error } = response.data;
         this.setState({ error: error });
-      }
-      else {
-        alert("status: ", response.data.message)
+      } else {
+        alert("status: ", response.data.message);
         this.setState({ error: [] });
-       
       }
     });
   }
+
+  responseFacebook = (data) => {
+    console.log(data);
+  };
+  responseGoogle = (res) => {
+    console.log("data", res);
+    if (res.googleId) {
+      let data = {
+        email: res.profileObj.email,
+        login_type: "google",
+        profile_id: res.googleId,
+        first_name: res.profileObj.givenName,
+        last_name: res.profileObj.familyName,
+        is_customer: this.state.activeForm == "customer" ? "yes" : "no",
+        is_service_provider: this.state.activeForm == "partner" ? "yes" : "no",
+        phone: "1231231231",
+      };
+      RestApi.socialLogin(data).then((backRes) => {
+        console.log("itaax res: ", backRes);
+        if (backRes.data.status == true) {
+          alert("login successfull");
+        }
+      });
+    } else {
+      // alert("something went wrong");
+    }
+  };
 
   handleInputChange(e) {
     const value = e.target.value;
@@ -51,7 +78,7 @@ export default class login extends Component {
       top: {
         top: "6px",
       },
-    }; 
+    };
     return (
       <div>
         <Header />
@@ -71,6 +98,7 @@ export default class login extends Component {
                     class="pull-left"
                     src="https://itaxdoctor.idossapp.com/assets/front_end/images/lock.png"
                   />
+
                   <div class="login-details pull-right">
                     <div>
                       {/* <!-- Nav tabs --> */}
@@ -115,46 +143,100 @@ export default class login extends Component {
                           class="tab-pane active"
                           id="customer"
                         >
+                          {/* <div class="facebook-box">
+                                <a href=''>
+                                  <div class="box-icon">
+                                    <i class="fa fa-facebook"></i>
+                                  </div>
+                                  <div class="fb-box-txt">
+                                    Log in with Facebook
+                                  </div>
+                                </a>
+                              </div> */}
+                          {/* <FacebookLogin
+                            appId="3512122968824136"
+                            autoLoad
+                            callback={this.responseFacebook}
+                            render={(renderProps) => (
+                              
+                            )}
+                          /> */}
                           <div class="facebook-box">
-                            <a href="#">
-                              <div class="box-icon">
-                                <i class="fa fa-facebook"></i>
+                                <a  >
+                                  <div class="box-icon">
+                                    <i class="fa fa-facebook"></i>
+                                  </div>
+                                  <div class="fb-box-txt">
+                                    Log in with Facebook
+                                  </div>
+                                </a>
                               </div>
-                              <div class="fb-box-txt">Log in with Facebook</div>
-                            </a>
-                          </div>
-                          <div class="google-box">
-                            <a href="#">
-                              <div class="box-icon">
-                                <i class="fa fa-google"></i>
+                          <GoogleLogin
+                            clientId="686619883448-ltju3kbh1o2nmko9tco4h319b5ji7pgp.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            cookiePolicy={"single_host_origin"}
+                            render={(renderProps) => (
+                              <div
+                                onClick={renderProps.onClick}
+                                class="google-box"
+                              >
+                                <a style={{cursor:'pointer'}}>
+                                  <div class="box-icon">
+                                    <i class="fa fa-google"></i>
+                                  </div>
+                                  <div class="gp-box-txt">
+                                    Log in with Google
+                                  </div>
+                                </a>
                               </div>
-                              <div class="gp-box-txt">Log in with Google</div>
-                            </a>
-                          </div>
+                            )}
+                          ></GoogleLogin>
                           <div class="or-box">
                             <span>OR</span>
                           </div>
                           <form id="sky-form" method="POST" class="sky-form">
-                           
                             <fieldset>
                               <section>
                                 <div class="row">
-                                <ul>
-                              {this.state.error && this.state.error['email']?.map((each) => {
-                               return <div style={{listStyleType: 'none'}} className="m-2 alert-danger">{each}</div>
-                              })}
-                               {this.state.error && this.state.error['password']?.map((each) => {
-                               return <div style={{listStyleType: 'none'}} className="m-2 alert-danger">{each}</div>
-                              })}
-                            </ul><br/> 
-                                  <div class="col col-12"> 
-                                    <label class="input"> 
+                                  <ul>
+                                    {this.state.error &&
+                                      this.state.error["email"]?.map((each) => {
+                                        return (
+                                          <div
+                                            style={{ listStyleType: "none" }}
+                                            className="m-2 alert-danger"
+                                          >
+                                            {each}
+                                          </div>
+                                        );
+                                      })}
+                                    {this.state.error &&
+                                      this.state.error["password"]?.map(
+                                        (each) => {
+                                          return (
+                                            <div
+                                              style={{ listStyleType: "none" }}
+                                              className="m-2 alert-danger"
+                                            >
+                                              {each}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                  </ul>
+                                  <br />
+                                  <div class="col col-12">
+                                    <label class="input">
                                       <i
                                         class="icon-append fa fa-envelope-o"
                                         style={styles.top}
                                       ></i>
                                       <input
-                                        onChange={(e) => this.handleInputChange(e)}
+                                        onChange={(e) =>
+                                          this.handleInputChange(e)
+                                        }
                                         type="email"
                                         placeholder="Email"
                                         name="email"
@@ -174,7 +256,9 @@ export default class login extends Component {
                                         style={styles.top}
                                       ></i>
                                       <input
-                                        onChange={(e) => this.handleInputChange(e)}
+                                        onChange={(e) =>
+                                          this.handleInputChange(e)
+                                        }
                                         type="password"
                                         name="password"
                                         placeholder="Password"

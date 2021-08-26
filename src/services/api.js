@@ -16,4 +16,7 @@ export default class RestApi {
   static homePage() {
     return axios.get(`${baseURL}/home-page`);
   }
+  static socialLogin(data){
+    return axios.post(`${baseURL}/social/login`,data)
+  }
 }
