@@ -53,7 +53,7 @@ function Login(props) {
                 props.activeForm == "partners" ? "yes" : "no",
             },
             type: "login",
-          }); 
+          });
         }
         if (response.data.access_token && response.data.status == true) {
           if (
@@ -76,25 +76,68 @@ function Login(props) {
 
   const responseFacebook = (res) => {
     // handleShowMessageClick()
-    // console.log(res);
-    // console.log("data", res);
-    // if (res.userID) {
-    //   let data = {
-    //     login_type: "facebook",
-    //     profile_id: res.userID,
-    //     first_name: res.name,
-    //     is_customer: props.activeForm == "customer" ? "yes" : "no",
-    //     is_service_provider: props.activeForm == "partner" ? "yes" : "no",
-    //   };
-    //   RestApi.socialLogin(data).then((backRes) => {
-    //     console.log("itaax res: ", backRes);
-    //     if (backRes.data.status == true) {
-    //       alert("login successfull");
-    //     }
-    //   });
-    // } else {
-    //   // alert("something went wrong");
-    // }
+    console.log(res);
+    console.log("data", res);
+    if (res.userID) {
+      let data = {
+        login_type: "facebook",
+        profile_id: res.userID,
+        first_name: res.name,
+        is_customer: props.activeForm == "customer" ? "yes" : "no",
+        is_service_provider: props.activeForm == "partner" ? "yes" : "no",
+      };
+      RestApi.socialLogin(data).then((backRes) => {
+        console.log("socialLogin: ", backRes);
+        if (backRes.data.access_token && backRes.data.status == true) {
+          props.dispatch({
+            type: "LOGIN",
+            payload: backRes.data.data,
+          });
+          if (
+            backRes.data.data.is_customer == "yes" &&
+            backRes.data.data.is_service_provider == "yes"
+          ) {
+            props.activeForm == "customer"
+              ? history.push(`/customer/dashboard`)
+              : history.push(`/partner/dashboard`);
+          } else if (backRes.data.data.is_customer == "yes") {
+            history.push(`/customer/dashboard`);
+          } else if (backRes.data.data.is_service_provider == "yes") {
+            history.push(`/partner/dashboard`);
+          }
+        }
+        if (backRes.data.status == false && backRes.data.status_code == 300) {
+          // props.dispatch({
+          //   type: "LOGIN",
+          //   payload: backRes.data.data,
+          // });
+          setShowModal({
+            status: true,
+            message: backRes.data.message,
+            data: {
+              email: res.profileObj.email,
+              login_type: "google",
+              profile_id: res.googleId,
+              first_name: res.profileObj.givenName,
+              last_name: res.profileObj.familyName,
+            },
+            type: "socialLogin",
+          });
+
+          // RestApi.socialLogin(data).then((res) => {
+          //   console.log(res);
+          // });
+        }
+      })
+      .catch(
+        function (error) {
+          console.log('Show error notification!')
+          return Promise.reject(error)
+        }
+      );
+    } else {
+      // alert("something went wrong");
+    }
   };
   const responseGoogle = (res) => {
     console.log("data", res);
@@ -191,7 +234,7 @@ function Login(props) {
   const changeForm = (form) => {
     props.setActiveForm(form);
   };
-  console.log(props)
+  console.log(props);
   return (
     <div>
       {showModal.status && (
@@ -262,7 +305,7 @@ function Login(props) {
                         id="customer"
                       >
                         <FacebookLogin
-                          appId="3512122968824136"
+                          appId="4879441725418635"
                           autoLoad
                           callback={() => responseFacebook}
                           render={(renderProps) => (
