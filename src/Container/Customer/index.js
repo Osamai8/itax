@@ -14,9 +14,7 @@ export default class index extends Component {
   render() {
     console.log(this.state);
     return (
-      <>
-        <UserHeader />
-        <SideBar />
+      <> 
         <div style={{marginLeft: '254px',marginTop:'43px'}}>
 
         <div class="w3-panel">

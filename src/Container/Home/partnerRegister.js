@@ -1,84 +1,53 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
 import NewsLetter from "../../Components/home/newsletter";
 import RestApi from "../../services/api";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import userImage from '../../images/user.png'
 
-export default class register extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {  
-          first_name: '',
-          middleName:'',
-          last_name:'',
-          phone:'',
-          login_type:'default',
-          is_customer: 'yes',
-          is_service_provider: 'no',
-          email:'',
-          password:'',
-          address:'',  
-          error: {}
-    }
-}
-  onSubmitHandle(e){ 
-    e.preventDefault()
-    let  {first_name,last_name,email,password,address,phone,
-      login_type,is_customer,is_service_provider,middleName} = this.state
-      
-    RestApi.register({first_name,last_name,email,password,address,phone,
-      login_type,is_customer,is_service_provider,middleName})
-    .then((res) => {
-      console.log("resss",res)
-      
-    })
-  }
-  validate(name,value){
-    let errors = {}
-    switch (name){
-      case 'email':
-        break;
-      case 'phone':
-       
-        break;
-      default:
-        // console.log("default",name)
-    }
-    this.setState({
-      error: errors
-    })
-     
-  }
-  handleInputChange(e) {  
-    const target = e.target; 
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    this.validate(name,value)
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  first_name: yup.string().required("First name is required"),
+//   last_name: yup.string().required("Last name is required"),
+//   phone: yup.number().positive("Invalid Number").integer().min(8,'Must be a valid phone number').max(10,'Must be a valid phone number').typeError("Must be a number"),
+  password: yup.string().required().min(6),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
+function PartnerRegister() {
+  const [responseError, setResponseError] = useState({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-    this.setState({
-      [name]: value
-    });
-  }
-  checkPassword(e){
-    let { password } = this.state
-    if(password !== e.target.value){
-      this.setState({
-        error: { password : 'Incorrect Password'}
+
+  const onSubmitHandle = (data) => {
+    console.log(data);
+    RestApi.register(data)
+      .then((res) => {
+        console.log("resss",res) 
+        if (res.data.error) {
+            let { error } = res.data;
+            setResponseError(error);
+            alert(res.data.message)
+          } else {
+            alert(res.data.message);
+            setResponseError({});
+          }
+        
       })
-    }
-    else{
-      this.setState({
-        error: {}
-      })
-    }
-  }
-
-
-  render() {
-    let {error} = this.state
-    console.log("aaaaaa",this.state)
-    return (
-      <div>
+  };
+  return (
+    <div>
         <Header />
         <div class="breadcrumbpane">
           <div class="container">
@@ -97,27 +66,40 @@ export default class register extends Component {
                     id="sky-form"
                     method="POST"
                     class="sky-form" 
-                    onSubmit={(e) => this.onSubmitHandle(e)}
+                    onSubmit={handleSubmit(onSubmitHandle)}
                   >
                     <fieldset>
                       <section>
                         <div class="row">
                           <div class="col-md-6">
+                          <input
+                                type="hidden" 
+                                {...register("is_partner")}
+                                value="yes"
+                                autocomplete="off"
+                              />
                             <label class="input">
                               <i
                                 class="icon-append fa fa-envelope-o"
                                 style={{top:'6px'}}
                               ></i>
+                              {errors["email"] && (
+                                <>
+                                  <br />
+                                  <p className="alert-danger alert">
+                                    {" "}
+                                    {errors["email"]?.message}
+                                  </p>
+                                </>
+                              )}
                               <input
                                 type="email"
                                 required
-                                onChange={(e) => this.handleInputChange(e)}
                                 placeholder="Email"
-                                name="email"
-                                value={this.state.email}
+                                {...register("email")}
+                                
                                 autocomplete="off"
-                              />
-                               {error.email && <span  class="alert-danger">{error.email}</span>}
+                              /> 
                             </label>
                           
                           </div>
@@ -128,14 +110,11 @@ export default class register extends Component {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              required
-                           onChange={(e) => this.handleInputChange(e)}
                                 type="text"
                                 placeholder="Mobile"
-                                name="phone"
+                                {...register("phone")}
                                 autocomplete="off"
-                              />
-                              <span  class="alert-danger">{this.state.error.phone}</span>
+                              /> 
                             </label>
                           </div>
                         </div>
@@ -150,10 +129,9 @@ export default class register extends Component {
                               ></i>
                               <input
                               required
-                              onChange={(e) => this.handleInputChange(e)}
-                                type="textl"
-                                placeholder="First Name"
-                                name="first_name"
+                              {...register("first_name")}
+                                type="text"
+                                placeholder="First Name" 
                                 autocomplete="off"
                               />
                             </label>
@@ -165,10 +143,9 @@ export default class register extends Component {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                             onChange={(e) => this.handleInputChange(e)}
-                                type="textl"
-                                placeholder="Address"
-                                name="address"
+                               {...register("address")}
+                                type="text"
+                                placeholder="Address" 
                                 autocomplete="off"
                               />
                             </label>
@@ -184,10 +161,9 @@ export default class register extends Component {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              onChange={(e) => this.handleInputChange(e)}
-                                type="textl"
-                                placeholder="Middle Name"
-                                name="middleName"
+                              {...register("middleName")}
+                                type="text"
+                                placeholder="Middle Name" 
                                 autocomplete="off"
                               />
                             </label>
@@ -200,9 +176,8 @@ export default class register extends Component {
                               ></i>
                               <input
                               required
-                                onChange={(e) => this.handleInputChange(e)}
-                                type="password"
-                                name="password"
+                              {...register("password")}
+                                type="password" 
                                 placeholder="Password"
                               />
                             </label>
@@ -217,12 +192,10 @@ export default class register extends Component {
                                 class="icon-append fa fa-user-o"
                                 style={{top:'6px'}}
                               ></i>
-                              <input
-                              required
+                              <input 
                                 type="text"
-                                onChange={(e) => this.handleInputChange(e)}
-                                placeholder="Last Name"
-                                name="last_name"
+                                {...register("last_name")}
+                                placeholder="Last Name" 
                                 autocomplete="off"
                               />
                             </label>
@@ -234,12 +207,10 @@ export default class register extends Component {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              onChange={(e)=> this.checkPassword(e)}
-                                type="password"
-                                name="checkPassword"
+                              {...register("passwordConfirmation")}
+                                type="password" 
                                 placeholder="Confirm Password"
-                              />
-                               {error.password && <span class="alert-danger">{error.password}</span> }
+                              /> 
                             </label>
                            
                           </div>
@@ -301,9 +272,9 @@ export default class register extends Component {
                  
                   <div class="login-footer clearfix">
                     <p class="pull-left part_log">Already have an account?</p>
-                    <a href="#" class="btn btn-login pull-right part_login">
+                    <Link to="/user_login" class="btn btn-login pull-right part_login">
                       Log in
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -316,7 +287,7 @@ export default class register extends Component {
               <p>
                 <strong>Registered User Benefits...</strong>
               </p>
-              <img src="image/user.png" />
+              <img src={userImage} />
               <ul>
                 <li>
                   <i class="fa fa-circle"></i>File Free ITR online
@@ -341,6 +312,7 @@ export default class register extends Component {
         <NewsLetter />
         <Footer />
       </div>
-    );
-  }
+  )
 }
+
+export default PartnerRegister

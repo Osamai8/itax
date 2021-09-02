@@ -5,9 +5,7 @@ import SideBar from "../../Common/customerSideBar";
 export default class profile extends Component {
   render() {
     return (
-      <div>
-        <UserHeader />
-        <SideBar />
+      <div> 
         <div style={{ marginLeft: "254px", marginTop: "43px" }}>
           <div class="w3-container servicelist" style={{height: '530px'}}>
             <h3>

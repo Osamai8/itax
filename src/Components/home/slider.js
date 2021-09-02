@@ -11,6 +11,7 @@ export default class Slider extends Component {
     this.fetchbanner();
   }
   fetchbanner = () => {
+    console.log("banner")
     RestApi.homePage().then((res) => {
       this.setState({
         bannerData: res.data.data.banners,
@@ -31,13 +32,14 @@ export default class Slider extends Component {
         <div class="sliderdata">
           <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li
+            {/* <li
                 data-target="#myCarousel"
                 data-slide-to="0"
-                class="active"
-              ></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-              <li data-target="#myCarousel" data-slide-to="2"></li>
+               
+              ></li> */}
+               {this.state.bannerData.map((banner, i) => {
+                return  <li class={banner.sequence_no == 1 && 'active'}  data-target="#myCarousel" data-slide-to={i}></li>
+               })}
             </ol>
 
             <div class="carousel-inner">

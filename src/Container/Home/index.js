@@ -61,8 +61,8 @@ export default class Home extends Component {
                 <ul>
                   <marquee
                     behavior="scroll"
-                    onmouseover="stop()"
-                    onmouseout="start()"
+                    // onmouseover="stop()"
+                    // onmouseout="start()"
                   >
                     <li>
                       <a href="p">Refund without Adjustment</a>
@@ -130,8 +130,8 @@ export default class Home extends Component {
                             behavior="scroll"
                             direction="up"
                             scrolldelay="200"
-                            onmouseover="stop()"
-                            onmouseout="start()"
+                            // onmouseover="stop()"
+                            // onmouseout="start()"
                           >
                             <ul>
                               <li>

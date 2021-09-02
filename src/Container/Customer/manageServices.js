@@ -18,8 +18,7 @@ export default class manageServices extends Component {
   render() {
     return (
       <div>
-        <UserHeader />
-        <SideBar />
+        
         <div style={{ marginLeft: "254px", marginTop: "43px" }}>
           <div class="w3-container servicelist" style={{ height: "490px" }}>
             <h3>Service Lists</h3>

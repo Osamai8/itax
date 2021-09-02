@@ -94,8 +94,7 @@ export default class contactUs extends Component {
                     id="sky-form"
                     class="sky-form"
                     method="POST"
-                    action="#"
-                    novalidate="novalidate"
+                    action="#" 
                   >
                     <fieldset>
                       <input type="hidden" name="id" />

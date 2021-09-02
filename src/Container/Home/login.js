@@ -1,4 +1,4 @@
-import React, {useState}from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
@@ -7,43 +7,94 @@ import RestApi from "../../services/api";
 import userImage from "../../images/user.png";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import {useForm} from 'react-hook-form'
-import {yupResolver} from "@hookform/resolvers/yup";
-import * as yup from 'yup'
-
-const schema =  yup.object().shape({
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import Modal from "../../Components/registerModal";
+const schema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().required().min(3)
-})
+  password: yup.string().required().min(3),
+});
 
-function Login() {
+function Login(props) {
+  const history = useHistory();
+  const [responseError, setResponseError] = useState({});
+  const [showModal, setShowModal] = useState({ status: false, message: "" });
 
-  const [activeForm, setActiveForm] = useState('customer')
-  const [responseError, setResponseError] = useState({})
-
-const {register,handleSubmit,formState: { errors }} = useForm({
-  resolver: yupResolver(schema)
-})
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const onSubmitHandle = (data) => {
-    console.log(data)
+    console.log(data);
+
     let { email, password } = data;
-    RestApi.login({ email, password }).then((response) => {
+    RestApi.login(data).then((response) => {
       console.log("reponse", response);
       if (response.data.error) {
-        let { error } = response.data; 
-        setResponseError(error)
+        let { error } = response.data;
+        setResponseError(error);
       } else {
-        alert("status: ", response.data.message); 
-        setResponseError({})
+        // alert(response.data.message);
+        if (response.data.status == false && response.data.status_code == 300) {
+          setShowModal({
+            status: true,
+            message: response.data.message,
+            data: {
+              email: email,
+              password: password,
+              is_customer: props.activeForm == "cutsomer" ? "yes" : "no",
+              is_service_provider:
+                props.activeForm == "partners" ? "yes" : "no",
+            },
+            type: "login",
+          }); 
+        }
+        if (response.data.access_token && response.data.status == true) {
+          if (
+            response.data.data.is_customer == "yes" &&
+            response.data.data.is_service_provider == "yes"
+          ) {
+            props.activeForm == "customer"
+              ? history.push(`/customer/dashboard`)
+              : history.push(`/partner/dashboard`);
+          } else if (response.data.data.is_customer == "yes") {
+            history.push(`/customer/dashboard`);
+          } else if (response.data.data.is_service_provider == "yes") {
+            history.push(`/partner/dashboard`);
+          }
+        }
+        setResponseError({});
       }
     });
+  };
 
-  }
-
-
-  
-  const responseFacebook = (data) => {
-    console.log(data);
+  const responseFacebook = (res) => {
+    // handleShowMessageClick()
+    // console.log(res);
+    // console.log("data", res);
+    // if (res.userID) {
+    //   let data = {
+    //     login_type: "facebook",
+    //     profile_id: res.userID,
+    //     first_name: res.name,
+    //     is_customer: props.activeForm == "customer" ? "yes" : "no",
+    //     is_service_provider: props.activeForm == "partner" ? "yes" : "no",
+    //   };
+    //   RestApi.socialLogin(data).then((backRes) => {
+    //     console.log("itaax res: ", backRes);
+    //     if (backRes.data.status == true) {
+    //       alert("login successfull");
+    //     }
+    //   });
+    // } else {
+    //   // alert("something went wrong");
+    // }
   };
   const responseGoogle = (res) => {
     console.log("data", res);
@@ -54,14 +105,50 @@ const {register,handleSubmit,formState: { errors }} = useForm({
         profile_id: res.googleId,
         first_name: res.profileObj.givenName,
         last_name: res.profileObj.familyName,
-        is_customer: this.state.activeForm == "customer" ? "yes" : "no",
-        is_service_provider: this.state.activeForm == "partner" ? "yes" : "no",
-        phone: "1231231231",
+        is_customer: props.activeForm == "customer" ? "yes" : "no",
+        is_service_provider: props.activeForm == "partners" ? "yes" : "no",
       };
       RestApi.socialLogin(data).then((backRes) => {
-        console.log("itaax res: ", backRes);
-        if (backRes.data.status == true) {
-          alert("login successfull");
+        console.log("socialLogin: ", backRes);
+        if (backRes.data.access_token && backRes.data.status == true) {
+          props.dispatch({
+            type: "LOGIN",
+            payload: backRes.data.data,
+          });
+          if (
+            backRes.data.data.is_customer == "yes" &&
+            backRes.data.data.is_service_provider == "yes"
+          ) {
+            props.activeForm == "customer"
+              ? history.push(`/customer/dashboard`)
+              : history.push(`/partner/dashboard`);
+          } else if (backRes.data.data.is_customer == "yes") {
+            history.push(`/customer/dashboard`);
+          } else if (backRes.data.data.is_service_provider == "yes") {
+            history.push(`/partner/dashboard`);
+          }
+        }
+        if (backRes.data.status == false && backRes.data.status_code == 300) {
+          // props.dispatch({
+          //   type: "LOGIN",
+          //   payload: backRes.data.data,
+          // });
+          setShowModal({
+            status: true,
+            message: backRes.data.message,
+            data: {
+              email: res.profileObj.email,
+              login_type: "google",
+              profile_id: res.googleId,
+              first_name: res.profileObj.givenName,
+              last_name: res.profileObj.familyName,
+            },
+            type: "socialLogin",
+          });
+
+          // RestApi.socialLogin(data).then((res) => {
+          //   console.log(res);
+          // });
         }
       });
     } else {
@@ -74,9 +161,44 @@ const {register,handleSubmit,formState: { errors }} = useForm({
     },
   };
 
-console.log(errors)
+  const handleCloseModal = () => {
+    console.log("close");
+    setShowModal({ status: false });
+    let { is_customer, is_service_provider } = showModal.data;
+    if (is_customer == "yes") {
+      history.push(`/customer/dashboard`);
+    } else if (is_service_provider == "yes") {
+      history.push(`/partner/dashboard`);
+    }
+  };
+  const changeUsertype = () => {
+    let data = showModal.data;
+    data.is_customer = "yes";
+    data.is_service_provider = "yes";
+    if (showModal.type == "login") {
+      RestApi.login(data).then((res) => {
+        console.log(res);
+        setShowModal({ status: false, message: "", data: {} });
+        console.log(res);
+      });
+    } else {
+      RestApi.socialLogin(data).then((res) => {
+        console.log(res);
+        setShowModal({ status: false, message: "", data: {} });
+      });
+    }
+  };
+  const changeForm = (form) => {
+    props.setActiveForm(form);
+  };
+  console.log(props)
   return (
     <div>
+      {showModal.status && (
+        <Modal accept={changeUsertype} onClose={handleCloseModal}>
+          {showModal.message}
+        </Modal>
+      )}
       <Header />
       <div class="breadcrumbpane">
         <div class="container">
@@ -101,9 +223,9 @@ console.log(errors)
                     <ul class="nav nav-tabs" role="tablist">
                       <li
                         role="presentation"
-                        onClick={() => this.changeForm("customer")}
+                        onClick={() => changeForm("customer")}
                         class={`${
-                          activeForm == "customer" ? "active" : ""
+                          props.activeForm == "customer" ? "active" : ""
                         }`}
                       >
                         <a
@@ -117,9 +239,9 @@ console.log(errors)
                       </li>
                       <li
                         role="presentation"
-                        onClick={() => this.changeForm("partners")}
+                        onClick={() => changeForm("partners")}
                         class={`${
-                          activeForm == "partners" ? "active" : ""
+                          props.activeForm == "partners" ? "active" : ""
                         }`}
                       >
                         <a
@@ -139,28 +261,10 @@ console.log(errors)
                         class="tab-pane active"
                         id="customer"
                       >
-                        {/* <div class="facebook-box">
-                              <a href=''>
-                                <div class="box-icon">
-                                  <i class="fa fa-facebook"></i>
-                                </div>
-                                <div class="fb-box-txt">
-                                  Log in with Facebook
-                                </div>
-                              </a>
-                            </div> */}
-                        {/* <FacebookLogin
-                          appId="3512122968824136"
-                          autoLoad
-                          callback={this.responseFacebook}
-                          render={(renderProps) => (
-                            
-                          )}
-                        /> */}
                         <FacebookLogin
                           appId="3512122968824136"
                           autoLoad
-                          callback={responseFacebook}
+                          callback={() => responseFacebook}
                           render={(renderProps) => (
                             <div
                               style={{ cursor: "pointer" }}
@@ -207,13 +311,44 @@ console.log(errors)
                           method="POST"
                           class="sky-form"
                         >
-                        {errors['email'] &&<p className="alert-danger alert"> {errors['email']?.message}</p>}
-                        {errors['password'] &&<p className="alert-danger alert"> {errors['password']?.message}</p>}
+                          {errors["email"] && (
+                            <p className="alert-danger alert">
+                              {" "}
+                              {errors["email"]?.message}
+                            </p>
+                          )}
+                          {errors["password"] && (
+                            <p className="alert-danger alert">
+                              {" "}
+                              {errors["password"]?.message}
+                            </p>
+                          )}
                           <fieldset>
                             <section>
                               <div class="row">
-                                
                                 <br />
+                                <input
+                                  {...register("is_customer")}
+                                  type="hidden"
+                                  name="is_customer"
+                                  autocomplete="off"
+                                  value={
+                                    props.activeForm == "customer"
+                                      ? "yes"
+                                      : "no"
+                                  }
+                                />
+                                <input
+                                  {...register("is_servive_provider")}
+                                  type="hidden"
+                                  name="is_customer"
+                                  autocomplete="off"
+                                  value={
+                                    props.activeForm == "partners"
+                                      ? "yes"
+                                      : "no"
+                                  }
+                                />
                                 <div class="col col-12">
                                   <label class="input">
                                     <i
@@ -221,13 +356,12 @@ console.log(errors)
                                       style={styles.top}
                                     ></i>
                                     <input
-                                     {...register('email')}
+                                      {...register("email")}
                                       type="text"
                                       placeholder="Email"
                                       name="email"
                                       autocomplete="off"
-                                    /> 
-                                    
+                                    />
                                   </label>
                                 </div>
                               </div>
@@ -241,7 +375,7 @@ console.log(errors)
                                       style={styles.top}
                                     ></i>
                                     <input
-                                     {...register('password')}
+                                      {...register("password")}
                                       type="password"
                                       name="password"
                                       placeholder="Password"
@@ -323,4 +457,10 @@ console.log(errors)
   );
 }
 
-export default Login;
+export default connect((state, props) => {
+  console.log("state", state);
+  return {
+    isLogged: state?.address,
+    userDetails: state?.userDetails,
+  };
+})(Login);

@@ -13,9 +13,7 @@ export default class viewService extends Component {
           }
       }
     return (
-      <div>
-        <UserHeader />
-        <SideBar />
+      <div> 
         <div style={{ marginLeft: "254px", marginTop: "43px" }}>
           <div class="w3-container">
             <h3>Service Request Detail review by service provider</h3>
