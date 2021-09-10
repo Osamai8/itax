@@ -6,18 +6,27 @@ import NewsLetter from "../../Components/home/newsletter";
 import RestApi from "../../services/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import * as Yup from "yup";
 import userImage from '../../images/user.png'
 
-const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  first_name: yup.string().required("First name is required"),
-//   last_name: yup.string().required("Last name is required"),
-//   phone: yup.number().positive("Invalid Number").integer().min(8,'Must be a valid phone number').max(10,'Must be a valid phone number').typeError("Must be a number"),
-  password: yup.string().required().min(6),
-  passwordConfirmation: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+const schema = Yup.object().shape({
+  email: Yup.string().email().required(),
+  first_name: Yup.string().required("First name is required"),
+  //   last_name: Yup.string().required("Last name is required"),
+    
+phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone number is not valid'),
+  password: Yup
+  .string()
+  .required('Password is required')
+  .matches(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
+  ),
+  confirmPassword: Yup.string()
+      .when('password', (password, schema) => {
+        if (password) return schema.required('Confirm Password is required');
+      })
+      .oneOf([Yup.ref('password')], 'Passwords must match')
 });
 function PartnerRegister() {
   const [responseError, setResponseError] = useState({});
@@ -46,6 +55,7 @@ function PartnerRegister() {
         
       })
   };
+  console.log(errors)
   return (
     <div>
         <Header />

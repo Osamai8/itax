@@ -1,5 +1,6 @@
 import React from "react";
 import accuredImage from "../images/accurecode.jpg"
+import {Link} from 'react-router-dom'
 function Footer() {
   return (
     <div>
@@ -90,28 +91,28 @@ function Footer() {
                   </h3>
                   <ul>
                     <li>
-                      <a href="#">About Us</a>
+                    <Link to="/about">About Us</Link>
                     </li>
                     <li>
-                      <a href="#">Services</a>
+                    <Link to="/services">Services</Link>
                     </li>
                     <li>
-                      <a href="#">Partners With Us</a>
+                    <Link to="/partner_with_us">Partners With Us</Link>
                     </li>
                     <li>
-                      <a href="#">Blog</a>
+                    <Link to="/blog">Blog</Link>
                     </li>
                     <li>
-                      <a href="#">Career</a>
+                    <Link to="/career_with_us">Career</Link>
                     </li>
                     <li>
-                      <a href="#">Contact Us</a>
+                       <Link to="/contact-us">Contact Us</Link>
                     </li>
                     <li>
-                      <a href="#">Terms and Conditions</a>
+                      <Link to="term_condition">Terms and Conditions</Link>
                     </li>
                     <li>
-                      <a href="#">Privacy Policy</a>
+                      <Link to="privacy_policy">Privacy Policy</Link>
                     </li>
                   </ul>
                 </div>

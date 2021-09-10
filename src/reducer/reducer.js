@@ -1,7 +1,6 @@
 import React from 'react'
 const initialState = {isLogged: false,userDetails:{}}
 function reducer ( state= initialState,action) {
-    console.log("state in reducer",state )
     switch (action.type) {
         case "LOGIN":
             state = {...state}

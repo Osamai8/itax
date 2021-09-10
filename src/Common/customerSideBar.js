@@ -7,7 +7,7 @@ export default class sideBar extends Component {
         super(props)
         this.state = {
             drawerSwitch : false
-        }
+        } 
     }
     
 
@@ -18,7 +18,7 @@ export default class sideBar extends Component {
     }
 
     render() {
-        console.log("state..",this.state)
+        console.log(this.props)
        const styles = {
            sideBarMenu : {
             zIndex: "3", 
@@ -102,7 +102,8 @@ export default class sideBar extends Component {
             </p>
             <p class="w3-left w3-medium">
               <span>
-                <strong>Priya</strong>, Customer
+                <strong>{this.props.user && this.props.user.first_name}</strong>,
+                 {this.props.user && this.props.user.is_customer == 'yes' ? ' Customer':''}
               </span>
               <br />
               <span class="w3-small">Friday 09th july 2021</span>

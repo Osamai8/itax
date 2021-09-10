@@ -39,15 +39,18 @@ function CustomerRegister(props) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmitHandle = (data) => {
     console.log(data);
+   
     RestApi.register(data).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
+        reset({...data,password:"",confirmPassword:""});
         props.dispatch({
           type: "LOGIN",
           payload: res.data.data,
@@ -88,7 +91,11 @@ function CustomerRegister(props) {
     },
   };
   console.log(responseError)
- 
+ if(responseError.length > 0) {
+  setTimeout(()=> { 
+    setResponseError({})
+  },5000)
+ }
   return (
     <div>
       <Header />
@@ -116,12 +123,12 @@ function CustomerRegister(props) {
                     <fieldset>
                       <section><br/>
                       {
-                     responseError.length >0 && responseError.map((each)=> { 
-                     return  each.error.map((error) => {
-                        return <p className="alert alert-danger">{error}</p>
-                       })
+                    //  responseError.length >0 && responseError.map((each)=> { 
+                    //  return  each.error.map((error) => {
+                    //     return <p className="alert alert-danger">{error}</p>
+                    //    })
                        
-                     })
+                    //  })
                   }
                         <div class="row">
                           <div class="col col-10">

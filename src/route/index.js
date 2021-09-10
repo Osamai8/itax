@@ -15,9 +15,7 @@ function index() {
           <Route path="/">
             <HomePages />
           </Route>
-          
- 
-          <Route exact path={"/partner/dashboard"} component={PartnerIndex} />
+          {/* <Route exact path={"/partner/dashboard"} component={PartnerIndex} /> */}
         </Switch> 
       </BrowserRouter>
     </div>

@@ -9,6 +9,7 @@ import Contact from "./contactUs";
 import Login from "./login";
 import CustomerRegister from "./partnerRegister";
 import PartnerRegister from "./customerRegister";
+import Pages from "./pages";
 import Index from "./index";
 function Main() {
   let { url } = useRouteMatch();
@@ -25,13 +26,27 @@ function Main() {
         <Route exact path={`${url}services`} component={Service} />
         <Route
           exact
+          path={`${url}privacy_policy`}
+          component={() => <Pages page="privacy-policy" />}
+        />
+        <Route
+          exact
+          path={`${url}term_condition`}
+          component={() => <Pages page="terms-and-conditions" />}
+        />
+        <Route
+          exact
           path={`${url}user_login`}
           component={() => (
             <Login activeForm={activeForm} setActiveForm={setActiveForm} />
           )}
         />
         <Route exact path={`${url}register`}>
-          {activeForm == 'customer' ? <PartnerRegister/> : <CustomerRegister/>}
+          {activeForm == "customer" ? (
+            <PartnerRegister />
+          ) : (
+            <CustomerRegister />
+          )}
         </Route>
       </Switch>
     </>

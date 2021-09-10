@@ -3,7 +3,17 @@ import UserHeader from "../../Common/userHeader";
 import SideBar from "../../Common/customerSideBar";
 
 export default class profile extends Component {
+  constructor(props){
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount(){
+    console.log(this.props)
+  }
+
   render() {
+    console.log("Profile",this.state)
     return (
       <div> 
         <div style={{ marginLeft: "254px", marginTop: "43px" }}>
@@ -64,7 +74,7 @@ export default class profile extends Component {
                             class="form-control"
                             readonly=""
                             placeholder="Email Id"
-                            value=""
+                            value={this.props.userDetails.email}
                           />
                         </div>
                       </div>
@@ -76,7 +86,7 @@ export default class profile extends Component {
                             name=""
                             class="form-control"
                             placeholder="First Name"
-                            value=""
+                            value={this.props.userDetails.first_name}
                             required=""
                           />
                         </div>
@@ -89,7 +99,7 @@ export default class profile extends Component {
                             name=""
                             class="form-control"
                             placeholder="Middle Name"
-                            value=""
+                            value={this.props.userDetails.middle_name}
                             required=""
                           />
                         </div>
@@ -100,7 +110,7 @@ export default class profile extends Component {
                             name=""
                             class="form-control"
                             placeholder="Last Name"
-                            value=""
+                            value={this.props.userDetails.last_name}
                             required=""
                           />
                         </div>
@@ -150,7 +160,7 @@ export default class profile extends Component {
                             name=""
                             class="form-control"
                             placeholder="Mobile"
-                            value=""
+                            value={this.props.userDetails.phone}
                             required=""
                           />
                         </div>
