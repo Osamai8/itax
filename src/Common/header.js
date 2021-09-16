@@ -1,7 +1,9 @@
 import React from "react";
 import logo from '../images/logo.png'
 import {Link} from 'react-router-dom'
-function Header() {
+function Header(props) {
+  console.log("header: ",props)
+  
   return (
     //  site-navigation start
     <nav id="mainNavigation" class="navbar navbar-fixed-top" role="navigation">
@@ -42,36 +44,38 @@ function Header() {
           <ul class="cont-detail logreg hidden-xs">
             <div class="socialtop">
               <ul>
+                {props.socialIcons && props.socialIcons.facebook && 
                 <li>
-                  <a href="http://www.facebook.com" target="_new">
+                  <a href={props.socialIcons.facebook} target="_new">
                     <i class="fa fa-facebook fb"></i>
                   </a>
-                </li>
-                <li>
-                  <a href="http://www.twitter.com" target="_new">
+                </li> }
+                
+               { props.socialIcons && props.socialIcons.twitter && <li>
+                  <a href={props.socialIcons.twitter} target="_new">
                     <i class="fa fa-twitter twitt"></i>
                   </a>
-                </li>
-                <li>
-                  <a href="http://www.linkedin.com" target="_new">
+                </li>}
+                { props.socialIcons && props.socialIcons.linkedin && <li>
+                  <a href={props.socialIcons.linkedin} target="_new">
                     <i class="fa fa-linkedin in"></i>
                   </a>
-                </li>
-                <li>
-                  <a href="http://www.googleplus.com" target="_new">
+                </li>}
+                {props.socialIcons &&  props.socialIcons.google_plus && <li>
+                  <a href={props.socialIcons.google_plus} target="_new">
                     <i class="fa fa-google-plus plus"></i>
                   </a>
-                </li>
-                <li>
-                  <a href="http://www.youtube.com" target="_new">
+                </li>}
+                { props.socialIcons && props.socialIcons.youtube && <li>
+                  <a href={props.socialIcons.youtube} target="_new">
                     <i class="fa fa-youtube youtube"></i>
                   </a>
-                </li>
-                <li>
-                  <a href="http://www.rss.com" target="_new">
+                </li>}
+                {props.socialIcons && props.socialIcons.rss &&  <li>
+                  <a href={props.socialIcons.rss} target="_new">
                     <i class="fa fa-rss blog"></i>
                   </a>
-                </li>
+                </li>}
               </ul>
             </div>
             <li>

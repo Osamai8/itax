@@ -574,7 +574,6 @@ export default class career extends Component {
           
         </div>
         <NewsLetter/>
-        <Footer/>
       </>
     );
   }

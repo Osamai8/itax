@@ -18,7 +18,7 @@ function Main(props) {
       {props.isLogged && props.userDetails && props.userDetails._token != null ? (
         <>
           <UserHeader />
-          <SideBar user={props.user} />
+          <SideBar userDetails={props.userDetails} />
           <Switch>
             <Route exact path={`${url}/dashboard`} component={CustomerIndex} />
             <Route

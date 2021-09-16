@@ -1,5 +1,7 @@
 import Router from "./route/index";
 import Axios from "axios";
+import { ToastContainer ,toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   Axios.interceptors.request.use(
     function (config) {
@@ -27,10 +29,11 @@ function App() {
     function (error) {
       return Promise.reject(error);
     }
-  )
+  ) 
   return (
-    <>
+    <> 
       <Router />
+      <ToastContainer/>
     </>
   );
 }

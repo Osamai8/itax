@@ -294,7 +294,6 @@ export default class partnerWithUs extends Component {
         </div>
 
        <NewsLetter/>
-        <Footer />
       </div>
     );
   }

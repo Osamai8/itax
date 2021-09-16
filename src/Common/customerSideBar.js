@@ -1,34 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import avatar2 from "../images/avatar2.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default class sideBar extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            drawerSwitch : false
-        } 
-    }
-    
+  constructor(props) {
+    console.log("props sidebar", props);
+    super(props);
+    this.state = {
+      drawerSwitch: false,
+    };
+  }
 
-    handleSidebar () {
-        this.setState({
-            drawerSwitch: !this.state.drawerSwitch
-        })
-    }
+  handleSidebar() {
+    this.setState({
+      drawerSwitch: !this.state.drawerSwitch,
+    });
+  }
 
-    render() {
-        console.log(this.props)
-       const styles = {
-           sideBarMenu : {
-            zIndex: "3", 
-            width: "260px" ,
-            display : this.state.drawerSwitch == true ? 'block':'none',
-           }
-       }
-        return (
-            <div>
-                <nav
+  render() {
+    console.log(this.props);
+    const styles = {
+      sideBarMenu: {
+        zIndex: "3",
+        width: "260px",
+        display: this.state.drawerSwitch == true ? "block" : "none",
+      },
+    };
+    var dateObj = new Date(); 
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    console.log("sss",day,month,year)
+    return (
+      <div>
+        <nav
           class="w3-sidebar w3-collapse w3-dark-green"
           style={{ zIndex: "3", width: "260px" }}
           id="mySidebar"
@@ -71,7 +76,7 @@ export default class sideBar extends Component {
             <Link to="#" class="w3-bar-item w3-button w3-padding">
               <i class="fa fa-eye fa-fw"></i>  Report
             </Link>
-            
+
             <Link to="#" class="w3-bar-item w3-button w3-padding">
               <i class="fa fa-bank fa-fw"></i>  Referal
             </Link>
@@ -95,18 +100,24 @@ export default class sideBar extends Component {
           <header class="w3-container w3-xlarge w3-dark-green w3-padding">
             <p class="w3-left">
               <img
-                src={avatar2 }
+                src={avatar2}
                 class="w3-circle w3-margin-right"
                 style={{ width: "46px" }}
               />
             </p>
             <p class="w3-left w3-medium">
               <span>
-                <strong>{this.props.user && this.props.user.first_name}</strong>,
-                 {this.props.user && this.props.user.is_customer == 'yes' ? ' Customer':''}
+                <strong>
+                  {this.props.userDetails && this.props.userDetails.name}
+                </strong>
+                ,
+                {this.props.userDetails &&
+                this.props.userDetails.isCustomer == "yes"
+                  ? " Customer"
+                  : ""}
               </span>
               <br />
-              <span class="w3-small">Friday 09th july 2021</span>
+              <span class="w3-small">{`${day} ${month} ${year}`}</span>
             </p>
             <p class="w3-right w3-large mt-10">
               <a href="#" class="notification">
@@ -124,7 +135,7 @@ export default class sideBar extends Component {
             </p>
           </header>
         </div>
-            </div>
-        )
-    }
+      </div>
+    );
+  }
 }

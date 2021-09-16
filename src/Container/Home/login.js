@@ -14,9 +14,16 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import Modal from "../../Components/registerModal";
 import MessageModal from "../../Components/messageModal";
+import { toast } from "react-toastify";
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required().min(3),
+  email: yup.string().email().required("Email is required"),
+  password: yup
+  .string()
+  .required('Password is required')
+  .matches(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
+  ),
 });
 
 function Login(props) {
@@ -29,8 +36,7 @@ function Login(props) {
   const [showMessageModal, setShowMessageModal] = useState({
     status: false,
     message: "",
-  });
-  const [message, setMessage] = useState("");
+  }); 
 
   const {
     register,
@@ -41,14 +47,13 @@ function Login(props) {
     resolver: yupResolver(schema),
   });
   const onSubmitHandle = (data) => {
-    console.log(data);
     let { email, password } = data;
     RestApi.login(data).then((response) => {
       console.log("reponse", response);
       if (response.data.error) {
         reset({ email: email, password: "" });
         let { error } = response.data;
-        setResponseError(error);
+        console.log("error: ", error);
       } else {
         // alert(response.data.message);
         if (response.data.status == false) {
@@ -67,32 +72,33 @@ function Login(props) {
               type: "login",
             });
           } else {
-            setShowMessageModal({
-              status: true,
-              message: response.data.message,
-            });
+            toast.error(response.data.message);
           }
         }
         if (response.data.access_token && response.data.status == true) {
           reset({ email: "", password: "" });
-          RestApi.defaultToken(response.data.access_token)
-          let res = response.data
-            let data ={
-              name: res.data.first_name,
-              email: res.data.email,
-              phone: res.data.phone,
-              last_name: res.data.last_name,
-              middle_name: res.data.middle_name,
-              photo: res.data.photo,
-              isCustomer: res.data.is_customer,
-              isServiceProvider: res.data.is_service_provider,
-              _token: res.access_token
-            }
+          toast.success(response.data.message, {
+            autoClose: 2000,
+          });
+          RestApi.defaultToken(response.data.access_token);
+          let res = response.data;
+          let data = {
+            name: res.data.first_name,
+            email: res.data.email,
+            phone: res.data.phone,
+            last_name: res.data.last_name,
+            middle_name: res.data.middle_name,
+            photo: res.data.photo,
+            isCustomer: res.data.is_customer,
+            isServiceProvider: res.data.is_service_provider,
+            _token: res.access_token,
+          };
           props.dispatch({
             type: "LOGIN",
             payload: data,
           });
-          setMessage("Login SuccessFull");
+          // setMessage("Login SuccessFull");
+
           setTimeout(() => {
             if (
               response.data.data.is_customer == "yes" &&
@@ -108,7 +114,6 @@ function Login(props) {
             }
           }, 2000);
         }
-        setResponseError({});
       }
     });
   };
@@ -275,7 +280,23 @@ function Login(props) {
   const handleCloseModal = () => {
     setShowMessageModal({ status: false, message: "" });
   };
-  console.log(props);
+
+  console.log("errors", errors);
+
+ ( errors["email"] &&
+    errors["email"].message &&
+    toast.error(errors["email"].message, {
+      toastId: errors["email"].message,
+      autoClose: 3000
+    }));
+  (errors["password"] &&
+    errors["password"].message &&
+    toast.error(errors["password"].message, {
+      toastId: errors["password"].message,
+      autoClose: 3000
+    }));
+  // errors['password'] && toast.error(errors['password']);
+
   return (
     <div>
       {showRegisterModal.status && (
@@ -400,10 +421,7 @@ function Login(props) {
                           method="POST"
                           class="sky-form"
                         >
-                          {message && (
-                            <p className="alert-success success"> {message} </p>
-                          )}
-                          {errors["email"] && (
+                          {/* {errors["email"] && (
                             <p className="alert-danger alert">
                               {" "}
                               {errors["email"]?.message}
@@ -414,7 +432,7 @@ function Login(props) {
                               {" "}
                               {errors["password"]?.message}
                             </p>
-                          )}
+                          )} */}
                           <fieldset>
                             <section>
                               <div class="row">

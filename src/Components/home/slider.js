@@ -4,29 +4,14 @@ export default class Slider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bannerData: [],
     };
   }
-  componentDidMount() {
-    this.fetchbanner();
+  componentDidMount() {  
   }
-  fetchbanner = () => {
-    console.log("banner")
-    RestApi.homePage().then((res) => {
-      this.setState({
-        bannerData: res.data.data.banners,
-      });
-    });
-  };
-  startTimer() {
-    this.timerId = setInterval(() => {
-      //your function
-    }, 1000);
-  }
+  
   render() {
-    const length = this.state.bannerData.length;
-
-    console.log(this.state);
+    const length = this.props.bannerData && this.props.bannerData.length;
+ 
     return (
       <>
         <div class="sliderdata">
@@ -37,13 +22,13 @@ export default class Slider extends Component {
                 data-slide-to="0"
                
               ></li> */}
-               {this.state.bannerData.map((banner, i) => {
+               {this.props.bannerData && this.props.bannerData.map((banner, i) => {
                 return  <li class={banner.sequence_no == 1 && 'active'}  data-target="#myCarousel" data-slide-to={i}></li>
                })}
             </ol>
 
             <div class="carousel-inner">
-              {this.state.bannerData.map((banner, i) => {
+              {this.props.bannerData && this.props.bannerData.map((banner, i) => {
                 return (
                   <>
                     {" "}

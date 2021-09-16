@@ -154,7 +154,6 @@ export default class contactUs extends Component {
           </div>
         </section>
         <NewsLetter/>
-        <Footer/>
       </div>
     );
   }

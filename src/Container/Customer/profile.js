@@ -86,7 +86,7 @@ export default class profile extends Component {
                             name=""
                             class="form-control"
                             placeholder="First Name"
-                            value={this.props.userDetails.first_name}
+                            value={this.props.userDetails.name}
                             required=""
                           />
                         </div>

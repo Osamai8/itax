@@ -31,7 +31,7 @@ export default class Pages extends Component {
         <div id="home-page">
           <div class="breadcrumbpane">
             <div class="container">
-              <h1 class="pull-left">PRIVACY POLICY</h1>
+              <h1 class="pull-left">{this.props.title}</h1>
             </div>
           </div>
           <div class="container carrer_para">

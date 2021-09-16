@@ -8,6 +8,10 @@ function reducer ( state= initialState,action) {
             state["userDetails"] = action.payload
            return state
     
+        case "HOME":
+            state = {...state}
+            state['bannerData'] = action.payload.bannerData
+            state['socialIcons'] = action.payload.socialIcons
         default:
            return state
     }

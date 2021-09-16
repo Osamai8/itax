@@ -320,7 +320,6 @@ function PartnerRegister() {
           </div>
         </div>
         <NewsLetter />
-        <Footer />
       </div>
   )
 }

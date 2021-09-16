@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import Modal from "../../Components/registerModal";
 import { connect } from "react-redux"; 
 import { useHistory } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const schema = Yup.object().shape({
   email: Yup.string().email().required(),
   first_name: Yup.string().required("First name is required"),
@@ -96,6 +96,36 @@ function CustomerRegister(props) {
     setResponseError({})
   },5000)
  }
+ ( errors["email"] &&
+ errors["email"].message &&
+ toast.error(errors["email"].message, {
+   toastId: errors["email"].message,
+   autoClose: 3000
+ }));
+(errors["password"] &&
+ errors["password"].message &&
+ toast.error(errors["password"].message, {
+   toastId: errors["password"].message,
+   autoClose: 3000
+ }));
+ ( errors["first_name"] &&
+ errors["first_name"].message &&
+ toast.error(errors["first_name"].message, {
+   toastId: errors["first_name"].message,
+   autoClose: 3000
+ }));
+ ( errors["phone"] &&
+ errors["phone"].message &&
+ toast.error(errors["phone"].message, {
+   toastId: errors["phone"].message,
+   autoClose: 3000
+ }));
+ ( errors["confirmPassword"] &&
+ errors["confirmPassword"].message &&
+ toast.error(errors["confirmPassword"].message, {
+   toastId: errors["confirmPassword"].message,
+   autoClose: 3000
+ }));
   return (
     <div>
       <Header />
@@ -137,7 +167,7 @@ function CustomerRegister(props) {
                                 class="icon-append fa fa-envelope-o"
                                 style={styles.top}
                               ></i>
-                              {errors["email"] && (
+                              {/* {errors["email"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -145,7 +175,7 @@ function CustomerRegister(props) {
                                     {errors["email"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <input
                                 type="hidden"
                                 {...register("is_customer")}
@@ -166,7 +196,7 @@ function CustomerRegister(props) {
                         <div class="row">
                           <div class="col col-10">
                             <label class="input">
-                              {errors["first_name"] && (
+                              {/* {errors["first_name"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -174,7 +204,7 @@ function CustomerRegister(props) {
                                     {errors["first_name"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <i
                                 class="icon-append fa fa-user-o"
                                 style={styles.top}
@@ -217,7 +247,7 @@ function CustomerRegister(props) {
                                 class="icon-append fa fa-user-o"
                                 style={styles.top}
                               ></i>
-                              {errors["last_name"] && (
+                              {/* {errors["last_name"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -225,7 +255,7 @@ function CustomerRegister(props) {
                                     {errors["last_name"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <input
                                 type="textl"
                                 placeholder="Last Name"
@@ -245,7 +275,7 @@ function CustomerRegister(props) {
                                 class="icon-append fa fa-mobile"
                                 style={styles.top}
                               ></i>
-                              {errors["phone"] && (
+                              {/* {errors["phone"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -253,7 +283,7 @@ function CustomerRegister(props) {
                                     {errors["phone"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <input
                                 type="textl"
                                 placeholder="Mobile"
@@ -272,7 +302,7 @@ function CustomerRegister(props) {
                                 class="icon-append fa fa-lock"
                                 style={styles.top}
                               ></i>
-                              {errors["password"] && (
+                              {/* {errors["password"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -280,7 +310,7 @@ function CustomerRegister(props) {
                                     {errors["password"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <input
                                 type="password"
                                 {...register("password")}
@@ -299,7 +329,7 @@ function CustomerRegister(props) {
                                 class="icon-append fa fa-lock"
                                 style={styles.top}
                               ></i>
-                              {errors["confirmPassword"] && (
+                              {/* {errors["confirmPassword"] && (
                                 <>
                                   <br />
                                   <p className="alert-danger alert">
@@ -307,7 +337,7 @@ function CustomerRegister(props) {
                                     {errors["confirmPassword"]?.message}
                                   </p>
                                 </>
-                              )}
+                              )} */}
                               <input
                                 type="password"
                                 {...register("confirmPassword")}
@@ -373,8 +403,7 @@ function CustomerRegister(props) {
             </div>
           </div>
         </div>
-        <NewsLetter />
-        <Footer />
+        <NewsLetter /> 
       </div>
     </div>
   );

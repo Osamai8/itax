@@ -234,7 +234,6 @@ function index() {
         <NewsLetter/>
 
       </div>
-        <Footer />
     </>
   );
 }
