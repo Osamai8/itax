@@ -1937,6 +1937,7 @@ aside .tag-widget .tags a:hover {
     width: 0;
 }
 .testimonials-v4 img {
+    border-radius: 50%;
     float: left;
     height: auto;
     margin: 0 20px;
@@ -3295,4 +3296,11 @@ button, .button:hover {
   position: inherit;
   opacity: 1;
   transition: opacity 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 500ms;
+}
+.user-change-select{
+    background-color: #408609;
+    color:#fff;
+    text-decoration: none;
+    border: none;
+    text-align: center;
 }

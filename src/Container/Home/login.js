@@ -190,34 +190,45 @@ function Login(props) {
         is_customer: props.activeForm == "customer" ? "yes" : "no",
         is_service_provider: props.activeForm == "partners" ? "yes" : "no",
       };
-      RestApi.socialLogin(data).then((backRes) => {
-        console.log("socialLogin: ", backRes);
-        if (backRes.data.access_token && backRes.data.status == true) {
+      RestApi.socialLogin(data).then((res) => {
+        console.log("socialLogin: ", res);
+        if (res.data.access_token && res.data.status == true) {
+          let data = {
+            name: res.data.data.first_name,
+            email: res.data.data.email,
+            phone: res.data.data.phone,
+            last_name: res.data.data.last_name,
+            middle_name: res.data.data.middle_name,
+            photo: res.data.data.photo,
+            isCustomer: res.data.data.is_customer,
+            isServiceProvider: res.data.data.is_service_provider,
+            _token: res.data.access_token,
+          };
           props.dispatch({
             type: "LOGIN",
-            payload: backRes.data.data,
+            payload: data,
           });
           if (
-            backRes.data.data.is_customer == "yes" &&
-            backRes.data.data.is_service_provider == "yes"
+            res.data.data.is_customer == "yes" &&
+            res.data.data.is_service_provider == "yes"
           ) {
             props.activeForm == "customer"
               ? history.push(`/customer/dashboard`)
               : history.push(`/partner/dashboard`);
-          } else if (backRes.data.data.is_customer == "yes") {
+          } else if (res.data.data.is_customer == "yes") {
             history.push(`/customer/dashboard`);
-          } else if (backRes.data.data.is_service_provider == "yes") {
+          } else if (res.data.data.is_service_provider == "yes") {
             history.push(`/partner/dashboard`);
           }
         }
-        if (backRes.data.status == false && backRes.data.status_code == 300) {
+        if (res.data.status == false && res.data.status_code == 300) {
           // props.dispatch({
           //   type: "LOGIN",
           //   payload: backRes.data.data,
           // });
           setShowRegisterModal({
             status: true,
-            message: backRes.data.message,
+            message: res.data.message,
             data: {
               email: res.profileObj.email,
               login_type: "google",

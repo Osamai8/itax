@@ -21,8 +21,6 @@ class Main extends Component {
     super(props)
     this.state = {
       activeForm: 'customer',
-      bannerData:[],
-      socialIcons: []
     }
   }
   setActiveForm (changeForm){
@@ -35,9 +33,6 @@ class Main extends Component {
   componentDidUpdate(){
     
   }
-
-  
-
   render() {
     return (
       <>

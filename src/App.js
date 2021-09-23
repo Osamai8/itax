@@ -1,9 +1,9 @@
 import Router from "./route/index";
-import Axios from "axios";
+import axios from "axios";
 import { ToastContainer ,toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
-  Axios.interceptors.request.use(
+  axios.interceptors.request.use(
     function (config) {
       // spinning start to show
       // UPDATE: this code to show global loading indicator
@@ -16,7 +16,7 @@ function App() {
     }
   );
   //comment
-  Axios.interceptors.response.use(
+  axios.interceptors.response.use(
     function (response) {
       // spinning hide
       // UPDATE: this code to hide global loading indicator
@@ -24,6 +24,7 @@ function App() {
       return response;
     },
     function (error) {
+      document.body.classList.remove("loading-indicator");
       return Promise.reject(error);
     }
   ) 

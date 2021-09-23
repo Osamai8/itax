@@ -44,7 +44,7 @@ function Header(props) {
             <span class="sr-only"></span>
             <Link to="/">
               <img
-                src={logo}
+                src={props.contactDetails.company_logo && props.contactDetails.company_logo }
                 class="img-responsive center-block logo"
                 alt="logo"
               />
@@ -107,14 +107,14 @@ function Header(props) {
               </ul>
             </div>
             <li>
-              <a href="mailto:cavinitmangal@gmail.com">
-                <i class="fa fa-envelope"></i> cavinitmangal@gmail.com
+              <a href={`mailto:${props.contactDetails.header_email}`}>
+                <i class="fa fa-envelope"></i>{props.contactDetails.header_email}
               </a>
             </li>
             &nbsp;
             <li>
-              <a href="tel:+919870201645">
-                <i class="fa fa-phone"></i> +91 9870201645
+              <a href={`tel:${props.contactDetails.header_phone}`}>
+                <i class="fa fa-phone"></i> {props.contactDetails.header_phone}
               </a>
             </li>
             <li>
@@ -192,6 +192,7 @@ function Header(props) {
 export default connect((state, props) => {
   return {
     isLogged: state.isLogged,
-    socialIcons: state.socialIcons
+    socialIcons: state.socialIcons,
+    contactDetails: state.contactDetails
   };
 })(Header);

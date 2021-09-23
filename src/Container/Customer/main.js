@@ -33,7 +33,7 @@ function Main(props) {
           </Switch>
         </>
       ) : 
-      props.history.replace('/')
+      props.history.push('/')
       }
     </>
   );

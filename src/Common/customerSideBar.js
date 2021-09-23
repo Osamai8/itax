@@ -18,6 +18,7 @@ export default class sideBar extends Component {
   }
 
   render() {
+    let {userDetails} = this.props
     console.log(this.props);
     const styles = {
       sideBarMenu: {
@@ -26,59 +27,59 @@ export default class sideBar extends Component {
         display: this.state.drawerSwitch == true ? "block" : "none",
       },
     };
-    var dateObj = new Date(); 
-    const month = dateObj.toLocaleString('default', { month: 'long' });
+    var dateObj = new Date();
+    const month = dateObj.toLocaleString("default", { month: "long" });
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
-    console.log("sss",day,month,year)
+    console.log("sss", day, month, year);
     return (
       <div>
         <nav
-          class="w3-sidebar w3-collapse w3-dark-green"
+          className="w3-sidebar w3-collapse w3-dark-green"
           style={{ zIndex: "3", width: "260px" }}
           id="mySidebar"
         >
           <br />
-          <div class="w3-container w3-row">
-            <div class="w3-col w3-large s12 w3-bar">
+          <div className="w3-container w3-row">
+            <div className="w3-col w3-large s12 w3-bar">
               <Link to="/customer/dashboard">
                 <b>
-                  <i class="fa fa-dashboard"></i> My Dashboard
+                  <i className="fa fa-dashboard"></i> My Dashboard
                 </b>
               </Link>
             </div>
           </div>
           <hr />
-          <div class="w3-bar-block w3-medium">
+          <div className="w3-bar-block w3-medium">
             <a
               href="#"
-              class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
+              className="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
               onclick={this.handleSidebar}
               title="close menu"
             >
-              <i class="fa fa-remove fa-fw"></i>  Close Menu
+              <i className="fa fa-remove fa-fw"></i>  Close Menu
             </a>
             <Link
               to="/customer/my-profile"
-              class="w3-bar-item w3-button w3-padding w3-yellow"
+              className="w3-bar-item w3-button w3-padding w3-yellow"
             >
-              <i class="fa fa-users fa-fw"></i>  My Profile
+              <i className="fa fa-users fa-fw"></i>  My Profile
             </Link>
             <Link
               to="/customer/manage-services"
-              class="w3-bar-item w3-button w3-padding"
+              className="w3-bar-item w3-button w3-padding"
             >
-              <i class="fa fa-eye fa-fw"></i>  Sevice Request
+              <i className="fa fa-eye fa-fw"></i>  Sevice Request
             </Link>
-            <Link to="#" class="w3-bar-item w3-button w3-padding">
-              <i class="fa fa-eye fa-fw"></i>  Meating Schedule
+            <Link to="#" className="w3-bar-item w3-button w3-padding">
+              <i className="fa fa-eye fa-fw"></i>  Meating Schedule
             </Link>
-            <Link to="#" class="w3-bar-item w3-button w3-padding">
-              <i class="fa fa-eye fa-fw"></i>  Report
+            <Link to="#" className="w3-bar-item w3-button w3-padding">
+              <i className="fa fa-eye fa-fw"></i>  Report
             </Link>
 
-            <Link to="#" class="w3-bar-item w3-button w3-padding">
-              <i class="fa fa-bank fa-fw"></i>  Referal
+            <Link to="#" className="w3-bar-item w3-button w3-padding">
+              <i className="fa fa-bank fa-fw"></i>  Referal
             </Link>
             <br />
             <br />
@@ -87,7 +88,7 @@ export default class sideBar extends Component {
 
         {/* <!-- Overlay effect when opening sidebar on small screens --> */}
         <div
-          class="w3-overlay w3-hide-large w3-animate-opacity"
+          className="w3-overlay w3-hide-large w3-animate-opacity"
           onclick={this.handleSidebar}
           style={{ cursor: "pointer" }}
           title="close side menu"
@@ -95,42 +96,51 @@ export default class sideBar extends Component {
         ></div>
 
         {/* <!-- !PAGE CONTENT! --> */}
-        <div class="w3-main" style={{ marginLeft: "260px", marginTop: "100px" }}>
+        <div
+          className="w3-main"
+          style={{ marginLeft: "260px", marginTop: "100px" }}
+        >
           {/* <!-- Header --> */}
-          <header class="w3-container w3-xlarge w3-dark-green w3-padding">
-            <p class="w3-left">
+          <header className="w3-container w3-xlarge w3-dark-green w3-padding">
+            <p className="w3-left">
               <img
                 src={avatar2}
-                class="w3-circle w3-margin-right"
+                className="w3-circle w3-margin-right"
                 style={{ width: "46px" }}
               />
             </p>
-            <p class="w3-left w3-medium">
+            <p className="w3-left w3-medium">
               <span>
                 <strong>
-                  {this.props.userDetails && this.props.userDetails.name}
+                  {`${
+                    userDetails.name.charAt(0).toUpperCase() +
+                      userDetails.name.slice(1)} `}
                 </strong>
-                ,
-                {this.props.userDetails &&
-                this.props.userDetails.isCustomer == "yes"
-                  ? " Customer"
-                  : ""}
+                {",  "}
+                {userDetails.isServiceProvider == "yes" &&
+                userDetails.isCustomer == "yes" ? (
+                  (<select className="user-change-select">
+                    {" "}
+                    <option>Customer</option>
+                    <option>Service Provider</option>{" "}
+                  </select>)
+                ) :  userDetails.isServiceProvider == "yes" ? "Service Provider" : "Customer"}
               </span>
               <br />
-              <span class="w3-small">{`${day} ${month} ${year}`}</span>
+              <span className="w3-small">{`${day} ${month} ${year}`}</span>
             </p>
-            <p class="w3-right w3-large mt-10">
-              <a href="#" class="notification">
-                <i class="fa fa-calendar w3-margin-right"></i>
-                <span class="badge">1</span>
+            <p className="w3-right w3-large mt-10">
+              <a href="#" className="notification">
+                <i className="fa fa-calendar w3-margin-right"></i>
+                <span className="badge">1</span>
               </a>
-              <a href="#" class="notification">
-                <i class="fa fa-envelope w3-margin-right"></i>
-                <span class="badge">2</span>
+              <a href="#" className="notification">
+                <i className="fa fa-envelope w3-margin-right"></i>
+                <span className="badge">2</span>
               </a>
-              <a href="#" class="notification">
-                <i class="fa fa-bell w3-margin-right"></i>
-                <span class="badge">3</span>
+              <a href="#" className="notification">
+                <i className="fa fa-bell w3-margin-right"></i>
+                <span className="badge">3</span>
               </a>
             </p>
           </header>

@@ -1,4 +1,4 @@
-import React ,{useEffect}from "react";
+import React ,{Component, useEffect}from "react";
 import HomePages from "../Container/Home/main";
 import MainCustomer from "../Container/Customer/main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -6,11 +6,17 @@ import RestApi from "../services/api";
 import { connect } from "react-redux";
 // import PartnerIndex from "../Container/Partner/index";
 // import { loadProgressBar } from 'axios-progress-bar'
-function Index(props) {
-  useEffect(() => {
+class Index extends Component{
+  constructor(props){
+    super(props)
+  }
+  componentDidMount(){
+    this.contactData()
+  }
+  contactData(){
     RestApi.contact().then((res) => {
       console.log("contact", res);
-      props.dispatch({
+      this.props.dispatch({
         type: "CONTACT",
         payload: {
           socialIcons: res.data.data.social_media_link,
@@ -18,22 +24,25 @@ function Index(props) {
         },
       });
     });
-  }, [])
-  return (
-    <div>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/customer">
-            <MainCustomer />
-          </Route>
-          <Route path="/">
-            <HomePages />
-          </Route>
-          {/* <Route exact path={"/partner/dashboard"} component={PartnerIndex} /> */}
-        </Switch> 
-      </BrowserRouter>
-    </div>
-  );
+  }
+  render(){
+    return (
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/customer">
+              <MainCustomer />
+            </Route>
+            <Route path="/">
+              <HomePages />
+            </Route>
+            {/* <Route exact path={"/partner/dashboard"} component={PartnerIndex} /> */}
+          </Switch> 
+        </BrowserRouter>
+      </div>
+    );
+  }
+
 }
 
 export default connect()(Index);
