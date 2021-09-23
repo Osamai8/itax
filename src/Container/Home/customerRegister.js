@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 const schema = Yup.object().shape({
-  email: Yup.string().email().required(),
+  email: Yup.string().email("Email must be a valid email ").required("Email is required"),
   first_name: Yup.string().required("First name is required"),
   //   last_name: Yup.string().required("Last name is required"),
     
@@ -89,6 +89,10 @@ function CustomerRegister(props) {
     top: {
       top: "6px",
     },
+    error: {
+      borderColor: '#bf1f24',
+      
+    }
   };
   console.log(responseError)
  if(responseError.length > 0) {
@@ -96,36 +100,7 @@ function CustomerRegister(props) {
     setResponseError({})
   },5000)
  }
- ( errors["email"] &&
- errors["email"].message &&
- toast.error(errors["email"].message, {
-   toastId: errors["email"].message,
-   autoClose: 3000
- }));
-(errors["password"] &&
- errors["password"].message &&
- toast.error(errors["password"].message, {
-   toastId: errors["password"].message,
-   autoClose: 3000
- }));
- ( errors["first_name"] &&
- errors["first_name"].message &&
- toast.error(errors["first_name"].message, {
-   toastId: errors["first_name"].message,
-   autoClose: 3000
- }));
- ( errors["phone"] &&
- errors["phone"].message &&
- toast.error(errors["phone"].message, {
-   toastId: errors["phone"].message,
-   autoClose: 3000
- }));
- ( errors["confirmPassword"] &&
- errors["confirmPassword"].message &&
- toast.error(errors["confirmPassword"].message, {
-   toastId: errors["confirmPassword"].message,
-   autoClose: 3000
- }));
+ 
   return (
     <div>
       <Header />
@@ -183,11 +158,13 @@ function CustomerRegister(props) {
                                 autocomplete="off"
                               />
                               <input
+                              style={errors["email"] && styles.error}
                                 type="email"
                                 placeholder="Email"
                                 {...register("email")}
                                 autocomplete="off"
                               />
+                                {errors["email"] && <span style={{color:'#bf1f24'}}>{errors["email"].message}</span>}
                             </label>
                           </div>
                         </div>
@@ -210,11 +187,13 @@ function CustomerRegister(props) {
                                 style={styles.top}
                               ></i>
                               <input
-                                type="textl"
+                               style={errors["first_name"] && styles.error}
+                                type="text"
                                 placeholder="First Name"
                                 {...register("first_name")}
                                 autocomplete="off"
                               />
+                                {errors["first_name"] && <span style={{color:'#bf1f24'}}>{errors["first_name"].message}</span>}
                             </label>
                           </div>
                         </div>
@@ -257,7 +236,8 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
-                                type="textl"
+                                type="text"
+                                
                                 placeholder="Last Name"
                                 {...register("last_name")}
                                 name="name"
@@ -285,11 +265,13 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
-                                type="textl"
+                              style={errors["phone"] && styles.error}
+                                type="text"
                                 placeholder="Mobile"
                                 {...register("phone")}
                                 autocomplete="off"
                               />
+                                {errors["phone"] && <span style={{color:'#bf1f24'}}>{errors["phone"].message}</span>}
                             </label>
                           </div>
                         </div>
@@ -312,11 +294,13 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
+                              style={errors["password"] && styles.error}
                                 type="password"
                                 {...register("password")}
                                 name="password"
                                 placeholder="Password"
                               />
+                               {errors["password"] && <span style={{color:'#bf1f24'}}>{errors["password"].message}</span>}
                             </label>
                           </div>
                         </div>
@@ -339,17 +323,19 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
+                              style={errors["confirmPassword"] && styles.error}
                                 type="password"
                                 {...register("confirmPassword")}
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
                               />
+                                {errors["confirmPassword"] && <span style={{color:'#bf1f24'}}>{errors["confirmPassword"].message}</span>}
                             </label>
                           </div>
                         </div>
                       </section>
                       <div class="chkbox-group">
-                        <input type="checkbox" name="agree" />
+                        <input type="checkbox" name="agree" required="Agree before continue"/>
                         <span>I have read and agree to all the </span>
                         <a href="#">Term & Condition</a>
                       </div>

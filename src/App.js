@@ -8,10 +8,7 @@ function App() {
       // spinning start to show
       // UPDATE: this code to show global loading indicator
       document.body.classList.add("loading-indicator");
-      const token = window.localStorage.token;
-      if (token) {
-        config.headers.Authorization = `token ${token}`;
-      }
+
       return config;
     },
     function (error) {

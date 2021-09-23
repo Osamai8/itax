@@ -27,8 +27,8 @@ export default class Modal extends React.Component {
       >
         <div
           style={{
-            padding: 20,
-            top: '-25%',
+            padding: 0,
+            top: '-37%',
             background: '#fff',
             borderRadius: '2px',
             display: 'inline-block',
@@ -40,12 +40,17 @@ export default class Modal extends React.Component {
             justifySelf: 'center',
           }}
         >
+          <div className="modal-header">
           Please Choose
+          </div>
+
           <hr />
+          <div style={{padding:'20px'}}>
           {this.props.children}
           <div style={{marginTop:'70px',float:'right'}}>
-          <button style={{marginRight:'20px'}}  onClick={this.props.accept}>Yes</button>
-          <button onClick={this.props.onClose}> No </button>
+          <button style={{marginRight:'20px'}}   onClick={this.props.accept}>Yes</button>
+          <button onClick={this.props.onClose}  className="button save-btn"> No </button>
+          </div>
           </div>
         </div>
       </div>,

@@ -7,7 +7,7 @@ import ManageServices from "./manageServices";
 import Profile from "./profile";
 import ViewService from "./viewService";
 import SideBar from "../../Common/customerSideBar";
-import UserHeader from "../../Common/userHeader";
+import UserHeader from "../../Common/header";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom'
 function Main(props) {

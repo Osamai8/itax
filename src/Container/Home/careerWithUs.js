@@ -1,13 +1,32 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 import Footer from "../../Common/footer";
-import Header from "../../Common/header"; 
-import NewsLetter from '../../Components/home/newsletter'
-import sliderImage from '../../images/slider/slider1.jpg'
+import Header from "../../Common/header";
+import NewsLetter from "../../Components/home/newsletter";
+import sliderImage from "../../images/slider/slider1.jpg";
+import RestApi from "../../services/api";
 export default class career extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      positions: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData = () => {
+    RestApi.careers().then((res) => {
+      console.log("careers", res);
+      let positions = res.data.data;
+      this.setState({ positions });
+    });
+  };
   render() {
+    console.log("this", this.state);
     return (
       <>
-      <Header/>
+        <Header />
         <div>
           <div class="breadcrumbpane">
             <div class="container">
@@ -17,48 +36,17 @@ export default class career extends Component {
           <div class="container">
             <div class="row">
               <div class="col-md-8">
-                <div class="current-opening">
-                  <div class="border">
-                    <h3 class="job-summary">Position : Financial Analyst</h3>
-                    <div class="jobs-location mt-10">
-                      <h4>LOCATION&nbsp;: &nbsp;</h4>Mumbai
-                    </div>
-                    <div class="jobs-qualification">
-                      <h4>QUALIFICATION&nbsp;: &nbsp;</h4>Bachelor’s degree in
-                      commerece or ACA.
-                    </div>
-                    <div class="jobs-experience">
-                      <h4>EXPERIENCE&nbsp;: &nbsp;</h4>2-3 Years
-                    </div>
-                    <div class="jobs-skills">
-                      <h4>Job Description:</h4>
-                      <br />
-                      <li>
-                        Brainstorms new and creative growth strategies through
-                        digital marketing.
-                      </li>
-                      <li>
-                        Plans and executes all web, SEO/SEM, database marketing,
-                        email, social media, and display advertising campaigns.
-                      </li>
-                      <li>
-                        Collaborate with internal teams to create landing pages
-                        and optimize user experience.
-                      </li>
-                      <li>
-                        Gathering key information from project meetings with
-                        various stakeholders and tracking it.
-                      </li>
-                      <li>
-                        Instrument conversion points and optimize user funnels.
-                      </li>
-                      <li>Good documentation &amp; communication skills.</li>
-                      <li>Excellent teamwork</li>
-                      <li>
-                        Fundamental analytical and conceptual thinking skills.
-                      </li>
-                    </div>
-                    <div class="text-center">
+                {this.state.positions.length > 0 &&
+                  this.state.positions.map((each, key) => {
+                   return <div class="current-opening">
+                      <div class="border" key={key}>
+                        <h3 class="job-summary">
+                          Position :{each.position}
+                        </h3>
+                        <div
+                dangerouslySetInnerHTML={{ __html: each.job_details }}
+              />
+              <div class="text-center">
                       <a
                         class="button newsletter no-pip"
                         data-toggle="modal"
@@ -71,65 +59,9 @@ export default class career extends Component {
                         </span>
                       </a>
                     </div>
-                  </div>
-                </div>
-                <div class="current-opening">
-                  <div class="border">
-                    <h3 class="job-summary">Position : Audit</h3>
-                    <div class="jobs-location mt-10">
-                      <h4>LOCATION&nbsp;: &nbsp;</h4>Mumbai
-                    </div>
-                    <div class="jobs-qualification">
-                      <h4>QUALIFICATION&nbsp;: &nbsp;</h4>Bachelor’s degree in
-                      commerece or ACA.
-                    </div>
-                    <div class="jobs-experience">
-                      <h4>EXPERIENCE&nbsp;: &nbsp;</h4>2-3 Years
-                    </div>
-                    <div class="jobs-skills">
-                      <h4>Job Description:</h4>
-                      <br />
-                      <li>
-                        Verifies assets and liabilities by comparing items to
-                        documentation.
-                      </li>
-                      <li>
-                        Maintains internal control systems by updating audit
-                        programs and questionnaires; recommending new policies
-                        and procedures.
-                      </li>
-                      <li>
-                        Prepares special audit and control reports by
-                        collecting, analyzing, and summarizing operating
-                        information and trends.
-                      </li>
-                      <li>
-                        Gathering key information from project meetings with
-                        various stakeholders and tracking it.
-                      </li>
-                      <li>
-                        Completes audit workpapers by documenting audit tests
-                        and findings.
-                      </li>
-                      <li>Good documentation &amp; communication skills.</li>
-                      <li>Excellent teamwork</li>
-                      <li>ensuring that assets are safeguarded.</li>
-                    </div>
-                    <div class="text-center">
-                      <a
-                        class="button newsletter no-pip"
-                        data-toggle="modal"
-                        data-target="#apply_modal"
-                        href="#"
-                      >
-                        Apply Now
-                        <span>
-                          <i class="fa fa-arrow-circle-right"></i>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                      </div>
+                    </div>;
+                  })}
                 <div class="current-opening">
                   <div class="border">
                     <h3 class="job-summary">Position : Finance Associate</h3>
@@ -187,14 +119,12 @@ export default class career extends Component {
                     </div>
                   </div>
                 </div>
+              
               </div>
               <div class="col-md-4">
                 <div class="blog_right_sidebar">
                   <aside class="single_sidebar_widget">
-                    <img
-                      src={sliderImage}
-                      style={{ width: "100%" }}
-                    />
+                    <img src={sliderImage} style={{ width: "100%" }} />
                     <h4 class="place_title">Newsletter Placeholder</h4>
                     <p>
                       Lorem Ipsum is simply dummy text of the printing and
@@ -217,7 +147,7 @@ export default class career extends Component {
               <div class="col-md-4">
                 <div class="blog_right_sidebar">
                   <aside class="single_sidebar_widget">
-                    <h3 style={{textAlign: 'center',marginTop: 'inherit'}}>
+                    <h3 style={{ textAlign: "center", marginTop: "inherit" }}>
                       CAREER OPPORTUNITIES
                     </h3>
                     <form
@@ -235,7 +165,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-md"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="text"
@@ -247,7 +177,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-envelope-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="email"
@@ -259,7 +189,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -271,7 +201,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -283,7 +213,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -295,7 +225,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-mobile"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -307,7 +237,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -319,7 +249,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-graduation-cap"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -331,7 +261,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-map-marker"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -354,7 +284,7 @@ export default class career extends Component {
                                 </label>
                                 <label class="input">
                                   Attach Your CV
-                                  <span style={{color:'red'}}>
+                                  <span style={{ color: "red" }}>
                                     * (Only .doc /.docx / .pdf file allowed.
                                     Size: Max 2 MB)
                                   </span>
@@ -371,7 +301,11 @@ export default class career extends Component {
                       </fieldset>
                     </form>
                     <div class="form-group text-center mt-10">
-                      <button type="submit" class="button" style={{margin: '0'}}>
+                      <button
+                        type="submit"
+                        class="button"
+                        style={{ margin: "0" }}
+                      >
                         SUBMIT
                       </button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
@@ -392,7 +326,7 @@ export default class career extends Component {
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          style={{display: 'none'}}
+          style={{ display: "none" }}
         >
           <div class="modal-dialog custom-modal" role="document">
             <div class="modal-content">
@@ -415,7 +349,10 @@ export default class career extends Component {
                       <section>
                         <div class="row">
                           <div class="col col-10 carrer_oppr">
-                            <h3 class="job-summary" style={{marginLeft: '15px'}}>
+                            <h3
+                              class="job-summary"
+                              style={{ marginLeft: "15px" }}
+                            >
                               Position : Financial Analyst
                             </h3>
                           </div>
@@ -428,7 +365,7 @@ export default class career extends Component {
                               <label class="input">
                                 <i
                                   class="icon-append fa fa-envelope-o"
-                                  style={{top: '6px'}}
+                                  style={{ top: "6px" }}
                                 ></i>
                                 <input
                                   type="email"
@@ -440,7 +377,7 @@ export default class career extends Component {
                               <label class="input">
                                 <i
                                   class="icon-append fa fa-user-o"
-                                  style={{top: '6px'}}
+                                  style={{ top: "6px" }}
                                 ></i>
                                 <input
                                   type="textl"
@@ -452,7 +389,7 @@ export default class career extends Component {
                               <label class="input">
                                 <i
                                   class="icon-append fa fa-user-o"
-                                  style={{top: '6px'}}
+                                  style={{ top: "6px" }}
                                 ></i>
                                 <input
                                   type="textl"
@@ -464,7 +401,7 @@ export default class career extends Component {
                               <label class="input">
                                 <i
                                   class="icon-append fa fa-user-o"
-                                  style={{top: '6px'}}
+                                  style={{ top: "6px" }}
                                 ></i>
                                 <input
                                   type="textl"
@@ -476,7 +413,7 @@ export default class career extends Component {
                               <label class="input">
                                 <i
                                   class="icon-append fa fa-mobile"
-                                  style={{top: '6px'}}
+                                  style={{ top: "6px" }}
                                 ></i>
                                 <input
                                   type="textl"
@@ -488,12 +425,12 @@ export default class career extends Component {
 
                               <div
                                 class="col-md-6"
-                                style={{width:'49%', marginRight:'10px'}}
+                                style={{ width: "49%", marginRight: "10px" }}
                               >
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-user-o"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -505,7 +442,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-graduation-cap"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -515,11 +452,11 @@ export default class career extends Component {
                                   />
                                 </label>
                               </div>
-                              <div class="col-md-6" style={{width:'49%'}}>
+                              <div class="col-md-6" style={{ width: "49%" }}>
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-map-marker"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -531,7 +468,7 @@ export default class career extends Component {
                                 <label class="input">
                                   <i
                                     class="icon-append fa fa-briefcase"
-                                    style={{top: '6px'}}
+                                    style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -543,7 +480,7 @@ export default class career extends Component {
                               </div>
                               <label class="input">
                                 Attach Your CV
-                                <span style={{color:"red"}}>
+                                <span style={{ color: "red" }}>
                                   * (Only .doc /.docx / .pdf file allowed. Size:
                                   Max 2 MB)
                                 </span>
@@ -560,7 +497,11 @@ export default class career extends Component {
                     </fieldset>
                   </form>
                   <div class="form-group text-center mt-10">
-                    <button type="submit" class="button" style={{margin: '0'}}>
+                    <button
+                      type="submit"
+                      class="button"
+                      style={{ margin: "0" }}
+                    >
                       SUBMIT
                     </button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -570,10 +511,8 @@ export default class career extends Component {
             </div>
           </div>
         </div>
-        <div class="modal-backdrop fade in" style={{display: 'none'}}>
-          
-        </div>
-        <NewsLetter/>
+        <div class="modal-backdrop fade in" style={{ display: "none" }}></div>
+        <NewsLetter />
       </>
     );
   }

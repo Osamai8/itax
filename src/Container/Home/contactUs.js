@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header"; 
 import NewsLetter from '../../Components/home/newsletter'
-export default class contactUs extends Component {
-  render() {
+
+function ContactUs(props) {
+ 
     return (
       <div>
           <Header/>
@@ -30,13 +32,18 @@ export default class contactUs extends Component {
               <div class="col-md-6">
                 <div class="contactinfo" style={{boxShadow: 'none'}}>
                   <h3>Contact info</h3>
-                  <div class="contactinfopane clearfix">
+                  <div
+                      dangerouslySetInnerHTML={{
+                        __html: props.contactDetails.content,
+                      }}
+                    />
+                  
+                  {/* <div class="contactinfopane clearfix">
                     <div class="leftcontactpane">
                       <i class="fa fa-home" aria-hidden="true"></i> Head Office:
                     </div>
                     <div class="rightcontactpane adr">
-                      A-203, Keval Tower, Opp. SNDT Girls College, B J Patel
-                      Marg, Malad West, Mumbai- 400 064
+                    {props.contactDetails.}
                     </div>
                   </div>
                   <div class="contactinfopane clearfix">
@@ -82,7 +89,7 @@ export default class contactUs extends Component {
                     <div class="rightcontactpane">
                       &nbsp; info@itaxdoctor.co.in
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* <!-- <hr>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.8595725040977!2d72.82809960000003!3d18.937608900000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1de1c3f1dc9%3A0x88328bf32b9dcd66!2sSNDT+Women's+University!5e0!3m2!1sen!2sin!4v1443429933230" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe> --> */}
@@ -157,4 +164,8 @@ export default class contactUs extends Component {
       </div>
     );
   }
-}
+export default connect((state,props)=> {
+  return {
+    contactDetails: state.contactDetails
+  }
+})(ContactUs)

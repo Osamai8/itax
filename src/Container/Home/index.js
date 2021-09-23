@@ -6,13 +6,45 @@ import blogImage from "../../images/blog.png";
 import Testimonials from "../../Components/home/testimonials";
 import NewsLetter from "../../Components/home/newsletter";
 import Calender from "../../Components/home/calender";
+import RestApi from "../../services/api";
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {  
+    this.state = {
+      bannerData: [],
+      featuredVideo: {},
     };
   }
-  
+  componentDidMount() {
+    if(this.state.bannerData.length > 0 ) {
+      
+    }
+    else {
+      this.fetchbanner();
+    }
+    const titleElement = document.getElementById("root");
+    titleElement.scrollIntoView({ behavior: "smooth" });
+    
+  }
+  componentDidUpdate() {
+
+  }
+  fetchbanner = () => {
+    console.log("index");
+    RestApi.homePage().then((res) => {
+      console.log("response", res.data);
+      res.data.data.featured_video.video_link =
+        res.data.data.featured_video.video_link.slice(
+          res.data.data.featured_video.video_link.lastIndexOf("=") + 1,
+          res.data.data.featured_video.video_link.length
+        );
+      console.log("aaaaaa", res.data.data.featured_video.video_link);
+      this.setState({
+        bannerData: res.data.data.banners,
+        featuredVideo: res.data.data.featured_video,
+      });
+    });
+  };
   render() {
     return (
       <>
@@ -47,7 +79,7 @@ export default class Home extends Component {
                 <img src={videoLogo} alt="Schedule A video Call" />
               </div>
             </div>
-            <Slider bannerData={this.props.bannerData} />
+            <Slider bannerData={this.state.bannerData} />
           </header>
           {/* <!-- /Header --> */}
           <div class="blog_area">
@@ -73,9 +105,7 @@ export default class Home extends Component {
                       <a href="p">Companies Filing of documents</a>
                     </li>
                     <li>
-                      <a href="p">
-                        Irdai on policies in electronic form
-                      </a>
+                      <a href="p">Irdai on policies in electronic form</a>
                     </li>
                   </marquee>
                 </ul>
@@ -91,7 +121,7 @@ export default class Home extends Component {
               <div class="row">
                 {/* Calender */}
 
-                <Calender/>
+                <Calender />
 
                 {/* Calender */}
                 <div class="col-xl-3 col-md-6 col-lg-3">
@@ -103,16 +133,13 @@ export default class Home extends Component {
                           id="ytplayer"
                           width="640"
                           height="360"
-                          src="https://www.youtube.com/embed/Dsu88o8ISMw"
+                          src={`https://www.youtube.com/embed/${this.state.featuredVideo.video_link}`}
                           frameborder="0"
                           allowfullscreen=""
+                          alt={this.state.featuredVideo.video_heading}
                         ></iframe>
                       </div>
-                      <p>
-                        Lorem ipsum, or lipsum as it is sometimes known, is
-                        dummy text used in laying out print, graphic or web
-                        designs.
-                      </p>
+                      <p>{this.state.featuredVideo.video_heading}</p>
                     </div>
                   </div>
                 </div>
@@ -202,9 +229,7 @@ export default class Home extends Component {
           {/* <!---------------------------Newsletter Section----------------------------> */}
           <NewsLetter />
         </div>
-
       </>
     );
   }
-
 }

@@ -10,16 +10,24 @@ let defaultToken;
 export default class RestApi {
   static defaultToken(token) {
     if (token && token != null) {
-      axios.defaults.headers.common["Authorization"] =
-        token == null ? null : `Bearer ${token}`;
+      axios.defaults.headers.common = {
+        'Authorization': 'Bearer ' + token
+    };
+      // axios.defaults.headers.common["Authorization"] =
+      //   token == null ? null : `Bearer ${token}`;
     } else {
       delete axios.defaults.headers.common.Authorization;
     }
+    console.log("axio",axios.defaults.headers)
     return (defaultToken = (token) || null);
+    
   }
 
   static login(data) {
     return axios.post(`${baseURL}/login`, data);
+  }
+  static logout(data) {
+    return axios.post(`${baseURL}/logout`, data);
   }
 
   static register(data) {
@@ -42,5 +50,11 @@ export default class RestApi {
 
   static testimonials() {
     return axios.get(`${baseURL}/client-testimonials`);
+  }
+  static careers() {
+    return axios.get(`${baseURL}/careers`);
+  }
+  static contact() {
+    return axios.get(`${baseURL}/contact-details`);
   }
 }

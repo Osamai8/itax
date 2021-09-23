@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../Common/footer";
 import Header from "../../Common/header";
 import NewsLetter from "../../Components/home/newsletter";
 import RestApi from "../../services/api";
@@ -16,14 +15,10 @@ import Modal from "../../Components/registerModal";
 import MessageModal from "../../Components/messageModal";
 import { toast } from "react-toastify";
 const schema = yup.object().shape({
-  email: yup.string().email().required("Email is required"),
+  email: yup.string().email('Email must be a valid email').required("Email is required"),
   password: yup
   .string()
   .required('Password is required')
-  .matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-    "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
-  ),
 });
 
 function Login(props) {
@@ -78,6 +73,7 @@ function Login(props) {
         if (response.data.access_token && response.data.status == true) {
           reset({ email: "", password: "" });
           toast.success(response.data.message, {
+            position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
           RestApi.defaultToken(response.data.access_token);
@@ -240,22 +236,62 @@ function Login(props) {
     } else {
       // alert("something went wrong");
     }
-  };
-  const styles = {
-    top: {
-      top: "6px",
-    },
-  };
+  }; 
 
   const handleCloseRegisterModal = () => {
     console.log("close");
     setShowRegisterModal({ status: false });
-    let { is_customer, is_service_provider } = showRegisterModal.data;
-    if (is_customer == "yes") {
+    let { data } = showRegisterModal; 
+    if (data.is_customer == "yes") {
+      data.is_customer = "no"
+      data.is_service_provider = "yes"
       history.push(`/customer/dashboard`);
-    } else if (is_service_provider == "yes") {
-      history.push(`/partner/dashboard`);
+    } else if (data.is_service_provider == "yes") {
+      data.is_customer = "yes"
+      data.is_service_provider = "no"
     }
+    RestApi.login(data).then((response)=> {
+      if (response.data.access_token && response.data.status == true) {
+        reset({ email: "", password: "" });
+        toast.success(response.data.message, {
+          position: toast.POSITION.CENTER,
+          autoClose: 2000,
+        });
+        RestApi.defaultToken(response.data.access_token);
+        let res = response.data;
+        let data = {
+          name: res.data.first_name,
+          email: res.data.email,
+          phone: res.data.phone,
+          last_name: res.data.last_name,
+          middle_name: res.data.middle_name,
+          photo: res.data.photo,
+          isCustomer: res.data.is_customer,
+          isServiceProvider: res.data.is_service_provider,
+          _token: res.access_token,
+        };
+        props.dispatch({
+          type: "LOGIN",
+          payload: data,
+        });
+        // setMessage("Login SuccessFull");
+
+        setTimeout(() => {
+          if (
+            response.data.data.is_customer == "yes" &&
+            response.data.data.is_service_provider == "yes"
+          ) {
+            props.activeForm == "customer"
+              ? history.push(`/customer/dashboard`)
+              : history.push(`/partner/dashboard`);
+          } else if (response.data.data.is_customer == "yes") {
+            history.push(`/customer/dashboard`);
+          } else if (response.data.data.is_service_provider == "yes") {
+            history.push(`/partner/dashboard`);
+          }
+        }, 2000);
+      }
+    })
   };
   const changeUsertype = () => {
     let data = showRegisterModal.data;
@@ -281,22 +317,31 @@ function Login(props) {
     setShowMessageModal({ status: false, message: "" });
   };
 
-  console.log("errors", errors);
+  console.log("showregister", showRegisterModal);
 
- ( errors["email"] &&
-    errors["email"].message &&
-    toast.error(errors["email"].message, {
-      toastId: errors["email"].message,
-      autoClose: 3000
-    }));
-  (errors["password"] &&
-    errors["password"].message &&
-    toast.error(errors["password"].message, {
-      toastId: errors["password"].message,
-      autoClose: 3000
-    }));
+//  ( errors["email"] &&
+//     errors["email"].message &&
+//     toast.error(errors["email"].message, {
+//       toastId: errors["email"].message,
+//       autoClose: 3000
+//     }));
+//   (errors["password"] &&
+//     errors["password"].message &&
+//     toast.error(errors["password"].message, {
+//       toastId: errors["password"].message,
+//       autoClose: 3000
+//     }));
   // errors['password'] && toast.error(errors['password']);
 
+  const styles = {
+    top: {
+      top: "6px",
+    },
+    error: {
+      borderColor: '#bf1f24',
+      
+    }
+  }
   return (
     <div>
       {showRegisterModal.status && (
@@ -466,12 +511,14 @@ function Login(props) {
                                       style={styles.top}
                                     ></i>
                                     <input
+                                    style={errors["email"] && styles.error}
                                       {...register("email")}
                                       type="text"
                                       placeholder="Email"
                                       name="email"
                                       autocomplete="off"
                                     />
+                                    {errors["email"] && <span style={{color:'#bf1f24'}}>{errors["email"].message}</span>}
                                   </label>
                                 </div>
                               </div>
@@ -485,11 +532,13 @@ function Login(props) {
                                       style={styles.top}
                                     ></i>
                                     <input
+                                     style={errors["password"] && styles.error}
                                       {...register("password")}
                                       type="password"
                                       name="password"
                                       placeholder="Password"
                                     />
+                                      {errors["password"] && <span style={{color:'#bf1f24'}}>{errors["password"].message}</span>}
                                   </label>
                                 </div>
                               </div>
@@ -562,7 +611,6 @@ function Login(props) {
         </div>
       </section>
       <NewsLetter />
-      <Footer />
     </div>
   );
 }

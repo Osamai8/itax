@@ -95,7 +95,7 @@ export default class sideBar extends Component {
         ></div>
 
         {/* <!-- !PAGE CONTENT! --> */}
-        <div class="w3-main" style={{ marginLeft: "260px", marginTop: "43px" }}>
+        <div class="w3-main" style={{ marginLeft: "260px", marginTop: "100px" }}>
           {/* <!-- Header --> */}
           <header class="w3-container w3-xlarge w3-dark-green w3-padding">
             <p class="w3-left">

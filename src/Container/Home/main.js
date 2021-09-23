@@ -14,7 +14,7 @@ import Index from "./index";
 import Header from "../../Common/header";
 import Footer from "../../Common/footer";
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import RestApi from '../../services/api';
+
 class Main extends Component {
   constructor(props){
     console.log("props",props)
@@ -31,35 +31,24 @@ class Main extends Component {
     })
   }
   componentDidMount() {
-    this.fetchbanner();
   }
   componentDidUpdate(){
     
   }
 
-  fetchbanner = () => { 
-    console.log("index")
-    RestApi.homePage().then((res) => {
-      console.log("response",res.data)
-      this.setState({
-        bannerData: res.data.data.banners,
-        socialIcons: res.data.data.social_media_link
-      });
-     
-    });
-  };
+  
 
   render() {
     return (
       <>
       <Header socialIcons={this.state.socialIcons} />
       <Switch>
-        <Route exact path={"/"} component={() => <Index bannerData={this.state.bannerData}/>} />
+        <Route exact path={"/"} component={() => <Index/>} />
         <Route exact path={`/about`} component={About} />
         <Route exact path={`/partner_with_us`} component={PartnerWithUs} />
         <Route exact path={`/blog`} component={Blog} />
-        <Route exact path={`/career_with_us`} component={Career} />
-        <Route exact path={`/contact-us`} component={Contact} />
+        <Route exact path={`/career`} component={Career} />
+        <Route exact path={`/contact`} component={Contact} />
         <Route exact path={`/services`} component={Service} />
         <Route
           exact

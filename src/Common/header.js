@@ -1,9 +1,26 @@
-import React from "react";
-import logo from '../images/logo.png'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import logo from "../images/logo.png";
+import { Link } from "react-router-dom";
+import RestApi from "../services/api";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+
 function Header(props) {
-  console.log("header: ",props)
-  
+
+  const handleLogout = () => {
+    RestApi.logout()
+      .then((res) => {
+        console.log(res);
+        props.dispatch({
+          type: "LOGOUT",
+        });
+        toast.success("Logout successfully");
+      })
+
+      .catch((error) => {
+        console.log("error!", error);
+      });
+  };
   return (
     //  site-navigation start
     <nav id="mainNavigation" class="navbar navbar-fixed-top" role="navigation">
@@ -25,7 +42,7 @@ function Header(props) {
           {/*  navbar logo  */}
           <div class="navbar-brand">
             <span class="sr-only"></span>
-            <Link to='/'>
+            <Link to="/">
               <img
                 src={logo}
                 class="img-responsive center-block logo"
@@ -44,38 +61,49 @@ function Header(props) {
           <ul class="cont-detail logreg hidden-xs">
             <div class="socialtop">
               <ul>
-                {props.socialIcons && props.socialIcons.facebook && 
-                <li>
-                  <a href={props.socialIcons.facebook} target="_new">
-                    <i class="fa fa-facebook fb"></i>
-                  </a>
-                </li> }
-                
-               { props.socialIcons && props.socialIcons.twitter && <li>
-                  <a href={props.socialIcons.twitter} target="_new">
-                    <i class="fa fa-twitter twitt"></i>
-                  </a>
-                </li>}
-                { props.socialIcons && props.socialIcons.linkedin && <li>
-                  <a href={props.socialIcons.linkedin} target="_new">
-                    <i class="fa fa-linkedin in"></i>
-                  </a>
-                </li>}
-                {props.socialIcons &&  props.socialIcons.google_plus && <li>
-                  <a href={props.socialIcons.google_plus} target="_new">
-                    <i class="fa fa-google-plus plus"></i>
-                  </a>
-                </li>}
-                { props.socialIcons && props.socialIcons.youtube && <li>
-                  <a href={props.socialIcons.youtube} target="_new">
-                    <i class="fa fa-youtube youtube"></i>
-                  </a>
-                </li>}
-                {props.socialIcons && props.socialIcons.rss &&  <li>
-                  <a href={props.socialIcons.rss} target="_new">
-                    <i class="fa fa-rss blog"></i>
-                  </a>
-                </li>}
+                {props.socialIcons && props.socialIcons.facebook && (
+                  <li>
+                    <a href={props.socialIcons.facebook} target="_new">
+                      <i class="fa fa-facebook fb"></i>
+                    </a>
+                  </li>
+                )}
+
+                {props.socialIcons && props.socialIcons.twitter && (
+                  <li>
+                    <a href={props.socialIcons.twitter} target="_new">
+                      <i class="fa fa-twitter twitt"></i>
+                    </a>
+                  </li>
+                )}
+                {props.socialIcons && props.socialIcons.linkedin && (
+                  <li>
+                    <a href={props.socialIcons.linkedin} target="_new">
+                      <i class="fa fa-linkedin in"></i>
+                    </a>
+                  </li>
+                )}
+                {props.socialIcons && props.socialIcons.google_plus && (
+                  <li>
+                    <a href={props.socialIcons.google_plus} target="_new">
+                      <i class="fa fa-google-plus plus"></i>
+                    </a>
+                  </li>
+                )}
+                {props.socialIcons && props.socialIcons.youtube && (
+                  <li>
+                    <a href={props.socialIcons.youtube} target="_new">
+                      <i class="fa fa-youtube youtube"></i>
+                    </a>
+                  </li>
+                )}
+                {props.socialIcons && props.socialIcons.rss && (
+                  <li>
+                    <a href={props.socialIcons.rss} target="_new">
+                      <i class="fa fa-rss blog"></i>
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
             <li>
@@ -90,15 +118,33 @@ function Header(props) {
               </a>
             </li>
             <li>
-              <Link to="/user_login" class="btn button">
-                <i class="fa fa-user" aria-hidden="true"></i> Login
-              </Link>
+              {props.isLogged ? (
+                <>
+                  {" "}
+                  <Link to="/customer/dashboard" class="btn button">
+                    {" "}
+                    My Dashboard
+                  </Link>
+                  <button
+                    type="submit"
+                    class="button save-btn dash-logout"
+                    title="Logout"
+                    onClick={handleLogout}
+                  >
+                    <i class="fa fa-power-off"></i>
+                  </button>
+                </>
+              ) : (
+                <Link to="/user_login" class="btn button">
+                  <i class="fa fa-user" aria-hidden="true"></i> Login
+                </Link>
+              )}
             </li>
             {/* <li><a href="#" class="btn btn-success"><i class="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
           </ul>
           <ul class="nav navbar-nav navbar-right text-uppercase">
             <li class="active">
-              <Link to='/'>home</Link>
+              <Link to="/">home</Link>
               {/* <a href="/"></a> */}
             </li>
             <li>
@@ -129,10 +175,10 @@ function Header(props) {
               <Link to="/blog">Blog</Link>
             </li>
             <li>
-              <Link to="/career_with_us">Career</Link>
+              <Link to="/career">Career</Link>
             </li>
             <li>
-              <Link to="/contact-us">contact Us</Link>
+              <Link to="/contact">contact Us</Link>
             </li>
           </ul>
         </div>
@@ -143,4 +189,9 @@ function Header(props) {
   );
 }
 
-export default Header;
+export default connect((state, props) => {
+  return {
+    isLogged: state.isLogged,
+    socialIcons: state.socialIcons
+  };
+})(Header);

@@ -1,11 +1,33 @@
 import React, { Component } from "react";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import RestApi from "../services/api";
+import axios from "axios";
 
 export default class userHeader extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount(){
+    console.log("check axios",axios.defaults.headers.common)
+  }
+  handleLogout() {
+    RestApi.logout().then((res)=> {
+      console.log(res)
+    })
+    .catch((error)=> {
+      console.log("error!",error);
+    });
+  }
   render() {
     return (
-      <div data-spy="scroll" data-target="#main-nav-collapse" data-offset="100" style={{marginTop: "6%"}}>
+      <div
+        data-spy="scroll"
+        data-target="#main-nav-collapse"
+        data-offset="100"
+        style={{ marginTop: "6%" }}
+      >
         <nav
           id="mainNavigation"
           class="navbar navbar-fixed-top hidden-xs"
@@ -88,36 +110,46 @@ export default class userHeader extends Component {
                   </a>
                 </li>
                 <li>
+                  {" "}
                   <Link to="/customer/dashboard" class="btn button">
                     {" "}
                     My Dashboard
                   </Link>
+                  <button
+                    type="submit"
+                    class="button save-btn dash-logout"
+                    title="Logout"
+                    onClick={this.handleLogout}
+                  >
+                    <i class="fa fa-power-off"></i>
+                  </button>
                 </li>
+                <li></li>
               </ul>
               <ul class="nav navbar-nav navbar-right text-uppercase">
-              <li class="active">
-              <Link to='/'>home</Link>
-              {/* <a href="/"></a> */}
-            </li>
-            <li>
-              <Link to="/about">about us</Link>
-            </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-            <li>
-              <Link to="/partner_with_us">Partners With Us</Link>
-            </li>
-            
-            <li>
-              <Link to="/blog">Blog</Link>
-            </li>
-            <li>
-              <Link to="/career_with_us">Career</Link>
-            </li>
-            <li>
-              <Link to="/contact-us">contact Us</Link>
-            </li>
+                <li class="active">
+                  <Link to="/">home</Link>
+                  {/* <a href="/"></a> */}
+                </li>
+                <li>
+                  <Link to="/about">about us</Link>
+                </li>
+                <li>
+                  <Link to="/services">Services</Link>
+                </li>
+                <li>
+                  <Link to="/partner_with_us">Partners With Us</Link>
+                </li>
+
+                <li>
+                  <Link to="/blog">Blog</Link>
+                </li>
+                <li>
+                  <Link to="/career_with_us">Career</Link>
+                </li>
+                <li>
+                  <Link to="/contact-us">contact Us</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -141,8 +173,6 @@ export default class userHeader extends Component {
             </Link>
           </span>
         </div>
-        
-       
       </div>
     );
   }

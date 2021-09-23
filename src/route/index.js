@@ -1,10 +1,24 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import HomePages from "../Container/Home/main";
 import MainCustomer from "../Container/Customer/main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import PartnerIndex from "../Container/Partner/index";
+import RestApi from "../services/api";
+import { connect } from "react-redux";
+// import PartnerIndex from "../Container/Partner/index";
 // import { loadProgressBar } from 'axios-progress-bar'
-function index() {
+function Index(props) {
+  useEffect(() => {
+    RestApi.contact().then((res) => {
+      console.log("contact", res);
+      props.dispatch({
+        type: "CONTACT",
+        payload: {
+          socialIcons: res.data.data.social_media_link,
+          contactDetails: res.data.data.contact_details,
+        },
+      });
+    });
+  }, [])
   return (
     <div>
       <BrowserRouter>
@@ -22,4 +36,4 @@ function index() {
   );
 }
 
-export default index;
+export default connect()(Index);
