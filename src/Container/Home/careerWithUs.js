@@ -62,7 +62,7 @@ export default class career extends Component {
                       </div>
                     </div>;
                   })}
-                <div class="current-opening">
+                {/* <div class="current-opening">
                   <div class="border">
                     <h3 class="job-summary">Position : Finance Associate</h3>
                     <div class="jobs-location mt-10">
@@ -119,7 +119,7 @@ export default class career extends Component {
                     </div>
                   </div>
                 </div>
-              
+               */}
               </div>
               <div class="col-md-4">
                 <div class="blog_right_sidebar">
