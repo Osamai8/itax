@@ -15,7 +15,10 @@ export default class about extends Component {
         description: "",
         image: "",
       },
-      teams: [],
+      teams: {
+        heading: '',
+        data: []
+      },
       about6T: {
         heading: "",
         content: [],
@@ -36,7 +39,7 @@ export default class about extends Component {
           description: response.data.data.about_us_profile.aboutus_content,
           image: response.data.data.about_us_profile.image,
         };
-        let teams = response.data.data.about_us_team;
+        let teams = {data: response.data.data.about_us_team, heading: response.data.data.about_us_team_heading};
         let about6T = {
           heading: response.data.data.about_us_6t_heading,
           content: response.data.data.about_us_6t,

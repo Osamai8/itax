@@ -3,11 +3,14 @@ import Header from "../../Common/header";
 import NewsLetter from "../../Components/home/newsletter";
 import sliderImage from "../../images/slider/slider1.jpg";
 import RestApi from "../../services/api";
+import ModalRoot from "../../Components/modal/modalRoot";
+import CareerForm from "../../Components/home/careerForm";
 export default class career extends Component {
   constructor(props) {
     super(props);
     this.state = {
       positions: [],
+      openModal: false
     };
   }
 
@@ -50,7 +53,7 @@ export default class career extends Component {
                         class="button newsletter no-pip"
                         data-toggle="modal"
                         data-target="#apply_modal"
-                        href="#"
+                        onClick={()=>this.setState({openModal:true})}
                       >
                         Apply Now
                         <span>
@@ -317,200 +320,7 @@ export default class career extends Component {
         </div>
 
         {/* // <!---------------------------modal--------------------------------------------> */}
-
-        <div
-          class="modal fade in"
-          id="apply_modal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          style={{ display: "none" }}
-        >
-          <div class="modal-dialog custom-modal" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-                <h4 class="modal-title">CAREER OPPORTUNITIES</h4>
-              </div>
-              <div class="modal-body">
-                <div class="border">
-                  <form
-                    id="sky-form"
-                    method="POST"
-                    class="sky-form"
-                    action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
-                    novalidate="novalidate"
-                  >
-                    <fieldset>
-                      <section>
-                        <div class="row">
-                          <div class="col col-10 carrer_oppr">
-                            <h3
-                              class="job-summary"
-                              style={{ marginLeft: "15px" }}
-                            >
-                              Position : Financial Analyst
-                            </h3>
-                          </div>
-                        </div>
-                      </section>
-                      <section>
-                        <div class="row">
-                          <div class="center-align-content">
-                            <div class="col-md-11 carrer-gap">
-                              <label class="input">
-                                <i
-                                  class="icon-append fa fa-envelope-o"
-                                  style={{ top: "6px" }}
-                                ></i>
-                                <input
-                                  type="email"
-                                  placeholder="Email"
-                                  name="email"
-                                  autocomplete="off"
-                                />
-                              </label>
-                              <label class="input">
-                                <i
-                                  class="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
-                                ></i>
-                                <input
-                                  type="textl"
-                                  placeholder="First Name"
-                                  name="name"
-                                  autocomplete="off"
-                                />
-                              </label>
-                              <label class="input">
-                                <i
-                                  class="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
-                                ></i>
-                                <input
-                                  type="textl"
-                                  placeholder="Middle Name"
-                                  name="name"
-                                  autocomplete="off"
-                                />
-                              </label>
-                              <label class="input">
-                                <i
-                                  class="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
-                                ></i>
-                                <input
-                                  type="textl"
-                                  placeholder="Last Name"
-                                  name="name"
-                                  autocomplete="off"
-                                />
-                              </label>
-                              <label class="input">
-                                <i
-                                  class="icon-append fa fa-mobile"
-                                  style={{ top: "6px" }}
-                                ></i>
-                                <input
-                                  type="textl"
-                                  placeholder="Mobile"
-                                  name="name"
-                                  autocomplete="off"
-                                />
-                              </label>
-
-                              <div
-                                class="col-md-6"
-                                style={{ width: "49%", marginRight: "10px" }}
-                              >
-                                <label class="input">
-                                  <i
-                                    class="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
-                                  ></i>
-                                  <input
-                                    type="textl"
-                                    placeholder="Gender"
-                                    name="name"
-                                    autocomplete="off"
-                                  />
-                                </label>
-                                <label class="input">
-                                  <i
-                                    class="icon-append fa fa-graduation-cap"
-                                    style={{ top: "6px" }}
-                                  ></i>
-                                  <input
-                                    type="textl"
-                                    placeholder="Qualification"
-                                    name="name"
-                                    autocomplete="off"
-                                  />
-                                </label>
-                              </div>
-                              <div class="col-md-6" style={{ width: "49%" }}>
-                                <label class="input">
-                                  <i
-                                    class="icon-append fa fa-map-marker"
-                                    style={{ top: "6px" }}
-                                  ></i>
-                                  <input
-                                    type="textl"
-                                    placeholder="Location"
-                                    name="name"
-                                    autocomplete="off"
-                                  />
-                                </label>
-                                <label class="input">
-                                  <i
-                                    class="icon-append fa fa-briefcase"
-                                    style={{ top: "6px" }}
-                                  ></i>
-                                  <input
-                                    type="textl"
-                                    placeholder="Year of Experience"
-                                    name="name"
-                                    autocomplete="off"
-                                  />
-                                </label>
-                              </div>
-                              <label class="input">
-                                Attach Your CV
-                                <span style={{ color: "red" }}>
-                                  * (Only .doc /.docx / .pdf file allowed. Size:
-                                  Max 2 MB)
-                                </span>
-                                <input
-                                  type="file"
-                                  name="fileToUpload"
-                                  id="fileToUpload"
-                                />
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </section>
-                    </fieldset>
-                  </form>
-                  <div class="form-group text-center mt-10">
-                    <button
-                      type="submit"
-                      class="button"
-                      style={{ margin: "0" }}
-                    >
-                      SUBMIT
-                    </button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-backdrop fade in" style={{ display: "none" }}></div>
+          <ModalRoot title={"CAREER OPPORTUNITIES"} isOpen={this.state.openModal} body={<CareerForm/>}/>
         <NewsLetter />
       </>
     );

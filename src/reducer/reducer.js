@@ -1,5 +1,5 @@
 import React from "react";
-const initialState = { isLogged: false, userDetails: {} ,socialIcons: {},contactDetails:{}};
+const initialState = { isLogged: false, userDetails: {} ,socialIcons: {},contactDetails:{},dashboard:''};
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "LOGIN":
@@ -17,6 +17,9 @@ function reducer(state = initialState, action) {
       state = { ...state };
       state["isLogged"] = false;
       state["userDetails"] = {};
+    case "DASHBOARD":
+      state = { ...state };
+      state["dashboard"] = action.payload; 
     default:
       return state;
   }

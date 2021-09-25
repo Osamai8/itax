@@ -282,7 +282,7 @@ function PartnerRegister() {
                  
                   <div class="login-footer clearfix">
                     <p class="pull-left part_log">Already have an account?</p>
-                    <Link to="/user_login" class="btn btn-login pull-right part_login">
+                    <Link to="/login" class="btn btn-login pull-right part_login">
                       Log in
                     </Link>
                   </div>

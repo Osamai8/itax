@@ -134,10 +134,10 @@ export default class sideBar extends Component {
                 <i className="fa fa-calendar w3-margin-right"></i>
                 <span className="badge">1</span>
               </a>
-              <a href="#" className="notification">
+              {/* <a href="#" className="notification">
                 <i className="fa fa-envelope w3-margin-right"></i>
                 <span className="badge">2</span>
-              </a>
+              </a> */}
               <a href="#" className="notification">
                 <i className="fa fa-bell w3-margin-right"></i>
                 <span className="badge">3</span>

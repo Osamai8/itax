@@ -50,33 +50,26 @@ function CustomerRegister(props) {
     RestApi.register(data).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
-        reset({...data,password:"",confirmPassword:""});
-        props.dispatch({
-          type: "LOGIN",
-          payload: res.data.data,
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
         });
-        setTimeout(()=> {
-          if (
-            res.data.data.is_customer == "yes" &&
-            res.data.data.is_service_provider == "yes"
-          ) {
-            props.activeForm == "customer"
-              ? history.push(`/customer/dashboard`)
-              : history.push(`/partner/dashboard`);
-          } else if (res.data.data.is_customer == "yes") {
-            history.push(`/customer/dashboard`);
-          } else if (res.data.data.is_service_provider == "yes") {
-            history.push(`/partner/dashboard`);
-          }
-        }, 2000);
+        reset({...data,password:"",confirmPassword:""});
+        // props.dispatch({
+        //   type: "LOGIN",
+        //   payload: res.data.data,
+        // });
+       
+        history.push(`/login`)
       }
       if (res.data.error) {
         let { error } = res.data;
-        let err = Object.entries(error).map((v) => { 
-           return  {name: v[0] , error: v[1]}
-         })
-         console.log(err)
-        setResponseError(err);
+        //  console.log(err)
+        // setResponseError(err);
+        error.email &&   toast.error(error.email[0]);
+        error.password && toast.error(error.password[0]);
+        res.data.message && toast.error(res.data.message);
+       
         // alert(res.data.message);
       } else {
         // alert(res.data.message);
@@ -350,7 +343,7 @@ function CustomerRegister(props) {
                   <div class="login-footer clearfix">
                     <p class="pull-left cust_log">Already have an account?</p>
                     <Link
-                      to="/user_login"
+                      to="/login"
                       class="btn btn-login pull-right cust_login"
                     >
                       Log in

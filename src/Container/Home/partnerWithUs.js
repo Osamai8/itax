@@ -1,8 +1,26 @@
 import React, { Component } from "react";
-import Footer from "../../Common/footer"
-import Header from "../../Common/header";
 import NewsLetter from '../../Components/home/newsletter'
+import RestApi from "../../services/api";
 export default class partnerWithUs extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      content: ''
+    }
+  }
+
+  componentDidMount(){
+    this.fetchData()
+  }
+  fetchData(){
+    RestApi.parterWithUs().then((res)=> {
+      console.log("parter: ",res)
+      this.setState({
+        content : res.data.data.content
+      })
+    })
+    
+  }
   render() {
     const styles = {
       top: {
@@ -15,7 +33,6 @@ export default class partnerWithUs extends Component {
     };
     return (
       <div>
-        <Header />
         <div class="breadcrumbpane">
           <div class="container">
             <h1 class="pull-left">PARTNER WITH US</h1>
@@ -24,88 +41,11 @@ export default class partnerWithUs extends Component {
         <div class="container">
           <div class="row">
             <div class="col-md-8">
-              <p class="para">
-                The partners and the team members of Axion Advisory Services are
-                having a large experience in various professional fields. Some
-                of the sectors in which the partners and other team members are
-                having exposure are given as under:
-              </p>
-              <ul class="partnerwithus">
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Aviation Industry
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Atomic Energy
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Banking Sector
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Charitable
-                  Institutions
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Communication Sector
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Consultancy Support
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Consumer Durables
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Education and Welfare
-                  Sector
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Event Management
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Food Processing
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Foreign Companies
-                  having offices in India
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Manufacturing Sector
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Media
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Print Management
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Real Estate and
-                  Construction
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Service Sector
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Software and
-                  Information Technology
-                </li>
-                <li>
-                  <i class="fa fa-angle-double-right"></i>Trading
-                </li>
-              </ul>
-              <p>
-                In Banking Sector, the partners are having a rich experience for
-                more than a decade in stock audit, concurrent audit, system
-                audit, revenue audit, statutory audit, credit audit, factoring
-                debtors audit etc. of various public sector and private banks.
-              </p>
-              <p>
-                We are also under the process of building a portal under the
-                name 'iTAXdoctor.com' which will provide varied services through
-                a portal all over India.
-              </p>
-              <p>
-                We are the authorised member of the Income tax Department for
-                filing of income tax returns on behalf of our clients.
-              </p>
+            <div
+                      dangerouslySetInnerHTML={{
+                        __html: this.state.content,
+                      }}
+                    /> 
             </div>
 
             <div class="col-md-4 partner_form">

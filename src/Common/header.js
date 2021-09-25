@@ -121,7 +121,7 @@ function Header(props) {
               {props.isLogged ? (
                 <>
                   {" "}
-                  <Link to="/customer/dashboard" class="btn button">
+                  <Link to="/customer/dashboard" className="btn button dash-btn">
                     {" "}
                     My Dashboard
                   </Link>
@@ -135,7 +135,7 @@ function Header(props) {
                   </button>
                 </>
               ) : (
-                <Link to="/user_login" class="btn button">
+                <Link to="/login" class="btn button">
                   <i class="fa fa-user" aria-hidden="true"></i> Login
                 </Link>
               )}

@@ -103,10 +103,10 @@ function Footer() {
                     <Link to="/blog">Blog</Link>
                     </li>
                     <li>
-                    <Link to="/career_with_us">Career</Link>
+                    <Link to="/career">Career</Link>
                     </li>
                     <li>
-                       <Link to="/contact-us">Contact Us</Link>
+                       <Link to="/contact">Contact Us</Link>
                     </li>
                     <li>
                       <Link to="term_condition">Terms and Conditions</Link>

@@ -61,7 +61,7 @@ class Main extends Component {
         />
         <Route
           exact
-          path={`/user_login`}
+          path={`/login`}
           component={() => (
             <Login activeForm={this.state.activeForm} setActiveForm={(changeForm) =>this.setActiveForm(changeForm)} />
           )}

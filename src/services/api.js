@@ -57,4 +57,7 @@ export default class RestApi {
   static contact() {
     return axios.get(`${baseURL}/contact-details`);
   }
+  static parterWithUs() {
+    return axios.get(`${baseURL}/partner-with-us`);
+  }
 }
