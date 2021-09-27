@@ -98,7 +98,7 @@ export default class sideBar extends Component {
         {/* <!-- !PAGE CONTENT! --> */}
         <div
           className="w3-main"
-          style={{ marginLeft: "260px", marginTop: "100px" }}
+          style={{ marginLeft: "260px", marginTop: "92px" }}
         >
           {/* <!-- Header --> */}
           <header className="w3-container w3-xlarge w3-dark-green w3-padding">
@@ -112,9 +112,7 @@ export default class sideBar extends Component {
             <p className="w3-left w3-medium">
               <span>
                 <strong>
-                  {`${
-                    userDetails.name.charAt(0).toUpperCase() +
-                      userDetails.name.slice(1)} `}
+                  {`${userDetails.name} ${userDetails.middle_name != null ? userDetails.middle_name : '' } ${userDetails.last_name != null ?userDetails.last_name : ''}`}
                 </strong>
                 {",  "}
                 {userDetails.isServiceProvider == "yes" &&
