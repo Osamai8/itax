@@ -60,4 +60,13 @@ export default class RestApi {
   static parterWithUs() {
     return axios.get(`${baseURL}/partner-with-us`);
   }
+  static videos() {
+    return axios.get(`${baseURL}/videos`);
+  }
+  static newsletters() {
+    return axios.get(`${baseURL}/newsletters`);
+  }
+  static placeholder(param) {
+    return axios.get(`${baseURL}/placeholder/${param}`);
+  }
 }

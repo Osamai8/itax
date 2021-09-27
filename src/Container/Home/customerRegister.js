@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import userImage from "../../images/user.png";
 import { useForm } from "react-hook-form";
@@ -33,8 +33,18 @@ phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone 
 });
 function CustomerRegister(props) {
   
+  
   const history = useHistory();
   const [responseError, setResponseError] = useState({});
+  const [placeHolder, setPlaceHolder] = useState({});
+
+  useEffect(()=> {
+    RestApi.placeholder('customer-register').then((res)=> {
+      console.log("placeHolder: customer-register: ",res)
+      setPlaceHolder(res.data.data)
+    })
+  },[])
+
   const {
     register,
     handleSubmit,

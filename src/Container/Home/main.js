@@ -11,9 +11,11 @@ import CustomerRegister from "./partnerRegister";
 import PartnerRegister from "./customerRegister";
 import Pages from "./pages";
 import Index from "./index";
+import Newsletter from "./newsletter";
 import Header from "../../Common/header";
 import Footer from "../../Common/footer";
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import Videos from './videos';
 
 class Main extends Component {
   constructor(props){
@@ -45,6 +47,8 @@ class Main extends Component {
         <Route exact path={`/career`} component={Career} />
         <Route exact path={`/contact`} component={Contact} />
         <Route exact path={`/services`} component={Service} />
+        <Route exact path={`/videos`} component={Videos} />
+        <Route exact path={`/newsletters`} component={Newsletter} />
         <Route
           exact
           path={`/privacy_policy`}

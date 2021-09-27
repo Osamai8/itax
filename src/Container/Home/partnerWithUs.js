@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NewsLetter from '../../Components/home/newsletter'
+import NewsLetter from '../../Components/home/subscribeNewsletter'
 import RestApi from "../../services/api";
 export default class partnerWithUs extends Component {
   constructor(props){

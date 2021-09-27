@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../../Common/header";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import sliderImage from "../../images/slider/slider1.jpg";
 import RestApi from "../../services/api";
 import ModalRoot from "../../Components/modal/modalRoot";
@@ -10,12 +10,14 @@ export default class career extends Component {
     super(props);
     this.state = {
       positions: [],
-      openModal: false
+      openModal: false,
+      placeholder: {}
     };
   }
 
   componentDidMount() {
     this.fetchData();
+    this.placeHolderAPI()
   }
   fetchData = () => {
     RestApi.careers().then((res) => {
@@ -24,6 +26,12 @@ export default class career extends Component {
       this.setState({ positions });
     });
   };
+  placeHolderAPI(){
+    RestApi.placeholder('career').then((res)=> {
+      console.log("placeHolder: career: ",res)
+      this.setState({ placeholder: res.data.data })
+    })
+  }
   render() {
     console.log("this", this.state);
     return (
@@ -126,22 +134,14 @@ export default class career extends Component {
               <div class="col-md-4">
                 <div class="blog_right_sidebar">
                   <aside class="single_sidebar_widget">
-                    <img src={sliderImage} style={{ width: "100%" }} />
-                    <h4 class="place_title">Newsletter Placeholder</h4>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s.
-                    </p>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry.
-                    </p>
-                    <ul class="list-disc">
-                      <li>Lorem Ipsum is simply dummy text</li>
-                      <li>Lorem Ipsum is simply dummy text</li>
-                      <li>Lorem Ipsum is simply dummy text</li>
-                    </ul>
+                    <img src={this.state.placeholder.image} style={{ width: "100%" }} />
+                    <h4 class="place_title">{this.state.placeholder.header}</h4>
+                    {" "}
+                     <div
+                      dangerouslySetInnerHTML={{
+                        __html: this.state.placeholder.description,
+                      }}
+                    />
                   </aside>
                 </div>
               </div>

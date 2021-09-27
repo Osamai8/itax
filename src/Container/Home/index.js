@@ -4,9 +4,10 @@ import Services from "../../Components/home/services";
 import videoLogo from "../../images/video.png";
 import blogImage from "../../images/blog.png";
 import Testimonials from "../../Components/home/testimonials";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import Calender from "../../Components/home/calender";
 import RestApi from "../../services/api";
+import { Link } from "react-router-dom";
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -33,15 +34,16 @@ export default class Home extends Component {
     console.log("index");
     RestApi.homePage().then((res) => {
       console.log("response", res.data);
-      res.data.data.featured_video.video_link =
-        res.data.data.featured_video.video_link.slice(
-          res.data.data.featured_video.video_link.lastIndexOf("=") + 1,
-          res.data.data.featured_video.video_link.length
+      let {data} = res.data
+      data.featured_video.video_link =
+        data.featured_video.video_link.slice(
+          data.featured_video.video_link.lastIndexOf("=") + 1,
+          data.featured_video.video_link.length
         );
-      console.log("aaaaaa", res.data.data.featured_video.video_link);
+      console.log("aaaaaa", data.featured_video.video_link);
       this.setState({
-        bannerData: res.data.data.banners,
-        featuredVideo: res.data.data.featured_video,
+        bannerData: data.banners,
+        featuredVideo: data.featured_video,
       });
     });
   };
@@ -207,12 +209,12 @@ export default class Home extends Component {
                             </a>
                             <a href="#">
                               <li>
-                                <i class="fa fa-envelope"></i>Newsletter
+                              <Link to="/newsletters">  <i class="fa fa-envelope"></i>Newsletter </Link>
                               </li>
                             </a>
                             <a href="#">
                               <li>
-                                <i class="fa fa-file-video-o"></i>Videos
+                                <Link to="/videos"><i class="fa fa-file-video-o"></i>Videos</Link>
                               </li>
                             </a>
                           </ul>

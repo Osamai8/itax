@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,6 +30,8 @@ phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone 
 });
 function PartnerRegister() {
   const [responseError, setResponseError] = useState({});
+  const [placeHolder, setPlaceHolder] = useState({});
+
   const {
     register,
     handleSubmit,
@@ -38,6 +40,12 @@ function PartnerRegister() {
     resolver: yupResolver(schema),
   });
 
+  useEffect(()=> {
+    RestApi.placeholder('business-partner-register').then((res)=> {
+      console.log("placeHolder: business-partner-register: ",res)
+      setPlaceHolder(res.data.data)
+    })
+  },[])
 
   const onSubmitHandle = (data) => {
     console.log(data);
@@ -290,32 +298,20 @@ function PartnerRegister() {
               </div>
             </div>
             <div class="Register_benefits">
-              <h4>Member / Registered User Benefits...</h4>
+              {placeHolder.header}
+              {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
                 New User? <span>"Register to Become a Member"</span>
               </h5>
               <p>
                 <strong>Registered User Benefits...</strong>
-              </p>
-              <img src={userImage} />
-              <ul>
-                <li>
-                  <i class="fa fa-circle"></i>File Free ITR online
-                </li>
-                <li>
-                  <i class="fa fa-circle"></i>Get an Expert Assistances
-                </li>
-                <li>
-                  <i class="fa fa-circle"></i>Auto Extract of TDS Data
-                </li>
-                <li>
-                  <i class="fa fa-circle"></i>Processing Status of ITR Return
-                </li>
-                <li>
-                  <i class="fa fa-circle"></i>Enjoy more service after upgrading
-                  your packages
-                </li>
-              </ul>
+              </p> */}
+              <img src={placeHolder.image} />
+              <div
+                      dangerouslySetInnerHTML={{
+                        __html: placeHolder.description,
+                      }}
+                    />
             </div>
           </div>
         </div>

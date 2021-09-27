@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import newsletterImage from '../../images/newsletter-text.png'
-function newsletter() {
+import RestApi from "../../services/api";
+function Newsletter() {
+  useEffect(()=> {
+   
+  },[])
   return (
     <section class="newslettersubscription_pane">
       <div class="container">
@@ -72,4 +76,4 @@ function newsletter() {
   );
 }
 
-export default newsletter;
+export default Newsletter;

@@ -223,7 +223,7 @@ function services() {
               </div>
             </div>
           </div>
-          <a href="services.php" class="viewall-services">
+          <a href="#" class="viewall-services">
             View All Services...
           </a>
         </div>

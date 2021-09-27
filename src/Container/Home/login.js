@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../Common/header";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import userImage from "../../images/user.png";
 import GoogleLogin from "react-google-login";
@@ -27,6 +27,14 @@ function Login(props) {
     status: false,
     message: "",
   });
+  const [placeHolder, setPlaceHolder] = useState({});
+  useEffect(()=> {
+    let params = props.activeForm == "partners" ? 'business-partner-login' : 'customer-login'
+    RestApi.placeholder(params).then((res)=> {
+      console.log("placeholder login: ",res)
+      setPlaceHolder(res.data.data)
+    })
+  },[])
 
   const {
     register,

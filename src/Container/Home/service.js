@@ -3,7 +3,7 @@ import Header from "../../Common/header";
 import Footer from "../../Common/footer";
 import serviceImage from '../../images/service/s1.jpg'
 import moneyBagIcon from '../../images/service/money-bag-icon.png'
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 function index() {
     console.log("asdsd")
   return (

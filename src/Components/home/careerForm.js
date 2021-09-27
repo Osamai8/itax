@@ -7,7 +7,7 @@ function careerForm() {
                     id="sky-form"
                     method="POST"
                     className="sky-form"
-                    action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
+                    // action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
                     novalidate="novalidate"
                   >
                     <fieldset>

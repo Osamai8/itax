@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header"; 
-import NewsLetter from '../../Components/home/newsletter'
+import NewsLetter from '../../Components/home/subscribeNewsletter'
 
 function ContactUs(props) {
  

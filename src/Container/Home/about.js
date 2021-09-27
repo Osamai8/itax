@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import OurTeam from "../../Components/home/ourTeam";
 import Header from "../../Common/header";
 import Footer from "../../Common/footer";
-import NewsLetter from "../../Components/home/newsletter";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
 import aboutImage from "../../images/about/about.png";
 import teamWorkImage from "../../images/about/teamwork.jpg";
 import RestApi from "../../services/api";
