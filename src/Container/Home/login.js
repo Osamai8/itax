@@ -628,15 +628,20 @@ function Login(props) {
               </div>
             </div>
             <div class="Register_benefits">
-              <h4>Creat an Account</h4>
-              <h5>
+              {/* <h4>Creat an Account</h4> */}
+              {/* <h5>
                 New User? <span>"Register to Become a Member"</span>
               </h5>
               <p>
                 <strong>Registered User Benefits...</strong>
-              </p>
-              <img src={userImage} />
-              <ul>
+              </p> */}
+              <img src={placeHolder.image} />
+              <div
+                      dangerouslySetInnerHTML={{
+                        __html: placeHolder.description,
+                      }}
+                    />
+              {/* <ul>
                 <li>
                   <i class="fa fa-circle"></i>File Free ITR online
                 </li>
@@ -653,7 +658,7 @@ function Login(props) {
                   <i class="fa fa-circle"></i>Enjoy more service after upgrading
                   your packages
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>

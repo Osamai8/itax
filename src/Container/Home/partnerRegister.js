@@ -298,7 +298,7 @@ function PartnerRegister() {
               </div>
             </div>
             <div class="Register_benefits">
-              {placeHolder.header}
+              {/* {placeHolder.header} */}
               {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
                 New User? <span>"Register to Become a Member"</span>
@@ -306,10 +306,10 @@ function PartnerRegister() {
               <p>
                 <strong>Registered User Benefits...</strong>
               </p> */}
-              <img src={placeHolder.image} />
+              <img src={placeHolder?.image} />
               <div
                       dangerouslySetInnerHTML={{
-                        __html: placeHolder.description,
+                        __html: placeHolder?.description,
                       }}
                     />
             </div>

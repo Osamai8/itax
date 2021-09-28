@@ -6,6 +6,7 @@ export default class newsletter extends Component {
     super(props);
     this.state = {
       data: [],
+      placeholder:{}
     };
   }
   componentDidMount() {
@@ -23,6 +24,7 @@ export default class newsletter extends Component {
   placeHolderAPI(){
     RestApi.placeholder('newsletters').then((res)=> {
       console.log("placeHolder: new: ",res)
+      this.setState({placeholder: res.data.data})
     })
   }
   render() {
@@ -288,10 +290,15 @@ export default class newsletter extends Component {
                 <div class="blog_right_sidebar">
                   <aside class="single_sidebar_widget">
                     <img
-                      src="image/slider/slider1.jpg"
+                      src={this.state.placeholder.image}
                       style={{ width: "100%" }}
                     />
-                    <h4 class="place_title">Newsletter Placeholder</h4>
+                     <div
+                      dangerouslySetInnerHTML={{
+                        __html: this.state.placeholder.description,
+                      }}
+                    />
+                    {/* <h4 class="place_title">Newsletter Placeholder</h4>
                     <p>
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry. Lorem Ipsum has been the industry's
@@ -305,7 +312,7 @@ export default class newsletter extends Component {
                       <li>Lorem Ipsum is simply dummy text</li>
                       <li>Lorem Ipsum is simply dummy text</li>
                       <li>Lorem Ipsum is simply dummy text</li>
-                    </ul>
+                    </ul> */}
                   </aside>
                 </div>
               </div>

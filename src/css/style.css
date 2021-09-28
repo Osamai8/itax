@@ -614,7 +614,9 @@ body {
     font-weight: bold;
 }
 .Register_benefits img {
-    float: right;
+    /* float: right; */
+    width: 400px;
+    margin-left: 70px;
 }
 .Register_benefits ul {
     margin: 0;

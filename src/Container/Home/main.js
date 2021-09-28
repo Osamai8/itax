@@ -16,6 +16,7 @@ import Header from "../../Common/header";
 import Footer from "../../Common/footer";
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import Videos from './videos';
+import DownloadForm from './downloadForm';
 
 class Main extends Component {
   constructor(props){
@@ -49,6 +50,8 @@ class Main extends Component {
         <Route exact path={`/services`} component={Service} />
         <Route exact path={`/videos`} component={Videos} />
         <Route exact path={`/newsletters`} component={Newsletter} />
+        <Route exact path={`/newsletters`} component={Newsletter} />
+        <Route exact path={`/download_form`} component={DownloadForm} />
         <Route
           exact
           path={`/privacy_policy`}

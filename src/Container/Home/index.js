@@ -199,7 +199,9 @@ export default class Home extends Component {
                           <ul>
                             <a href="#">
                               <li>
-                                <i class="fa fa-buysellads"></i>Form
+                              <Link to="/download_form">  <i class="fa fa-buysellads"></i>Form </Link>
+
+                                
                               </li>
                             </a>
                             <a href="#">

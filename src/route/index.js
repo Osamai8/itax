@@ -1,9 +1,9 @@
 import React ,{Component, useEffect}from "react";
 import HomePages from "../Container/Home/main";
 import MainCustomer from "../Container/Customer/main";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch,HashRouter } from "react-router-dom";
 import RestApi from "../services/api";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; 
 // import PartnerIndex from "../Container/Partner/index";
 // import { loadProgressBar } from 'axios-progress-bar'
 class Index extends Component{
@@ -28,7 +28,7 @@ class Index extends Component{
   render(){
     return (
       <div>
-        <BrowserRouter>
+        <HashRouter>
           <Switch>
             <Route path="/customer">
               <MainCustomer />
@@ -38,7 +38,7 @@ class Index extends Component{
             </Route>
             {/* <Route exact path={"/partner/dashboard"} component={PartnerIndex} /> */}
           </Switch> 
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }
