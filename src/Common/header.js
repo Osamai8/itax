@@ -4,16 +4,19 @@ import { Link } from "react-router-dom";
 import RestApi from "../services/api";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-
+import ModalRoot from "../Components/modal/modalRoot";
 function Header(props) {
 
+  const [openModal, setOpenModal] = useState(false)
   const handleLogout = () => {
+    setOpenModal(false)
     RestApi.logout()
       .then((res) => {
         console.log(res);
-        props.dispatch({
-          type: "LOGOUT",
-        });
+          props.dispatch({
+            type: "LOGOUT",
+          });
+          RestApi.defaultToken(null)
         toast.success("Logout successfully");
       })
 
@@ -21,6 +24,9 @@ function Header(props) {
         console.log("error!", error);
       });
   };
+  const handleClose = ()=> {
+    setOpenModal(false)
+  }
   return (
     //  site-navigation start
     <nav id="mainNavigation" class="navbar navbar-fixed-top" role="navigation">
@@ -121,7 +127,7 @@ function Header(props) {
               {props.isLogged ? (
                 <>
                   {" "}
-                  <Link to="/customer/dashboard" className="btn button dash-btn">
+                  <Link to="/dashboard" className="btn button dash-btn">
                     {" "}
                     My Dashboard
                   </Link>
@@ -129,7 +135,7 @@ function Header(props) {
                     type="submit"
                     class="button save-btn dash-logout"
                     title="Logout"
-                    onClick={handleLogout}
+                    onClick={()=> setOpenModal(true)}
                   >
                     <i class="fa fa-power-off"></i>
                   </button>
@@ -185,6 +191,23 @@ function Header(props) {
         {/*  nav links  */}
       </div>
       {/*  /.container  */}
+      <ModalRoot isOpen={openModal} close={()=>handleClose()} title={'logout'}body={
+       <div class="row">
+       <div class="col-md-12">
+        <form class="form-horizontal" role="form" method="post" action="#" enctype="multipart/form-data">
+
+          <div class="form-group text-center">
+            <span style={{fontSize: '18px'}}><i class="fa fa-question-circle " aria-hidden="true">&nbsp;</i>Are you Sure you want to logout now?</span>
+          </div>
+          <div class="form-group text-center">
+            <a class="button save-btn" onClick={handleLogout}>Yes</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a  class="button" onClick={()=>handleClose()} data-dismiss="modal">No</a>
+          </div>
+                          
+      </form>
+     </div>
+    </div>
+      }/>
     </nav>
   );
 }

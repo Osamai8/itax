@@ -8,6 +8,8 @@ import NewsLetter from "../../Components/home/subscribeNewsletter";
 import Calender from "../../Components/home/calender";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
+import Footer from "../../Common/footer";
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -232,6 +234,7 @@ export default class Home extends Component {
           <Testimonials />
           {/* <!---------------------------Newsletter Section----------------------------> */}
           <NewsLetter />
+          <Footer/>
         </div>
       </>
     );

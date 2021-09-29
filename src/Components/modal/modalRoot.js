@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ModalRoot({isOpen,body,title}) {
+export default function ModalRoot({isOpen,body,title,close}) {
 
  
 
@@ -18,7 +18,7 @@ export default function ModalRoot({isOpen,body,title}) {
           <div className="modal-dialog custom-modal" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">
+                <button type="button" className="close" onClick={() => close(false)} data-dismiss="modal">
                   &times;
                 </button>
                 <h4 className="modal-title">{title}</h4>

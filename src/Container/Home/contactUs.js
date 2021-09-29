@@ -161,6 +161,7 @@ function ContactUs(props) {
           </div>
         </section>
         <NewsLetter/>
+        <Footer/>
       </div>
     );
   }

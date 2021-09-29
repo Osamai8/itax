@@ -412,6 +412,7 @@ export default class blog extends Component {
         </div>
 
        <NewsLetter/> 
+       <Footer/>
       </div>
     );
   }

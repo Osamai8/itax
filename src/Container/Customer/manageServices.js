@@ -18,8 +18,8 @@ export default class manageServices extends Component {
   render() {
     return (
       <div>
-        
-        <div style={{ marginLeft: "254px", marginTop: "43px" }}>
+        <SideBar userDetails={this.props.userDetails} />
+        <div style={{ marginLeft: "254px"}}>
           <div class="w3-container servicelist" style={{ height: "490px" }}>
             <h3>Service Lists</h3>
 
@@ -153,6 +153,11 @@ export default class manageServices extends Component {
           </div>
           <hr></hr>
         </div>
+        <footer class="w3-container w3-padding-16 w3-grey">
+            <p>
+              <strong>Copyright</strong>&nbsp; © 2021 All Rights Reserved.
+            </p>
+          </footer>
       </div>
     );
   }

@@ -42,7 +42,7 @@ export default class sideBar extends Component {
           <br />
           <div className="w3-container w3-row">
             <div className="w3-col w3-large s12 w3-bar">
-              <Link to="/customer/dashboard">
+              <Link to="/dashboard">
                 <b>
                   <i className="fa fa-dashboard"></i> My Dashboard
                 </b>
@@ -60,13 +60,13 @@ export default class sideBar extends Component {
               <i className="fa fa-remove fa-fw"></i>  Close Menu
             </a>
             <Link
-              to="/customer/my-profile"
+              to="/my-profile"
               className="w3-bar-item w3-button w3-padding w3-yellow"
             >
               <i className="fa fa-users fa-fw"></i>  My Profile
             </Link>
             <Link
-              to="/customer/manage-services"
+              to="/manage-services"
               className="w3-bar-item w3-button w3-padding"
             >
               <i className="fa fa-eye fa-fw"></i>  Sevice Request

@@ -145,7 +145,7 @@ function Login(props) {
     // setMessage("Login SuccessFull");
 
     setTimeout(() => {
-      history.push(`/customer/dashboard`);
+      history.push(`/dashboard`);
     }, 2000);
   };
   const responseFacebook = (res) => {
@@ -378,8 +378,8 @@ function Login(props) {
   const changeForm = (form) => {
     props.setActiveForm(form);
   };
-  const handleCloseModal = () => {
-    // setShowMessageModal({ status: false, message: "" });
+  const handlClose = () => {
+    showRegisterModal({ status: false, message: "" });
   };
 
   console.log("showregister", showRegisterModal);
@@ -666,6 +666,7 @@ function Login(props) {
       <Modal
         isOpen={showRegisterModal.status}
         title="Confirm"
+        close={()=>handlClose()}
         body={
           <div className="col">
             {showRegisterModal.message}

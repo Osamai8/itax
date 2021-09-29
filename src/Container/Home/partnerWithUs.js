@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import Footer from "../../Common/footer";
 import NewsLetter from '../../Components/home/subscribeNewsletter'
 import RestApi from "../../services/api";
+
 export default class partnerWithUs extends Component {
   constructor(props){
     super(props)
@@ -234,6 +236,7 @@ export default class partnerWithUs extends Component {
         </div>
 
        <NewsLetter/>
+       <Footer/>
       </div>
     );
   }

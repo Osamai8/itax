@@ -3,7 +3,7 @@
  * @description This file contains all the API methods which are used in the application
  */
 import axios from "axios";
-
+window.axios = axios
 var baseURL = "http://itaxadmin.idossapp.in/api/v1";
 
 let defaultToken;

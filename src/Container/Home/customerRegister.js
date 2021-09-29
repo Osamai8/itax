@@ -399,6 +399,7 @@ function CustomerRegister(props) {
         </div>
         <NewsLetter /> 
       </div>
+      <Footer/>
     </div>
   );
 }

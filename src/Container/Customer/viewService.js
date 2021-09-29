@@ -14,7 +14,7 @@ export default class viewService extends Component {
       }
     return (
       <div> 
-        <div style={{ marginLeft: "254px", marginTop: "43px" }}>
+        <div style={{ marginLeft: "254px", marginTop: "15px" }}>
           <div class="w3-container">
             <h3>Service Request Detail review by service provider</h3>
             <div class="row">
@@ -533,6 +533,11 @@ export default class viewService extends Component {
             </div>
           </div>
         </div>
+        <footer class="w3-container w3-padding-16 w3-grey">
+            <p>
+              <strong>Copyright</strong>&nbsp; © 2021 All Rights Reserved.
+            </p>
+          </footer>
       </div>
     );
   }

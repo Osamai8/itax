@@ -232,7 +232,7 @@ function index() {
         </section>
         {/* <!-- end: service section--> */}
         <NewsLetter/>
-
+        <Footer/>
       </div>
     </>
   );

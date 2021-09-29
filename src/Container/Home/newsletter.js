@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../../Common/footer";
 import RestApi from "../../services/api";
 
 export default class newsletter extends Component {
@@ -418,6 +419,7 @@ export default class newsletter extends Component {
             </div>
           </div>
         </section>
+        <Footer/>
       </div>
     );
   }

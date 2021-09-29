@@ -5,6 +5,8 @@ import sliderImage from "../../images/slider/slider1.jpg";
 import RestApi from "../../services/api";
 import ModalRoot from "../../Components/modal/modalRoot";
 import CareerForm from "../../Components/home/careerForm";
+import Footer from "../../Common/footer";
+
 export default class career extends Component {
   constructor(props) {
     super(props);
@@ -322,6 +324,7 @@ export default class career extends Component {
         {/* // <!---------------------------modal--------------------------------------------> */}
           <ModalRoot title={"CAREER OPPORTUNITIES"} isOpen={this.state.openModal} body={<CareerForm/>}/>
         <NewsLetter />
+        <Footer/>
       </>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 
@@ -171,6 +172,7 @@ export default class videos extends Component {
 
         {/* <!---------------------------Newsletter Section----------------------------> */}
        <Newsletter/>
+       <Footer/>
       </div>
     );
   }

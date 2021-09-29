@@ -17,19 +17,19 @@ function Main(props) {
     <>
       {props.isLogged && props.userDetails && props.userDetails._token != null ? (
         <>
-          <UserHeader />
-          <SideBar userDetails={props.userDetails} />
+          {/* <UserHeader /> */}
+          {/* <SideBar userDetails={props.userDetails} /> */}
           <Switch>
-            <Route exact path={`${url}/dashboard`} component={CustomerIndex} />
+            <Route exact path={`/dashboard`} component={() => <CustomerIndex userDetails={props.userDetails}/>} />
             <Route
               exact
-              path={`${url}/manage-services`}
-              component={ManageServices}
+              path={`/manage-services`}
+              component={() => <ManageServices userDetails={props.userDetails}/>}
             />
-            <Route exact path={`${url}/my-profile`}>
+            <Route exact path={`/my-profile`}>
               <Profile userDetails={props.userDetails} />
             </Route>
-            <Route exact path={`${url}/view`} component={ViewService} />
+            <Route exact path={`/view`} component={() => <ViewService userDetails={props.userDetails}/>} />
           </Switch>
         </>
       ) : 

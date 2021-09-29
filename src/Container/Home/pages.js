@@ -42,6 +42,7 @@ export default class Pages extends Component {
             )}
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }

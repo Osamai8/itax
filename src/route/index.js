@@ -30,13 +30,17 @@ class Index extends Component{
       <div>
         <HashRouter>
           <Switch>
-            <Route path="/customer">
+          
+            {/* <Route path="/customer">
               <MainCustomer />
-            </Route>
+            </Route> */}
             <Route path="/">
+            {
+              this.props.isLogged &&  <MainCustomer />
+            }
               <HomePages />
             </Route>
-            {/* <Route exact path={"/partner/dashboard"} component={PartnerIndex} /> */}
+            
           </Switch> 
         </HashRouter>
       </div>
@@ -45,4 +49,9 @@ class Index extends Component{
 
 }
 
-export default connect()(Index);
+export default connect((state)=> {
+  return {
+    isLogged: state.isLogged
+  }
+})(Index);
+

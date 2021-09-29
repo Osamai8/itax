@@ -172,6 +172,7 @@ export default class about extends Component {
           {/* <!-- start: team section --> */}
           <NewsLetter />
         </div>{" "}
+        <Footer/>
       </React.Fragment>
     );
   }

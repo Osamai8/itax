@@ -16,7 +16,8 @@ export default class profile extends Component {
     console.log("Profile",this.state)
     return (
       <div> 
-        <div style={{ marginLeft: "254px", marginTop: "43px" }}>
+        <SideBar userDetails={this.props.userDetails} />
+        <div style={{ marginLeft: "254px"}}>
           <div class="w3-container servicelist" style={{height: '530px'}}>
             <h3>
               My Profile
@@ -431,6 +432,11 @@ export default class profile extends Component {
           </div>
           <hr />
         </div>
+        <footer class="w3-container w3-padding-16 w3-grey">
+            <p>
+              <strong>Copyright</strong>&nbsp; © 2021 All Rights Reserved.
+            </p>
+          </footer>
       </div>
     );
   }

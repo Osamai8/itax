@@ -80,10 +80,25 @@ class Main extends Component {
             <CustomerRegister />
           )}
         </Route>
+        {/* <Route path="*">
+            <NoMatch />
+          </Route> */}
       </Switch> 
-      <Footer />
+      {/* <Footer /> */}
     </>
     )
   }
 }
 export default withRouter(Main)
+
+function NoMatch() {
+  // let location = useLocation();
+
+  return (
+    <div>
+      <h3>
+        No match for <code> helloe </code>
+      </h3>
+    </div>
+  )
+}
