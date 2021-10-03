@@ -32,12 +32,12 @@ function ContactUs(props) {
               <div class="col-md-6">
                 <div class="contactinfo" style={{boxShadow: 'none'}}>
                   <h3>Contact info</h3>
-                  <div
+                 {props.contactDetails?.content &&  <div
                       dangerouslySetInnerHTML={{
                         __html: props.contactDetails.content,
                       }}
                     />
-                  
+                  }
                   {/* <div class="contactinfopane clearfix">
                     <div class="leftcontactpane">
                       <i class="fa fa-home" aria-hidden="true"></i> Head Office:

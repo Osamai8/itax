@@ -7,11 +7,12 @@ export default class downloadForm extends Component {
     super(props);
     this.state = {
       placeholder: {},
+      data : []
     };
   }
 
   componentDidMount() {
-    // this.fetchData();
+    this.fetchData();
     this.placeHolderAPI();
   }
 
@@ -19,6 +20,15 @@ export default class downloadForm extends Component {
     RestApi.placeholder("career").then((res) => {
       console.log("placeHolder: downloadFOrm: ", res);
       this.setState({ placeholder: res.data.data });
+    });
+  }
+  fetchData(){
+    RestApi.downloadForm().then((res) => {
+      console.log(" downloadFOrm: ", res);
+      if(res.data.status) {
+        this.setState({ data: res.data.data });
+
+      }
     });
   }
   render() {
@@ -70,187 +80,57 @@ export default class downloadForm extends Component {
                         Download
                       </td>
                     </tr>
-                    <tr>
-                      <td>1</td>
+                   { this.state.data.map((each,key)=> {
+                   return <tr ket={key}>
+                      <td>{key + 1}</td>
                       <th scope="row" class="cal-border cal-header">
-                        Service tax burden still with{" "}
+                       {each.form_name}
                       </th>
                       <td>
                         <ul>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014300_upload.txt"
+                          {each.document_doc &&<li>
+                            <a target="_blank"
+                            title="title"
+                              href={each.document_doc}
                               download=""
                             >
                               <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
                             </a>
-                          </li>
-                          <li>
+                          </li>}
+                          {each.document_pdf &&<li>
                             <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_upload.txt"
+                            target="_blank"
+                              href={each.document_pdf}
                               download=""
                             >
                               <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
                             </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_data.txt"
+                          </li>}
+                          
+                         { each.document_excel &&<li> <a
+                         target="_blank"
+                              href={each.document_excel}
                               download=""
                             >
                               <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
                             </a>
-                          </li>
+                          </li>}
                         </ul>
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <th scope="row" class="cal-border cal-header">
-                        Vat Forms
-                      </th>
-                      <td>
-                        <ul>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014300_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_data.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
-                            </a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <th scope="row" class="cal-border cal-header">
-                        Form Validation
-                      </th>
-                      <td>
-                        <ul>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014300_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_data.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
-                            </a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <th scope="row" class="cal-border cal-header">
-                        Government Looking At Mid 2016
-                      </th>
-                      <td>
-                        <ul>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014300_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_data.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
-                            </a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <th scope="row" style={{ borderLeft: "1px solid #ddd" }}>
-                        Companies Filing Of Documents
-                      </th>
-                      <td style={{ borderLeft: "1px solid #ddd" }}>
-                        <ul>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014300_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_upload.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="http://staging.itaxdoctor.com/uploads/2015/151020014301_data.txt"
-                              download=""
-                            >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
-                            </a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
+                   }) }
+                   
                   </tbody>
                 </table>
               </div>
-              <div class="col-md-4">
+              {this.state.placeholder?.image && <div class="col-md-4">
                 <div class="blog_right_sidebar text-justify">
                   <aside class="single_sidebar_widget">
                     <img
                       src={this.state.placeholder.image}
                       style={{ width: "100%" }}
                     />
-                    <h4 class="place_title">{this.state.placeholder.header}</h4>{" "}
+                    {this.state.placeholder?.header && <h4 class="place_title">{this.state.placeholder.header}</h4>}
                     <div
                       dangerouslySetInnerHTML={{
                         __html: this.state.placeholder.description,
@@ -258,7 +138,7 @@ export default class downloadForm extends Component {
                     />
                   </aside>
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
         </section>

@@ -15,8 +15,8 @@ import { toast } from "react-toastify";
 const schema = Yup.object().shape({
   email: Yup.string().email("Email must be a valid email ").required("Email is required"),
   first_name: Yup.string().required("First name is required"),
-  //   last_name: Yup.string().required("Last name is required"),
-    
+    agree: Yup.boolean().oneOf([true]),
+  
 phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone number is not valid'),
   password: Yup
   .string()
@@ -35,7 +35,6 @@ function CustomerRegister(props) {
   
   
   const history = useHistory();
-  const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
 
   useEffect(()=> {
@@ -65,11 +64,11 @@ function CustomerRegister(props) {
           autoClose: 2000,
         });
         reset({...data,password:"",confirmPassword:""});
+        //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
-       
         history.push(`/login`)
       }
       if (res.data.error) {
@@ -97,12 +96,6 @@ function CustomerRegister(props) {
       
     }
   };
-  console.log(responseError)
- if(responseError.length > 0) {
-  setTimeout(()=> { 
-    setResponseError({})
-  },5000)
- }
  
   return (
     <div>
@@ -130,14 +123,6 @@ function CustomerRegister(props) {
                      
                     <fieldset>
                       <section><br/>
-                      {
-                    //  responseError.length >0 && responseError.map((each)=> { 
-                    //  return  each.error.map((error) => {
-                    //     return <p className="alert alert-danger">{error}</p>
-                    //    })
-                       
-                    //  })
-                  }
                         <div class="row">
                           <div class="col col-10">
                             <label class="input">
@@ -338,9 +323,9 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <div class="chkbox-group">
-                        <input type="checkbox" name="agree" required="Agree before continue"/>
-                        <span>I have read and agree to all the </span>
-                        <a href="#">Term & Condition</a>
+                        <input type="checkbox" name="agree" {...register("agree")} />
+                        <span style={errors["agree"] && {color:'#bf1f24'}}>I have read and agree to all the </span>
+                        <a style={errors["agree"] && {color:'#bf1f24'}} href="#">Term & Condition</a> 
                       </div>
                     </fieldset>
 
@@ -362,7 +347,7 @@ function CustomerRegister(props) {
                 </div>
               </div>
             </div>
-            <div class="Register_benefits">
+            {placeHolder?.image && placeHolder?.description && <div class="Register_benefits">
               {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
                 New User? <span>"Register to Become a Member"</span>
@@ -394,7 +379,7 @@ function CustomerRegister(props) {
                   your packages
                 </li>
               </ul> */}
-            </div>
+            </div> }
           </div>
         </div>
         <NewsLetter /> 

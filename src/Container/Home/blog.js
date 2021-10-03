@@ -1,10 +1,73 @@
 import React, { Component } from "react";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
-import blogImage from '../../images/blog/blog1.png'
-import NewsLetter from '../../Components/home/subscribeNewsletter'
+import blogImage from "../../images/blog/blog1.png";
+import NewsLetter from "../../Components/home/subscribeNewsletter";
+import RestApi from "../../services/api";
+import { Link } from "react-router-dom";
+
 export default class blog extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      currenPage: 1,
+      nextPage: 1,
+      prevPage: 1,
+      totalPages: 1,
+    };
+  }
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData() {
+    RestApi.blogs().then((res) => {
+      console.log("blog", res);
+      if (res.data.status) {
+        let nextPage = res.data.data.next_page_url?.slice(
+          res.data.data.next_page_url.lastIndexOf("=") + 1,
+          res.data.data.next_page_url.length
+        );
+        let prevPage = res.data.data.prev_page_url?.slice(
+          res.data.data.prev_page_url.lastIndexOf("=") + 1,
+          res.data.data.prev_page_url.length
+        );
+        this.setState({
+          data: res.data.data.data,
+          totalPages: res.data.data.last_page,
+          nextPage,
+          prevPage,
+        });
+      }
+    });
+  }
+  changePage(currenPage) {
+    console.log(currenPage)
+    if (currenPage != this.state.currenPage && !isNaN(currenPage)) {
+      this.setState({ currenPage });
+    }
+  }
+  pageNumbers() {
+    let { totalPages } = this.state;
+    let renderData = [];
+    for (let i = 1; i <= totalPages; i++) {
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(i)}
+            class={
+              this.state.currenPage == i ? "page-item active" : "page-item"
+            }
+          >
+            <a class="page-link">{i}</a>
+          </li>
+        </>
+      );
+    }
+    return renderData;
+  }
   render() {
+    console.log("blog", this.state);
     const styles = {
       display: {
         display: "none",
@@ -25,46 +88,50 @@ export default class blog extends Component {
             <div class="row">
               <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                  <div class="media post_item">
+                  {this.state.data.length > 0 &&
+                    this.state.data.map((each, key) => {
+                      return (
+                        <>
+                          <div class="media post_item">
+                            <div class="col-md-3">
+                              <img
+                                src={each.blog_image}
+                                alt="blog"
+                                class="post-img"
+                              />
+                            </div>
+                            <div class="col-md-9">
+                              <div class="media-body">
+                                <a href="#">
+                                  <h3>s{each.heading}</h3>
+                                </a>
+                                <strong>{each.published_date}</strong>
+                                <div
+                      dangerouslySetInnerHTML={{
+                        __html: each.short_description
+                      }}
+                    /> 
+                                
+                               <Link to={`/blog-details/${each.id}`}>
+                               <a
+                                  class="readmore"
+                                  data-toggle="modal"
+                                  data-target="#blogModal"
+                                >
+                                  Read More...
+                                </a>
+                               </Link>
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                        </>
+                      );
+                    })}
+
+                  {/*  <div class="media post_item">
                     <div class="col-md-3">
-                      <img
-                        src={blogImage}
-                        alt="blog"
-                        class="post-img"
-                      />
-                    </div>
-                    <div class="col-md-9">
-                      <div class="media-body">
-                        <a href="#">
-                          <h3>Business Startup Services</h3>
-                        </a>
-                        <strong>January 12, 2021</strong>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <a
-                          href="#"
-                          class="readmore"
-                          data-toggle="modal"
-                          data-target="#blogModal"
-                        >
-                          Read More...
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="media post_item">
-                    <div class="col-md-3">
-                      <img
-                        src={blogImage}
-                        alt="blog"
-                        class="post-img"
-                      />
+                      <img src={blogImage} alt="blog" class="post-img" />
                     </div>
                     <div class="col-md-9">
                       <div class="media-body">
@@ -90,132 +157,36 @@ export default class blog extends Component {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div class="media post_item">
-                    <div class="col-md-3">
-                      <img
-                        src={blogImage}
-                        alt="blog"
-                        class="post-img"
-                      />
-                    </div>
-                    <div class="col-md-9">
-                      <div class="media-body">
-                        <a href="#">
-                          <h3>Financial Funding and Debt Mgmt.</h3>
-                        </a>
-                        <strong>January 12, 2021</strong>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <a
-                          href="#"
-                          class="readmore"
-                          data-toggle="modal"
-                          data-target="#blogModal"
-                        >
-                          Read More...
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="media post_item">
-                    <div class="col-md-3">
-                      <img
-                        src={blogImage}
-                        alt="blog"
-                        class="post-img"
-                      />
-                    </div>
-                    <div class="col-md-9">
-                      <div class="media-body">
-                        <a href="#">
-                          <h3>Outsourcing Services</h3>
-                        </a>
-                        <strong>January 12, 2021</strong>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <a
-                          href="#"
-                          class="readmore"
-                          data-toggle="modal"
-                          data-target="#blogModal"
-                        >
-                          Read More...
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="media post_item">
-                    <div class="col-md-3">
-                      <img
-                        src={blogImage}
-                        alt="blog"
-                        class="post-img"
-                      />
-                    </div>
-                    <div class="col-md-9">
-                      <div class="media-body">
-                        <a href="#">
-                          <h3>Foreign Company Setup in India</h3>
-                        </a>
-                        <strong>January 12, 2021</strong>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <a
-                          href="#"
-                          class="readmore"
-                          data-toggle="modal"
-                          data-target="#blogModal"
-                        >
-                          Read More...
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
+                   
+                  <hr />*/}
                   <nav class="blog-pagination">
                     <ul class="pagination">
-                      <li class="page-item">
-                        <a
-                          href="#"
-                          class="page-link preview"
-                          aria-label="Previous"
-                        >
-                          <i class="fa fa-angle-double-left"></i> Prev.
-                        </a>
-                      </li>
-                      <li class="page-item active">
-                        <a href="#" class="page-link">
-                          1
-                        </a>
-                      </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
-                          2
-                        </a>
-                      </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link next" aria-label="Next">
-                          Next <i class="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
+                    <li class="page-item">
+                      <a
+                        onClick={() =>
+                          this.state.currenPage != 1 &&
+                          this.changePage(this.state.prevPage)
+                        }
+                        class="page-link preview"
+                        aria-label="Previous"
+                      >
+                        <i class="fa fa-angle-double-left"></i> Prev.
+                      </a>
+                    </li>
+                    {this.pageNumbers()}
+                    <li class="page-item">
+                      <a
+                        onClick={() =>
+                          this.state.currenPage < this.state.totalPages &&
+                          this.changePage(this.state.nextPage)
+                        }
+                        disabled
+                        class="page-link next"
+                        aria-label="Next"
+                      >
+                        Next <i class="fa fa-angle-double-right"></i>
+                      </a>
+                    </li>
                     </ul>
                   </nav>
                 </div>
@@ -225,7 +196,7 @@ export default class blog extends Component {
                   <aside class="single_sidebar_widget search_widget">
                     <form action="#">
                       <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group " style={{ display: "" }}>
                           <input
                             type="text"
                             class="form-control"
@@ -411,8 +382,8 @@ export default class blog extends Component {
           </div>
         </div>
 
-       <NewsLetter/> 
-       <Footer/>
+        <NewsLetter />
+        <Footer />
       </div>
     );
   }

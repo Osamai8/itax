@@ -33,7 +33,7 @@ export default class about extends Component {
   fetchData = () => {
     RestApi.aboutUs().then((response) => {
       console.log(response.data);
-      if (response.data.data) {
+      if (response.data.status) {
         let about = {
           heading: response.data.data.about_us_profile_heading,
           description: response.data.data.about_us_profile.aboutus_content,
@@ -168,7 +168,7 @@ export default class about extends Component {
             </div>
           </section>
           {/* <!-- end: 6-T section --> */}
-          <OurTeam teams={this.state.teams} />
+          {this.state.teams.data.length > 0 && <OurTeam teams={this.state.teams} />}
           {/* <!-- start: team section --> */}
           <NewsLetter />
         </div>{" "}

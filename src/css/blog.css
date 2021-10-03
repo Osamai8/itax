@@ -382,7 +382,7 @@ ul {
     -o-transform: scale(1.1);
     transform: scale(1.1);
 }
-..post_item .post-img {
+.post_item .post-img {
   overflow: hidden;
 }
 .post_item .media-body {
@@ -456,7 +456,8 @@ ul {
     border-radius: 0 !important;
     color: #8a8a8a;
     border: 1px solid #f0e9ff;
-    margin-right: 10px
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .blog-pagination .page-link i,
@@ -479,9 +480,14 @@ ul {
     color: #fff !important;
     width: 65px;
 }
+.disabled-prevNext {
+    background-image: linear-gradient(to bottom, #edebe4, #ebb962)!important;
+
+}
 .blog-pagination .page-link.preview:hover {
     background-color: #ffa600;
     background-image: linear-gradient(to bottom, #ffa200, #ffd200);
+    cursor: pointer;
 }
 .blog-pagination .page-link.next {
     background-color: #ffa600;

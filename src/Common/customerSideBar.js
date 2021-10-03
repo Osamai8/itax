@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import avatar2 from "../images/avatar2.png";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class sideBar extends Component {
+class sideBar extends Component {
   constructor(props) {
     console.log("props sidebar", props);
     super(props);
@@ -10,15 +11,161 @@ export default class sideBar extends Component {
       drawerSwitch: false,
     };
   }
+  componentDidMount(){
 
+  }
+  
+
+  changeDashboard(e){
+    console.log(e.target.value)
+    this.props.dispatch({
+      type:"DASHBOARD",
+      payload: e.target.value
+    })
+  }
   handleSidebar() {
     this.setState({
       drawerSwitch: !this.state.drawerSwitch,
     });
   }
+  dashboardMenu() {
+    if (this.props.dashboard == "customer") {
+      return (
+        <>
+          <Link
+            to="/manage-services"
+            className="w3-bar-item w3-button w3-padding"
+          >
+            <i className="fa fa-eye fa-fw"></i>  Sevice Request
+          </Link>
+          <Link to="#" className="w3-bar-item w3-button w3-padding">
+            <i className="fa fa-eye fa-fw"></i>  Meating Schedule
+          </Link>
+          <Link to="#" className="w3-bar-item w3-button w3-padding">
+            <i className="fa fa-eye fa-fw"></i>  Report
+          </Link>
+
+          <Link to="#" className="w3-bar-item w3-button w3-padding">
+            <i className="fa fa-bank fa-fw"></i>  Referal
+          </Link>
+        </>
+      );
+    } else if (this.props.dashboard == "partners") {
+      return (
+        <>
+         
+          <a
+            onclick="myFunc1()"
+            href="javascript:void(0)"
+            class="w3-bar-item w3-button w3-padding w3-block w3-left-align"
+            id="myService"
+          >
+            <i class="fa fa-eye fa-fw"></i>  Sevices{" "}
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <div
+            id="demoDrop1"
+            class="w3-bar-block w3-hide w3-padding-large w3-small"
+          >
+            <a href="manage-services.php" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Manage Sevices
+            </a>
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Closed Sevices
+            </a>
+          </div>
+          <a
+            onclick="myFunc2()"
+            href="javascript:void(0)"
+            class="w3-bar-item w3-button w3-padding w3-block w3-left-align"
+            id="myMeeting"
+          >
+            <i class="fa fa-eye fa-fw"></i>  Meetings{" "}
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <div
+            id="demoDrop2"
+            class="w3-bar-block w3-hide w3-padding-large w3-small"
+          >
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> New Meetings
+            </a>
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Meeting Schedule
+            </a>
+          </div>
+          <a
+            onclick="myFunc3()"
+            href="javascript:void(0)"
+            class="w3-bar-item w3-button w3-padding w3-block w3-left-align"
+            id="myMgmt"
+          >
+            <i class="fa fa-eye fa-fw"></i>  Management{" "}
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <div
+            id="demoDrop3"
+            class="w3-bar-block w3-hide w3-padding-large w3-small"
+          >
+            <a href="services_list_invoice.php" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Invoice
+            </a>
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> T & C | N D A
+            </a>
+          </div>
+          <a
+            onclick="myFunc4()"
+            href="javascript:void(0)"
+            class="w3-bar-item w3-button w3-padding w3-block w3-left-align"
+            id="myReport"
+          >
+            <i class="fa fa-eye fa-fw"></i>  Report{" "}
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <div
+            id="demoDrop4"
+            class="w3-bar-block w3-hide w3-padding-large w3-small"
+          >
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Ledger
+            </a>
+          </div>
+          <a
+            onclick="myFunc5()"
+            href="javascript:void(0)"
+            class="w3-bar-item w3-button w3-padding w3-block w3-left-align"
+            id="myBlog"
+          >
+            <i class="fa fa-eye fa-fw"></i>  Blogs{" "}
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <div
+            id="demoDrop5"
+            class="w3-bar-block w3-hide w3-padding-large w3-small"
+          >
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> New Blogs
+            </a>
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Manage Blogs
+            </a>
+            <a href="#" class="w3-bar-item w3-button">
+              <i class="fa fa-caret-right"></i> Published Blogs
+            </a>
+          </div>
+          <a href="#" class="w3-bar-item w3-button w3-padding">
+            <i class="fa fa-bank fa-fw"></i>  Referal
+          </a>
+          <br />
+          <br />
+        </>
+      );
+    }
+  }
 
   render() {
-    let {userDetails} = this.props
+    let { userDetails } = this.props;
     console.log(this.props);
     const styles = {
       sideBarMenu: {
@@ -65,22 +212,7 @@ export default class sideBar extends Component {
             >
               <i className="fa fa-users fa-fw"></i>  My Profile
             </Link>
-            <Link
-              to="/manage-services"
-              className="w3-bar-item w3-button w3-padding"
-            >
-              <i className="fa fa-eye fa-fw"></i>  Sevice Request
-            </Link>
-            <Link to="#" className="w3-bar-item w3-button w3-padding">
-              <i className="fa fa-eye fa-fw"></i>  Meating Schedule
-            </Link>
-            <Link to="#" className="w3-bar-item w3-button w3-padding">
-              <i className="fa fa-eye fa-fw"></i>  Report
-            </Link>
-
-            <Link to="#" className="w3-bar-item w3-button w3-padding">
-              <i className="fa fa-bank fa-fw"></i>  Referal
-            </Link>
+            {this.dashboardMenu()}
             <br />
             <br />
           </div>
@@ -112,17 +244,39 @@ export default class sideBar extends Component {
             <p className="w3-left w3-medium">
               <span>
                 <strong>
-                  {`${userDetails.name} ${userDetails.middle_name != null ? userDetails.middle_name : '' } ${userDetails.last_name != null ?userDetails.last_name : ''}`}
+                  {this.props.userDetails && `${userDetails.name} ${
+                    userDetails.middle_name != null
+                      ? userDetails.middle_name
+                      : ""
+                  } ${
+                    userDetails.last_name != null ? userDetails.last_name : ""
+                  }`}
                 </strong>
                 {",  "}
-                {userDetails.isServiceProvider == "yes" &&
-                userDetails.isCustomer == "yes" ? (
-                  (<select className="user-change-select">
+                {this.props.userDetails && this.props.userDetails.isServiceProvider == "yes" &&
+                this.props.userDetails.isCustomer == "yes" ? (
+                  <select onChange={(e)=> this.changeDashboard(e)} className="user-change-select">
                     {" "}
-                    <option>Customer</option>
-                    <option>Service Provider</option>{" "}
-                  </select>)
-                ) :  userDetails.isServiceProvider == "yes" ? "Service Provider" : "Customer"}
+                    <option value="customer"
+                      selected={
+                        this.props.dashboard == "customer" && "selected"
+                      }
+                    >
+                      Customer
+                    </option>
+                    <option value="partners"
+                      selected={
+                        this.props.dashboard == "partners" && "selected"
+                      }
+                    >
+                      Service Provider
+                    </option>{" "}
+                  </select>
+                ) : this.props.userDetails.isServiceProvider == "yes" ? (
+                  "Service Provider"
+                ) : (
+                  "Customer"
+                )}
               </span>
               <br />
               <span className="w3-small">{`${day} ${month} ${year}`}</span>
@@ -147,3 +301,9 @@ export default class sideBar extends Component {
     );
   }
 }
+export default connect((state) => {
+  return {
+    dashboard: state?.dashboard,
+    userDetails: state?.userDetails
+  };
+})(sideBar);

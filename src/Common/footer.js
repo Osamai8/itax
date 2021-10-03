@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import accuredImage from "../images/accurecode.jpg"
 import {Link} from 'react-router-dom'
 function Footer() {
+  useEffect(()=> {
+    window.scrollTo(0, 0)
+  },[])
   return (
     <div>
       <footer class="footer">

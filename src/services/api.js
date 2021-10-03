@@ -63,10 +63,24 @@ export default class RestApi {
   static videos() {
     return axios.get(`${baseURL}/videos`);
   }
-  static newsletters() {
-    return axios.get(`${baseURL}/newsletters`);
+  static newsletters(pageNo) {
+    //API returns pagination based on params of page such as /1 , s/2
+    return axios.get(`${baseURL}/newsletters?page=${pageNo}`);
   }
   static placeholder(param) {
     return axios.get(`${baseURL}/placeholder/${param}`);
   }
+  static subscribe(params) {
+    return axios.post(`${baseURL}/subscribe-newsletters`,params);
+  }
+  static downloadForm() {
+    return axios.get(`${baseURL}/download-forms`);
+  }
+  static blogs(pageNo) {
+    return axios.get(`${baseURL}/blogs?page=${pageNo}`);
+  }
+  static blogDetails(id) {
+    return axios.get(`${baseURL}/blogs/${id}`);
+  }
 }
+

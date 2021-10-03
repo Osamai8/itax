@@ -2633,7 +2633,8 @@ cite .by {
 .inputpane {
     background-color: #f3f3f3;
     border: 1px solid #e6e6e6;
-    color: #b7b6b6; 
+    /* color: #b7b6b6; //chnaged */
+    color:black;
     font-size: 14px;
     box-shadow: none;
     margin: 8px 0px;

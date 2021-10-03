@@ -10,12 +10,15 @@ export default class index extends Component {
       title: "dashboard",
     };
   }
+  componentDidMount(){
+    console.log("dashbaord")
+  }
 
   render() {
     console.log(this.state);
     return (
       <>
-        <SideBar userDetails={this.props.userDetails} />
+        <SideBar />
         <div style={{ marginLeft: "254px" }}>
           <div class="w3-panel">
             <div class="w3-row-padding" style={{}}>

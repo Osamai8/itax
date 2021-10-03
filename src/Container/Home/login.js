@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import Modal from "../../Components/modal/modalRoot";
 import { toast } from "react-toastify";
+import Footer from "../../Common/footer";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -28,13 +29,16 @@ function Login(props) {
     message: "",
   });
   const [placeHolder, setPlaceHolder] = useState({});
-  useEffect(()=> {
-    let params = props.activeForm == "partners" ? 'business-partner-login' : 'customer-login'
-    RestApi.placeholder(params).then((res)=> {
-      console.log("placeholder login: ",res)
-      setPlaceHolder(res.data.data)
-    })
-  },[])
+  useEffect(() => {
+    let params =
+      props.activeForm == "partners"
+        ? "business-partner-login"
+        : "customer-login";
+    RestApi.placeholder(params).then((res) => {
+      console.log("placeholder login: ", res);
+      setPlaceHolder(res.data.data);
+    });
+  }, []);
 
   const {
     register,
@@ -137,10 +141,10 @@ function Login(props) {
     props.dispatch({
       type: "LOGIN",
       payload: data,
-    },
-    {
+    });
+    props.dispatch({
       type: "DASHBOARD",
-      payload:"customer"
+      payload: props.activeForm,
     });
     // setMessage("Login SuccessFull");
 
@@ -227,33 +231,34 @@ function Login(props) {
       RestApi.socialLogin(data).then((res) => {
         console.log("socialLogin: ", res);
         if (res.data.access_token && res.data.status == true) {
-          let data = {
-            name: res.data.data.first_name,
-            email: res.data.data.email,
-            phone: res.data.data.phone,
-            last_name: res.data.data.last_name,
-            middle_name: res.data.data.middle_name,
-            photo: res.data.data.photo,
-            isCustomer: res.data.data.is_customer,
-            isServiceProvider: res.data.data.is_service_provider,
-            _token: res.data.access_token,
-          };
-          props.dispatch({
-            type: "LOGIN",
-            payload: data,
-          });
-          if (
-            res.data.data.is_customer == "yes" &&
-            res.data.data.is_service_provider == "yes"
-          ) {
-            props.activeForm == "customer"
-              ? history.push(`/customer/dashboard`)
-              : history.push(`/partner/dashboard`);
-          } else if (res.data.data.is_customer == "yes") {
-            history.push(`/customer/dashboard`);
-          } else if (res.data.data.is_service_provider == "yes") {
-            history.push(`/partner/dashboard`);
-          }
+          handleResponse(res);
+          // let data = {
+          //   name: res.data.data.first_name,
+          //   email: res.data.data.email,
+          //   phone: res.data.data.phone,
+          //   last_name: res.data.data.last_name,
+          //   middle_name: res.data.data.middle_name,
+          //   photo: res.data.data.photo,
+          //   isCustomer: res.data.data.is_customer,
+          //   isServiceProvider: res.data.data.is_service_provider,
+          //   _token: res.data.access_token,
+          // };
+          // props.dispatch({
+          //   type: "LOGIN",
+          //   payload: data,
+          // });
+          // if (
+          //   res.data.data.is_customer == "yes" &&
+          //   res.data.data.is_service_provider == "yes"
+          // ) {
+          //   props.activeForm == "customer"
+          //     ? history.push(`/customer/dashboard`)
+          //     : history.push(`/partner/dashboard`);
+          // } else if (res.data.data.is_customer == "yes") {
+          //   history.push(`/customer/dashboard`);
+          // } else if (res.data.data.is_service_provider == "yes") {
+          //   history.push(`/partner/dashboard`);
+          // }
         }
         if (res.data.status == false && res.data.status_code == 300) {
           // props.dispatch({
@@ -627,21 +632,22 @@ function Login(props) {
                 </div>
               </div>
             </div>
-            <div class="Register_benefits">
-              {/* <h4>Creat an Account</h4> */}
-              {/* <h5>
+            {placeHolder?.image && placeHolder?.description && (
+              <div class="Register_benefits">
+                {/* <h4>Creat an Account</h4> */}
+                {/* <h5>
                 New User? <span>"Register to Become a Member"</span>
               </h5>
               <p>
                 <strong>Registered User Benefits...</strong>
               </p> */}
-              <img src={placeHolder.image} />
-              <div
-                      dangerouslySetInnerHTML={{
-                        __html: placeHolder.description,
-                      }}
-                    />
-              {/* <ul>
+                <img src={placeHolder.image} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: placeHolder.description,
+                  }}
+                />
+                {/* <ul>
                 <li>
                   <i class="fa fa-circle"></i>File Free ITR online
                 </li>
@@ -659,14 +665,15 @@ function Login(props) {
                   your packages
                 </li>
               </ul> */}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
       <Modal
         isOpen={showRegisterModal.status}
         title="Confirm"
-        close={()=>handlClose()}
+        close={() => handlClose()}
         body={
           <div className="col">
             {showRegisterModal.message}
@@ -689,6 +696,7 @@ function Login(props) {
         }
       />
       <NewsLetter />
+      <Footer/>
     </div>
   );
 }

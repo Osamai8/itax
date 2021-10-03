@@ -297,7 +297,7 @@ function PartnerRegister() {
                 </div>
               </div>
             </div>
-            <div class="Register_benefits">
+            {placeHolder?.image && placeHolder?.description &&<div class="Register_benefits">
               {/* {placeHolder.header} */}
               {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
@@ -312,7 +312,7 @@ function PartnerRegister() {
                         __html: placeHolder?.description,
                       }}
                     />
-            </div>
+            </div>}
           </div>
         </div>
         <NewsLetter />

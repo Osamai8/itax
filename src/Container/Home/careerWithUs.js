@@ -13,13 +13,13 @@ export default class career extends Component {
     this.state = {
       positions: [],
       openModal: false,
-      placeholder: {}
+      placeholder: {},
     };
   }
 
   componentDidMount() {
     this.fetchData();
-    this.placeHolderAPI()
+    this.placeHolderAPI();
   }
   fetchData = () => {
     RestApi.careers().then((res) => {
@@ -28,11 +28,11 @@ export default class career extends Component {
       this.setState({ positions });
     });
   };
-  placeHolderAPI(){
-    RestApi.placeholder('career').then((res)=> {
-      console.log("placeHolder: career: ",res)
-      this.setState({ placeholder: res.data.data })
-    })
+  placeHolderAPI() {
+    RestApi.placeholder("career").then((res) => {
+      console.log("placeHolder: career: ", res);
+      this.setState({ placeholder: res.data.data });
+    });
   }
   render() {
     console.log("this", this.state);
@@ -50,29 +50,31 @@ export default class career extends Component {
               <div class="col-md-8">
                 {this.state.positions.length > 0 &&
                   this.state.positions.map((each, key) => {
-                   return <div class="current-opening">
-                      <div class="border" key={key}>
-                        <h3 class="job-summary">
-                          Position :{each.position}
-                        </h3>
-                        <div
-                dangerouslySetInnerHTML={{ __html: each.job_details }}
-              />
-              <div class="text-center">
-                      <a
-                        class="button newsletter no-pip"
-                        data-toggle="modal"
-                        data-target="#apply_modal"
-                        onClick={()=>this.setState({openModal:true})}
-                      >
-                        Apply Now
-                        <span>
-                          <i class="fa fa-arrow-circle-right"></i>
-                        </span>
-                      </a>
-                    </div>
+                    return (
+                      <div class="current-opening">
+                        <div class="border" key={key}>
+                          <h3 class="job-summary">Position :{each.position}</h3>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: each.job_details,
+                            }}
+                          />
+                          <div class="text-center">
+                            <a
+                              class="button newsletter no-pip"
+                              data-toggle="modal"
+                              data-target="#apply_modal"
+                              onClick={() => this.setState({ openModal: true })}
+                            >
+                              Apply Now
+                              <span>
+                                <i class="fa fa-arrow-circle-right"></i>
+                              </span>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>;
+                    );
                   })}
                 {/* <div class="current-opening">
                   <div class="border">
@@ -133,20 +135,25 @@ export default class career extends Component {
                 </div>
                */}
               </div>
-              <div class="col-md-4">
-                <div class="blog_right_sidebar">
-                  <aside class="single_sidebar_widget">
-                    <img src={this.state.placeholder.image} style={{ width: "100%" }} />
-                    <h4 class="place_title">{this.state.placeholder.header}</h4>
-                    {" "}
-                     <div
-                      dangerouslySetInnerHTML={{
-                        __html: this.state.placeholder.description,
-                      }}
-                    />
-                  </aside>
-                </div>
-              </div>
+              {this.state.placeholder?.image &&
+                this.state.placeholder?.description && (
+                  <div class="col-md-4">
+                    <div class="blog_right_sidebar">
+                      <aside class="single_sidebar_widget">
+                        <img
+                          src={this.state.placeholder.image}
+                          style={{ width: "100%" }}
+                        />
+                        {this.state.placeholder?.header && <h4 class="place_title">{this.state.placeholder.header}</h4>}{" "}
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: this.state.placeholder.description,
+                          }}
+                        />
+                      </aside>
+                    </div>
+                  </div>
+                )}
 
               <div class="col-md-4">
                 <div class="blog_right_sidebar">
@@ -322,9 +329,14 @@ export default class career extends Component {
         </div>
 
         {/* // <!---------------------------modal--------------------------------------------> */}
-          <ModalRoot title={"CAREER OPPORTUNITIES"} isOpen={this.state.openModal} body={<CareerForm/>}/>
+        {this.state.openModal && <ModalRoot
+          title={"CAREER OPPORTUNITIES"}
+          close={() => this.setState({ openModal: false })}
+          isOpen={this.state.openModal}
+          body={<CareerForm />}
+        />}
         <NewsLetter />
-        <Footer/>
+        <Footer />
       </>
     );
   }

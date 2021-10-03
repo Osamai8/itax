@@ -6,7 +6,7 @@ export default class Pages extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      data: {content: ''},
     };
   }
   componentDidMount() {

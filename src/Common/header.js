@@ -5,11 +5,12 @@ import RestApi from "../services/api";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import ModalRoot from "../Components/modal/modalRoot";
+import { withRouter } from "react-router";
 function Header(props) {
 
-  const [openModal, setOpenModal] = useState(false)
+  const [openLogoutModal, setOpenLogoutModal] = useState(false)
   const handleLogout = () => {
-    setOpenModal(false)
+    setOpenLogoutModal(false)
     RestApi.logout()
       .then((res) => {
         console.log(res);
@@ -17,6 +18,7 @@ function Header(props) {
             type: "LOGOUT",
           });
           RestApi.defaultToken(null)
+          props.history.replace('/')
         toast.success("Logout successfully");
       })
 
@@ -25,7 +27,7 @@ function Header(props) {
       });
   };
   const handleClose = ()=> {
-    setOpenModal(false)
+    setOpenLogoutModal(false)
   }
   return (
     //  site-navigation start
@@ -135,7 +137,7 @@ function Header(props) {
                     type="submit"
                     class="button save-btn dash-logout"
                     title="Logout"
-                    onClick={()=> setOpenModal(true)}
+                    onClick={()=> setOpenLogoutModal(true)}
                   >
                     <i class="fa fa-power-off"></i>
                   </button>
@@ -191,7 +193,7 @@ function Header(props) {
         {/*  nav links  */}
       </div>
       {/*  /.container  */}
-      <ModalRoot isOpen={openModal} close={()=>handleClose()} title={'logout'}body={
+      {openLogoutModal && <ModalRoot isOpen={openLogoutModal} close={()=>handleClose()} title={'logout'}body={
        <div class="row">
        <div class="col-md-12">
         <form class="form-horizontal" role="form" method="post" action="#" enctype="multipart/form-data">
@@ -207,7 +209,7 @@ function Header(props) {
       </form>
      </div>
     </div>
-      }/>
+      }/>}
     </nav>
   );
 }
@@ -218,4 +220,4 @@ export default connect((state, props) => {
     socialIcons: state.socialIcons,
     contactDetails: state.contactDetails
   };
-})(Header);
+})(withRouter(Header));

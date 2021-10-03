@@ -19,37 +19,31 @@ export default class Home extends Component {
     };
   }
   componentDidMount() {
-    if(this.state.bannerData.length > 0 ) {
-      
-    }
-    else {
       this.fetchbanner();
-    }
-    const titleElement = document.getElementById("root");
-    titleElement.scrollIntoView({ behavior: "smooth" });
-    
   }
-  componentDidUpdate() {
-
-  }
+  componentDidUpdate() {}
   fetchbanner = () => {
     console.log("index");
     RestApi.homePage().then((res) => {
+      let video = {video_link: '',description:'',video_heading:''};
       console.log("response", res.data);
-      let {data} = res.data
-      data.featured_video.video_link =
-        data.featured_video.video_link.slice(
+      let { data } = res.data;
+      if (data.featured_video != null && data.featured_video.video_link) {
+        video.video_link = data.featured_video.video_link.slice(
           data.featured_video.video_link.lastIndexOf("=") + 1,
-          data.featured_video.video_link.length
-        );
-      console.log("aaaaaa", data.featured_video.video_link);
+          data.featured_video.video_link.length );
+          video.description = data.featured_video.description
+          video.video_heading = data.featured_video.video_heading
+        }
+      // console.log("aaaaaa", data.featured_video.video_link);
       this.setState({
         bannerData: data.banners,
-        featuredVideo: data.featured_video,
+        featuredVideo: video,
       });
     });
   };
   render() {
+    let { featuredVideo,bannerData } = this.state
     return (
       <>
         <div id="home-page">
@@ -83,7 +77,7 @@ export default class Home extends Component {
                 <img src={videoLogo} alt="Schedule A video Call" />
               </div>
             </div>
-            <Slider bannerData={this.state.bannerData} />
+            <Slider bannerData={bannerData} />
           </header>
           {/* <!-- /Header --> */}
           <div class="blog_area">
@@ -132,18 +126,22 @@ export default class Home extends Component {
                   <div class="single_department other-act">
                     <div class="department_content">
                       <h3>FEATURED VIDEO</h3>
-                      <div class="embed-responsive embed-responsive-16by9 topbtmmargin">
-                        <iframe
-                          id="ytplayer"
-                          width="640"
-                          height="360"
-                          src={`https://www.youtube.com/embed/${this.state.featuredVideo.video_link}`}
-                          frameborder="0"
-                          allowfullscreen=""
-                          alt={this.state.featuredVideo.video_heading}
-                        ></iframe>
-                      </div>
-                      <p>{this.state.featuredVideo.video_heading}</p>
+                      {featuredVideo.video_link != '' ? (<div  class="embed-responsive embed-responsive-16by9 topbtmmargin">
+                       
+                          <iframe
+                            id="ytplayer"
+                            width="640"
+                            height="360"
+                            src={`https://www.youtube.com/embed/${featuredVideo.video_link}`}
+                            frameborder="0"
+                            allowfullscreen=""
+                            alt={featuredVideo.video_heading}
+                          ></iframe>
+                        
+                      </div> ) : (
+                          <div style={{textAlign:'center',marginTop:'100px'}}> No Video Available </div>
+                       )}
+                      <p>{featuredVideo.description}</p>
                     </div>
                   </div>
                 </div>
@@ -200,11 +198,13 @@ export default class Home extends Component {
                         <div class="downloadform">
                           <ul>
                             <a href="#">
-                              <li>
-                              <Link to="/download_form">  <i class="fa fa-buysellads"></i>Form </Link>
-
-                                
-                              </li>
+                              <Link to="/download_form">
+                                {" "}
+                                <li>
+                                  {" "}
+                                  <i class="fa fa-buysellads"></i>Form{" "}
+                                </li>
+                              </Link>
                             </a>
                             <a href="#">
                               <li>
@@ -212,14 +212,20 @@ export default class Home extends Component {
                               </li>
                             </a>
                             <a href="#">
-                              <li>
-                              <Link to="/newsletters">  <i class="fa fa-envelope"></i>Newsletter </Link>
-                              </li>
+                              {" "}
+                              <Link to="/newsletters">
+                                <li>
+                                  <i class="fa fa-envelope"></i>Newsletter
+                                </li>
+                              </Link>
                             </a>
                             <a href="#">
-                              <li>
-                                <Link to="/videos"><i class="fa fa-file-video-o"></i>Videos</Link>
-                              </li>
+                              <Link to="/videos">
+                                {" "}
+                                <li>
+                                  <i class="fa fa-file-video-o"></i>Videos
+                                </li>
+                              </Link>
                             </a>
                           </ul>
                         </div>
@@ -234,7 +240,7 @@ export default class Home extends Component {
           <Testimonials />
           {/* <!---------------------------Newsletter Section----------------------------> */}
           <NewsLetter />
-          <Footer/>
+          <Footer />
         </div>
       </>
     );

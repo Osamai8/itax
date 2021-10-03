@@ -43,5 +43,6 @@ export default connect(function (state, props) {
   return {
     isLogged: state?.isLogged,
     userDetails: state?.userDetails,
+    dashboard : state?.dashboard
   };
 })(withRouter(Main));
