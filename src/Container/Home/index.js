@@ -95,15 +95,17 @@ export default class Home extends Component {
                   >
                     {this.state.blogs.map((each) => {
                       return (
-                        <>
+                        <Link to={`blog-details/${each.id}`}>
                           <li>
-                            <a href="p">{each.heading}</a>
+                            <a >{each.heading}</a>
                           </li>{" "}
-                        </>
+                        </Link>
                       );
                     })}
-                 
-                    
+
+                    {/* <li>
+                      <a href="p">Companies Filing of documents</a>
+                    </li> */}
                   </marquee>
                 </ul>
               </div>
