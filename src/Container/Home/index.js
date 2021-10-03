@@ -16,34 +16,37 @@ export default class Home extends Component {
     this.state = {
       bannerData: [],
       featuredVideo: {},
+      blogs: [],
     };
   }
   componentDidMount() {
-      this.fetchbanner();
+    this.fetchbanner();
   }
   componentDidUpdate() {}
   fetchbanner = () => {
     console.log("index");
     RestApi.homePage().then((res) => {
-      let video = {video_link: '',description:'',video_heading:''};
+      let video = { video_link: "", description: "", video_heading: "" };
       console.log("response", res.data);
       let { data } = res.data;
       if (data.featured_video != null && data.featured_video.video_link) {
         video.video_link = data.featured_video.video_link.slice(
           data.featured_video.video_link.lastIndexOf("=") + 1,
-          data.featured_video.video_link.length );
-          video.description = data.featured_video.description
-          video.video_heading = data.featured_video.video_heading
-        }
+          data.featured_video.video_link.length
+        );
+        video.description = data.featured_video.description;
+        video.video_heading = data.featured_video.video_heading;
+      }
       // console.log("aaaaaa", data.featured_video.video_link);
       this.setState({
         bannerData: data.banners,
         featuredVideo: video,
+        blogs: data.blogs,
       });
     });
   };
   render() {
-    let { featuredVideo,bannerData } = this.state
+    let { featuredVideo, bannerData } = this.state;
     return (
       <>
         <div id="home-page">
@@ -90,21 +93,17 @@ export default class Home extends Component {
                     // onmouseover="stop()"
                     // onmouseout="start()"
                   >
-                    <li>
-                      <a href="p">Refund without Adjustment</a>
-                    </li>
-                    <li>
-                      <a href="p">Income tax information</a>
-                    </li>
-                    <li>
-                      <a href="p">SEZ developers seek exemption</a>
-                    </li>
-                    <li>
-                      <a href="p">Companies Filing of documents</a>
-                    </li>
-                    <li>
-                      <a href="p">Irdai on policies in electronic form</a>
-                    </li>
+                    {this.state.blogs.map((each) => {
+                      return (
+                        <>
+                          <li>
+                            <a href="p">{each.heading}</a>
+                          </li>{" "}
+                        </>
+                      );
+                    })}
+                 
+                    
                   </marquee>
                 </ul>
               </div>
@@ -126,8 +125,8 @@ export default class Home extends Component {
                   <div class="single_department other-act">
                     <div class="department_content">
                       <h3>FEATURED VIDEO</h3>
-                      {featuredVideo.video_link != '' ? (<div  class="embed-responsive embed-responsive-16by9 topbtmmargin">
-                       
+                      {featuredVideo.video_link != "" ? (
+                        <div class="embed-responsive embed-responsive-16by9 topbtmmargin">
                           <iframe
                             id="ytplayer"
                             width="640"
@@ -137,10 +136,15 @@ export default class Home extends Component {
                             allowfullscreen=""
                             alt={featuredVideo.video_heading}
                           ></iframe>
-                        
-                      </div> ) : (
-                          <div style={{textAlign:'center',marginTop:'100px'}}> No Video Available </div>
-                       )}
+                        </div>
+                      ) : (
+                        <div
+                          style={{ textAlign: "center", marginTop: "100px" }}
+                        >
+                          {" "}
+                          No Video Available{" "}
+                        </div>
+                      )}
                       <p>{featuredVideo.description}</p>
                     </div>
                   </div>
