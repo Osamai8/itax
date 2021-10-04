@@ -37,7 +37,7 @@ export default class newsletter extends Component {
             month: "short",
           });
           each = { ...each, month };
-          if (i <= 6) {
+          if (i <= 5) {
             tableOne.push(each);
           } else {
             tableTwo.push(each);
@@ -66,7 +66,7 @@ export default class newsletter extends Component {
     RestApi.placeholder("newsletters").then((res) => {
       console.log("placeHolder: new: ", res);
       if (res.data.status) {
-        this.setState({ placeholder: res.data.data.data });
+        this.setState({ placeholder: res.data.data });
       }
     });
   }
@@ -274,7 +274,7 @@ export default class newsletter extends Component {
                     </tr>
                     {/* table two start */}
                     <tr>
-                      <td>{tableTwo.length >= 1 && 1}</td>
+                      <td>{tableTwo.length >= 1 && 7}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[0]?.month ? tableTwo[0]?.month : ""} ${
                           tableTwo[0]?.year ? tableTwo[0]?.year : ""
@@ -298,7 +298,7 @@ export default class newsletter extends Component {
                     </tr>
 
                     <tr>
-                      <td>{tableTwo.length >= 2 && 2}</td>
+                      <td>{tableTwo.length >= 2 && 8}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[1]?.month ? tableTwo[1]?.month : ""} ${
                           tableTwo[1]?.year ? tableTwo[1]?.year : ""
@@ -321,7 +321,7 @@ export default class newsletter extends Component {
                       </td>
                     </tr>
                     <tr>
-                      <td>{tableTwo.length >= 3 && 3}</td>
+                      <td>{tableTwo.length >= 3 && 9}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[2]?.month ? tableTwo[2]?.month : ""} ${
                           tableTwo[2]?.year ? tableTwo[2]?.year : ""
@@ -344,7 +344,7 @@ export default class newsletter extends Component {
                       </td>
                     </tr>
                     <tr>
-                      <td>{tableTwo.length >= 4 && 4}</td>
+                      <td>{tableTwo.length >= 4 && 8}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[3]?.month ? tableTwo[3]?.month : ""} ${
                           tableTwo[3]?.year ? tableTwo[3]?.year : ""
@@ -367,7 +367,7 @@ export default class newsletter extends Component {
                       </td>
                     </tr>
                     <tr>
-                      <td>{tableTwo.length >= 5 && 5}</td>
+                      <td>{tableTwo.length >= 5 && 11}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[4]?.month ? tableTwo[4]?.month : ""} ${
                           tableTwo[4]?.year ? tableTwo[4]?.year : ""
@@ -390,7 +390,7 @@ export default class newsletter extends Component {
                       </td>
                     </tr>
                     <tr>
-                      <td>{tableTwo.length >= 6 && 6}</td>
+                      <td>{tableTwo.length >= 6 && 12}</td>
                       <th scope="row" class="cal-left cal-header">
                         {`${tableTwo[5]?.month ? tableTwo[5]?.month : ""} ${
                           tableTwo[5]?.year ? tableTwo[5]?.year : ""
@@ -460,7 +460,7 @@ export default class newsletter extends Component {
                           this.state.currenPage != 1 &&
                           this.changePage(this.state.prevPage)
                         }
-                        class="page-link preview"
+                        class={this.state.currenPage != 1  ? "page-link preview" : "page-link preview disabled-pagi"}
                         aria-label="Previous"
                       >
                         <i class="fa fa-angle-double-left"></i> Prev.
@@ -474,7 +474,7 @@ export default class newsletter extends Component {
                           this.changePage(this.state.nextPage)
                         }
                         disabled
-                        class="page-link next"
+                        class={this.state.currenPage < this.state.totalPages ? "page-link next" : "page-link next disabled-pagi"}
                         aria-label="Next"
                       >
                         Next <i class="fa fa-angle-double-right"></i>

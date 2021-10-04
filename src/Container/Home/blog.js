@@ -167,7 +167,7 @@ export default class blog extends Component {
                           this.state.currenPage != 1 &&
                           this.changePage(this.state.prevPage)
                         }
-                        class="page-link preview"
+                        class={this.state.currenPage != 1  ? "page-link preview" : "page-link preview disabled-pagi"}
                         aria-label="Previous"
                       >
                         <i class="fa fa-angle-double-left"></i> Prev.
@@ -181,7 +181,7 @@ export default class blog extends Component {
                           this.changePage(this.state.nextPage)
                         }
                         disabled
-                        class="page-link next"
+                        class={this.state.currenPage < this.state.totalPages ? "page-link next" : "page-link next disabled-pagi"}
                         aria-label="Next"
                       >
                         Next <i class="fa fa-angle-double-right"></i>
