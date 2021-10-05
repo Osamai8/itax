@@ -9,40 +9,41 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Modal from "../../Components/registerModal";
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 const schema = Yup.object().shape({
-  email: Yup.string().email("Email must be a valid email ").required("Email is required"),
+  email: Yup.string()
+    .email("Email must be a valid email ")
+    .required("Email is required"),
   first_name: Yup.string().required("First name is required"),
-    agree: Yup.boolean().oneOf([true]),
-  
-phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone number is not valid'),
-  password: Yup
-  .string()
-  .required('Password is required')
-  .matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-    "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
-  ),
+  agree: Yup.boolean().oneOf([true]),
+
+  phone: Yup.string()
+    .required("Phone is required")
+    .matches("^[0-9]{10}$", "Phone number is not valid"),
+  password: Yup.string()
+    .required("Password is required")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
+    ),
   confirmPassword: Yup.string()
-      .when('password', (password, schema) => {
-        if (password) return schema.required('Confirm Password is required');
-      })
-      .oneOf([Yup.ref('password')], 'Passwords must match')
+    .when("password", (password, schema) => {
+      if (password) return schema.required("Confirm Password is required");
+    })
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 function CustomerRegister(props) {
-  
-  
   const history = useHistory();
   const [placeHolder, setPlaceHolder] = useState({});
 
-  useEffect(()=> {
-    RestApi.placeholder('customer-register').then((res)=> {
-      console.log("placeHolder: customer-register: ",res)
-      setPlaceHolder(res.data.data)
-    })
-  },[])
+  useEffect(() => {
+    RestApi.placeholder("customer-register").then((res) => {
+      console.log("placeHolder: customer-register: ", res);
+      setPlaceHolder(res.data.data);
+    });
+  }, []);
 
   const {
     register,
@@ -55,7 +56,7 @@ function CustomerRegister(props) {
 
   const onSubmitHandle = (data) => {
     console.log(data);
-   
+
     RestApi.register(data).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
@@ -63,22 +64,22 @@ function CustomerRegister(props) {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
         });
-        reset({...data,password:"",confirmPassword:""});
+        reset({ ...data, password: "", confirmPassword: "" });
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
-        history.push(`/login`)
+        history.push(`/login`);
       }
       if (res.data.error) {
         let { error } = res.data;
         //  console.log(err)
         // setResponseError(err);
-        error.email &&   toast.error(error.email[0]);
+        error.email && toast.error(error.email[0]);
         error.password && toast.error(error.password[0]);
         res.data.message && toast.error(res.data.message);
-       
+
         // alert(res.data.message);
       } else {
         // alert(res.data.message);
@@ -92,11 +93,10 @@ function CustomerRegister(props) {
       top: "6px",
     },
     error: {
-      borderColor: '#bf1f24',
-      
-    }
+      borderColor: "#bf1f24",
+    },
   };
- 
+
   return (
     <div>
       <Header />
@@ -112,7 +112,6 @@ function CustomerRegister(props) {
             <div class="sign-in-panel">
               <h4>Create your Account</h4>
               <div class="login-content">
-               
                 <div class="login-details align-content-center">
                   <form
                     onSubmit={handleSubmit(onSubmitHandle)}
@@ -120,9 +119,9 @@ function CustomerRegister(props) {
                     method="POST"
                     class="sky-form"
                   >
-                     
                     <fieldset>
-                      <section><br/>
+                      <section>
+                        <br />
                         <div class="row">
                           <div class="col col-10">
                             <label class="input">
@@ -146,13 +145,17 @@ function CustomerRegister(props) {
                                 autocomplete="off"
                               />
                               <input
-                              style={errors["email"] && styles.error}
+                                style={errors["email"] && styles.error}
                                 type="email"
                                 placeholder="Email"
                                 {...register("email")}
                                 autocomplete="off"
                               />
-                                {errors["email"] && <span style={{color:'#bf1f24'}}>{errors["email"].message}</span>}
+                              {errors["email"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["email"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -161,27 +164,22 @@ function CustomerRegister(props) {
                         <div class="row">
                           <div class="col col-10">
                             <label class="input">
-                              {/* {errors["first_name"] && (
-                                <>
-                                  <br />
-                                  <p className="alert-danger alert">
-                                    {" "}
-                                    {errors["first_name"]?.message}
-                                  </p>
-                                </>
-                              )} */}
                               <i
                                 class="icon-append fa fa-user-o"
                                 style={styles.top}
                               ></i>
                               <input
-                               style={errors["first_name"] && styles.error}
+                                style={errors["first_name"] && styles.error}
                                 type="text"
                                 placeholder="First Name"
                                 {...register("first_name")}
                                 autocomplete="off"
                               />
-                                {errors["first_name"] && <span style={{color:'#bf1f24'}}>{errors["first_name"].message}</span>}
+                              {errors["first_name"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["first_name"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -196,7 +194,7 @@ function CustomerRegister(props) {
                               ></i>
 
                               <input
-                                type="textl"
+                                type="text"
                                 placeholder="Middle Name"
                                 name="middle_name"
                                 {...register("middle_name")}
@@ -225,7 +223,6 @@ function CustomerRegister(props) {
                               )} */}
                               <input
                                 type="text"
-                                
                                 placeholder="Last Name"
                                 {...register("last_name")}
                                 name="name"
@@ -253,13 +250,17 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
-                              style={errors["phone"] && styles.error}
+                                style={errors["phone"] && styles.error}
                                 type="text"
                                 placeholder="Mobile"
                                 {...register("phone")}
                                 autocomplete="off"
                               />
-                                {errors["phone"] && <span style={{color:'#bf1f24'}}>{errors["phone"].message}</span>}
+                              {errors["phone"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["phone"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -282,13 +283,17 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
-                              style={errors["password"] && styles.error}
+                                style={errors["password"] && styles.error}
                                 type="password"
                                 {...register("password")}
                                 name="password"
                                 placeholder="Password"
                               />
-                               {errors["password"] && <span style={{color:'#bf1f24'}}>{errors["password"].message}</span>}
+                              {errors["password"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["password"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -311,21 +316,38 @@ function CustomerRegister(props) {
                                 </>
                               )} */}
                               <input
-                              style={errors["confirmPassword"] && styles.error}
+                                style={
+                                  errors["confirmPassword"] && styles.error
+                                }
                                 type="password"
                                 {...register("confirmPassword")}
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
                               />
-                                {errors["confirmPassword"] && <span style={{color:'#bf1f24'}}>{errors["confirmPassword"].message}</span>}
+                              {errors["confirmPassword"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["confirmPassword"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
                       </section>
                       <div class="chkbox-group">
-                        <input type="checkbox" name="agree" {...register("agree")} />
-                        <span style={errors["agree"] && {color:'#bf1f24'}}>I have read and agree to all the </span>
-                        <a style={errors["agree"] && {color:'#bf1f24'}} href="#">Term & Condition</a> 
+                        <input
+                          type="checkbox"
+                          name="agree"
+                          {...register("agree")}
+                        />
+                        <span style={errors["agree"] && { color: "#bf1f24" }}>
+                          I have read and agree to all the{" "}
+                        </span>
+                        <a
+                          style={errors["agree"] && { color: "#bf1f24" }}
+                          href="#"
+                        >
+                          Term & Condition
+                        </a>
                       </div>
                     </fieldset>
 
@@ -347,21 +369,22 @@ function CustomerRegister(props) {
                 </div>
               </div>
             </div>
-            {placeHolder?.image && placeHolder?.description && <div class="Register_benefits">
-              {/* <h4>Member / Registered User Benefits...</h4>
+            {placeHolder?.image && placeHolder?.description && (
+              <div class="Register_benefits">
+                {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
                 New User? <span>"Register to Become a Member"</span>
               </h5>
               <p>
                 <strong>Registered User Benefits...</strong>
               </p> */}
-             <img src={placeHolder.image} />
-              <div
-                      dangerouslySetInnerHTML={{
-                        __html: placeHolder.description,
-                      }}
-                    />
-              {/* <ul>
+                <img src={placeHolder.image} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: placeHolder.description,
+                  }}
+                />
+                {/* <ul>
                 <li>
                   <i class="fa fa-circle"></i>File Free ITR online
                 </li>
@@ -379,12 +402,13 @@ function CustomerRegister(props) {
                   your packages
                 </li>
               </ul> */}
-            </div> }
+              </div>
+            )}
           </div>
         </div>
-        <NewsLetter /> 
+        <NewsLetter />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

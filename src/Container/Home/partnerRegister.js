@@ -8,10 +8,16 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import userImage from '../../images/user.png'
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 const schema = Yup.object().shape({
-  email: Yup.string().email().required(),
+  email: Yup.string()
+    .email("Email must be a valid email ")
+    .required("Email is required"),
   first_name: Yup.string().required("First name is required"),
+  agree: Yup.boolean().oneOf([true]),
+
   //   last_name: Yup.string().required("Last name is required"),
     
 phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone number is not valid'),
@@ -22,13 +28,14 @@ phone: Yup.string().required('Phone is required').matches("^[0-9]{10}$", 'Phone 
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
     "Must Contain 8 Characters, One Alphabat, One Number and one special case Character"
   ),
-  confirmPassword: Yup.string()
+  passwordConfirmation: Yup.string()
       .when('password', (password, schema) => {
         if (password) return schema.required('Confirm Password is required');
       })
       .oneOf([Yup.ref('password')], 'Passwords must match')
 });
 function PartnerRegister() {
+  const history = useHistory();
   const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
 
@@ -36,6 +43,7 @@ function PartnerRegister() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -49,21 +57,46 @@ function PartnerRegister() {
 
   const onSubmitHandle = (data) => {
     console.log(data);
-    RestApi.register(data)
-      .then((res) => {
-        console.log("resss",res) 
-        if (res.data.error) {
-            let { error } = res.data;
-            setResponseError(error);
-            alert(res.data.message)
-          } else {
-            alert(res.data.message);
-            setResponseError({});
-          }
-        
-      })
+    RestApi.register(data).then((res) => {
+      console.log("resss", res);
+      if (res.data.status == true) {
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+        reset({ ...data, password: "", confirmPassword: "" });
+        //if get token after registration
+        // props.dispatch({
+        //   type: "LOGIN",
+        //   payload: res.data.data,
+        // });
+        history.push(`/login`);
+      }
+      if (res.data.error) {
+        let { error } = res.data;
+        //  console.log(err)
+        // setResponseError(err);
+        error.email && toast.error(error.email[0]);
+        error.password && toast.error(error.password[0]);
+        res.data.message && toast.error(res.data.message);
+
+        // alert(res.data.message);
+      } else {
+        // alert(res.data.message);
+        // setResponseError({});
+      }
+    });
   };
   console.log(errors)
+  const styles = {
+    top: {
+      top: "6px",
+    },
+    error: {
+      borderColor: "#bf1f24",
+    },
+  };
+
   return (
     <div>
         <Header />
@@ -92,7 +125,7 @@ function PartnerRegister() {
                           <div class="col-md-6">
                           <input
                                 type="hidden" 
-                                {...register("is_partner")}
+                                {...register("is_service_provider")}
                                 value="yes"
                                 autocomplete="off"
                               />
@@ -101,23 +134,18 @@ function PartnerRegister() {
                                 class="icon-append fa fa-envelope-o"
                                 style={{top:'6px'}}
                               ></i>
-                              {errors["email"] && (
-                                <>
-                                  <br />
-                                  <p className="alert-danger alert">
-                                    {" "}
-                                    {errors["email"]?.message}
-                                  </p>
-                                </>
-                              )}
                               <input
                                 type="email"
-                                required
+                                style={errors["email"] && styles.error}
                                 placeholder="Email"
                                 {...register("email")}
-                                
                                 autocomplete="off"
                               /> 
+                                {errors["email"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["email"].message}
+                                </span>
+                              )}
                             </label>
                           
                           </div>
@@ -130,9 +158,15 @@ function PartnerRegister() {
                               <input
                                 type="text"
                                 placeholder="Mobile"
+                                style={errors["phone"] && styles.error}
                                 {...register("phone")}
                                 autocomplete="off"
                               /> 
+                              {errors["phone"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["phone"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -146,12 +180,17 @@ function PartnerRegister() {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              required
                               {...register("first_name")}
                                 type="text"
+                                style={errors["first_name"] && styles.error}
                                 placeholder="First Name" 
                                 autocomplete="off"
                               />
+                              {errors["first_name"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["first_name"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                           <div class="col-md-6">
@@ -193,11 +232,17 @@ function PartnerRegister() {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              required
+                              
                               {...register("password")}
+                              style={errors["password"] && styles.error}
                                 type="password" 
                                 placeholder="Password"
                               />
+                              {errors["password"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["password"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
@@ -227,8 +272,14 @@ function PartnerRegister() {
                               <input
                               {...register("passwordConfirmation")}
                                 type="password" 
+                                style={errors["passwordConfirmation"] && styles.error}
                                 placeholder="Confirm Password"
                               /> 
+                              {errors["passwordConfirmation"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["passwordConfirmation"].message}
+                                </span>
+                              )}
                             </label>
                            
                           </div>
@@ -276,9 +327,9 @@ function PartnerRegister() {
                       </div>
 
                       <div class="chkbox-group">
-                        <input type="checkbox" name="agree" />
-                        <span>I have read and agree to all the </span>
-                        <a href="#">Term & Condition</a>
+                        <input {...register("agree")} type="checkbox" name="agree" />
+                        <span  style={errors["agree"] && { color: "#bf1f24" }} >I have read and agree to all the </span>
+                        <a  style={errors["agree"] && { color: "#bf1f24" }} href="#">Term & Condition</a>
                       </div>
                     </fieldset>
                     <div class="sign-btn">

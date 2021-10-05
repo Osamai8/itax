@@ -2461,6 +2461,7 @@ cite .by {
 .marquee ul {
    margin-top: 15px;
    margin-bottom: 0px;
+   width: 100%;
 }
 .marquee ul li {
     display: inline;

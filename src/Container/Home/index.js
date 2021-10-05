@@ -9,7 +9,7 @@ import Calender from "../../Components/home/calender";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
-
+import Marquee from 'react-fast-marquee'
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -88,25 +88,27 @@ export default class Home extends Component {
               <div class="marquetext marquee">
                 <img src={blogImage} />
                 <ul>
-                  <marquee
-                    behavior="scroll"
+                 
+                  <Marquee 
+                  pauseOnHover={true}
+                  speed={60}
                     // onmouseover="stop()"
                     // onmouseout="start()"
                   >
                     {this.state.blogs.map((each) => {
-                      return (
+                      return ( 
                         <Link to={`blog-details/${each.id}`}>
                           <li>
                             <a >{each.heading}</a>
-                          </li>{" "}
-                        </Link>
+                          </li>
+                        </Link> 
                       );
                     })}
 
                     {/* <li>
                       <a href="p">Companies Filing of documents</a>
                     </li> */}
-                  </marquee>
+                  </Marquee>
                 </ul>
               </div>
             </div>
