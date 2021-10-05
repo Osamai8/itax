@@ -36,6 +36,7 @@ function Newsletter() {
         toast.error(res.data.message);
       }
       if (res.data.message && res.data.status) {
+        reset()
         // console.log("subs", res.data.message);
 
         toast.success(res.data.message);

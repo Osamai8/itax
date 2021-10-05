@@ -64,7 +64,7 @@ function PartnerRegister() {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
         });
-        reset({ ...data, password: "", confirmPassword: "" });
+        reset()
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
@@ -218,7 +218,7 @@ function PartnerRegister() {
                                 style={{top:'6px'}}
                               ></i>
                               <input
-                              {...register("middleName")}
+                              {...register("middle_name")}
                                 type="text"
                                 placeholder="Middle Name" 
                                 autocomplete="off"

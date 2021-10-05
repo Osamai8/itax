@@ -136,6 +136,7 @@ function Login(props) {
       photo: res.data.photo,
       isCustomer: res.data.is_customer,
       isServiceProvider: res.data.is_service_provider,
+      isSubscribed: res.data.is_subscribed,
       _token: res.access_token,
     };
     props.dispatch({
