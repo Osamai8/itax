@@ -89,12 +89,11 @@ export default class Home extends Component {
                 <img src={blogImage} />
                 <ul>
                  
-                  <Marquee 
-                  pauseOnHover={true}
-                  speed={60}
-                    // onmouseover="stop()"
-                    // onmouseout="start()"
-                  >
+                  <marquee
+                  behavior="scroll"
+                    onmouseover="stop()"
+                    onmouseout="start()"
+                  > 
                     {this.state.blogs.map((each) => {
                       return ( 
                         <Link to={`blog-details/${each.id}`}>
@@ -108,7 +107,7 @@ export default class Home extends Component {
                     {/* <li>
                       <a href="p">Companies Filing of documents</a>
                     </li> */}
-                  </Marquee>
+                  </marquee>
                 </ul>
               </div>
             </div>
