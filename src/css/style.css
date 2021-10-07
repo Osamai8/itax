@@ -3313,3 +3313,7 @@ button, .button:hover {
     border: none;
     text-align: center;
 }
+
+.newsletter-tr{
+    height: 36px;
+}
