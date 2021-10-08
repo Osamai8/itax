@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Slider from "../../Components/home/slider";
 import Services from "../../Components/home/services";
 import videoLogo from "../../images/video.png";
-import blogImage from "../../images/blog.png";
+import blogImage from "../../images/blog-home.png";
 import Testimonials from "../../Components/home/testimonials";
 import NewsLetter from "../../Components/home/subscribeNewsletter";
 import Calender from "../../Components/home/calender";
@@ -50,15 +50,15 @@ export default class Home extends Component {
     return (
       <>
         <div id="home-page">
-          <header id="header" class="header-wrapper home-parallax home-fade">
-            <div class="header-wrapper-inner introdata">
-              <div class="intro intro1">
+          <header id="header" className="header-wrapper home-parallax home-fade">
+            <div className="header-wrapper-inner introdata">
+              <div className="intro intro1">
                 <h1>What are you looking for?</h1>
                 <p>
                   Lorem ipsum, or lipsum as it is sometimes known, is dummy text
                   used in laying out print, graphic or web designs.
                 </p>
-                <form class="example" action="#">
+                <form className="example" action="#">
                   <input
                     type="text"
                     placeholder="Service Search..."
@@ -66,13 +66,13 @@ export default class Home extends Component {
                   />
                 </form>
               </div>
-              <div class="intro intro2">
+              <div className="intro intro2">
                 <h1>Schedule A video Call</h1>
                 <p>
                   Lorem ipsum, or lipsum as it is sometimes known, is dummy text
                   used in laying out print, graphic or web designs.
                 </p>
-                <a href="#" class="btn button">
+                <a href="#" className="btn button">
                   {" "}
                   Schedule A video Call
                 </a>
@@ -83,16 +83,16 @@ export default class Home extends Component {
             <Slider bannerData={bannerData} />
           </header>
           {/* <!-- /Header --> */}
-          <div class="blog_area">
-            <div class="container">
-              <div class="marquetext marquee">
-                <img src={blogImage} />
+          <div className="blog_area">
+            <div className="container">
+              <div className="marquetext marquee">
+                <img src={blogImage} className="blog-home-img"/>
                 <ul>
                  
                   <marquee
                   behavior="scroll"
-                    onmouseover="stop()"
-                    onmouseout="start()"
+                  onMouseOver="stop()"
+                  onMouseOut="start()"
                   > 
                     {this.state.blogs.map((each) => {
                       return ( 
@@ -114,22 +114,22 @@ export default class Home extends Component {
           </div>
           <Services />
           <section
-            class="our_department_area"
+            className="our_department_area"
             style={{ backgroundColor: "#f3f3f3!important" }}
           >
-            <div class="container">
-              <div class="row">
+            <div className="container">
+              <div className="row">
                 {/* Calender */}
 
                 <Calender />
 
                 {/* Calender */}
-                <div class="col-xl-3 col-md-6 col-lg-3">
-                  <div class="single_department other-act">
-                    <div class="department_content">
+                <div className="col-xl-3 col-md-6 col-lg-3">
+                  <div className="single_department other-act">
+                    <div className="department_content">
                       <h3>FEATURED VIDEO</h3>
                       {featuredVideo.video_link != "" ? (
-                        <div class="embed-responsive embed-responsive-16by9 topbtmmargin">
+                        <div className="embed-responsive embed-responsive-16by9 topbtmmargin">
                           <iframe
                             id="ytplayer"
                             width="640"
@@ -152,12 +152,12 @@ export default class Home extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-md-6 col-lg-3">
-                  <div class="single_department other-act">
-                    <div class="department_content">
+                <div className="col-xl-3 col-md-6 col-lg-3">
+                  <div className="single_department other-act">
+                    <div className="department_content">
                       <h3>Events</h3>
                       <p>
-                        <div class="events">
+                        <div className="events">
                           <marquee
                             behavior="scroll"
                             direction="up"
@@ -197,32 +197,32 @@ export default class Home extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-md-6 col-lg-3">
-                  <div class="single_department other-act">
-                    <div class="department_content">
+                <div className="col-xl-3 col-md-6 col-lg-3">
+                  <div className="single_department other-act">
+                    <div className="department_content">
                       <h3>Downloads</h3>
                       <p>
-                        <div class="downloadform">
+                        <div className="downloadform">
                           <ul>
                             <a href="#">
                               <Link to="/download_form">
                                 {" "}
                                 <li>
                                   {" "}
-                                  <i class="fa fa-buysellads"></i>Form{" "}
+                                  <i className="fa fa-buysellads"></i>Form{" "}
                                 </li>
                               </Link>
                             </a>
                             <a href="#">
                               <li>
-                                <i class="fa fa-question-circle"></i>FAQ
+                                <i className="fa fa-question-circle"></i>FAQ
                               </li>
                             </a>
                             <a href="#">
                               {" "}
                               <Link to="/newsletters">
                                 <li>
-                                  <i class="fa fa-envelope"></i>Newsletter
+                                  <i className="fa fa-envelope"></i>Newsletter
                                 </li>
                               </Link>
                             </a>
@@ -230,7 +230,7 @@ export default class Home extends Component {
                               <Link to="/videos">
                                 {" "}
                                 <li>
-                                  <i class="fa fa-file-video-o"></i>Videos
+                                  <i className="fa fa-file-video-o"></i>Videos
                                 </li>
                               </Link>
                             </a>
