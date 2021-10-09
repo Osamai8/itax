@@ -5,11 +5,13 @@ import videoLogo from "../../images/video.png";
 import blogImage from "../../images/blog-home.png";
 import Testimonials from "../../Components/home/testimonials";
 import NewsLetter from "../../Components/home/subscribeNewsletter";
-import Calender from "../../Components/home/calender";
+// import Calender from "../../Components/home/calender";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
-import Marquee from 'react-fast-marquee'
+import Marquee from 'react-easy-marquee'
+import {Events, Calender, DownloadForm} from "../../Components/home/features";
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +47,11 @@ export default class Home extends Component {
       });
     });
   };
+  changeYear(year){
+    this.setState({
+      year:year
+    })
+  }
   render() {
     let { featuredVideo, bannerData } = this.state;
     return (
@@ -83,7 +90,7 @@ export default class Home extends Component {
             <Slider bannerData={bannerData} />
           </header>
           {/* <!-- /Header --> */}
-          <div className="blog_area">
+          {this.state.blogs.length > 0 && <div className="blog_area">
             <div className="container">
               <div className="marquetext marquee">
                 <img src={blogImage} className="blog-home-img"/>
@@ -111,7 +118,7 @@ export default class Home extends Component {
                 </ul>
               </div>
             </div>
-          </div>
+          </div>}
           <Services />
           <section
             className="our_department_area"
@@ -152,94 +159,10 @@ export default class Home extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-md-6 col-lg-3">
-                  <div className="single_department other-act">
-                    <div className="department_content">
-                      <h3>Events</h3>
-                      <p>
-                        <div className="events">
-                          <marquee
-                            behavior="scroll"
-                            direction="up"
-                            scrolldelay="200"
-                            // onmouseover="stop()"
-                            // onmouseout="start()"
-                          >
-                            <ul>
-                              <li>
-                                <a href="#">
-                                  {" "}
-                                  Lorem ipsum, or lipsum as it is sometimes
-                                  known, is dummy text used in laying out print,
-                                  graphic...
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  {" "}
-                                  Lorem ipsum, or lipsum as it is sometimes
-                                  known, is dummy text used in laying out print,
-                                  graphic...
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  {" "}
-                                  Lorem ipsum, or lipsum as it is sometimes
-                                  known, is dummy text used in laying out print,
-                                  graphic...
-                                </a>
-                              </li>
-                            </ul>
-                          </marquee>
-                        </div>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-md-6 col-lg-3">
-                  <div className="single_department other-act">
-                    <div className="department_content">
-                      <h3>Downloads</h3>
-                      <p>
-                        <div className="downloadform">
-                          <ul>
-                            <a href="#">
-                              <Link to="/download_form">
-                                {" "}
-                                <li>
-                                  {" "}
-                                  <i className="fa fa-buysellads"></i>Form{" "}
-                                </li>
-                              </Link>
-                            </a>
-                            <a href="#">
-                              <li>
-                                <i className="fa fa-question-circle"></i>FAQ
-                              </li>
-                            </a>
-                            <a href="#">
-                              {" "}
-                              <Link to="/newsletters">
-                                <li>
-                                  <i className="fa fa-envelope"></i>Newsletter
-                                </li>
-                              </Link>
-                            </a>
-                            <a href="#">
-                              <Link to="/videos">
-                                {" "}
-                                <li>
-                                  <i className="fa fa-file-video-o"></i>Videos
-                                </li>
-                              </Link>
-                            </a>
-                          </ul>
-                        </div>
-                      </p>
-                    </div>
-                  </div>
-                </div>
+               {/* events */}
+               <Events/>
+                 {/* downloadForm */}
+               <DownloadForm/>
               </div>
             </div>
           </section>

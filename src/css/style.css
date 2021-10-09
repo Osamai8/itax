@@ -3235,7 +3235,7 @@ button, .button:hover {
 }
 
 .events-new .card-img {
-  background-image: url("https://images.unsplash.com/photo-1623234794921-6290793cb2cb?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyMzUwODcyOA&ixlib=rb-1.2.1&q=85");
+  /* background-image: url("https://images.unsplash.com/photo-1623234794921-6290793cb2cb?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyMzUwODcyOA&ixlib=rb-1.2.1&q=85"); */
   background-size: cover;
   background-position: center;
   height: 80%;

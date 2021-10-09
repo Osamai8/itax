@@ -18,6 +18,9 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import Videos from './videos';
 import DownloadForm from './downloadForm';
 import BlogDetails from './blogDetails';
+import Events from './events';
+import EventDetails from './eventDetails'
+import Calendar from './calendar';
 
 class Main extends Component {
   constructor(props){
@@ -54,6 +57,9 @@ class Main extends Component {
         <Route exact path={`/newsletters`} component={Newsletter} />
         <Route exact path={`/newsletters`} component={Newsletter} />
         <Route exact path={`/download_form`} component={DownloadForm} />
+        <Route exact path={`/events`} component={Events} />
+        <Route exact path={`/event-details/:id`} component={EventDetails} />
+        <Route exact path={`/calendar/:month/:year`} component={Calendar} />
         <Route
           exact
           path={`/privacy_policy`}
@@ -82,6 +88,9 @@ class Main extends Component {
             <CustomerRegister />
           )}
         </Route>
+
+
+
         {/* <Route path="*">
             <NoMatch />
           </Route> */}

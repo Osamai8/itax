@@ -82,5 +82,15 @@ export default class RestApi {
   static blogDetails(id) {
     return axios.get(`${baseURL}/blogs/${id}`);
   }
+  
+  static events() {
+    return axios.get(`${baseURL}/events`);
+  }
+  static eventDetails(id) {
+    return axios.get(`${baseURL}/events/${id}`);
+  }
+  static calendar(month,year) {
+    return axios.get(`${baseURL}/calendar?month=${month}&year=${year}`);
+  }
 }
 
