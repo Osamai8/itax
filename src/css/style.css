@@ -2486,6 +2486,7 @@ cite .by {
     border-top-left-radius: 5px;
 }
 .our_department_area .single_department .department_thumb img {
+    height: 174px;
     width: 100%;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -2498,6 +2499,7 @@ cite .by {
 }
 .our_department_area .single_department .department_content {
     padding: 15px;
+    height: 166px;
 }
 .our_department_area .single_department .department_content h3 {
     margin-top: 0;
@@ -3319,4 +3321,7 @@ button, .button:hover {
 }
 .blog-home-img{
     margin-right: 10px;
+}
+.calender-year{
+    font-size: 25px;
 }

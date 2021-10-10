@@ -3,7 +3,7 @@
  * @description This file contains all the API methods which are used in the application
  */
 import axios from "axios";
-window.axios = axios
+window.axios = axios;
 var baseURL = "http://itaxadmin.idossapp.in/api/v1";
 
 let defaultToken;
@@ -11,16 +11,15 @@ export default class RestApi {
   static defaultToken(token) {
     if (token && token != null) {
       axios.defaults.headers.common = {
-        'Authorization': 'Bearer ' + token
-    };
+        Authorization: "Bearer " + token,
+      };
       // axios.defaults.headers.common["Authorization"] =
       //   token == null ? null : `Bearer ${token}`;
     } else {
       delete axios.defaults.headers.common.Authorization;
     }
-    console.log("axio",axios.defaults.headers)
-    return (defaultToken = (token) || null);
-    
+    console.log("axio", axios.defaults.headers);
+    return (defaultToken = token || null);
   }
 
   static login(data) {
@@ -71,7 +70,7 @@ export default class RestApi {
     return axios.get(`${baseURL}/placeholder/${param}`);
   }
   static subscribe(params) {
-    return axios.post(`${baseURL}/subscribe-newsletters`,params);
+    return axios.post(`${baseURL}/subscribe-newsletters`, params);
   }
   static downloadForm() {
     return axios.get(`${baseURL}/download-forms`);
@@ -82,15 +81,17 @@ export default class RestApi {
   static blogDetails(id) {
     return axios.get(`${baseURL}/blogs/${id}`);
   }
-  
+
   static events() {
     return axios.get(`${baseURL}/events`);
   }
   static eventDetails(id) {
     return axios.get(`${baseURL}/events/${id}`);
   }
-  static calendar(month,year) {
+  static calendar(month, year) {
     return axios.get(`${baseURL}/calendar?month=${month}&year=${year}`);
   }
+  static service() {
+    return axios.get(`${baseURL}/service-categories`);
+  }
 }
-

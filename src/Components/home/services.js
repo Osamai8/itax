@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import serviceImage from '../../images/service/s1.jpg'
 import moneyBagIcon from '../../images/service/money-bag-icon.png'
-function services() {
+import RestApi from "../../services/api";
+
+export default function Services() {
+
+ const [data,setDate] = useState([])
+
+  useEffect(()=> {
+     RestApi.service().then((res)=> {
+       console.log("service",res)
+       if(res.data.status){
+         setDate(res.data.data.grid_list)
+       }
+     })
+  },[])
+  console.log(data)
   return (
     <section>
       <div class="our_department_area">
@@ -21,10 +35,11 @@ function services() {
             </div>
           </div>
           <div class="row">
-            <div class="col-xl-3 col-md-6 col-lg-3">
+            {data.length > 0 && data.map((each)=> {
+              return <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
-                  <img src={serviceImage} alt="" />
+                  <img src={each.image} alt="" />
                 </div>
                 <div class="department_content">
                   <div class="iconimagetitle">
@@ -33,12 +48,11 @@ function services() {
                     <h3>
                       <a href="#">
                         {" "}
-                        &nbsp;&nbsp;Business Startup Services
+                        &nbsp;&nbsp;{each.category_name}
                       </a>
                     </h3>
                     <p>
-                      Every business start-up requires a wide variety of
-                      financial solutions...
+                    {each.description.length > 74 ? each.description.slice(0, 75) + '...' : each.description }
                     </p>
                     <a href="#" class="readmore">
                       Read More...
@@ -47,7 +61,33 @@ function services() {
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-6 col-lg-3">
+            }) }
+<div class="col-xl-3 col-md-6 col-lg-3">
+              <div class="single_department">
+                <div class="department_thumb">
+                  <img src={serviceImage} alt="" />
+                </div>
+                <div class="department_content">
+                  <div class="iconimagetitle">
+                    <img src={moneyBagIcon} />
+                    <h3>
+                      <a href="#">
+                        {" "}
+                        &nbsp;&nbsp;Corporate Advisory
+                      </a>
+                    </h3>
+                    <p>
+                      Under corporate advisory we provide the following services
+                      to our esteemed...
+                    </p>
+                    <a href="#" class="readmore">
+                      Read More...
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div class="col-xl-3 col-md-6 col-lg-3">
               <div class="single_department">
                 <div class="department_thumb">
                   <img src={serviceImage} alt="" />
@@ -221,7 +261,7 @@ function services() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <a href="#" class="viewall-services">
             View All Services...
@@ -232,4 +272,3 @@ function services() {
   );
 }
 
-export default services;
