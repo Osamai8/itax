@@ -58,6 +58,7 @@ class Main extends Component {
         <Route exact path={`/newsletters`} component={Newsletter} />
         <Route exact path={`/download_form`} component={DownloadForm} />
         <Route exact path={`/events`} component={Events} />
+        <Route exact path={`/events/:id`} component={Events} />
         <Route exact path={`/event-details/:id`} component={EventDetails} />
         <Route exact path={`/calendar/:month/:year`} component={Calendar} />
         <Route

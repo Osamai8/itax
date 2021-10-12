@@ -1,30 +1,31 @@
 import React, { Component } from "react";
 import RestApi from "../../services/api";
+import Footer from "../../Common/footer";
+import Newsletter from "../../Components/home/subscribeNewsletter";
 
 export default class eventDetails extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-          data: {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {},
+    };
+  }
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData() {
+    let id = this.props.match.params.id;
+    if (id) {
+      RestApi.eventDetails(id).then((res) => {
+        console.log("event Details", res);
+        if (res.data.status) {
+          this.setState({
+            data: res.data.data,
+          });
         }
+      });
     }
-    componentDidMount(){
-        this.fetchData()
-    }
-    fetchData() {
-        let id = this.props.match.params.id
-        if(id) {
-            RestApi.eventDetails(id).then((res)=> {
-                console.log("event Details",res)
-                if(res.data.status){
-                  this.setState({
-                    data:res.data.data
-                  })
-                }
-            })
-        }
-       
-    }
+  }
   render() {
     return (
       <>
@@ -40,22 +41,30 @@ export default class eventDetails extends Component {
                 <div class="blog_left_sidebar">
                   <article class="blog_item post">
                     <div class="blog_item_img entry-content p-0">
-                     {this.state.data.event_image && <img
-                        class="card-img rounded-0"
-                        src={this.state.data.event_image}
-                        alt="event"
-                      />}
-                      {this.state.data?.date && <div class="entry-date">{this.state.data.date}</div>}
+                      {this.state.data.event_image && (
+                        <img
+                          class="card-img rounded-0"
+                          src={this.state.data.event_image}
+                          alt="event"
+                        />
+                      )}
+                      {this.state.data?.date && (
+                        <div class="entry-date">{this.state.data.date}</div>
+                      )}
                     </div>
                     <div class="blog_details p-20">
                       <a class="d-inline-block" href="#">
-                       {this.state.data?.heading && <h2>{this.state.data.heading}</h2>}
+                        {this.state.data?.heading && (
+                          <h2>{this.state.data.heading}</h2>
+                        )}
                       </a>
-                     {this.state.data?.description && <div
-                      dangerouslySetInnerHTML={{
-                        __html: this.state.data?.description
-                      }}
-                    />}
+                      {this.state.data?.description && (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: this.state.data?.description,
+                          }}
+                        />
+                      )}
                     </div>
                   </article>
                 </div>
@@ -138,6 +147,8 @@ export default class eventDetails extends Component {
             </div>
           </div>
         </section>
+        <Newsletter />
+        <Footer />
       </>
     );
   }

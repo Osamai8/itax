@@ -151,7 +151,7 @@ export function Calender(props) {
 export function Events() {
   const [data, setData] = useState({ upComing: [], previous: [] });
   useEffect(() => {
-    RestApi.events().then((res) => {
+    RestApi.homeEvents().then((res) => {
       console.log("events: ", res);
       if (res.data.status) {
         setData({
@@ -185,7 +185,7 @@ export function Events() {
                         {data.upComing.map((each) => {
                           return (
                             <li>
-                              <Link to={`event-details/${each.id}`}>
+                              <Link to={`events`}>
                                 {" "}
                                 <div
                                   dangerouslySetInnerHTML={{
@@ -206,7 +206,7 @@ export function Events() {
                         {data.previous.map((each) => {
                           return (
                             <li>
-                              <Link to={`event-details/${each.id}`}>
+                              <Link to={`events`}>
                                 <div
                                   dangerouslySetInnerHTML={{
                                     __html: each.description,

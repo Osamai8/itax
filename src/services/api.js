@@ -82,6 +82,9 @@ export default class RestApi {
     return axios.get(`${baseURL}/blogs/${id}`);
   }
 
+  static homeEvents() {
+    return axios.get(`${baseURL}/events?type=home`);
+  }
   static events() {
     return axios.get(`${baseURL}/events`);
   }
