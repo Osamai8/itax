@@ -346,7 +346,9 @@ export default class blog extends Component {
                         class="form-control inputpane"
                         placeholder="Enter Your Name"
                       />
-                      <span id="error" class="error" style={styles.display}>
+                      <span id="error" class="error" 
+                      // style={styles.display}
+                      >
                         Enter User Name
                       </span>
                     </div>
@@ -358,7 +360,9 @@ export default class blog extends Component {
                         class="form-control inputpane"
                         placeholder="Enter Your Email Address"
                       />
-                      <span id="err" class="error" style={styles.display}>
+                      <span id="err" class="error" 
+                      // style={styles.display}
+                      >
                         Enter email address
                       </span>
                     </div>

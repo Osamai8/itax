@@ -122,7 +122,7 @@ export default class Home extends Component {
           <Services />
           <section
             className="our_department_area"
-            style={{ backgroundColor: "#f3f3f3!important" }}
+            // style={{ backgroundColor: "#f3f3f3!important" }}
           >
             <div className="container">
               <div className="row">
@@ -148,8 +148,7 @@ export default class Home extends Component {
                           ></iframe>
                         </div>
                       ) : (
-                        <div
-                          style={{ textAlign: "center", marginTop: "100px" }}
+                        <div className='no-video'
                         >
                           {" "}
                           No Video Available{" "}

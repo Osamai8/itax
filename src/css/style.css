@@ -3328,3 +3328,11 @@ button, .button:hover {
 .events-noData{
     text-align: center;
 }
+.no-video{
+    text-align: center;
+    margin-top: 100px;
+}
+.about-image{
+    width: 100%;
+    height: 285px;
+}

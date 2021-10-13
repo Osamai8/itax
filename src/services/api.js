@@ -94,6 +94,9 @@ export default class RestApi {
   static calendar(month, year) {
     return axios.get(`${baseURL}/calendar?month=${month}&year=${year}`);
   }
+  static homeService() {
+    return axios.get(`${baseURL}/service-categories?type=home`);
+  }
   static service() {
     return axios.get(`${baseURL}/service-categories`);
   }

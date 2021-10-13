@@ -92,8 +92,8 @@ export default class about extends Component {
                     <img
                       src={this.state.about.image}
                       alt="about img"
-                      class="img-responsive center-block"
-                      style={{ width: "100%", height: "285px" }}
+                      class="img-responsive center-block about-image"
+                      // style={{ width: "100%", height: "285px" }}
                     />
                   </div>
                 </div>
