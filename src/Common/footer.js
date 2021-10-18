@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
-import accuredImage from "../images/accurecode.jpg"
-import {Link} from 'react-router-dom'
-function Footer() {
-  useEffect(()=> {
-    window.scrollTo(0, 0)
-  },[])
+import accuredImage from "../images/accurecode.jpg";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+function Footer(props) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const changeMenu = (menu) => {
+    props.dispatch({
+      type: "MENU",
+      payload: menu,
+    });
+  };
   return (
     <div>
       <footer class="footer">
@@ -17,33 +25,14 @@ function Footer() {
                     Explore Our <span>Services</span>
                   </h3>
                   <ul>
-                    <li>
-                      <a href="#">Business Startup Services</a>
-                    </li>
-                    <li>
-                      <a href="#">Corporate Advisory</a>
-                    </li>
-                    <li>
-                      <a href="#">Financial Funding and Debt Management</a>
-                    </li>
-                    <li>
-                      <a href="#">Outsourcing Services</a>
-                    </li>
-                    <li>
-                      <a href="#">Foreign Company Setup in India</a>
-                    </li>
-                    <li>
-                      <a href="#">Income tax Advisory</a>
-                    </li>
-                    <li>
-                      <a href="#">Non Residents / International Taxation</a>
-                    </li>
-                    <li>
-                      <a href="#">FEMA and FERA Advisory</a>
-                    </li>
-                    <li>
-                      <a href="#">Investment / Financial Planning</a>
-                    </li>
+                    {props.categoryOne.length > 0 &&
+                      props.categoryOne.map((each, key) => {
+                        return (
+                          <li key={key}>
+                            <Link to={`/`}>{each.category_name}</Link>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>
@@ -53,37 +42,14 @@ function Footer() {
                     <br />
                   </h3>
                   <ul>
-                    <li>
-                      <a href="#">Due Diligence and Forensic Investigation</a>
-                    </li>
-                    <li>
-                      <a href="#">Valuations</a>
-                    </li>
-                    <li>
-                      <a href="#">Legal Advisory Services</a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        Income tax return filing and other compliance
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">NGO and Trust – Formation and Consultancy</a>
-                    </li>
-                    <li>
-                      <a href="#">Registration under Statutory Bodies</a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        Return filing under Statutory Laws and Compliances
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">Small and Medium Enterprises</a>
-                    </li>
-                    <li>
-                      <a href="#">Non Banking Financial Company</a>
-                    </li>
+                    {props.categoryTwo.length > 0 &&
+                      props.categoryTwo.map((each, key) => {
+                        return (
+                          <li key={key}>
+                            <Link to={`/`}>{each.category_name}</Link>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>
@@ -94,28 +60,56 @@ function Footer() {
                   </h3>
                   <ul>
                     <li>
-                    <Link to="/about">About Us</Link>
+                      <Link onClick={() => changeMenu("about")} to="/about">
+                        About Us
+                      </Link>
                     </li>
                     <li>
-                    <Link to="/services">Services</Link>
+                      <Link
+                        onClick={() => changeMenu("services")}
+                        to="/services"
+                      >
+                        Services
+                      </Link>
                     </li>
                     <li>
-                    <Link to="/partner_with_us">Partners With Us</Link>
+                      <Link
+                        onClick={() => changeMenu("partner_with_us")}
+                        to="/partner_with_us"
+                      >
+                        Partners With Us
+                      </Link>
                     </li>
                     <li>
-                    <Link to="/blog">Blog</Link>
+                      <Link onClick={() => changeMenu("blog")} to="/blog">
+                        Blog
+                      </Link>
                     </li>
                     <li>
-                    <Link to="/career">Career</Link>
+                      <Link onClick={() => changeMenu("career")} to="/career">
+                        Career
+                      </Link>
                     </li>
                     <li>
-                       <Link to="/contact">Contact Us</Link>
+                      <Link onClick={() => changeMenu("contact")} to="/contact">
+                        Contact Us
+                      </Link>
                     </li>
                     <li>
-                      <Link to="term_condition">Terms and Conditions</Link>
+                      <Link
+                        onClick={() => changeMenu("term_condition")}
+                        to="/term_condition"
+                      >
+                        Terms and Conditions
+                      </Link>
                     </li>
                     <li>
-                      <Link to="privacy_policy">Privacy Policy</Link>
+                      <Link
+                        onClick={() => changeMenu("privacy_policy")}
+                        to="privacy_policy"
+                      >
+                        Privacy Policy
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -152,5 +146,15 @@ function Footer() {
     </div>
   );
 }
-
-export default Footer;
+Footer.defaultProps = {
+  categoryOne: [],
+  categoryTwo: [],
+  activeMenu: "home",
+};
+export default connect((state, props) => {
+  return {
+    activeMenu: state?.activeMenu,
+    categoryOne: state?.categoryOne,
+    categoryTwo: state?.categoryTwo,
+  };
+})(Footer);

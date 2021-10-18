@@ -32,41 +32,41 @@ export default class events extends Component {
     return (
       <>
         <section>
-          <div class="breadcrumbpane">
-            <div class="container">
-              <h1 class="pull-left">Events</h1>
+          <div className="breadcrumbpane">
+            <div className="container">
+              <h1 className="pull-left">Events</h1>
             </div>
           </div>
-          <div class="container">
-            <div class="row">
-              <div class="divider bg-light">
-                <div class="container">
-                  <div class="col-lg-8">
-                    <div class="section-title text-center">
-                      <h2 class="mt-0">Upcoming Events</h2>
+          <div className="container">
+            <div className="row">
+              <div className="divider bg-light">
+                <div className="container">
+                  <div className="col-lg-8">
+                    <div className="section-title text-center">
+                      <h2 className="mt-0">Upcoming Events</h2>
                     </div>
                     {this.state.upComing.length > 0 ? (
-                      <div class="events-new">
+                      <div className="events-new">
                         {this.state.upComing.map((each) => {
                           return (
                             <>
                               <div
-                                class="card card-1"
+                                className="card card-1"
                                 onmouseover="_card_more1()"
                                 onmouseout="_card_less1()"
                               >
                                 <div
-                                  class="card-img"
+                                  className="card-img"
                                   style={{
                                     backgroundImage: `url(${each.image})`,
                                   }}
                                 ></div>
-                                <div class="card-text">
-                                  <h3 class="card-title bold-700">
+                                <div className="card-text">
+                                  <h3 className="card-title bold-700">
                                     {each.heading}
                                   </h3>
                                   <p
-                                    class="card-subtitle regular-400"
+                                    className="card-subtitle regular-400"
                                     id="card-subtitle-1"
                                   >
                                     {each.date}
@@ -74,7 +74,7 @@ export default class events extends Component {
 
                                   <Link
                                     to={`/event-details/${each.id}`}
-                                    class="card-button click"
+                                    className="card-button click"
                                     // data-toggle="modal"
                                     // data-target="#eventModal"
                                   >
@@ -87,22 +87,22 @@ export default class events extends Component {
                         })}
 
                         {/* <div
-                        class="card card-2"
+                        className="card card-2"
                         onmouseover="_card_more2()"
                         onmouseout="_card_less2()"
                       >
-                        <div class="card-img card-img-2"></div>
-                        <div class="card-text">
-                          <h3 class="card-title bold-700">Annual Meeting</h3>
+                        <div className="card-img card-img-2"></div>
+                        <div className="card-text">
+                          <h3 className="card-title bold-700">Annual Meeting</h3>
                           <p
-                            class="card-subtitle regular-400"
+                            className="card-subtitle regular-400"
                             id="card-subtitle-2"
                           >
                             Sat, 27 July, 2021
                           </p>
                           <a
                             href="#"
-                            class="card-button click"
+                            className="card-button click"
                             data-toggle="modal"
                             data-target="#eventModal"
                           >
@@ -115,31 +115,31 @@ export default class events extends Component {
                       <div className="events-noData">No Upcoming Events</div>
                     )}
 
-                    <div class="section-title text-center">
-                      <h2 class="mt-0">Previous Events</h2>
+                    <div className="section-title text-center">
+                      <h2 className="mt-0">Previous Events</h2>
                     </div>
                     {this.state.previous.length > 0 ? (
-                      <div class="events-new">
+                      <div className="events-new">
                         {this.state.previous.map((each) => {
                           return (
                             <>
                               <div
-                                class="card card-1"
+                                className="card card-1"
                                 onmouseover="_card_more1()"
                                 onmouseout="_card_less1()"
                               >
                                 <div
-                                  class="card-img"
+                                  className="card-img"
                                   style={{
                                     backgroundImage: `url(${each.image})`,
                                   }}
                                 ></div>
-                                <div class="card-text">
-                                  <h3 class="card-title bold-700">
+                                <div className="card-text">
+                                  <h3 className="card-title bold-700">
                                     {each.heading}
                                   </h3>
                                   <p
-                                    class="card-subtitle regular-400"
+                                    className="card-subtitle regular-400"
                                     id="card-subtitle-1"
                                   >
                                     {each.date}
@@ -147,7 +147,7 @@ export default class events extends Component {
 
                                   <Link
                                     to={`/event-details/${each.id}`}
-                                    class="card-button click"
+                                    className="card-button click"
                                     // data-toggle="modal"
                                     // data-target="#eventModal"
                                   >
@@ -159,22 +159,22 @@ export default class events extends Component {
                           );
                         })}
                         {/* <div
-                        class="card card-1"
+                        className="card card-1"
                         onmouseover="_card_more1()"
                         onmouseout="_card_less1()"
                       >
-                        <div class="card-img card-img-1"></div>
-                        <div class="card-text">
-                          <h3 class="card-title bold-700">Pandemic Discount</h3>
+                        <div className="card-img card-img-1"></div>
+                        <div className="card-text">
+                          <h3 className="card-title bold-700">Pandemic Discount</h3>
                           <p
-                            class="card-subtitle regular-400"
+                            className="card-subtitle regular-400"
                             id="card-subtitle-1"
                           >
                             12 July, 2021 till 22 July, 2021
                           </p>
                           <a
                             href="#"
-                            class="card-button click"
+                            className="card-button click"
                             data-toggle="modal"
                             data-target="#eventModal"
                           >
@@ -188,122 +188,122 @@ export default class events extends Component {
                       <div className="events-noData">No Previous Events</div>
                     )}
                   </div>
-                  <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-                      <aside class="single_sidebar_widget search_widget">
+                  <div className="col-lg-4">
+                    <div className="blog_right_sidebar">
+                      <aside className="single_sidebar_widget search_widget">
                         <form action="event-detail">
-                          <div class="form-group">
-                            <div class="input-group">
+                          <div className="form-group">
+                            <div className="input-group">
                               <input
                                 type="text"
-                                class="form-control"
+                                className="form-control"
                                 placeholder="Search Keyword"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder = 'Search Keyword'"
                               />
-                              <div class="input-group-append">
-                                <button class="btn" type="button">
-                                  <i class="fa fa-search"></i>
+                              <div className="input-group-append">
+                                <button className="btn" type="button">
+                                  <i className="fa fa-search"></i>
                                 </button>
                               </div>
                             </div>
                           </div>
                           <button
-                            class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                            className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                             type="submit"
                           >
                             Search
                           </button>
                         </form>
                       </aside>
-                      <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title">Events By Category</h4>
-                        <ul class="list cat-list">
+                      <aside className="single_sidebar_widget post_category_widget">
+                        <h4 className="widget_title">Events By Category</h4>
+                        <ul className="list cat-list">
                           <li>
-                            <a href="#event-detail" class="d-flex">
+                            <a href="#event-detail" className="d-flex">
                               <p>Business Startup Services</p>
                               <p>(37)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>Corporate Advisory</p>
                               <p>(10)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>Financial Funding and Debt Mgmt.</p>
                               <p>(03)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>Outsourcing Services</p>
                               <p>(11)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>Foreign Company Setup in India</p>
                               <p>(21)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>Income tax Advisory</p>
                               <p>(09)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>International Taxation</p>
                               <p>(05)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>FEMA and FERA Advisory</p>
                               <p>(12)</p>
                             </a>
                           </li>
                         </ul>
                       </aside>
-                      <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title">Months / Archive</h4>
-                        <ul class="list cat-list">
+                      <aside className="single_sidebar_widget post_category_widget">
+                        <h4 className="widget_title">Months / Archive</h4>
+                        <ul className="list cat-list">
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>May 2021</p>
                               <p>(37)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>April 2021</p>
                               <p>(10)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>March 2021</p>
                               <p>(03)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>June 2021</p>
                               <p>(11)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>January 2021</p>
                               <p>(21)</p>
                             </a>
                           </li>
                           <li>
-                            <a href="#" class="d-flex">
+                            <a href="#" className="d-flex">
                               <p>February 2021</p>
                               <p>(09)</p>
                             </a>
@@ -318,65 +318,65 @@ export default class events extends Component {
           </div>
         </section>
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="eventModal" role="dialog">
-          <div class="modal-dialog" style={{ width: "480px" }}>
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
+        <div className="modal fade" id="eventModal" role="dialog">
+          <div className="modal-dialog" style={{ width: "480px" }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">
                   &times;
                 </button>
-                <h4 class="modal-title">Events</h4>
+                <h4 className="modal-title">Events</h4>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <p>
                   Enter your name and email address to get access of event
                   section.
                   <br />* Don't Worry You'll Not be Spammed
                 </p>
-                <div class="row center" style={{ width: "360px" }}>
+                <div className="row center" style={{ width: "360px" }}>
                   <form method="post">
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                       <input
                         type="text"
                         name="firstname"
                         id="firstname"
-                        class="form-control inputpane"
+                        className="form-control inputpane"
                         placeholder="Enter Your Name"
                       />
                       <span
                         id="error"
-                        class="error"
+                        className="error"
                         style={{ display: "none", color: "red" }}
                       >
                         Enter User Name
                       </span>
                     </div>
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                       <input
                         type="text"
                         name="emailaddress"
                         id="emailaddress"
-                        class="form-control inputpane"
+                        className="form-control inputpane"
                         placeholder="Enter Your Email Address"
                       />
                       <span
                         id="err"
-                        class="error"
+                        className="error"
                         style={{ display: "none", color: "red" }}
                       >
                         Enter email address
                       </span>
                     </div>
-                    <div class="text-center">
+                    <div className="text-center">
                       <a
                         href="#"
-                        class="button newsletter no-pip"
+                        className="button newsletter no-pip"
                         name=""
                         id=""
                       >
                         Submit
                         <span>
-                          <i class="fa fa-envelope-o"></i>
+                          <i className="fa fa-envelope-o"></i>
                         </span>
                       </a>
                     </div>

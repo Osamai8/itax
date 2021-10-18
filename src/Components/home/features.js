@@ -7,11 +7,11 @@ export function Calender(props) {
   const [year, setYear] = useState(new Date().getFullYear());
   console.log(year);
   return (
-    <div class="col-xl-3 col-md-6 col-lg-3">
-      <div class="single_department other-act">
-        <div class="department_content">
+    <div className="col-xl-3 col-md-6 col-lg-3">
+      <div className="single_department other-act">
+        <div className="department_content">
           <h3>Calendar</h3>
-          <div class="circle">
+          <div className="circle">
             <h2>
               <i
                 style={{
@@ -20,7 +20,7 @@ export function Calender(props) {
                   cursor: "pointer",
                 }}
                 onClick={() => setYear(year - 1)}
-                class="fa fa-angle-left"
+                className="fa fa-angle-left"
               />{" "}
               <span className="calender-year"> {year}</span>{" "}
               <i
@@ -30,12 +30,12 @@ export function Calender(props) {
                   cursor: "pointer",
                 }}
                 onClick={() => setYear(year + 1)}
-                class="fa fa-angle-right"
+                className="fa fa-angle-right"
               />
             </h2>
             <Link to={`calendar/1/${year}`}>
               <img
-                class="jan"
+                className="jan"
                 title="January"
                 data-toggle="tooltip"
                 id="jan"
@@ -44,7 +44,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/2/${year}`}>
               <img
-                class="feb"
+                className="feb"
                 title="February"
                 data-toggle="tooltip"
                 id="feb"
@@ -53,7 +53,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/3/${year}`}>
               <img
-                class="mar"
+                className="mar"
                 title="March"
                 data-toggle="tooltip"
                 id="mar"
@@ -62,7 +62,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/4/${year}`}>
               <img
-                class="apr"
+                className="apr"
                 title="April"
                 data-toggle="tooltip"
                 id="apr"
@@ -71,7 +71,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/5/${year}`}>
               <img
-                class="may"
+                className="may"
                 title="May"
                 data-toggle="tooltip"
                 id="may"
@@ -80,7 +80,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/6/${year}`}>
               <img
-                class="june"
+                className="june"
                 title="June"
                 data-toggle="tooltip"
                 id="june"
@@ -89,7 +89,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/7/${year}`}>
               <img
-                class="july"
+                className="july"
                 title="July"
                 data-toggle="tooltip"
                 id="july"
@@ -98,7 +98,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/8/${year}`}>
               <img
-                class="aug"
+                className="aug"
                 title="August"
                 data-toggle="tooltip"
                 id="aug"
@@ -107,7 +107,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/9/${year}`}>
               <img
-                class="sept"
+                className="sept"
                 title="September"
                 data-toggle="tooltip"
                 id="sept"
@@ -116,7 +116,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/10/${year}`}>
               <img
-                class="oct"
+                className="oct"
                 title="October"
                 data-toggle="tooltip"
                 id="oct"
@@ -125,7 +125,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/11/${year}`}>
               <img
-                class="nov"
+                className="nov"
                 title="November"
                 data-toggle="tooltip"
                 id="nov"
@@ -134,7 +134,7 @@ export function Calender(props) {
             </Link>
             <Link to={`calendar/12/${year}`}>
               <img
-                class="dec"
+                className="dec"
                 title="December"
                 data-toggle="tooltip"
                 id="dec"
@@ -182,9 +182,9 @@ export function Events() {
                     <>
                       <h3>UPCOMING EVENTS</h3>
                       <ul>
-                        {data.upComing.map((each) => {
+                        {data.upComing.map((each,i) => {
                           return (
-                            <li>
+                            <li key={i}>
                               <Link to={`events`}>
                                 {" "}
                                 <div
@@ -203,9 +203,9 @@ export function Events() {
                     <>
                       <h3>PREVIOUS EVENTS</h3>
                       <ul>
-                        {data.previous.map((each) => {
+                        {data.previous.map((each,i) => {
                           return (
-                            <li>
+                            <li key={i}>
                               <Link to={`events`}>
                                 <div
                                   dangerouslySetInnerHTML={{

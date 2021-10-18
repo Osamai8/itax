@@ -14,25 +14,25 @@ export default class Slider extends Component {
  
     return (
       <>
-        <div class="sliderdata">
-          <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
+        <div className="sliderdata">
+          <div id="myCarousel" className="carousel slide" data-ride="carousel">
+            <ol className="carousel-indicators">
             {/* <li
                 data-target="#myCarousel"
                 data-slide-to="0"
                
               ></li> */}
                {this.props.bannerData && this.props.bannerData.map((banner, i) => {
-                return  <li class={banner.sequence_no == 1 && 'active'}  data-target="#myCarousel" data-slide-to={i}></li>
+                return  <li key={i} className={banner.sequence_no == 1 && 'active'}  data-target="#myCarousel" data-slide-to={i}></li>
                })}
             </ol>
 
-            <div class="carousel-inner">
+            <div className="carousel-inner">
               {this.props.bannerData && this.props.bannerData.map((banner, i) => {
                 return (
                   <>
                     {" "}
-                    <div class={i == 0 ? "item active" : "item"}>
+                    <div className={i == 0 ? "item active" : "item"} key={i}>
                       <img
                         src={banner.image}
                         alt={banner.banner_heading}

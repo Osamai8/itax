@@ -55,11 +55,11 @@ export default class blog extends Component {
         <>
           <li
             onClick={() => this.changePage(i)}
-            class={
+            className={
               this.state.currenPage == i ? "page-item active" : "page-item"
             }
           >
-            <a class="page-link">{i}</a>
+            <a className="page-link">{i}</a>
           </li>
         </>
       );
@@ -77,31 +77,31 @@ export default class blog extends Component {
     return (
       <div>
         <Header />
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left">Blog</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left">Blog</h1>
           </div>
         </div>
         {/* <!-- start: blog section --> */}
-        <section class="blog_area section-padding">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8">
-                <div class="blog_left_sidebar">
+        <section className="blog_area section-padding">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8">
+                <div className="blog_left_sidebar">
                   {this.state.data.length > 0 &&
                     this.state.data.map((each, key) => {
                       return (
                         <>
-                          <div class="media post_item">
-                            <div class="col-md-3">
+                          <div className="media post_item">
+                            <div className="col-md-3">
                               <img
                                 src={each.blog_image}
                                 alt="blog"
-                                class="post-img"
+                                className="post-img"
                               />
                             </div>
-                            <div class="col-md-9">
-                              <div class="media-body">
+                            <div className="col-md-9">
+                              <div className="media-body">
                                 <a href="#">
                                   <h3>s{each.heading}</h3>
                                 </a>
@@ -114,7 +114,7 @@ export default class blog extends Component {
                                 
                                <Link to={`/blog-details/${each.id}`}>
                                <a
-                                  class="readmore"
+                                  className="readmore"
                                   data-toggle="modal"
                                   data-target="#blogModal"
                                 >
@@ -129,12 +129,12 @@ export default class blog extends Component {
                       );
                     })}
 
-                  {/*  <div class="media post_item">
-                    <div class="col-md-3">
-                      <img src={blogImage} alt="blog" class="post-img" />
+                  {/*  <div className="media post_item">
+                    <div className="col-md-3">
+                      <img src={blogImage} alt="blog" className="post-img" />
                     </div>
-                    <div class="col-md-9">
-                      <div class="media-body">
+                    <div className="col-md-9">
+                      <div className="media-body">
                         <a href="#">
                           <h3>Corporate Advisory</h3>
                         </a>
@@ -148,7 +148,7 @@ export default class blog extends Component {
                         </p>
                         <a
                           href="#"
-                          class="readmore"
+                          className="readmore"
                           data-toggle="modal"
                           data-target="#blogModal"
                         >
@@ -159,154 +159,154 @@ export default class blog extends Component {
                   </div>
                    
                   <hr />*/}
-                  <nav class="blog-pagination">
-                    <ul class="pagination">
-                    <li class="page-item">
+                  <nav className="blog-pagination">
+                    <ul className="pagination">
+                    <li className="page-item">
                       <a
                         onClick={() =>
                           this.state.currenPage != 1 &&
                           this.changePage(this.state.prevPage)
                         }
-                        class={this.state.currenPage != 1  ? "page-link preview" : "page-link preview disabled-pagi"}
+                        className={this.state.currenPage != 1  ? "page-link preview" : "page-link preview disabled-pagi"}
                         aria-label="Previous"
                       >
-                        <i class="fa fa-angle-double-left"></i> Prev.
+                        <i className="fa fa-angle-double-left"></i> Prev.
                       </a>
                     </li>
                     {this.pageNumbers()}
-                    <li class="page-item">
+                    <li className="page-item">
                       <a
                         onClick={() =>
                           this.state.currenPage < this.state.totalPages &&
                           this.changePage(this.state.nextPage)
                         }
                         disabled
-                        class={this.state.currenPage < this.state.totalPages ? "page-link next" : "page-link next disabled-pagi"}
+                        className={this.state.currenPage < this.state.totalPages ? "page-link next" : "page-link next disabled-pagi"}
                         aria-label="Next"
                       >
-                        Next <i class="fa fa-angle-double-right"></i>
+                        Next <i className="fa fa-angle-double-right"></i>
                       </a>
                     </li>
                     </ul>
                   </nav>
                 </div>
               </div>
-              <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                  <aside class="single_sidebar_widget search_widget">
+              <div className="col-lg-4">
+                <div className="blog_right_sidebar">
+                  <aside className="single_sidebar_widget search_widget">
                     <form action="#">
-                      <div class="form-group">
-                        <div class="input-group " style={{ display: "" }}>
+                      <div className="form-group">
+                        <div className="input-group " style={{ display: "" }}>
                           <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Search Keyword"
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder = 'Search Keyword'"
                           />
-                          <div class="input-group-append">
-                            <button class="btn" type="button">
-                              <i class="fa fa-search"></i>
+                          <div className="input-group-append">
+                            <button className="btn" type="button">
+                              <i className="fa fa-search"></i>
                             </button>
                           </div>
                         </div>
                       </div>
                       <button
-                        class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                        className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                         type="submit"
                       >
                         Search
                       </button>
                     </form>
                   </aside>
-                  <aside class="single_sidebar_widget post_category_widget">
-                    <h4 class="widget_title">Blog By Category</h4>
-                    <ul class="list cat-list">
+                  <aside className="single_sidebar_widget post_category_widget">
+                    <h4 className="widget_title">Blog By Category</h4>
+                    <ul className="list cat-list">
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Business Startup Services</p>
                           <p>(37)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Corporate Advisory</p>
                           <p>(10)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Financial Funding and Debt Mgmt.</p>
                           <p>(03)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Outsourcing Services</p>
                           <p>(11)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Foreign Company Setup in India</p>
                           <p>(21)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>Income tax Advisory</p>
                           <p>(09)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>International Taxation</p>
                           <p>(05)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>FEMA and FERA Advisory</p>
                           <p>(12)</p>
                         </a>
                       </li>
                     </ul>
                   </aside>
-                  <aside class="single_sidebar_widget post_category_widget">
-                    <h4 class="widget_title">Months / Archive</h4>
-                    <ul class="list cat-list">
+                  <aside className="single_sidebar_widget post_category_widget">
+                    <h4 className="widget_title">Months / Archive</h4>
+                    <ul className="list cat-list">
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>May 2021</p>
                           <p>(37)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>April 2021</p>
                           <p>(10)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>March 2021</p>
                           <p>(03)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>June 2021</p>
                           <p>(11)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>January 2021</p>
                           <p>(21)</p>
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="d-flex">
+                        <a href="#" className="d-flex">
                           <p>February 2021</p>
                           <p>(09)</p>
                         </a>
@@ -321,61 +321,61 @@ export default class blog extends Component {
         {/* <!-- end: blog section -->
 
 <!-- Modal --> */}
-        <div class="modal fade" id="blogModal" role="dialog">
-          <div class="modal-dialog" style={{ width: "480px" }}>
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
+        <div className="modal fade" id="blogModal" role="dialog">
+          <div className="modal-dialog" style={{ width: "480px" }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">
                   &times;
                 </button>
-                <h4 class="modal-title">Blog</h4>
+                <h4 className="modal-title">Blog</h4>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <p>
                   Enter your name and email address to get access of blog
                   section.
                   <br />* Don't Worry You'll Not be Spammed
                 </p>
-                <div class="row center" style={{ width: "360px" }}>
+                <div className="row center" style={{ width: "360px" }}>
                   <form method="post">
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                       <input
                         type="text"
                         name="firstname"
                         id="firstname"
-                        class="form-control inputpane"
+                        className="form-control inputpane"
                         placeholder="Enter Your Name"
                       />
-                      <span id="error" class="error" 
+                      <span id="error" className="error" 
                       // style={styles.display}
                       >
                         Enter User Name
                       </span>
                     </div>
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                       <input
                         type="text"
                         name="emailaddress"
                         id="emailaddress"
-                        class="form-control inputpane"
+                        className="form-control inputpane"
                         placeholder="Enter Your Email Address"
                       />
-                      <span id="err" class="error" 
+                      <span id="err" className="error" 
                       // style={styles.display}
                       >
                         Enter email address
                       </span>
                     </div>
-                    <div class="text-center">
+                    <div className="text-center">
                       <a
                         href="#"
-                        class="button newsletter no-pip"
+                        className="button newsletter no-pip"
                         name=""
                         id=""
                       >
                         Submit
                         <span>
-                          <i class="fa fa-envelope-o"></i>
+                          <i className="fa fa-envelope-o"></i>
                         </span>
                       </a>
                     </div>

@@ -29,12 +29,12 @@ export default class Pages extends Component {
       <div>
         <Header />
         <div id="home-page">
-          <div class="breadcrumbpane">
-            <div class="container">
-              <h1 class="pull-left">{this.props.title}</h1>
+          <div className="breadcrumbpane">
+            <div className="container">
+              <h1 className="pull-left">{this.props.title}</h1>
             </div>
           </div>
-          <div class="container carrer_para">
+          <div className="container carrer_para">
             {this.state.data.content && (
               <div
                 dangerouslySetInnerHTML={{ __html: this.state.data.content }}

@@ -101,9 +101,9 @@ export default class Home extends Component {
                   onMouseOver="stop()"
                   onMouseOut="start()"
                   > 
-                    {this.state.blogs.map((each) => {
+                    {this.state.blogs.map((each,i) => {
                       return ( 
-                        <Link to={`blog-details/${each.id}`}>
+                        <Link key={i} to={`blog-details/${each.id}`}>
                           <li>
                             <a >{each.heading}</a>
                           </li>
@@ -142,7 +142,7 @@ export default class Home extends Component {
                             width="640"
                             height="360"
                             src={`https://www.youtube.com/embed/${featuredVideo.video_link}`}
-                            frameborder="0"
+                            frameBorder="0"
                             allowfullscreen=""
                             alt={featuredVideo.video_heading}
                           ></iframe>

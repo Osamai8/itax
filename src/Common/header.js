@@ -9,6 +9,7 @@ import { withRouter } from "react-router";
 function Header(props) {
 
   const [openLogoutModal, setOpenLogoutModal] = useState(false)
+  
   const handleLogout = () => {
     setOpenLogoutModal(false)
     RestApi.logout()
@@ -29,31 +30,37 @@ function Header(props) {
   const handleClose = ()=> {
     setOpenLogoutModal(false)
   }
+  const changeMenu=(menu)=> {
+    props.dispatch({
+      type:"MENU",
+      payload:menu
+    })
+  }
   return (
     //  site-navigation start
-    <nav id="mainNavigation" class="navbar navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
+    <nav id="mainNavigation" className="navbar navbar-fixed-top" role="navigation">
+      <div className="container-fluid">
+        <div className="navbar-header">
           <button
             type="button"
-            class="navbar-toggle collapsed"
+            className="navbar-toggle collapsed"
             data-toggle="collapse"
             data-target="#main-nav-collapse"
             aria-expanded="false"
           >
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
           </button>
 
           {/*  navbar logo  */}
-          <div class="navbar-brand">
-            <span class="sr-only"></span>
+          <div className="navbar-brand">
+            <span className="sr-only"></span>
             <Link to="/">
               <img
                 src={props.contactDetails.company_logo && props.contactDetails.company_logo }
-                class="img-responsive center-block logo"
+                className="img-responsive center-block logo"
                 alt="logo"
               />
             </Link>
@@ -63,16 +70,16 @@ function Header(props) {
 
         {/*  nav links  */}
         <div
-          class="collapse navbar-collapse main-nav-collapse"
+          className="collapse navbar-collapse main-nav-collapse"
           id="main-nav-collapse"
         >
-          <ul class="cont-detail logreg hidden-xs">
-            <div class="socialtop">
+          <ul className="cont-detail logreg hidden-xs">
+            <div className="socialtop">
               <ul>
                 {props.socialIcons && props.socialIcons.facebook && (
                   <li>
                     <a href={props.socialIcons.facebook} target="_new">
-                      <i class="fa fa-facebook fb"></i>
+                      <i className="fa fa-facebook fb"></i>
                     </a>
                   </li>
                 )}
@@ -80,35 +87,35 @@ function Header(props) {
                 {props.socialIcons && props.socialIcons.twitter && (
                   <li>
                     <a href={props.socialIcons.twitter} target="_new">
-                      <i class="fa fa-twitter twitt"></i>
+                      <i className="fa fa-twitter twitt"></i>
                     </a>
                   </li>
                 )}
                 {props.socialIcons && props.socialIcons.linkedin && (
                   <li>
                     <a href={props.socialIcons.linkedin} target="_new">
-                      <i class="fa fa-linkedin in"></i>
+                      <i className="fa fa-linkedin in"></i>
                     </a>
                   </li>
                 )}
                 {props.socialIcons && props.socialIcons.google_plus && (
                   <li>
                     <a href={props.socialIcons.google_plus} target="_new">
-                      <i class="fa fa-google-plus plus"></i>
+                      <i className="fa fa-google-plus plus"></i>
                     </a>
                   </li>
                 )}
                 {props.socialIcons && props.socialIcons.youtube && (
                   <li>
                     <a href={props.socialIcons.youtube} target="_new">
-                      <i class="fa fa-youtube youtube"></i>
+                      <i className="fa fa-youtube youtube"></i>
                     </a>
                   </li>
                 )}
                 {props.socialIcons && props.socialIcons.rss && (
                   <li>
                     <a href={props.socialIcons.rss} target="_new">
-                      <i class="fa fa-rss blog"></i>
+                      <i className="fa fa-rss blog"></i>
                     </a>
                   </li>
                 )}
@@ -116,13 +123,13 @@ function Header(props) {
             </div>
             <li>
               <a href={`mailto:${props.contactDetails.header_email}`}>
-                <i class="fa fa-envelope"></i>{props.contactDetails.header_email}
+                <i className="fa fa-envelope"></i>{props.contactDetails.header_email}
               </a>
             </li>
             &nbsp;
             <li>
               <a href={`tel:${props.contactDetails.header_phone}`}>
-                <i class="fa fa-phone"></i> {props.contactDetails.header_phone}
+                <i className="fa fa-phone"></i> {props.contactDetails.header_phone}
               </a>
             </li>
             <li>
@@ -135,43 +142,43 @@ function Header(props) {
                   </Link>
                   <button
                     type="submit"
-                    class="button save-btn dash-logout"
+                    className="button save-btn dash-logout"
                     title="Logout"
                     onClick={()=> setOpenLogoutModal(true)}
                   >
-                    <i class="fa fa-power-off"></i>
+                    <i className="fa fa-power-off"></i>
                   </button>
                 </>
               ) : (
-                <Link to="/login" class="btn button">
-                  <i class="fa fa-user" aria-hidden="true"></i> Login
+                <Link onClick={()=>changeMenu('login')} to="/login" className="btn button">
+                  <i className="fa fa-user" aria-hidden="true"></i> Login
                 </Link>
               )}
             </li>
-            {/* <li><a href="#" class="btn btn-success"><i class="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
+            {/* <li><a href="#" className="btn btn-success"><i className="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
           </ul>
-          <ul class="nav navbar-nav navbar-right text-uppercase">
-            <li class="active">
-              <Link to="/">home</Link>
+          <ul className="nav navbar-nav navbar-right text-uppercase">
+            <li className={props.activeMenu == 'home' && "active"}>
+              <Link  onClick={()=>changeMenu('home')}  to="/">home</Link>
               {/* <a href="/"></a> */}
             </li>
-            <li>
-              <Link to="/about">about us</Link>
+            <li className={props.activeMenu == 'about' && "active"}>
+              <Link onClick={()=>changeMenu('about')} to="/about">about us</Link>
             </li>
-            <li>
-              <Link to="/services">Services</Link>
+            <li className={props.activeMenu == 'services' && "active"}>
+              <Link onClick={()=>changeMenu('services')}  to="/services">Services</Link>
             </li>
-            <li>
-              <Link to="/partner_with_us">Partners With Us</Link>
+            <li className={props.activeMenu == 'partner_with_us' && "active"}>
+              <Link onClick={()=>changeMenu('partner_with_us')}  to="/partner_with_us">Partners With Us</Link>
             </li>
-            {/* <li class="dropdown" id="consultancy_tab">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            {/* <li className="dropdown" id="consultancy_tab">
+              <a className="dropdown-toggle" data-toggle="dropdown" href="#">
                 {" "}
                 Services
-                <span class="caret"></span>
+                <span className="caret"></span>
               </a>
-              <ul class="dropdown-menu">
-                <li class="dropdown-submenu">
+              <ul className="dropdown-menu">
+                <li className="dropdown-submenu">
                   <a href="#">Service 1</a>
                   <a href="#">Service 2</a>
                   <a href="#">Service 3</a>
@@ -179,14 +186,14 @@ function Header(props) {
                 </li>
               </ul>
             </li> */}
-            <li>
-              <Link to="/blog">Blog</Link>
+            <li className={props.activeMenu == 'blog' && "active"}>
+              <Link  onClick={()=>changeMenu('blog')} to="/blog">Blog</Link>
             </li>
-            <li>
-              <Link to="/career">Career</Link>
+            <li className={props.activeMenu == 'career' && "active"}>
+              <Link  onClick={()=>changeMenu('career')} to="/career">Career</Link>
             </li>
-            <li>
-              <Link to="/contact">contact Us</Link>
+            <li className={props.activeMenu == 'contact' && "active"}>
+              <Link  onClick={()=>changeMenu('contact')} to="/contact">contact Us</Link>
             </li>
           </ul>
         </div>
@@ -194,16 +201,16 @@ function Header(props) {
       </div>
       {/*  /.container  */}
       {openLogoutModal && <ModalRoot isOpen={openLogoutModal} close={()=>handleClose()} title={'logout'}body={
-       <div class="row">
-       <div class="col-md-12">
-        <form class="form-horizontal" role="form" method="post" action="#" enctype="multipart/form-data">
+       <div className="row">
+       <div className="col-md-12">
+        <form className="form-horizontal" role="form" method="post" action="#" enctype="multipart/form-data">
 
-          <div class="form-group text-center">
-            <span style={{fontSize: '18px'}}><i class="fa fa-question-circle " aria-hidden="true">&nbsp;</i>Are you Sure you want to logout now?</span>
+          <div className="form-group text-center">
+            <span style={{fontSize: '18px'}}><i className="fa fa-question-circle " aria-hidden="true">&nbsp;</i>Are you Sure you want to logout now?</span>
           </div>
-          <div class="form-group text-center">
-            <a class="button save-btn" onClick={handleLogout}>Yes</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a  class="button" onClick={()=>handleClose()} data-dismiss="modal">No</a>
+          <div className="form-group text-center">
+            <a className="button save-btn" onClick={handleLogout}>Yes</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a  className="button" onClick={()=>handleClose()} data-dismiss="modal">No</a>
           </div>
                           
       </form>
@@ -215,9 +222,11 @@ function Header(props) {
 }
 
 export default connect((state, props) => {
+  console.log("state redux",state)
   return {
     isLogged: state.isLogged,
     socialIcons: state.socialIcons,
-    contactDetails: state.contactDetails
+    contactDetails: state.contactDetails,
+    activeMenu: state?.activeMenu
   };
 })(withRouter(Header));

@@ -401,31 +401,31 @@ function Login(props) {
   return (
     <div>
       <Header />
-      <div class="breadcrumbpane">
-        <div class="container">
-          <h1 class="pull-left"> Login</h1>
+      <div className="breadcrumbpane">
+        <div className="container">
+          <h1 className="pull-left"> Login</h1>
         </div>
       </div>
 
       <section>
-        <div class="container">
-          <div class="login_register_box clearfix">
-            <div class="sign-in-panel">
+        <div className="container">
+          <div className="login_register_box clearfix">
+            <div className="sign-in-panel">
               <h4>Sign-in to your Account</h4>
-              <div class="login-content clearfix">
+              <div className="login-content clearfix">
                 <img
-                  class="pull-left"
+                  className="pull-left"
                   src="https://itaxdoctor.idossapp.com/assets/front_end/images/lock.png"
                 />
 
-                <div class="login-details pull-right">
+                <div className="login-details pull-right">
                   <div>
                     {/* <!-- Nav tabs --> */}
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul className="nav nav-tabs" role="tablist">
                       <li
                         role="presentation"
                         onClick={() => changeForm("customer")}
-                        class={`${
+                        className={`${
                           props.activeForm == "customer" ? "active" : ""
                         }`}
                       >
@@ -441,7 +441,7 @@ function Login(props) {
                       <li
                         role="presentation"
                         onClick={() => changeForm("partners")}
-                        class={`${
+                        className={`${
                           props.activeForm == "partners" ? "active" : ""
                         }`}
                       >
@@ -456,10 +456,10 @@ function Login(props) {
                       </li>
                     </ul>
                     {/* <!-- Tab panes --> */}
-                    <div class="tab-content">
+                    <div className="tab-content">
                       <div
                         role="tabpanel"
-                        class="tab-pane active"
+                        className="tab-pane active"
                         id="customer"
                       >
                         <FacebookLogin
@@ -469,13 +469,13 @@ function Login(props) {
                             <div
                               onClick={renderProps.onClick}
                               style={{ cursor: "pointer" }}
-                              class="facebook-box"
+                              className="facebook-box"
                             >
                               <a>
-                                <div class="box-icon">
-                                  <i class="fa fa-facebook"></i>
+                                <div className="box-icon">
+                                  <i className="fa fa-facebook"></i>
                                 </div>
-                                <div class="fb-box-txt">
+                                <div className="fb-box-txt">
                                   Log in with Facebook
                                 </div>
                               </a>
@@ -492,25 +492,25 @@ function Login(props) {
                           render={(renderProps) => (
                             <div
                               onClick={renderProps.onClick}
-                              class="google-box"
+                              className="google-box"
                             >
                               <a style={{ cursor: "pointer" }}>
-                                <div class="box-icon">
-                                  <i class="fa fa-google"></i>
+                                <div className="box-icon">
+                                  <i className="fa fa-google"></i>
                                 </div>
-                                <div class="gp-box-txt">Log in with Google</div>
+                                <div className="gp-box-txt">Log in with Google</div>
                               </a>
                             </div>
                           )}
                         ></GoogleLogin>
-                        <div class="or-box">
+                        <div className="or-box">
                           <span>OR</span>
                         </div>
                         <form
                           onSubmit={handleSubmit(onSubmitHandle)}
                           id="sky-form"
                           method="POST"
-                          class="sky-form"
+                          className="sky-form"
                         >
                           {/* {errors["email"] && (
                             <p className="alert-danger alert">
@@ -526,7 +526,7 @@ function Login(props) {
                           )} */}
                           <fieldset>
                             <section>
-                              <div class="row">
+                              <div className="row">
                                 <br />
                                 <input
                                   {...register("is_customer")}
@@ -550,10 +550,10 @@ function Login(props) {
                                       : "no"
                                   }
                                 />
-                                <div class="col col-12">
-                                  <label class="input">
+                                <div className="col col-12">
+                                  <label className="input">
                                     <i
-                                      class="icon-append fa fa-envelope-o"
+                                      className="icon-append fa fa-envelope-o"
                                       style={styles.top}
                                     ></i>
                                     <input
@@ -574,11 +574,11 @@ function Login(props) {
                               </div>
                             </section>
                             <section>
-                              <div class="row">
-                                <div class="col col-12">
-                                  <label class="input">
+                              <div className="row">
+                                <div className="col col-12">
+                                  <label className="input">
                                     <i
-                                      class="icon-append fa fa-lock"
+                                      className="icon-append fa fa-lock"
                                       style={styles.top}
                                     ></i>
                                     <input
@@ -599,31 +599,31 @@ function Login(props) {
                             </section>
                           </fieldset>
 
-                          <div class="form-group clearfix">
-                            <div class="chkbox-group pull-left">
+                          <div className="form-group clearfix">
+                            <div className="chkbox-group pull-left">
                               <input type="checkbox" name="remember" />
                               <label> Remember me</label>
                             </div>
-                            <div class="pull-right">
-                              <a href="#" class="forgot-pw">
+                            <div className="pull-right">
+                              <a href="#" className="forgot-pw">
                                 Forgot password?
                               </a>
                             </div>
-                            <div class="text-center">
+                            <div className="text-center">
                               <button
                                 style={{ width: "312px" }}
                                 type="submit"
                                 name="sign_in"
-                                class="button sign_in col"
+                                className="button sign_in col"
                               >
                                 Ok, Sign in !
                               </button>
                             </div>
                           </div>
                         </form>
-                        <div class="login-footer clearfix">
-                          <p class="pull-left">Don't have any account?</p>
-                          <Link to="/register" class="btn btn-login pull-right">
+                        <div className="login-footer clearfix">
+                          <p className="pull-left">Don't have any account?</p>
+                          <Link to="/register" className="btn btn-login pull-right">
                             Create Account
                           </Link>
                         </div>
@@ -634,7 +634,7 @@ function Login(props) {
               </div>
             </div>
             {placeHolder?.image && placeHolder?.description && (
-              <div class="Register_benefits">
+              <div className="Register_benefits">
                 {/* <h4>Creat an Account</h4> */}
                 {/* <h5>
                 New User? <span>"Register to Become a Member"</span>
@@ -650,19 +650,19 @@ function Login(props) {
                 />
                 {/* <ul>
                 <li>
-                  <i class="fa fa-circle"></i>File Free ITR online
+                  <i className="fa fa-circle"></i>File Free ITR online
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Get an Expert Assistances
+                  <i className="fa fa-circle"></i>Get an Expert Assistances
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Auto Extract of TDS Data
+                  <i className="fa fa-circle"></i>Auto Extract of TDS Data
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Processing Status of ITR Return
+                  <i className="fa fa-circle"></i>Processing Status of ITR Return
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Enjoy more service after upgrading
+                  <i className="fa fa-circle"></i>Enjoy more service after upgrading
                   your packages
                 </li>
               </ul> */}

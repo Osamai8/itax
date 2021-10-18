@@ -38,14 +38,14 @@ export default class partnerWithUs extends Component {
     };
     return (
       <div>
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left">PARTNER WITH US</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left">PARTNER WITH US</h1>
           </div>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-8 partnerContent">
             <div
                       dangerouslySetInnerHTML={{
                         __html: this.state.content,
@@ -53,22 +53,22 @@ export default class partnerWithUs extends Component {
                     /> 
             </div>
 
-            <div class="col-md-4 partner_form">
+            <div className="col-md-4 partner_form">
               <h3>Register for working with us</h3>
               <form
                 id="sky-form"
                 method="POST"
-                class="sky-form"
+                className="sky-form"
                 action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
                 novalidate="novalidate"
               >
                 <fieldset>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-envelope-o"
+                            className="icon-append fa fa-envelope-o"
                             style={styles.top}
                           ></i>
                           <input
@@ -82,11 +82,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-user-o"
+                            className="icon-append fa fa-user-o"
                             style={styles.top}
                           ></i>
                           <input
@@ -100,11 +100,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-user-o"
+                            className="icon-append fa fa-user-o"
                             style={styles.top}
                           ></i>
                           <input
@@ -118,11 +118,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-user-o"
+                            className="icon-append fa fa-user-o"
                             style={styles.top}
                           ></i>
                           <input
@@ -136,11 +136,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-mobile"
+                            className="icon-append fa fa-mobile"
                             style={styles.top}
                           ></i>
                           <input
@@ -154,11 +154,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-lock"
+                            className="icon-append fa fa-lock"
                             style={styles.top}
                           ></i>
                           <input
@@ -171,11 +171,11 @@ export default class partnerWithUs extends Component {
                     </div>
                   </section>
                   <section>
-                    <div class="row">
-                      <div class="col col-12">
-                        <label class="input">
+                    <div className="row">
+                      <div className="col col-12">
+                        <label className="input">
                           <i
-                            class="icon-append fa fa-lock"
+                            className="icon-append fa fa-lock"
                             style={styles.top}
                           ></i>
                           <input
@@ -189,48 +189,48 @@ export default class partnerWithUs extends Component {
                   </section>
                 </fieldset>
               </form>
-              <div class="area_expertise expt">
+              <div className="area_expertise expt">
                 <h4>Area of expertise</h4>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Business Startup Services</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Corporate Advisory</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Income tax Advisory </a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Financial Funding and Debt Mgmt.</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Outsourcing Services</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">International Taxation</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">FEMA and FERA Advisory</a>
                 </div>
-                <div class="chkbox-group">
+                <div className="chkbox-group">
                   <input type="checkbox" name="agree" />
                   <a href="#">Foreign Company Setup in India</a>
                 </div>
               </div>
-              <div class="chkbox-group">
+              <div className="chkbox-group">
                 <input type="checkbox" name="agree" />
                 <span>I have read and agree to all the </span>
                 <a href="#">Term & Condition</a>
               </div>
-              <div class="sign-btn">
-                <button type="submit" name="sign_in" class="button col">
+              <div className="sign-btn">
+                <button type="submit" name="sign_in" className="button col">
                   Submit
                 </button>
               </div>

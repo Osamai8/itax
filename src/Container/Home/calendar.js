@@ -41,15 +41,15 @@ export default class Calendar extends Component {
     });
     return (
       <>
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left">CALENDAR</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left">CALENDAR</h1>
           </div>
         </div>
         <section>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 section-title">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 section-title">
                 <h2>
                   Schedule for the month -{" "}
                   {month?.toLocaleString("en-us", {
@@ -59,40 +59,42 @@ export default class Calendar extends Component {
                 </h2>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-8">
+            <div className="row">
+              <div className="col-md-8">
                 {this.state.data.length > 0 ? (
-                  <table class="table form-border text-center">
+                  <table className="table form-border text-center">
                     <tbody>
-                      <tr class="job-summary">
-                        <td width="8%" class="cal-right-wht">
+                      <tr className="job-summary">
+                        <td width="8%" className="cal-right-wht">
                           Sr. No.
                         </td>
-                        <td width="12%" class="cal-right-wht">
+                        <td width="12%" className="cal-right-wht">
                           Due Date
                         </td>
-                        <td width="20%" class="cal-right-wht">
+                        <td width="20%" className="cal-right-wht">
                           Law
                         </td>
                         <td width="40%">Description</td>
                       </tr>
                       {this.state.data.map((each, key) => {
+                        let checkDate = new Date(each.schedule_date)
+                        let today = new Date()
                         return (
-                          <tr key={key} class="passed_date">
-                            <td class="cal-right">{++key}</td>
-                            <td class="cal-header">{each.schedule_date}</td>
-                            <td class="cal-header cal-border">
+                          <tr key={key} className="passed_date">
+                            <td className="cal-right" style={{color:checkDate > today && '#000'}}>{++key}</td>
+                            <td className="cal-header" style={{color:checkDate > today && '#000'}}>{each.schedule_date}</td>
+                            <td className="cal-header cal-border" style={{color:checkDate > today && '#000'}}>
                               {each.display_name}
                             </td>
-                            <td class="cal-header">{each.description}</td>
+                            <td className="cal-header" style={{color:checkDate > today && '#000'}}>{each.description}</td>
                           </tr>
                         );
                       })}
-                      {/* <tr class="passed_date">
-                      <td class="cal-right">2</td>
-                      <td class="cal-header">15.01.2021</td>
-                      <td class="cal-header cal-border">xxxxxx</td>
-                      <td class="cal-header">xxxxxx</td>
+                      {/* <tr className="passed_date">
+                      <td className="cal-right">2</td>
+                      <td className="cal-header">15.01.2021</td>
+                      <td className="cal-header cal-border">xxxxxx</td>
+                      <td className="cal-header">xxxxxx</td>
                     </tr> */}
                     </tbody>
                   </table>
@@ -101,15 +103,15 @@ export default class Calendar extends Component {
                 )}
               </div>
               {this.state.placeholder?.image && (
-                <div class="col-md-4">
-                  <div class="blog_right_sidebar text-justify">
-                    <aside class="single_sidebar_widget">
+                <div className="col-md-4">
+                  <div className="blog_right_sidebar text-justify">
+                    <aside className="single_sidebar_widget">
                       <img
                         src={this.state.placeholder.image}
                         style={{ width: "100%" }}
                       />
                       {this.state.placeholder?.header && (
-                        <h4 class="place_title">
+                        <h4 className="place_title">
                           {this.state.placeholder.header}
                         </h4>
                       )}

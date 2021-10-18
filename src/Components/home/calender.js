@@ -2,25 +2,25 @@ import Images from "../../images/index";
 import { Link } from "react-router-dom";
 export default function Calender(props) {
   return (
-    <div class="col-xl-3 col-md-6 col-lg-3">
-      <div class="single_department other-act">
-        <div class="department_content">
+    <div className="col-xl-3 col-md-6 col-lg-3">
+      <div className="single_department other-act">
+        <div className="department_content">
           <h3>Calendar</h3>
-          <div class="circle">
+          <div className="circle">
             <h2>
               <i
                 onClick={() => props.changeYear(props.year - 1)}
-                class="fa fa-angle-left"
+                className="fa fa-angle-left"
               />{" "}
               {props.year}{" "}
               <i style={{cursor:"pointer"}}
                 onClick={() => props.changeYear(props.year + 1)}
-                class="fa fa-angle-right"
+                className="fa fa-angle-right"
               />
             </h2>
             <Link to="calendar/1">
               <img
-                class="jan"
+                className="jan"
                 title="January"
                 data-toggle="tooltip"
                 id="jan"
@@ -29,7 +29,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/2/">
               <img
-                class="feb"
+                className="feb"
                 title="February"
                 data-toggle="tooltip"
                 id="feb"
@@ -38,7 +38,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/3">
               <img
-                class="mar"
+                className="mar"
                 title="March"
                 data-toggle="tooltip"
                 id="mar"
@@ -47,7 +47,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/4">
               <img
-                class="apr"
+                className="apr"
                 title="April"
                 data-toggle="tooltip"
                 id="apr"
@@ -56,7 +56,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/5">
               <img
-                class="may"
+                className="may"
                 title="May"
                 data-toggle="tooltip"
                 id="may"
@@ -65,7 +65,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/6">
               <img
-                class="june"
+                className="june"
                 title="June"
                 data-toggle="tooltip"
                 id="june"
@@ -74,7 +74,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/7">
               <img
-                class="july"
+                className="july"
                 title="July"
                 data-toggle="tooltip"
                 id="july"
@@ -83,7 +83,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/8">
               <img
-                class="aug"
+                className="aug"
                 title="August"
                 data-toggle="tooltip"
                 id="aug"
@@ -92,7 +92,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/9">
               <img
-                class="sept"
+                className="sept"
                 title="September"
                 data-toggle="tooltip"
                 id="sept"
@@ -101,7 +101,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/10">
               <img
-                class="oct"
+                className="oct"
                 title="October"
                 data-toggle="tooltip"
                 id="oct"
@@ -110,7 +110,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/11">
               <img
-                class="nov"
+                className="nov"
                 title="November"
                 data-toggle="tooltip"
                 id="nov"
@@ -119,7 +119,7 @@ export default function Calender(props) {
             </Link>
             <Link to="calendar/12">
               <img
-                class="dec"
+                className="dec"
                 title="December"
                 data-toggle="tooltip"
                 id="dec"

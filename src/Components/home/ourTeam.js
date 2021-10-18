@@ -1,42 +1,42 @@
 import React from "react";
 function ourTeam(props) {
   return (
-    <section class="light-skyblue-bg">
-      <div class="expert_doctors_area doctor_page">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="section-title text-center">
+    <section className="light-skyblue-bg">
+      <div className="expert_doctors_area doctor_page">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="section-title text-center">
                 <h2>{props.teams.heading}</h2>
                 <p></p>
               </div>
               {/* <!-- /.section-title --> */}
             </div>
           </div>
-          <div class="row">
+          <div className="row">
             {props.teams.data &&
               props.teams.data.map((each, key) => {
                 return (
-                  <div class="col-md-4 col-lg-4" key={key}>
-                    <div class="single_expert">
-                      <div class="expert_thumb">
+                  <div className="col-md-4 col-lg-4" key={key}>
+                    <div className="single_expert">
+                      <div className="expert_thumb">
                         <img src={each.image} alt="team" />
                       </div>
-                      <div class="experts_name text-center">
+                      <div className="experts_name text-center">
                         <h3>{`${each.first_name} ${each.last_name}`}</h3>
                         <span>{each.team_qualification}</span>
                         <p>{each.description}</p>
                       </div>
-                      <div class="social-links">
-                        <ul class="team-social">
+                      <div className="social-links">
+                        <ul className="team-social">
                           {each.facebook && (
                             <li>
                               <a
                                 href={each.facebook}
-                                class="facebook"
+                                className="facebook"
                                 target="_blank"
                               >
-                                <i class="fa fa-facebook"></i>
+                                <i className="fa fa-facebook"></i>
                               </a>
                             </li>
                           )}
@@ -44,28 +44,28 @@ function ourTeam(props) {
                           {each.twitter &&(<li>
                             <a
                               href={each.twitter}
-                              class="twitter"
+                              className="twitter"
                               target="_blank"
                             >
-                              <i class="fa fa-twitter"></i>
+                              <i className="fa fa-twitter"></i>
                             </a>
                           </li>)}
                          {each.instagram &&( <li>
                             <a
                               href={each.instagram}
-                              class="instagram"
+                              className="instagram"
                               target="_blank"
                             >
-                              <i class="fa fa-instagram"></i>
+                              <i className="fa fa-instagram"></i>
                             </a>
                           </li>)}
                          {each.linkedin &&( <li>
                             <a
                               href={each.linkedin }
-                              class="linkedin"
+                              className="linkedin"
                               target="_blank"
                             >
-                              <i class="fa fa-linkedin"></i>
+                              <i className="fa fa-linkedin"></i>
                             </a>
                           </li>)}
                         </ul>
@@ -74,12 +74,12 @@ function ourTeam(props) {
                   </div>
                 );
               })}
-            {/* <div class="col-md-4 col-lg-4">
-              <div class="single_expert">
-                <div class="expert_thumb">
+            {/* <div className="col-md-4 col-lg-4">
+              <div className="single_expert">
+                <div className="expert_thumb">
                   <img src={teamImage} alt="team" />
                 </div>
-                <div class="experts_name text-center">
+                <div className="experts_name text-center">
                   <h3>GAURAV BANSAL</h3>
                   <span>B.COM, FCA, DISA</span>
                   <p>
@@ -89,42 +89,42 @@ function ourTeam(props) {
                     ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
-                <div class="social-links">
-                  <ul class="team-social">
+                <div className="social-links">
+                  <ul className="team-social">
                     <li>
                       <a
                         href="https://www.facebook.com/"
-                        class="facebook"
+                        className="facebook"
                         target="_blank"
                       >
-                        <i class="fa fa-facebook"></i>
+                        <i className="fa fa-facebook"></i>
                       </a>
                     </li>
                     <li>
                       <a
                         href="https://twitter.com/"
-                        class="twitter"
+                        className="twitter"
                         target="_blank"
                       >
-                        <i class="fa fa-twitter"></i>
+                        <i className="fa fa-twitter"></i>
                       </a>
                     </li>
                     <li>
                       <a
                         href="http://instagram.com/"
-                        class="instagram"
+                        className="instagram"
                         target="_blank"
                       >
-                        <i class="fa fa-instagram"></i>
+                        <i className="fa fa-instagram"></i>
                       </a>
                     </li>
                     <li>
                       <a
                         href="https://www.linkedin.com/profile/"
-                        class="linkedin"
+                        className="linkedin"
                         target="_blank"
                       >
-                        <i class="fa fa-linkedin"></i>
+                        <i className="fa fa-linkedin"></i>
                       </a>
                     </li>
                   </ul>

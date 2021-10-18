@@ -27,39 +27,39 @@ export default class videos extends Component {
      
       return (
         <div>
-          <div class="breadcrumbpane">
-            <div class="container">
-              <h1 class="pull-left">Videos</h1>
+          <div className="breadcrumbpane">
+            <div className="container">
+              <h1 className="pull-left">Videos</h1>
             </div>
           </div>
           <section>
             {this.state.featured.length > 0 && (
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="section-title text-center">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="section-title text-center">
                       <h2>Featured Videos</h2>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="show-videos">
+                <div className="row">
+                  <div className="show-videos">
                     {this.state.featured.map((each, key) => {
                       let videoUrl = each.video_link.slice(
                         each.video_link.lastIndexOf("=") + 1,
                         each.video_link.length
                       );
                       return (
-                        <div class="col-md-3" key={key}>
-                          <div class="videos">
+                        <div className="col-md-3" key={key}>
+                          <div className="videos">
                             <iframe
                               width="100%"
                               height="226"
                               src={`https://www.youtube.com/embed/${videoUrl}`}
-                              frameborder="0"
+                              frameBorder="0"
                               allowfullscreen=""
                             ></iframe>
-                            <div class="videosdesc">
+                            <div className="videosdesc">
                               <h5>{each.video_heading}</h5>
                               <p>{each.description}</p>
                             </div>
@@ -73,32 +73,32 @@ export default class videos extends Component {
               </div>
             )}
             {this.state.others.length > 0 && (
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="section-title text-center">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="section-title text-center">
                       <h2>Other Videos</h2>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="show-videos">
+                <div className="row">
+                  <div className="show-videos">
                     {this.state.others.map((each, key) => {
                       let videoUrl = each.video_link.slice(
                         each.video_link.lastIndexOf("=") + 1,
                         each.video_link.length
                       );
                       return (
-                        <div class="col-md-3" key={key}>
-                          <div class="videos">
+                        <div className="col-md-3" key={key}>
+                          <div className="videos">
                             <iframe
                               width="100%"
                               height="226"
                               src={`https://www.youtube.com/embed/${videoUrl}`}
-                              frameborder="0"
+                              frameBorder="0"
                               allowfullscreen=""
                             ></iframe>
-                            <div class="videosdesc">
+                            <div className="videosdesc">
                               <h5>{each.video_heading}</h5>
                               <p>{each.description}</p>
                             </div>
@@ -110,9 +110,9 @@ export default class videos extends Component {
                 </div>
               </div>
             )}
-            {this.state.featured < 1 && this.state.others < 1 && <div class="row">
-          <div class="col-md-12">
-            <div class="section-title text-center">
+            {this.state.featured < 1 && this.state.others < 1 && <div className="row">
+          <div className="col-md-12">
+            <div className="section-title text-center">
               <h2>No Videos</h2>
             </div>
           </div>

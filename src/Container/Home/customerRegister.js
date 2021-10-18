@@ -101,32 +101,32 @@ function CustomerRegister(props) {
     <div>
       <Header />
       <div id="home-page">
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left"> Customer Register</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left"> Customer Register</h1>
           </div>
         </div>
 
-        <div class="container">
-          <div class="login_register_box clearfix">
-            <div class="sign-in-panel">
+        <div className="container">
+          <div className="login_register_box clearfix">
+            <div className="sign-in-panel">
               <h4>Create your Account</h4>
-              <div class="login-content">
-                <div class="login-details align-content-center">
+              <div className="login-content">
+                <div className="login-details align-content-center">
                   <form
                     onSubmit={handleSubmit(onSubmitHandle)}
                     id="sky-form"
                     method="POST"
-                    class="sky-form"
+                    className="sky-form"
                   >
                     <fieldset>
                       <section>
                         <br />
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-envelope-o"
+                                className="icon-append fa fa-envelope-o"
                                 style={styles.top}
                               ></i>
                               {/* {errors["email"] && (
@@ -161,11 +161,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-user-o"
+                                className="icon-append fa fa-user-o"
                                 style={styles.top}
                               ></i>
                               <input
@@ -185,11 +185,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-user-o"
+                                className="icon-append fa fa-user-o"
                                 style={styles.top}
                               ></i>
 
@@ -205,11 +205,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-user-o"
+                                className="icon-append fa fa-user-o"
                                 style={styles.top}
                               ></i>
                               {/* {errors["last_name"] && (
@@ -233,11 +233,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-mobile"
+                                className="icon-append fa fa-mobile"
                                 style={styles.top}
                               ></i>
                               {/* {errors["phone"] && (
@@ -266,11 +266,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-lock"
+                                className="icon-append fa fa-lock"
                                 style={styles.top}
                               ></i>
                               {/* {errors["password"] && (
@@ -299,11 +299,11 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <section>
-                        <div class="row">
-                          <div class="col col-10">
-                            <label class="input">
+                        <div className="row">
+                          <div className="col col-10">
+                            <label className="input">
                               <i
-                                class="icon-append fa fa-lock"
+                                className="icon-append fa fa-lock"
                                 style={styles.top}
                               ></i>
                               {/* {errors["confirmPassword"] && (
@@ -333,7 +333,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <div class="chkbox-group">
+                      <div className="chkbox-group">
                         <input
                           type="checkbox"
                           name="agree"
@@ -351,17 +351,17 @@ function CustomerRegister(props) {
                       </div>
                     </fieldset>
 
-                    <div class="sign-btn">
-                      <button type="submit" name="sign_in" class="button col">
+                    <div className="sign-btn">
+                      <button type="submit" name="sign_in" className="button col">
                         Create Account
                       </button>
                     </div>
                   </form>
-                  <div class="login-footer clearfix">
-                    <p class="pull-left cust_log">Already have an account?</p>
+                  <div className="login-footer clearfix">
+                    <p className="pull-left cust_log">Already have an account?</p>
                     <Link
                       to="/login"
-                      class="btn btn-login pull-right cust_login"
+                      className="btn btn-login pull-right cust_login"
                     >
                       Log in
                     </Link>
@@ -370,7 +370,7 @@ function CustomerRegister(props) {
               </div>
             </div>
             {placeHolder?.image && placeHolder?.description && (
-              <div class="Register_benefits">
+              <div className="Register_benefits">
                 {/* <h4>Member / Registered User Benefits...</h4>
               <h5>
                 New User? <span>"Register to Become a Member"</span>
@@ -386,19 +386,19 @@ function CustomerRegister(props) {
                 />
                 {/* <ul>
                 <li>
-                  <i class="fa fa-circle"></i>File Free ITR online
+                  <i className="fa fa-circle"></i>File Free ITR online
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Get an Expert Assistances
+                  <i className="fa fa-circle"></i>Get an Expert Assistances
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Auto Extract of TDS Data
+                  <i className="fa fa-circle"></i>Auto Extract of TDS Data
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Processing Status of ITR Return
+                  <i className="fa fa-circle"></i>Processing Status of ITR Return
                 </li>
                 <li>
-                  <i class="fa fa-circle"></i>Enjoy more service after upgrading
+                  <i className="fa fa-circle"></i>Enjoy more service after upgrading
                   your packages
                 </li>
               </ul> */}

@@ -85,11 +85,11 @@ export default class newsletter extends Component {
         <>
           <li
             onClick={() => this.changePage(i)}
-            class={
+            className={
               this.state.currenPage == i ? "page-item active" : "page-item"
             }
           >
-            <a class="page-link">{i}</a>
+            <a className="page-link">{i}</a>
           </li>
         </>
       );
@@ -101,29 +101,29 @@ export default class newsletter extends Component {
     let { tableOne, tableTwo } = this.state;
     return (
       <div>
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left">Newsletter</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left">Newsletter</h1>
           </div>
         </div>
         <section>
-          <div class="container">
-            <div class="row">
+          <div className="container">
+            <div className="row">
               <div className="col-md-8">
-                <div class="col-md-6">
-                  <table class="table form-border text-center">
+                <div className="col-md-6">
+                  <table className="table form-border text-center">
                     <tbody>
-                      <tr class="job-summary">
-                        <td width="20%" class="cal-right-wht cal-header">
+                      <tr className="job-summary">
+                        <td width="20%" className="cal-right-wht cal-header">
                           Sr. No.
                         </td>
                         <td>Months</td>
-                        <td width="15%" class="cal-header"></td>
+                        <td width="15%" className="cal-header"></td>
                       </tr>
                       {/* table one  */}
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 1 && 1}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[0]?.month ? tableOne[0]?.month : ""} ${
                             tableOne[0]?.year ? tableOne[0]?.year : ""
                           }`}
@@ -147,7 +147,7 @@ export default class newsletter extends Component {
 
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 2 && 2}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[1]?.month ? tableOne[1]?.month : ""} ${
                             tableOne[1]?.year ? tableOne[1]?.year : ""
                           }`}
@@ -170,7 +170,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 3 && 3}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[2]?.month ? tableOne[2]?.month : ""} ${
                             tableOne[2]?.year ? tableOne[2]?.year : ""
                           }`}
@@ -193,7 +193,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 4 && 4}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[3]?.month ? tableOne[3]?.month : ""} ${
                             tableOne[3]?.year ? tableOne[3]?.year : ""
                           }`}
@@ -216,7 +216,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 5 && 5}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[4]?.month ? tableOne[4]?.month : ""} ${
                             tableOne[4]?.year ? tableOne[4]?.year : ""
                           }`}
@@ -239,7 +239,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableOne.length >= 6 && 6}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableOne[5]?.month ? tableOne[5]?.month : ""} ${
                             tableOne[5]?.year ? tableOne[5]?.year : ""
                           }`}
@@ -264,20 +264,20 @@ export default class newsletter extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div class="col-md-6">
-                  <table class="table form-border text-center">
+                <div className="col-md-6">
+                  <table className="table form-border text-center">
                     <tbody>
-                      <tr class="job-summary">
-                        <td width="20%" class="cal-right-wht cal-header">
+                      <tr className="job-summary">
+                        <td width="20%" className="cal-right-wht cal-header">
                           Sr. No.
                         </td>
                         <td>Months</td>
-                        <td width="15%" class="cal-header"></td>
+                        <td width="15%" className="cal-header"></td>
                       </tr>
                       {/* table two start */}
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 1 && 7}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[0]?.month ? tableTwo[0]?.month : ""} ${
                             tableTwo[0]?.year ? tableTwo[0]?.year : ""
                           }`}
@@ -301,7 +301,7 @@ export default class newsletter extends Component {
 
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 2 && 8}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[1]?.month ? tableTwo[1]?.month : ""} ${
                             tableTwo[1]?.year ? tableTwo[1]?.year : ""
                           }`}
@@ -324,7 +324,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 3 && 9}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[2]?.month ? tableTwo[2]?.month : ""} ${
                             tableTwo[2]?.year ? tableTwo[2]?.year : ""
                           }`}
@@ -347,7 +347,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 4 && 8}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[3]?.month ? tableTwo[3]?.month : ""} ${
                             tableTwo[3]?.year ? tableTwo[3]?.year : ""
                           }`}
@@ -370,7 +370,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 5 && 11}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[4]?.month ? tableTwo[4]?.month : ""} ${
                             tableTwo[4]?.year ? tableTwo[4]?.year : ""
                           }`}
@@ -393,7 +393,7 @@ export default class newsletter extends Component {
                       </tr>
                       <tr className="newsletter-tr">
                         <td>{tableTwo.length >= 6 && 12}</td>
-                        <th scope="row" class="cal-left cal-header">
+                        <th scope="row" className="cal-left cal-header">
                           {`${tableTwo[5]?.month ? tableTwo[5]?.month : ""} ${
                             tableTwo[5]?.year ? tableTwo[5]?.year : ""
                           }`}
@@ -419,41 +419,41 @@ export default class newsletter extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div class="col-md-12">
-                <nav class="blog-pagination">
-                  <ul class="pagination">
-                    <li class="page-item">
+                <div className="col-md-12">
+                <nav className="blog-pagination">
+                  <ul className="pagination">
+                    <li className="page-item">
                       <a
                         onClick={() =>
                           this.state.currenPage != 1 &&
                           this.changePage(this.state.prevPage)
                         }
-                        class={
+                        className={
                           this.state.currenPage != 1
                             ? "page-link preview"
                             : "page-link preview disabled-pagi"
                         }
                         aria-label="Previous"
                       >
-                        <i class="fa fa-angle-double-left"></i> Prev.
+                        <i className="fa fa-angle-double-left"></i> Prev.
                       </a>
                     </li>
                     {this.pageNumbers()}
-                    <li class="page-item">
+                    <li className="page-item">
                       <a
                         onClick={() =>
                           this.state.currenPage < this.state.totalPages &&
                           this.changePage(this.state.nextPage)
                         }
                         disabled
-                        class={
+                        className={
                           this.state.currenPage < this.state.totalPages
                             ? "page-link next"
                             : "page-link next disabled-pagi"
                         }
                         aria-label="Next"
                       >
-                        Next <i class="fa fa-angle-double-right"></i>
+                        Next <i className="fa fa-angle-double-right"></i>
                       </a>
                     </li>
                   </ul>
@@ -462,9 +462,9 @@ export default class newsletter extends Component {
               </div>
               {this.state.placeholder?.image &&
                 this.state.placeholder?.description && (
-                  <div class="col-md-4">
-                    <div class="blog_right_sidebar">
-                      <aside class="single_sidebar_widget">
+                  <div className="col-md-4">
+                    <div className="blog_right_sidebar">
+                      <aside className="single_sidebar_widget">
                         <img
                           src={this.state.placeholder.image}
                           style={{ width: "100%" }}
@@ -474,7 +474,7 @@ export default class newsletter extends Component {
                             __html: this.state.placeholder.description,
                           }}
                         />
-                        {/* <h4 class="place_title">Newsletter Placeholder</h4>
+                        {/* <h4 className="place_title">Newsletter Placeholder</h4>
                     <p>
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry. Lorem Ipsum has been the industry's
@@ -484,7 +484,7 @@ export default class newsletter extends Component {
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry.
                     </p>
-                    <ul class="list-disc">
+                    <ul className="list-disc">
                       <li>Lorem Ipsum is simply dummy text</li>
                       <li>Lorem Ipsum is simply dummy text</li>
                       <li>Lorem Ipsum is simply dummy text</li>

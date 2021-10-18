@@ -26,11 +26,11 @@ export default class Testimonials extends Component {
 
   render() {
     return (
-      <section class="clienttestimonialspane" id="clients">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="section-title text-center">
+      <section className="clienttestimonialspane" id="clients">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="section-title text-center">
                 <h2>
                   Client <span>Testimonials</span>
                 </h2>
@@ -45,11 +45,11 @@ export default class Testimonials extends Component {
 
           {this.state.data.length > 0 &&
             this.state.data.map((each, item) => {
-             return (<div key={item} class="col-md-4">
-                <div class="testimonials-v4">
-                  <div class="testimonials-v4-in">{each.short_description}</div>
+             return (<div key={item} className="col-md-4">
+                <div className="testimonials-v4">
+                  <div className="testimonials-v4-in">{each.short_description}</div>
                   <img src={each.image} />
-                  <span class="testimonials-author">
+                  <span className="testimonials-author">
                     {each.name}
                     <br />
                     <em>

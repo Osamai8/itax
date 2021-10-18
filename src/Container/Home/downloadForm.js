@@ -34,23 +34,23 @@ export default class downloadForm extends Component {
   render() {
     return (
       <div>
-        <div class="breadcrumbpane">
-          <div class="container">
-            <h1 class="pull-left">Download Forms</h1>
+        <div className="breadcrumbpane">
+          <div className="container">
+            <h1 className="pull-left">Download Forms</h1>
           </div>
         </div>
         <section>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 section-title">
-                <div class="form-group alignitem-horizontal-center clearfix">
-                  <div class="pull-left">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 section-title">
+                <div className="form-group alignitem-horizontal-center clearfix">
+                  <div className="pull-left">
                     <span>SELECT SERVICES</span>
                   </div>
-                  <div class="pull-right col-md-5">
+                  <div className="pull-right col-md-5">
                     <select
                       id="myselect1"
-                      class="form-control selectpicker bs-select-hidden"
+                      className="form-control selectpicker bs-select-hidden"
                       readonly=""
                       data-style="btn-white"
                     >
@@ -67,23 +67,23 @@ export default class downloadForm extends Component {
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-8">
-                <table class="table form-border text-center">
+            <div className="row">
+              <div className="col-md-8">
+                <table className="table form-border text-center">
                   <tbody>
-                    <tr class="job-summary">
-                      <td width="10%" class="cal-right-wht cal-header">
+                    <tr className="job-summary">
+                      <td width="10%" className="cal-right-wht cal-header">
                         Sr. No.
                       </td>
-                      <td class="cal-right-wht">Form Name</td>
-                      <td width="20%" class="text-center">
+                      <td className="cal-right-wht">Form Name</td>
+                      <td width="20%" className="text-center">
                         Download
                       </td>
                     </tr>
                    { this.state.data.map((each,key)=> {
                    return <tr ket={key}>
                       <td>{key + 1}</td>
-                      <th scope="row" class="cal-border cal-header">
+                      <th scope="row" className="cal-border cal-header">
                        {each.form_name}
                       </th>
                       <td>
@@ -123,14 +123,14 @@ export default class downloadForm extends Component {
                   </tbody>
                 </table>
               </div>
-              {this.state.placeholder?.image && <div class="col-md-4">
-                <div class="blog_right_sidebar text-justify">
-                  <aside class="single_sidebar_widget">
+              {this.state.placeholder?.image && <div className="col-md-4">
+                <div className="blog_right_sidebar text-justify">
+                  <aside className="single_sidebar_widget">
                     <img
                       src={this.state.placeholder.image}
                       style={{ width: "100%" }}
                     />
-                    {this.state.placeholder?.header && <h4 class="place_title">{this.state.placeholder.header}</h4>}
+                    {this.state.placeholder?.header && <h4 className="place_title">{this.state.placeholder.header}</h4>}
                     <div
                       dangerouslySetInnerHTML={{
                         __html: this.state.placeholder.description,

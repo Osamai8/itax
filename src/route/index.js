@@ -16,11 +16,23 @@ class Index extends Component{
   contactData(){
     RestApi.contact().then((res) => {
       console.log("contact", res);
+      let categoryOne = []
+      let categoryTwo = []
+      
+      res.data.data.category_list.map((each,i)=> {
+        if (i <= 9) {
+          categoryOne.push(each);
+        } else {
+          categoryTwo.push(each);
+        }
+      })
       this.props.dispatch({
         type: "CONTACT",
         payload: {
           socialIcons: res.data.data.social_media_link,
           contactDetails: res.data.data.contact_details,
+          categoryOne: categoryOne,
+          categorytwo: categoryTwo,
         },
       });
     });

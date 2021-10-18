@@ -33,27 +33,27 @@ export default class Service extends Component {
     return (
       <>
         <div id="home-page">
-          <div class="breadcrumbpane">
-            <div class="container">
-              <h1 class="pull-left">Explore Our Services</h1>
+          <div className="breadcrumbpane">
+            <div className="container">
+              <h1 className="pull-left">Explore Our Services</h1>
             </div>
           </div>
           {/* <!-- start: service section --> */}
           <section>
-            <div class="our_department_area">
-              <div class="container">
-                <div class="row">
+            <div className="our_department_area">
+              <div className="container">
+                <div className="row">
                   {data.length > 0 &&
                     data.map((each, key) => {
                       return (
-                        <div class="col-xl-3 col-md-6 col-lg-3">
-                          <div class="single_department">
-                            <div class="department_thumb">
+                        <div className="col-xl-3 col-md-6 col-lg-3">
+                          <div className="single_department">
+                            <div className="department_thumb">
                               <img src={each.image} alt="" />
                             </div>
-                            <div class="department_content">
-                              <div class="iconimagetitle">
-                                {/* <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->  */}
+                            <div className="department_content">
+                              <div className="iconimagetitle">
+                                {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                                 <img src={moneyBagIcon} />
                                 <h3>
                                   <a href="#">
@@ -63,10 +63,10 @@ export default class Service extends Component {
                                 </h3>
                                 <p>
                                   {each.description.length > 74
-                                    ? each.description.slice(0, 75) + "..."
+                                    ? each.description.slice(0, 70)+"..."
                                     : each.description}
                                 </p>
-                                <a href="#" class="readmore">
+                                <a href="#" className="readmore">
                                   Read More...
                                 </a>
                               </div>
@@ -75,13 +75,13 @@ export default class Service extends Component {
                         </div>
                       );
                     })}
-                  {/* <div class="col-xl-3 col-md-6 col-lg-3">
-                    <div class="single_department">
-                      <div class="department_thumb">
+                  {/* <div className="col-xl-3 col-md-6 col-lg-3">
+                    <div className="single_department">
+                      <div className="department_thumb">
                         <img src={serviceImage} alt="" />
                       </div>
-                      <div class="department_content">
-                        <div class="iconimagetitle">
+                      <div className="department_content">
+                        <div className="iconimagetitle">
                           <img src={moneyBagIcon} />
                           <h3>
                             <a href="#"> &nbsp;&nbsp;Corporate Advisory</a>
@@ -90,7 +90,7 @@ export default class Service extends Component {
                             Under corporate advisory we provide the following
                             services to our esteemed...
                           </p>
-                          <a href="#" class="readmore">
+                          <a href="#" className="readmore">
                             Read More...
                           </a>
                         </div>
