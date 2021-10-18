@@ -123,13 +123,13 @@ function Header(props) {
             </div>
             <li>
               <a href={`mailto:${props.contactDetails.header_email}`}>
-                <i className="fa fa-envelope"></i>{props.contactDetails.header_email}
+                <i className="fa fa-envelope"> </i>{" "}{props.contactDetails.header_email}
               </a>
             </li>
             &nbsp;
             <li>
               <a href={`tel:${props.contactDetails.header_phone}`}>
-                <i className="fa fa-phone"></i> {props.contactDetails.header_phone}
+                <i className="fa fa-phone"></i>{" "} {props.contactDetails.header_phone}
               </a>
             </li>
             <li>
