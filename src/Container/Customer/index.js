@@ -100,7 +100,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -114,7 +114,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -128,7 +128,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -142,7 +142,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -156,7 +156,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -170,7 +170,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>
@@ -184,7 +184,7 @@ export default class index extends Component {
                 <td>xxxxx</td>
                 <td>Open</td>
                 <td>
-                  <a href="view.php" class="button w3-button w3-dark-grey">
+                  <a href="view" class="button w3-button w3-dark-grey">
                     View
                   </a>
                 </td>

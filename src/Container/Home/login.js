@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import Modal from "../../Components/modal/modalRoot";
 import { toast } from "react-toastify";
 import Footer from "../../Common/footer";
+import Common from "../../Common/common";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -85,39 +86,7 @@ function Login(props) {
             autoClose: 2000,
           });
           handleResponse(response);
-          // RestApi.defaultToken(response.data.access_token);
-          // let res = response.data;
-          // let data = {
-          //   name: res.data.first_name,
-          //   email: res.data.email,
-          //   phone: res.data.phone,
-          //   last_name: res.data.last_name,
-          //   middle_name: res.data.middle_name,
-          //   photo: res.data.photo,
-          //   isCustomer: res.data.is_customer,
-          //   isServiceProvider: res.data.is_service_provider,
-          //   _token: res.access_token,
-          // };
-          // props.dispatch({
-          //   type: "LOGIN",
-          //   payload: data,
-          // });
-          // // setMessage("Login SuccessFull");
-
-          // setTimeout(() => {
-          //   if (
-          //     response.data.data.is_customer == "yes" &&
-          //     response.data.data.is_service_provider == "yes"
-          //   ) {
-          //     props.activeForm == "customer"
-          //       ? history.push(`/customer/dashboard`)
-          //       : history.push(`/partner/dashboard`);
-          //   } else if (response.data.data.is_customer == "yes") {
-          //     history.push(`/customer/dashboard`);
-          //   } else if (response.data.data.is_service_provider == "yes") {
-          //     history.push(`/partner/dashboard`);
-          //   }
-          // }, 2000);
+         
         }
       }
     });
@@ -139,6 +108,7 @@ function Login(props) {
       isSubscribed: res.data.is_subscribed,
       _token: res.access_token,
     };
+    Common.saveState(data)
     props.dispatch({
       type: "LOGIN",
       payload: data,
@@ -232,34 +202,12 @@ function Login(props) {
       RestApi.socialLogin(data).then((res) => {
         console.log("socialLogin: ", res);
         if (res.data.access_token && res.data.status == true) {
+          toast.success(res.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
           handleResponse(res);
-          // let data = {
-          //   name: res.data.data.first_name,
-          //   email: res.data.data.email,
-          //   phone: res.data.data.phone,
-          //   last_name: res.data.data.last_name,
-          //   middle_name: res.data.data.middle_name,
-          //   photo: res.data.data.photo,
-          //   isCustomer: res.data.data.is_customer,
-          //   isServiceProvider: res.data.data.is_service_provider,
-          //   _token: res.data.access_token,
-          // };
-          // props.dispatch({
-          //   type: "LOGIN",
-          //   payload: data,
-          // });
-          // if (
-          //   res.data.data.is_customer == "yes" &&
-          //   res.data.data.is_service_provider == "yes"
-          // ) {
-          //   props.activeForm == "customer"
-          //     ? history.push(`/customer/dashboard`)
-          //     : history.push(`/partner/dashboard`);
-          // } else if (res.data.data.is_customer == "yes") {
-          //   history.push(`/customer/dashboard`);
-          // } else if (res.data.data.is_service_provider == "yes") {
-          //   history.push(`/partner/dashboard`);
-          // }
+         
         }
         if (res.data.status == false && res.data.status_code == 300) {
           // props.dispatch({
