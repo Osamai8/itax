@@ -3,5 +3,10 @@ export default class Common {
         let userDetails = JSON.stringify(data)
         sessionStorage.setItem("userDetails", userDetails);
     }
-
+    static groupBy = key => array =>
+    array.reduce((objectsByKeyValue, obj) => {
+      const value = obj[key];
+      objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+      return objectsByKeyValue;
+    }, {});
 }

@@ -182,17 +182,10 @@ export function Events() {
                     <>
                       <h3>UPCOMING EVENTS</h3>
                       <ul>
-                        {data.upComing.map((each,i) => {
+                        {data.upComing.map((each, i) => {
                           return (
                             <li key={i}>
-                              <Link to={`events`}>
-                                {" "}
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html: each.description,
-                                  }}
-                                />
-                              </Link>
+                              <Link to={`events`}> {each.heading}</Link>
                             </li>
                           );
                         })}
@@ -203,16 +196,10 @@ export function Events() {
                     <>
                       <h3>PREVIOUS EVENTS</h3>
                       <ul>
-                        {data.previous.map((each,i) => {
+                        {data.previous.map((each, i) => {
                           return (
                             <li key={i}>
-                              <Link to={`events`}>
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html: each.description,
-                                  }}
-                                />
-                              </Link>
+                              <Link to={`events`}>{each.heading}</Link>
                             </li>
                           );
                         })}
@@ -253,9 +240,11 @@ export function DownloadForm() {
                   </Link>
                 </a>
                 <a href="#">
-                  <li>
-                    <i className="fa fa-question-circle"></i>FAQ
-                  </li>
+                  <Link to="faq">
+                    <li>
+                      <i className="fa fa-question-circle"></i>FAQ
+                    </li>
+                  </Link>
                 </a>
                 <a href="#">
                   {" "}

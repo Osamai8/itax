@@ -52,7 +52,7 @@ export default function Services() {
                           </h3>
                           <p>
                             {each.description.length > 74
-                              ? each.description.slice(0, 75) + "..."
+                              ? each.description.slice(0, 130) + "..."
                               : each.description}
                           </p>
                           <a href="#" className="readmore">

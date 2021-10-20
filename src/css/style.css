@@ -2499,7 +2499,7 @@ cite .by {
 }
 .our_department_area .single_department .department_content {
     padding: 15px;
-    height: 166px;
+    height: 200px;
 }
 .our_department_area .single_department .department_content h3 {
     margin-top: 0;
@@ -2518,6 +2518,7 @@ cite .by {
 .our_department_area .single_department .department_content p {
     margin: 5px 0;
     text-align: justify;
+    height: 88px;
 }
 .our_department_area .single_department:hover .department_thumb img {
     -webkit-transform: scale(1.2);
@@ -2538,7 +2539,7 @@ cite .by {
 .events ul {
     margin: 0;
     padding-left: 10px;
-    height: 210px;
+    height: 80px;
 }
 .events ul li{
     list-style-type: square;
