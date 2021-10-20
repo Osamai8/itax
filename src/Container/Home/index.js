@@ -4,7 +4,7 @@ import Services from "../../Components/home/services";
 import videoLogo from "../../images/video.png";
 import blogImage from "../../images/blog-home.png";
 import Testimonials from "../../Components/home/testimonials";
-import NewsLetter from "../../Components/home/subscribeNewsletter";
+import Newsletter from "../../Components/home/subscribeNewsletter";
 // import Calender from "../../Components/home/calender";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
@@ -168,7 +168,7 @@ export default class Home extends Component {
 
           <Testimonials />
           {/* <!---------------------------Newsletter Section----------------------------> */}
-          <NewsLetter />
+          <Newsletter />
           <Footer />
         </div>
       </>

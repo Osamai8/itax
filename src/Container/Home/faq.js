@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Common from "../../Common/common";
+import Footer from "../../Common/footer";
+import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
-
 export default class faq extends Component {
     constructor(props){
         super(props)
@@ -885,6 +886,8 @@ export default class faq extends Component {
             </div>
           </div>
         </div>
+        <Newsletter />
+          <Footer />
       </div>
     );
   }
