@@ -17,7 +17,7 @@ export default class downloadForm extends Component {
   }
 
   placeHolderAPI() {
-    RestApi.placeholder("career").then((res) => {
+    RestApi.placeholder("download-forms").then((res) => {
       console.log("placeHolder: downloadFOrm: ", res);
       this.setState({ placeholder: res.data.data });
     });

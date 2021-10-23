@@ -108,7 +108,7 @@ function Login(props) {
       isSubscribed: res.data.is_subscribed,
       _token: res.access_token,
     };
-    Common.saveState(data)
+    Common.saveState(data,props.activeForm)
     props.dispatch({
       type: "LOGIN",
       payload: data,

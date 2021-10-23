@@ -1,10 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import accuredImage from "../images/accurecode.jpg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 function Footer(props) {
+  const [categoryOne,setCategoryOne] = useState([])
+  const [categoryTwo,setCategoryTwo] = useState([])
   useEffect(() => {
+    let categoryOne = []
+    let categoryTwo = []
+    
+   if(props.categories && props.categories.length > 0) {
+    props.categories.map((each,i)=> {
+      if (i <= 9) {
+        categoryOne.push(each);
+      } else {
+        categoryTwo.push(each);
+      }
+    })
+    setCategoryOne(categoryOne)
+    setCategoryTwo(categoryTwo)
+   }
     window.scrollTo(0, 0);
   }, []);
   const changeMenu = (menu) => {
@@ -13,6 +29,10 @@ function Footer(props) {
       payload: menu,
     });
   };
+  
+
+ 
+
   return (
     <div>
       <footer class="footer">
@@ -25,8 +45,8 @@ function Footer(props) {
                     Explore Our <span>Services</span>
                   </h3>
                   <ul>
-                    {props.categoryOne.length > 0 &&
-                      props.categoryOne.map((each, key) => {
+                    {categoryOne.length > 0 &&
+                      categoryOne.map((each, key) => {
                         return (
                           <li key={key}>
                             <Link to={`/`}>{each.category_name}</Link>
@@ -42,8 +62,8 @@ function Footer(props) {
                     <br />
                   </h3>
                   <ul>
-                    {props.categoryTwo.length > 0 &&
-                      props.categoryTwo.map((each, key) => {
+                    {categoryTwo.length > 0 &&
+                      categoryTwo.map((each, key) => {
                         return (
                           <li key={key}>
                             <Link to={`/`}>{each.category_name}</Link>
@@ -147,14 +167,13 @@ function Footer(props) {
   );
 }
 Footer.defaultProps = {
-  categoryOne: [],
-  categoryTwo: [],
+  categories: [],
   activeMenu: "home",
 };
 export default connect((state, props) => {
   return {
     activeMenu: state?.activeMenu,
-    categoryOne: state?.categoryOne,
-    categoryTwo: state?.categoryTwo,
+    categories: state?.categories,
+    // categoryTwo: state?.categoryTwo,
   };
 })(Footer);

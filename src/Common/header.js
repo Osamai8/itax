@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import ModalRoot from "../Components/modal/modalRoot";
 import { withRouter } from "react-router";
+import Common from "./common";
 function Header(props) {
 
   const [openLogoutModal, setOpenLogoutModal] = useState(false)
@@ -19,11 +20,13 @@ function Header(props) {
             type: "LOGOUT",
           });
           RestApi.defaultToken(null)
+          Common.logout()
           props.history.replace('/')
         toast.success("Logout successfully");
       })
 
       .catch((error) => {
+        Common.logout()
         console.log("error!", error);
       });
   };

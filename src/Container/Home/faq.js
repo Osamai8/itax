@@ -1,34 +1,83 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Common from "../../Common/common";
 import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
-export default class faq extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            services: [],
-            activeService:''
-        }
-    }
-    componentDidMount(){
-        this.fetchData()
-    }
+class Faq extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      services: [],
+      activeService: "",
+      allService:[],
+      search:'',
+      categories:[]
+    };
+  }
+  componentDidMount() {
+    this.fetchData();
+  }
 
-    fetchData(){
-        RestApi.faq().then((res)=>{
-            console.log(res)
-            if(res.data.status){
-               let grouped =  Common.groupBy('service_name')(res.data.data)
-                console.log("grouped",grouped)
-                this.setState({
-                    services: grouped,
-                    activeService: res.data.data[0].service_id
-                })
-            }
+  fetchData() {
+    RestApi.faq().then((res) => { 
+      console.log(res);
+      if (res.data.status) {
+        let grouped = Common.groupBy(["category_id",'service_name'])(res.data.data);
+        console.log("res", res.data.data);
+        let categoryIDs =[];
+        res.data.data.map((c)=> {
+          if(!categoryIDs.includes(c.category_id)){
+            categoryIDs.push(c.category_id)
+          }
         })
-    }
+        let category = this.props.categories.filter((i)=> categoryIDs.includes(i.id))
+        
+        console.log("categories",categoryIDs)
+        console.log("categories",category)
+        this.setState({
+          services: grouped,
+          allService: grouped,
+          activeService: category[0]?.id,
+          categories:category
+        });
+      }
+    });
+  }
+  handleActiveServie(serviceId){
+    this.setState({
+      activeService:serviceId
+    })
+  }
+  handleSearch(e) {
+    // const filteredCategory = this.state.categories.filter((entry )=> {
+    //   let category = entry.category_name.toLowerCase()
+    //   let keyword = e.target.value.toLowerCase()
+    //   return category.match(keyword)
+    // });
+    // let filteredService = [];
+    // for(const category in this.state.services){
+    //   let ar1 = {}
+    //  for(const services in this.state.services[category]){
+    //  let data = this.state.services[category][services].filter((entry)=> {
+    //     let service = entry.service_name.toLowerCase()
+    //     let keyword = e.target.value.toLowerCase()
+    //     return service.match(keyword)
+    //   });
+
+    //    ar1 = {[services]:data}
+    //  }
+     
+    //  filteredService.push({[category]: ar1})
+    // }
+    // console.log("-----",filteredService);
+    // this.setState({
+    //   search:e.target.value
+    // })
+  }
   render() {
+    console.log("state",this.state)
+    let { services,activeService,categories } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -41,27 +90,28 @@ export default class faq extends Component {
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
               <ul class="nav nav-pills flex-column" role="tablist">
-                
-              { 
-                Object.entries(this.state.services).map((each)=> {
-                  return  <li class="nav-item">
-                    <a
-                      href="#Corporate"
-                      aria-controls="Corporate"
-                      data-toggle="pill"
-                    >
-                      <strong>{each[0]}</strong>
-                    </a>
-                  </li>
-                })
-              }
-                
+                {categories.map((each, key) => {
+                  
+                    return (
+                      <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
+                      class={`nav-item ${each.id == activeService && 'active'}`}>
+                        <a
+                          href={`#${each.id}`}
+                          aria-controls={each.id}
+                          data-toggle="pill"
+                        >
+                          <strong>{each.category_name}</strong>
+                        </a>
+                      </li>
+                    );                  
+                })}
               </ul>
             </div>
 
             <div class="col-md-8">
               <div class="search_help">
                 <input
+                onChange={(e)=>this.handleSearch(e)}
                   type="text"
                   class="form-control inputpane"
                   placeholder="Search.."
@@ -69,826 +119,87 @@ export default class faq extends Component {
                 <button class="but_feild button">search</button>
               </div>
               <div class="tab-content tab_con">
-                <div role="tabpanel" class="tab-pane active" id="business">
-                  <div class="panel-group" id="accordion">
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle"
-                        data-toggle="collapse"
-                        data-parent="#accordion"
-                        href="#collapse1"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Formation of Business Entity
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse1"
-                        class="panel-collapse collapse in"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion"
-                        href="#collapse2"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Statutory Registrations
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse2"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion"
-                        href="#collapse3"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Project Evaluation & Viability Studies
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse3"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* <!---------------corporate---------------> */}
-
-                <div role="tabpanel" class="tab-pane" id="Corporate">
-                  <div class="panel-group" id="accordion1">
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion1"
-                        href="#collapse11"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Formation of a Company
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse11"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion1"
-                        href="#collapse12"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          ROC Compliances<i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse12"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion1"
-                        href="#collapse13"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Management Consultancy
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse13"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion1"
-                        href="#collapse14"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          MIS & Related Reports
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse14"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
                 {/* <!----financial-----> */}
-
-                <div role="tabpanel" class="tab-pane" id="Financial">
-                  <div class="panel-group" id="accordion2">
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse28"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Project Finance<i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse28"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
+                {/* <ReactFilter
+                 value={this.state.search}
+                 data={this.props.categories}
+                 renderResults={results => (
+                   <div>
+                     {results.map((el) => {
+                       console.log(el)
+                       return(
+                        <div>
+                          <span>{el.name}</span>
+                          <span>{el.email}</span>
                         </div>
-                      </div>
+                      )
+                     })}
+                   </div>
+                 )} /> */}
+                {Object.entries(services).map((each, key) => {
+                  // console.log(each)
+                 return <div key={key} role="tabpanel" class={`tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
+                    <div class="panel-group" id={`accordion${each[0]}`}>
+                      {Object.entries(each[1]).length > 0 &&
+                        Object.entries(each[1]).map((item,iKey) => { 
+                          // console.log("item",item)
+                          return (
+                            <div class="panel panel-default services_details clearfix">
+                              <a
+                                class="accordion-toggle collapsed"
+                                data-toggle="collapse"
+                                data-parent={`#accordion${each[0]}`}
+                                href={`#collapse${each[0]}${iKey}`}
+                                aria-expanded="false"
+                              >
+                                <h4 class="panel-title">
+                                  <i
+                                    class="fa fa-asterisk"
+                                    aria-hidden="true"
+                                  ></i>
+                                  {" "}{item[0]}
+                                  <i class="arrow fa fa-angle-down"></i>
+                                </h4>
+                              </a>
+                              <div
+                                id={`collapse${each[0]}${iKey}`}
+                                class="panel-collapse collapse"
+                                aria-expanded="false"
+                              >
+                                <div class="panel-body">
+                                  <div class="col-md-12">
+                                   { item[1].map((i)=> {
+                                     return   (<> <h5>{i.question}</h5>
+                                      <p>{i.answer}</p>
+                                      </>)
+                                   })
+                                   
+                                   }
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse29"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Restructuring of Finance
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse29"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse30"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Debt Syndication / Resolution
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse30"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse31"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Buyouts & JV Collaboration
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse31"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse32"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          PE/VC Funding<i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse32"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion2"
-                        href="#collapse33"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Distressed Assets Recapitalization
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse33"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* <!----------) Outsourcing Services--------> */}
-
-                <div role="tabpanel" class="tab-pane" id="outsourcing">
-                  <div class="panel-group" id="accordion3">
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion3"
-                        href="#collapse45"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Accounting / Booking Keeping
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse45"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion3"
-                        href="#collapse46"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Bank Reconciliation
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse46"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* <!---------------) Foreign Company Setup in India---------> */}
-
-                <div role="tabpanel" class="tab-pane" id="foreign">
-                  <div class="panel-group" id="accordion4">
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion4"
-                        href="#collapse55"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Formation of a company in India by Non Residents
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse55"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default services_details clearfix">
-                      <a
-                        class="accordion-toggle collapsed"
-                        data-toggle="collapse"
-                        data-parent="#accordion4"
-                        href="#collapse56"
-                        aria-expanded="false"
-                      >
-                        <h4 class="panel-title">
-                          <i class="fa fa-asterisk" aria-hidden="true"></i>
-                          Liasion Office / Project Office in India
-                          <i class="arrow fa fa-angle-down"></i>
-                        </h4>
-                      </a>
-                      <div
-                        id="collapse56"
-                        class="panel-collapse collapse"
-                        aria-expanded="false"
-                      >
-                        <div class="panel-body">
-                          <div class="col-md-12">
-                            <h5>The item support period</h5>
-                            <p>
-                              The item includes support for 6 months from the
-                              purchase date. If you’re about to purchase the
-                              item, you’ll have the option to purchase extended
-                              item support, increasing the item support period
-                              up to a maximum of 12 months from the date of
-                              purchase.
-                            </p>
-                            <h5>What else is included?</h5>
-                            <p>
-                              Answering questions about how to use the item
-                              Answering technical questions about the item (and
-                              included third party assets) Help with defects in
-                              the item or included third-party assets Item
-                              updates to ensure ongoing compatibility and to
-                              resolve security vulnerabilities Updates to ensure
-                              the item works as described and is protected
-                              against major security concerns Included version
-                              updates for all items
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </div>;
+                })}
               </div>
             </div>
           </div>
         </div>
         <Newsletter />
-          <Footer />
+        <Footer />
       </div>
     );
   }
 }
+Faq.defaultProps = {
+  categories: [],
+  activeMenu: "home",
+};
+export default connect((state,props)=> {
+  return {
+    categories: state?.categories
+  }
+})(Faq)

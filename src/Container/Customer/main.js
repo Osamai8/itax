@@ -15,7 +15,7 @@ function Main(props) {
   console.log("Customer",props);
   return (
     <>
-      {props.isLogged && props.userDetails && props.userDetails._token != null ? (
+      {/* {props.isLogged && props.userDetails && props.userDetails._token != null ? ( */}
         <>
           {/* <UserHeader /> */}
           {/* <SideBar userDetails={props.userDetails} /> */}
@@ -32,9 +32,9 @@ function Main(props) {
             <Route exact path={`/view`} component={() => <ViewService userDetails={props.userDetails}/>} />
           </Switch>
         </>
-      ) : 
+      {/* ) : 
       props.history.push('/')
-      }
+      } */}
     </>
   );
 }

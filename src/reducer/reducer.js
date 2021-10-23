@@ -20,8 +20,7 @@ console.log("redux",action)
       state = { ...state };
       state["contactDetails"] = action.payload.contactDetails;
       state["socialIcons"] = action.payload.socialIcons;
-      state["categoryOne"] = action.payload.categoryOne;
-      state["categoryTwo"] = action.payload.categoryTwo;
+      state["categories"] = action.payload.categories;
       return state;
 
     case "LOGOUT":

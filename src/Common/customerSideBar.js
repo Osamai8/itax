@@ -178,7 +178,7 @@ class sideBar extends Component {
     const month = dateObj.toLocaleString("default", { month: "long" });
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
-    console.log("sss", day, month, year);
+    // console.log("sss", day, month, year);
     return (
       <div>
         <nav
@@ -301,6 +301,9 @@ class sideBar extends Component {
     );
   }
 }
+sideBar.defaultProps = {
+  dashboard: ['customer'],
+};
 export default connect((state) => {
   return {
     dashboard: state?.dashboard,

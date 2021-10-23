@@ -4,7 +4,7 @@
  */
 import axios from "axios";
 window.axios = axios;
-var baseURL = "http://itaxadmin.idossapp.in/api/v1";
+var baseURL = "https://itaxadmin.idossapp.in/api/v1";
 
 let defaultToken;
 export default class RestApi {
@@ -100,4 +100,6 @@ export default class RestApi {
   static faq() {
     return axios.get(`${baseURL}/faq?categoryId=1`);
   }
+  static service() {
+    return axios.get(`${baseURL}/service-categories`); }
 }
