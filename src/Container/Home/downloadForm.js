@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Footer from "../../Common/footer";
 import RestApi from "../../services/api";
-
+import Common from '../../Common/common'
 export default class downloadForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       placeholder: {},
-      data : []
+      data : [],
+      activeCategory:0  
     };
   }
 
@@ -19,19 +20,29 @@ export default class downloadForm extends Component {
   placeHolderAPI() {
     RestApi.placeholder("download-forms").then((res) => {
       console.log("placeHolder: downloadFOrm: ", res);
+     
       this.setState({ placeholder: res.data.data });
     });
   }
   fetchData(){
     RestApi.downloadForm().then((res) => {
       console.log(" downloadFOrm: ", res);
+      let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
       if(res.data.status) {
-        this.setState({ data: res.data.data });
+        this.setState({ data: grouped,activeCategory:res.data.data[0].Service_category_id });
 
       }
     });
   }
+  handleChange(e){
+   this.setState({
+     activeCategory:e.target.value
+   })
+  }
   render() {
+    console.log("state",this.state)
+    let {data,activeCategory} = this.state
+    console.log(data)
     return (
       <div>
         <div className="breadcrumbpane">
@@ -49,19 +60,17 @@ export default class downloadForm extends Component {
                   </div>
                   <div className="pull-right col-md-5">
                     <select
+                      onChange={(e)=>this.handleChange(e)}
                       id="myselect1"
                       className="form-control selectpicker bs-select-hidden"
                       readonly=""
                       data-style="btn-white"
                     >
                       <option>--Select Services--</option>
-                      <option value="service tax forms" selected>
-                        SERVICE TAX FORMS
-                      </option>
-                      <option value="legal document forms">
-                        LEGAL DOCUMENT FORMS
-                      </option>
-                      <option value="vat forms">VAT FORMS</option>
+                     { Object.entries(data).map((category,k)=> {
+                       console.log(category)
+                       return  <option selected={activeCategory == category[0] && 'selected'} key={k} value={category[0]}>{category[1][0].category_name}</option>
+                     }) }
                     </select>
                   </div>
                 </div>
@@ -80,7 +89,8 @@ export default class downloadForm extends Component {
                         Download
                       </td>
                     </tr>
-                   { this.state.data.map((each,key)=> {
+                   { data[activeCategory]?.map((each,key)=> {
+                     console.log(each)
                    return <tr ket={key}>
                       <td>{key + 1}</td>
                       <th scope="row" className="cal-border cal-header">

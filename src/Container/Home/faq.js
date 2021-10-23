@@ -12,7 +12,8 @@ class Faq extends Component {
       activeService: "",
       allService:[],
       search:'',
-      categories:[]
+      categories:[],
+      allCategories:[]
     };
   }
   componentDidMount() {
@@ -32,48 +33,56 @@ class Faq extends Component {
           }
         })
         let category = this.props.categories.filter((i)=> categoryIDs.includes(i.id))
-        
         console.log("categories",categoryIDs)
         console.log("categories",category)
         this.setState({
           services: grouped,
           allService: grouped,
           activeService: category[0]?.id,
-          categories:category
+          categories:category,
+          allCategories: category
         });
       }
     });
   }
   handleActiveServie(serviceId){
     this.setState({
-      activeService:serviceId
+      activeService:serviceId,
     })
   }
   handleSearch(e) {
-    // const filteredCategory = this.state.categories.filter((entry )=> {
-    //   let category = entry.category_name.toLowerCase()
-    //   let keyword = e.target.value.toLowerCase()
-    //   return category.match(keyword)
-    // });
-    // let filteredService = [];
-    // for(const category in this.state.services){
-    //   let ar1 = {}
-    //  for(const services in this.state.services[category]){
-    //  let data = this.state.services[category][services].filter((entry)=> {
-    //     let service = entry.service_name.toLowerCase()
-    //     let keyword = e.target.value.toLowerCase()
-    //     return service.match(keyword)
-    //   });
-
-    //    ar1 = {[services]:data}
-    //  }
-     
-    //  filteredService.push({[category]: ar1})
-    // }
-    // console.log("-----",filteredService);
-    // this.setState({
-    //   search:e.target.value
-    // })
+    let filteredService = [];
+    let filteredCategory = []
+    if(e.target.value.length > 0) {
+       filteredCategory = this.state.categories.filter((entry )=> {
+        let category = entry.category_name.toLowerCase()
+        let keyword = e.target.value.toLowerCase()
+        return category.match(keyword)
+      });
+      for(const category in this.state.services){
+        let ar1 = {}
+       for(const services in this.state.allService[category]){
+       let data = this.state.allService[category][services].filter((entry)=> {
+          let service = entry.service_name.toLowerCase()
+          let keyword = e.target.value.toLowerCase()
+          return service.match(keyword)
+        });
+  
+         ar1 = {[services]:data}
+       }
+       
+       filteredService[category] =  ar1
+      }
+    } else {
+      filteredCategory = this.state.allCategories
+      filteredService = this.state.allService
+    }
+    console.log("-----",filteredService);
+    this.setState({
+      search:e.target.value,
+      services: filteredService,
+      categories: filteredCategory
+    })
   }
   render() {
     console.log("state",this.state)
