@@ -101,5 +101,9 @@ export default class RestApi {
     return axios.get(`${baseURL}/faq?categoryId=1`);
   }
   static service() {
-    return axios.get(`${baseURL}/service-categories`); }
+    return axios.get(`${baseURL}/service-categories`);
+  }
+  static caseLaw() {
+    return axios.get(`${baseURL}/case-law`);
+  }
 }

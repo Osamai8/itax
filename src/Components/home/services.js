@@ -47,9 +47,9 @@ export default function Services() {
                         <div className="iconimagetitle">
                           {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                           <img src={moneyBagIcon} />
-                          <h3>
-                            <a href="#"> &nbsp;&nbsp;{each.category_name}</a>
-                          </h3>
+                          <h3 className="service-heading">
+                            <a href="#"> {each.category_name}</a>
+                          </h3 >
                           <p>
                             {each.description.length > 74
                               ? each.description.slice(0, 130) + "..."

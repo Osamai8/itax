@@ -75,18 +75,22 @@ export default class Calendar extends Component {
                           Law
                         </td>
                         <td width="40%">Description</td>
+                        <td width="20%" className="cal-right-wht">
+                          Form
+                        </td>
                       </tr>
                       {this.state.data.map((each, key) => {
-                        let checkDate = new Date(each.schedule_date)
+                        let checkDate = new Date(each.cal_date)
                         let today = new Date()
                         return (
                           <tr key={key} className="passed_date">
                             <td className="cal-right" style={{color:checkDate > today && '#000'}}>{++key}</td>
                             <td className="cal-header" style={{color:checkDate > today && '#000'}}>{each.schedule_date}</td>
-                            <td className="cal-header cal-border" style={{color:checkDate > today && '#000'}}>
+                            <td className="cal-header align-justify cal-border" style={{color:checkDate > today && '#000'}}>
                               {each.display_name}
                             </td>
-                            <td className="cal-header" style={{color:checkDate > today && '#000'}}>{each.description}</td>
+                            <td className="cal-header align-justify" style={{color:checkDate > today && '#000'}}>{each.description}</td>
+                            <td className="cal-right align-justify" style={{color:checkDate > today && '#000', border:'1px solid #ddd'}}>{each.form_name_no}</td>
                           </tr>
                         );
                       })}

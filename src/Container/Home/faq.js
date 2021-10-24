@@ -10,10 +10,9 @@ class Faq extends Component {
     this.state = {
       services: [],
       activeService: "",
-      allService:[],
+      responseData:[],
       search:'',
       categories:[],
-      allCategories:[]
     };
   }
   componentDidMount() {
@@ -37,10 +36,9 @@ class Faq extends Component {
         console.log("categories",category)
         this.setState({
           services: grouped,
-          allService: grouped,
+          responseData: res.data.data,
           activeService: category[0]?.id,
           categories:category,
-          allCategories: category
         });
       }
     });
@@ -51,37 +49,20 @@ class Faq extends Component {
     })
   }
   handleSearch(e) {
-    let filteredService = [];
-    let filteredCategory = []
-    if(e.target.value.length > 0) {
-       filteredCategory = this.state.categories.filter((entry )=> {
-        let category = entry.category_name.toLowerCase()
-        let keyword = e.target.value.toLowerCase()
-        return category.match(keyword)
-      });
-      for(const category in this.state.services){
-        let ar1 = {}
-       for(const services in this.state.allService[category]){
-       let data = this.state.allService[category][services].filter((entry)=> {
-          let service = entry.service_name.toLowerCase()
-          let keyword = e.target.value.toLowerCase()
-          return service.match(keyword)
-        });
-  
-         ar1 = {[services]:data}
-       }
-       
-       filteredService[category] =  ar1
-      }
-    } else {
-      filteredCategory = this.state.allCategories
-      filteredService = this.state.allService
+    let search = e.target.value
+    let data = []
+    if(search.length > 0) { 
+      // filterArray takes (array,keyword,and keys) parameters and returns search result
+      data = Common.filterArray(this.state.responseData,search,['service_name','question','answer'])
+    } else { 
+      data = this.state.responseData
     }
-    console.log("-----",filteredService);
+    let services = Common.groupBy(["category_id",'service_name'])(data);
+    // console.log("-----",data);
+    let activeService = Object.keys(services)[0]
     this.setState({
-      search:e.target.value,
-      services: filteredService,
-      categories: filteredCategory
+      services,
+      activeService
     })
   }
   render() {
@@ -99,17 +80,18 @@ class Faq extends Component {
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
               <ul class="nav nav-pills flex-column" role="tablist">
-                {categories.map((each, key) => {
-                  
+                {Object.entries(services).map((each, key) => {
+                  let category = categories.filter(i => i.id == each[0])
+                  console.log("categ",category)
                     return (
-                      <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
-                      class={`nav-item ${each.id == activeService && 'active'}`}>
+                      <li key={key} onClick={()=>this.handleActiveServie(category[0].id)}  
+                      class={`nav-item ${category[0].id == activeService && 'active'}`}>
                         <a
-                          href={`#${each.id}`}
-                          aria-controls={each.id}
+                          href={`#${category[0].id}`}
+                          aria-controls={category[0].id}
                           data-toggle="pill"
                         >
-                          <strong>{each.category_name}</strong>
+                          <strong>{category[0].category_name}</strong>
                         </a>
                       </li>
                     );                  

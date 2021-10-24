@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function ModalRoot({isOpen,body,title,close}) {
-
- 
-
+  useEffect(()=> {
+    if(isOpen){
+      // document.body.classList.add("modal-open");  
+    }
+    else{
+      // document.body.classList.remove("modal-open");  
+      // console.log("remopve")
+    }
+  },[isOpen])
   return (
     <section >
         <div

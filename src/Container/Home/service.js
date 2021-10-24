@@ -20,7 +20,7 @@ export default class Service extends Component {
 
   fetchData() {
     RestApi.service().then((res) => {
-      console.log("servicePage: ", res);
+      console.log("servicePage: ", res.data.data);
       if (res.data.status) {
         this.setState({
           data: res.data.data,
@@ -49,7 +49,7 @@ export default class Service extends Component {
                         <div className="col-xl-3 col-md-6 col-lg-3">
                           <div className="single_department">
                             <div className="department_thumb">
-                              <img src={each.image} alt="" />
+                              <img src={each.category_image} alt="" />
                             </div>
                             <div className="department_content">
                               <div className="iconimagetitle">
@@ -62,9 +62,9 @@ export default class Service extends Component {
                                   </a>
                                 </h3>
                                 <p>
-                                  {each.description.length > 74
-                                    ? each.description.slice(0, 70)+"..."
-                                    : each.description}
+                                  {each.service_description.length > 74
+                                    ? each.service_description.slice(0, 70)+"..."
+                                    : each.service_description}
                                 </p>
                                 <a href="#" className="readmore">
                                   Read More...

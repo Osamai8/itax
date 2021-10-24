@@ -22,6 +22,7 @@ import Events from './events';
 import EventDetails from './eventDetails'
 import Calendar from './calendar';
 import Faq from './faq';
+import CaseLaw from './caseLaw';
 
 class Main extends Component {
   constructor(props){
@@ -63,6 +64,7 @@ class Main extends Component {
         <Route exact path={`/event-details/:id`} component={EventDetails} />
         <Route exact path={`/calendar/:month/:year`} component={Calendar} />
         <Route exact path={`/faq`} component={Faq} />
+        <Route exact path={`/case-law`} component={CaseLaw} />
         <Route
           exact
           path={`/privacy_policy`}
