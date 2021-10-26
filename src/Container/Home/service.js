@@ -5,6 +5,7 @@ import serviceImage from "../../images/service/s1.jpg";
 import moneyBagIcon from "../../images/service/money-bag-icon.png";
 import NewsLetter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
+import Common from "../../Common/common";
 
 export default class Service extends Component {
   constructor(props) {
@@ -21,9 +22,10 @@ export default class Service extends Component {
   fetchData() {
     RestApi.service().then((res) => {
       console.log("servicePage: ", res.data.data);
+      let grouped = Common.groupBy(['category_id'])(res.data.data);
       if (res.data.status) {
         this.setState({
-          data: res.data.data,
+          data: grouped,
         });
       }
     });
@@ -43,13 +45,13 @@ export default class Service extends Component {
             <div className="our_department_area">
               <div className="container">
                 <div className="row">
-                  {data.length > 0 &&
-                    data.map((each, key) => {
+                  {Object.entries(data).length > 0 &&
+                    Object.entries(data).map((each) => {
                       return (
-                        <div className="col-xl-3 col-md-6 col-lg-3">
+                        <div key={each[0]} className="col-xl-3 col-md-6 col-lg-3">
                           <div className="single_department">
                             <div className="department_thumb">
-                              <img src={each.category_image} alt="" />
+                              <img src={each[1][0].category_image} alt="" />
                             </div>
                             <div className="department_content">
                               <div className="iconimagetitle">
@@ -58,13 +60,13 @@ export default class Service extends Component {
                                 <h3>
                                   <a href="#">
                                     {" "}
-                                    &nbsp;&nbsp;{each.category_name}
+                                    &nbsp;&nbsp;{each[1][0].category_name}
                                   </a>
                                 </h3>
                                 <p>
-                                  {each.service_description.length > 74
-                                    ? each.service_description.slice(0, 70)+"..."
-                                    : each.service_description}
+                                  {each[1][0].category_description.length > 74
+                                    ? each[1][0].category_description.slice(0, 70)+"..."
+                                    : each[1][0].category_description}
                                 </p>
                                 <a href="#" className="readmore">
                                   Read More...

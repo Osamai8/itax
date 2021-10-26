@@ -75,7 +75,7 @@ export default class Calendar extends Component {
                           Law
                         </td>
                         <td width="40%">Description</td>
-                        <td width="20%" className="cal-right-wht">
+                        <td width="20%" className=" cal-form cal-right-wht">
                           Form
                         </td>
                       </tr>

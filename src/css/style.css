@@ -3457,8 +3457,8 @@ button,
 .col-xs-7,
 .col-xs-8,
 .col-xs-9 {
-    padding-left: 5px!important;
-    padding-right: 5px!important;
+    padding-left: 8px!important;
+    padding-right: 8px!important;
 }
 .service-heading{
     height: 40px!important;
@@ -3466,7 +3466,11 @@ button,
 }
 .case-text {
   font-weight: 400;
+  text-align: justify;
 }
 .case-law-view{
   color: rgb(163, 85, 65);
+}
+.cal-form {
+  border: 1px solid #fff;
 }
