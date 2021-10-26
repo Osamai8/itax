@@ -94,14 +94,14 @@ export default class RestApi {
   static calendar(month, year) {
     return axios.get(`${baseURL}/calendar?month=${month}&year=${year}`);
   }
-  static homeService() {
-    return axios.get(`${baseURL}/service-categories?type=home`);
-  }
   static faq() {
     return axios.get(`${baseURL}/faq?categoryId=1`);
   }
-  static service() {
+  static categories() {
     return axios.get(`${baseURL}/service-categories`);
+  }
+  static services(id) {
+    return axios.get(`${baseURL}/service-list?category_id=${id}`);
   }
   static caseLaw() {
     return axios.get(`${baseURL}/case-law`);

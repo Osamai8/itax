@@ -5,6 +5,7 @@ import Common from "../../Common/common";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import { Link } from "react-router-dom";
 import ModalRoot from "../../Components/modal/modalRoot";
+import CaseLawModal from "../../Components/modal/caseLawModal";
 
 export default class CaseLaw extends Component {
   constructor(props) {
@@ -137,20 +138,15 @@ export default class CaseLaw extends Component {
         </section>
         <Newsletter />
         <Footer />
-        {this.state.isOpen && (
           <ModalRoot
             title={this.state.previewHeading}
             close={() => this.setState({ isOpen: false })}
             isOpen={this.state.isOpen}
-            body={
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.state.previewContent,
-                }}
-              />
+            body={ 
+             <CaseLawModal content={this.state.previewContent}/>
             }
           />
-        )}
+        )
       </div>
     );
   }

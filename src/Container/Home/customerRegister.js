@@ -89,9 +89,6 @@ function CustomerRegister(props) {
   };
 
   const styles = {
-    top: {
-      top: "6px",
-    },
     error: {
       borderColor: "#bf1f24",
     },
@@ -127,7 +124,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-envelope-o"
-                                style={styles.top}
+                                
                               ></i>
                               {/* {errors["email"] && (
                                 <>
@@ -166,7 +163,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-user-o"
-                                style={styles.top}
+                                
                               ></i>
                               <input
                                 style={errors["first_name"] && styles.error}
@@ -190,7 +187,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-user-o"
-                                style={styles.top}
+                                
                               ></i>
 
                               <input
@@ -210,7 +207,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-user-o"
-                                style={styles.top}
+                                
                               ></i>
                               {/* {errors["last_name"] && (
                                 <>
@@ -238,7 +235,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-mobile"
-                                style={styles.top}
+                                
                               ></i>
                               {/* {errors["phone"] && (
                                 <>
@@ -271,7 +268,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-lock"
-                                style={styles.top}
+                                
                               ></i>
                               {/* {errors["password"] && (
                                 <>
@@ -304,7 +301,7 @@ function CustomerRegister(props) {
                             <label className="input">
                               <i
                                 className="icon-append fa fa-lock"
-                                style={styles.top}
+                                
                               ></i>
                               {/* {errors["confirmPassword"] && (
                                 <>

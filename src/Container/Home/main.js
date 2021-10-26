@@ -23,6 +23,7 @@ import EventDetails from './eventDetails'
 import Calendar from './calendar';
 import Faq from './faq';
 import CaseLaw from './caseLaw';
+import ServiceDetails from './serviceDetails';
 
 class Main extends Component {
   constructor(props){
@@ -55,6 +56,7 @@ class Main extends Component {
         <Route exact path={`/career`} component={Career} />
         <Route exact path={`/contact`} component={Contact} />
         <Route exact path={`/services`} component={Service} />
+        <Route exact path={`/service-details/:id`} component={ServiceDetails} />
         <Route exact path={`/videos`} component={Videos} />
         <Route exact path={`/newsletters`} component={Newsletter} />
         <Route exact path={`/newsletters`} component={Newsletter} />

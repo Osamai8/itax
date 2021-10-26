@@ -6,6 +6,7 @@ import moneyBagIcon from "../../images/service/money-bag-icon.png";
 import NewsLetter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import Common from "../../Common/common";
+import { Link } from "react-router-dom";
 
 export default class Service extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class Service extends Component {
   }
 
   fetchData() {
-    RestApi.service().then((res) => {
+    RestApi.categories().then((res) => {
       console.log("servicePage: ", res.data.data);
       let grouped = Common.groupBy(['category_id'])(res.data.data);
       if (res.data.status) {
@@ -68,9 +69,9 @@ export default class Service extends Component {
                                     ? each[1][0].category_description.slice(0, 70)+"..."
                                     : each[1][0].category_description}
                                 </p>
-                                <a href="#" className="readmore">
-                                  Read More...
-                                </a>
+                                <Link to={`/service-details/${each[0]}`} className="readmore">
+                            Read More...
+                          </Link>
                               </div>
                             </div>
                           </div>

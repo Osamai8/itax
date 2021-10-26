@@ -65,13 +65,20 @@ export default class Home extends Component {
                   Lorem ipsum, or lipsum as it is sometimes known, is dummy text
                   used in laying out print, graphic or web designs.
                 </p>
-                <form className="example" action="#">
-                  <input
-                    type="text"
-                    placeholder="Service Search..."
-                    name="search"
-                  />
-                </form>
+                <form id="sky-form" method="POST" class="sky-form" action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login" novalidate="novalidate">
+        <fieldset>
+          <section>
+            <div class="row">
+              <div class="col col-12">
+                <label class="input">
+                  <a href="service_search_result.php" title="Search"><i class="search-result sr-rslt icon-append fa fa-search"></i></a>
+                  <input type="email" placeholder="Search..." name="search" autocomplete="on"/>
+                </label>
+              </div>
+            </div>
+          </section> 
+        </fieldset>
+    </form>
               </div>
               <div className="intro intro2">
                 <h1>Schedule A video Call</h1>

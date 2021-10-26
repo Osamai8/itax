@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Footer from "../../Common/footer";
+import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 
 export default class Calendar extends Component {
@@ -80,17 +82,42 @@ export default class Calendar extends Component {
                         </td>
                       </tr>
                       {this.state.data.map((each, key) => {
-                        let checkDate = new Date(each.cal_date)
-                        let today = new Date()
+                        let checkDate = new Date(each.cal_date);
+                        let today = new Date();
+                        let classBasedOnDate =
+                        (checkDate == today
+                          ? "current_date"
+                          : checkDate > today
+                          ? "upcoming_date"
+                          : "passed_date");
                         return (
                           <tr key={key} className="passed_date">
-                            <td className="cal-right" style={{color:checkDate > today && '#000'}}>{++key}</td>
-                            <td className="cal-header" style={{color:checkDate > today && '#000'}}>{each.schedule_date}</td>
-                            <td className="cal-header align-justify cal-border" style={{color:checkDate > today && '#000'}}>
+                            <td
+                              className={`cal-right ${classBasedOnDate}`}
+                            >
+                              {++key}
+                            </td>
+                            <td
+                              className={`cal-header ${classBasedOnDate}`}
+                            >
+                              {each.schedule_date}
+                            </td>
+                            <td
+                              className={`cal-header ${classBasedOnDate}`}
+                            >
                               {each.display_name}
                             </td>
-                            <td className="cal-header align-justify" style={{color:checkDate > today && '#000'}}>{each.description}</td>
-                            <td className="cal-right align-justify" style={{color:checkDate > today && '#000', border:'1px solid #ddd'}}>{each.form_name_no}</td>
+                            <td
+                              className={`cal-header align-justify ${classBasedOnDate}`}
+                            >
+                              {each.description}
+                            </td>
+                            <td
+                              className={`cal-right align-justify ${classBasedOnDate}`}
+                              style={{ border: "1px solid #ddd" }}
+                            >
+                              {each.form_name_no}
+                            </td>
                           </tr>
                         );
                       })}
@@ -131,6 +158,8 @@ export default class Calendar extends Component {
             </div>
           </div>
         </section>
+        <Newsletter />
+        <Footer />
       </>
     );
   }

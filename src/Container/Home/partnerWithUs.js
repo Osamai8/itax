@@ -29,7 +29,7 @@ export default class partnerWithUs extends Component {
   render() {
     const styles = {
       top: {
-        top: "6px",
+        // top: "6px",
       },
       display: {
         display: "none",
@@ -69,7 +69,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-envelope-o"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="email"
@@ -87,7 +87,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-user-o"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="textl"
@@ -105,7 +105,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-user-o"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="textl"
@@ -123,7 +123,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-user-o"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="textl"
@@ -141,7 +141,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-mobile"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="textl"
@@ -159,7 +159,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-lock"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="password"
@@ -176,7 +176,7 @@ export default class partnerWithUs extends Component {
                         <label className="input">
                           <i
                             className="icon-append fa fa-lock"
-                            style={styles.top}
+                            // style={styles.top}
                           ></i>
                           <input
                             type="password"

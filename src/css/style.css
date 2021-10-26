@@ -306,6 +306,7 @@ body {
 
 .login_register_box {
   box-shadow: 0 0 4px 3px #e9e9e9;
+  /* background-color: #fffafa; */
 }
 .login_register_box h4 {
   margin-bottom: 20px;
@@ -314,7 +315,7 @@ body {
   font-weight: 500 !important;
 }
 .sign-in-panel {
-  background: #fff;
+  /*background: #fff; */
   float: left;
   width: 50%;
   padding: 15px;
@@ -421,7 +422,7 @@ body {
 }
 
 .form-group .chkbox-group label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   font-family: Arial;
   display: initial;
@@ -478,7 +479,7 @@ body {
 }
 .sky-form .icon-append {
   right: 5px;
-  padding-left: 3px;
+  padding-left: 1px;
   border-left-width: 1px;
   border-left-style: solid;
   top: 25px;
@@ -486,12 +487,24 @@ body {
 .sky-form .icon-append,
 .sky-form .icon-prepend {
   position: absolute;
-  top: 22px;
-  width: 29px;
-  height: 29px;
-  font-size: 15px;
-  line-height: 29px;
+  top: 0px;
+  right: 0.8px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  line-height: 36px;
   text-align: center;
+}
+.search-result:hover {
+  background-image: linear-gradient(to bottom, #ffd200, #ffa200);
+  color: #fff !important;
+  border-radius: 0px 4px 4px 0px;
+  height: 34.4px;
+  top: 1.1px;
+}
+.sr-rslt:hover {
+  top: 0.5px;
+  height: 35px;
 }
 .sky-form {
   outline: none;
@@ -545,11 +558,12 @@ body {
 .sky-form .toggle i,
 .sky-form .icon-append,
 .sky-form .icon-prepend {
-  border-color: #e5e5e5;
+  border-color: #909092;
   -ms-transition: border-color 0.3s;
   -moz-transition: border-color 0.3s;
   -webkit-transition: border-color 0.3s;
 }
+
 .sky-form .input input,
 .sky-form .select select,
 .sky-form .textarea textarea {
@@ -559,19 +573,35 @@ body {
   width: 100%;
   padding: 8px 10px;
   outline: none;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid #aeaeb1;
   border-radius: 5px;
-  background: #f3f3f3;
-  font: 12px/19px "Open Sans", Helvetica, Arial, sans-serif;
-  color: rgb(27, 25, 25);
-  appearance: normal;
+  background: #fff;
+  font: 14px/19px "Open Sans", Helvetica, Arial, sans-serif;
+  color: #000;
+  box-shadow: none;
+  /*appearance: normal;
   -moz-appearance: none;
-  -webkit-appearance: none;
+  -webkit-appearance: none;*/
 }
+.form-control .login-drop {
+  font-size: 13px;
+  font-weight: 300 !important;
+}
+.sky-form .input input:focus {
+  border-color: #28a745;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(7 111 57 / 10%);
+}
+.sky-form .input input::-webkit-input-placeholder {
+  color: #dadada;
+}
+
+#register option::-webkit-input-placeholder {
+  color: #dadada;
+}
+
 .sky-form .icon-append,
 .sky-form .icon-prepend {
-  color: #ccc;
+  color: #e1a71e;
 }
 .sky-form .input .icon-append + input,
 .sky-form .textarea .icon-append + textarea {
@@ -595,7 +625,7 @@ body {
 .internalcontent {
   padding: 10px 0 20px 0;
 }
-.contactinfo-placeholder {
+.contactinfo {
   padding: 10px 20px;
   box-shadow: 0px 1px 4px 2px rgb(32 33 36 / 15%);
   border-color: rgba(223, 225, 229, 0);
@@ -705,7 +735,6 @@ body {
 }
 .expertise_right {
   float: right;
-  margin-right: 36px;
 }
 .chkbox-group span {
   color: #000;
@@ -726,7 +755,7 @@ body {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid transparent;
-  color: rgb(32, 30, 30);
+  color: #555;
   margin-top: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -745,7 +774,7 @@ body {
 }
 
 /*.navbar-nav li.active a{
-    border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
 }*/
 
 .navbar-fixed-bottom .navbar-collapse,
@@ -791,7 +820,7 @@ body {
   border-radius: 0px;
   color: #444;
   margin: 0px;
-  padding: 10px 22px;
+  padding: 8px 20px;
 }
 .tab-content {
   border: 1px solid #e1a71e;
@@ -856,12 +885,21 @@ body {
   margin-bottom: 10px;
 }
 .form-control {
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
+  /*background-color: #fff; */
+  border: 1px solid #aeaeb1;
+  border-radius: 4px;
   box-shadow: none;
   height: auto;
-  padding: 6px 16px;
+  padding: 8px 8px;
+}
+.customer_down_arrow {
+  /* background-image: url("../../image/down-arrow.png"); */
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1rem);
+  font: 14px/19px "Open Sans", Helvetica, Arial, sans-serif;
+}
+.is_comapny {
+  display: none;
 }
 .form-control:focus {
   border-color: #076f39;
@@ -905,6 +943,10 @@ textarea {
   border: 1px solid #e1a71e;
   background-color: #e1a71e;
   color: #fff;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  vertical-align: text-bottom;
 }
 
 /*=-=-=-=-=-==-=-=-=-=-=-=-=  common properties  =-=-=-==-=-=-==-=-=-=-=-=-=-=*/
@@ -983,7 +1025,7 @@ hr {
 /* =-=--=-=-=-=-=-==-=-=-=-  2.9 Section-spacing   =-=-=-=-==-=-==-====-==-=- */
 
 /*section {
-    padding: 75px 0px;
+  padding: 75px 0px;
 }*/
 
 .section-title h2 {
@@ -1043,7 +1085,7 @@ form.example input[type="text"] {
   border-radius: 5px;
   width: 75%;
   background-color: #ffffff;
-  /* background-image: url('../images/searchicon.png'); */
+  background-image: url("/src/images/searchicon.png");
   background-position: right 5px top 6px;
   background-repeat: no-repeat;
   border-color: #076f39;
@@ -1124,7 +1166,7 @@ form.example::after {
   padding: 64px 40px;
 }
 /*#home-page .header-wrapper .header-wrapper-inner .intro {
-    padding: 70px 40px;
+  padding: 70px 40px;
 }*/
 #home-page .header-wrapper .header-wrapper-inner .intro img {
   width: auto;
@@ -1231,7 +1273,7 @@ form.example::after {
   border: 1px solid #ebefef;
 }
 .about-service img {
-  height: 74px;
+  height: 76px;
   float: left;
   border: 1px dotted #444;
   margin: 5px 16px 0px 0px;
@@ -1376,7 +1418,7 @@ form.example::after {
   padding-bottom: 4px;
 }
 .iconimagetitle p {
-  margin: 7px 0 5px !important;
+  margin: 15px 0 5px !important;
 }
 /*====================================  Portfolio =====================================*/
 
@@ -1565,7 +1607,7 @@ form.example::after {
 }
 
 /*===========================================================================
-                10.2 Single blog page
+              10.2 Single blog page
 ===========================================================================*/
 
 #singleBlogPage .page-head {
@@ -1736,11 +1778,11 @@ form.example::after {
 /*-----------------------------  10.3 sidebar ------------------------------------*/
 
 /*aside h4 {
-    margin: 2.414em 0 0.5em;
+  margin: 2.414em 0 0.5em;
 }*/
 
 /*------------------------------
-            faq
+          faq
 --------------------------------*/
 
 .topics {
@@ -1796,7 +1838,7 @@ form.example::after {
 }
 
 /*----------------------------------
-        popular tags
+      popular tags
 -----------------------------------*/
 
 aside .tag-widget .tags a {
@@ -1818,7 +1860,7 @@ aside .tag-widget .tags a:hover {
 }
 
 /*--------------------------------------------
-            archives
+          archives
 --------------------------------------------*/
 
 .archive-widget .archives {
@@ -2492,6 +2534,7 @@ cite .by {
 }
 .marquee {
   padding: 0;
+  margin: 2px 0px;
   display: inline-flex;
   animation: marquee 10s linear infinite;
 }
@@ -2506,7 +2549,7 @@ cite .by {
 }
 
 .our_department_area {
-  background: #f3f3f3;
+  background: #f5fbff;
   padding-top: 40px;
   padding-bottom: 30px;
 }
@@ -2541,11 +2584,9 @@ cite .by {
 .our_department_area .single_department .department_content h3 {
   margin-top: 0;
   margin-bottom: 0;
-  /* margin-left:20px; */
   font-weight: 400 !important;
   font-size: 15px;
   color: #444;
-  /* height: 35px; */
 }
 .our_department_area .single_department .department_content h3 a {
   font-size: 15px;
@@ -2566,7 +2607,7 @@ cite .by {
   transform: scale(1.2);
 }
 .other-act {
-  height: 300px;
+  height: 297px;
 }
 .other-act h3 {
   margin-top: -8px !important;
@@ -2575,10 +2616,15 @@ cite .by {
   margin-top: 14px;
   margin-bottom: 0;
 }
+.events h3 {
+  font-size: 14px !important;
+}
+.events marquee {
+  height: 220px;
+}
 .events ul {
-  margin: 0;
+  margin-bottom: 10px;
   padding-left: 10px;
-  height: 80px;
 }
 .events ul li {
   list-style-type: square;
@@ -2613,7 +2659,7 @@ cite .by {
   border-bottom: dashed 1px #cccccc;
   display: inline-block;
   width: 100%;
-  line-height: 52px;
+  line-height: 50px;
   /* background-image: url(../../image/downloadicon.png); */
   background-repeat: no-repeat;
   background-position: right;
@@ -2676,8 +2722,7 @@ cite .by {
 .inputpane {
   background-color: #f3f3f3;
   border: 1px solid #e6e6e6;
-  /* color: #b7b6b6; //chnaged */
-  color: black;
+  color: #000;
   font-size: 14px;
   box-shadow: none;
   margin: 8px 0px;
@@ -2989,7 +3034,7 @@ button,
 .services_details h4 {
   text-transform: capitalize;
 }
-.services_details a {
+.services_details .accordion-toggle {
   display: block;
   transition: all 0.5s;
   background-color: #4ba614;
@@ -3059,7 +3104,7 @@ button,
 }
 
 /*===========================================================================
-                     carrer with us Css Start From Here
+                   carrer with us Css Start From Here
 ===========================================================================*/
 
 .border {
@@ -3141,7 +3186,7 @@ button,
 }
 
 /*===========================================================================
-                     Form Css Start From Here
+                   Form Css Start From Here
 ===========================================================================*/
 .center-align-content {
   display: flex;
@@ -3185,6 +3230,9 @@ button,
 .form-border ul li img {
   width: 50%;
 }
+.table {
+  margin-bottom: 0px;
+}
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
@@ -3193,13 +3241,14 @@ button,
 .table > tfoot > tr > td {
   padding: 8px;
   vertical-align: middle;
+  font-weight: 500;
 }
 
 /*===========================================================================
-                     Calendar Shedules Css Start From Here
+                   Calendar Shedules Css Start From Here
 ===========================================================================*/
 .passed_date {
-  color: #74727a;
+  color: #b9b7bd;
 }
 .current_date {
   font-weight: 600 !important;
@@ -3208,7 +3257,7 @@ button,
   color: #000;
 }
 .cal-header {
-  text-align: center;
+  text-align: left;
 }
 .cal-border {
   border: 1px solid #ddd;
@@ -3218,7 +3267,6 @@ button,
 }
 .cal-right {
   border-right: 1px solid #ddd;
-  text-align: center;
 }
 .cal-right-wht {
   border-right: 1px solid #fff !important;
@@ -3292,7 +3340,7 @@ button,
   text-align: center;
   width: 33%;
   height: 100%;
-  box-shadow: 0 0 4em rgba(0, 0, 0, 0.253);
+  box-shadow: 0 6px 10px rgb(0 0 0 / 4%);
   background: var(--light-1);
   position: relative;
   display: flex;
@@ -3359,7 +3407,7 @@ button,
 }
 
 /*.events-new .card:hover {
-  transform: translateY(-2%);
+transform: translateY(-2%);
 }*/
 
 .events-new .card:hover .card-img {
@@ -3375,6 +3423,86 @@ button,
   opacity: 1;
   transition: opacity 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 500ms;
 }
+
+/*=====================CREATE OWN SERVICES======================*/
+.Create-own h4 {
+  margin-left: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-transform: capitalize;
+}
+.Create-own span {
+  color: #e1a71e;
+  padding-right: 10px;
+}
+.create-btn {
+  background-color: #dc3545 !important;
+  background-image: none;
+  box-shadow: none;
+  webkit-box-shadow: none;
+}
+.create-tp {
+  margin-top: -1px !important;
+}
+.create-btn i {
+  color: #fff;
+}
+.create-shadow {
+  box-shadow: 0 0 4px 3px #e9e9e9;
+}
+.my_accordian .panel-heading h4[aria-expanded="true"] {
+  background-image: linear-gradient(to bottom, #ffd200, #ffa200);
+}
+.my_accordian .panel-heading h4 {
+  padding: 14px;
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.banner_bottom {
+  border-bottom: 2px solid #ffa200;
+}
+
+/*====================== Services Payment ====================*/
+
+.service-charges1 {
+  padding: 6px;
+  margin-top: 4px;
+  background: #fff4d2;
+}
+.service-charges1 h4 {
+  text-transform: capitalize;
+  text-decoration: underline;
+  margin-top: 0;
+}
+.service-charges1 .coupon label {
+  display: contents;
+  margin: 0;
+}
+.service-charges1 .coupon input {
+  margin: 7px 0;
+  display: inline-block;
+  padding: 6px 8px;
+  font-size: 14px;
+  top: -2px;
+}
+.service-charges1 .coupon span {
+  margin-left: 5px;
+  color: #000;
+}
+.service-charges1 .wallet_amt {
+  display: contents;
+  margin: 0;
+}
+.service-charges1 .wallet_amt input {
+  width: 20%;
+  display: initial;
+  height: auto;
+  padding: 6px;
+}
+
 .user-change-select {
   background-color: #408609;
   color: #fff;
@@ -3457,18 +3585,18 @@ button,
 .col-xs-7,
 .col-xs-8,
 .col-xs-9 {
-    padding-left: 8px!important;
-    padding-right: 8px!important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
 }
-.service-heading{
-    height: 40px!important;
-    margin-left:30px!important;
+.service-heading {
+  height: 40px !important;
+  margin-left: 30px !important;
 }
 .case-text {
   font-weight: 400;
   text-align: justify;
 }
-.case-law-view{
+.case-law-view {
   color: rgb(163, 85, 65);
 }
 .cal-form {

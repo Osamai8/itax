@@ -3,15 +3,20 @@ import serviceImage from "../../images/service/s1.jpg";
 import moneyBagIcon from "../../images/service/money-bag-icon.png";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
+import Common from "../../Common/common";
 
 export default function Services() {
   const [data, setDate] = useState([]);
 
   useEffect(() => {
-    RestApi.homeService().then((res) => {
+    RestApi.categories().then((res) => {
       console.log("service", res);
       if (res.data.status) {
-        setDate(res.data.data);
+        let filtered = res.data.data.filter(i => i.show_on_home_page == 1)
+      let groupedData = Common.groupBy(['category_id'])(filtered)
+      console.log("groupedData",groupedData)
+     
+        setDate(groupedData);
       }
     });
   }, []);
@@ -35,29 +40,30 @@ export default function Services() {
             </div>
           </div>
           <div className="row">
-            {data.length > 0 &&
-              data.map((each) => {
+            {Object.entries(data).length > 0  &&
+              Object.entries(data).map((each) => {
+                console.log(each[1])
                 return (
-                  <div className="col-xl-3 col-md-6 col-lg-3">
+                  <div key={each[0]} className="col-xl-3 col-md-6 col-lg-3">
                     <div className="single_department">
                       <div className="department_thumb">
-                        <img src={each.image} alt="" />
+                        <img src={each[1][0].category_image} alt="" />
                       </div>
                       <div className="department_content">
                         <div className="iconimagetitle">
                           {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                           <img src={moneyBagIcon} />
                           <h3 className="service-heading">
-                            <a href="#"> {each.category_name}</a>
+                            <a href="#"> {each[1][0].category_name}</a>
                           </h3 >
                           <p>
-                            {each.description.length > 74
-                              ? each.description.slice(0, 130) + "..."
-                              : each.description}
+                            {each[1][0].category_description.length > 74
+                              ? each[1][0].category_description.slice(0, 130) + "..."
+                              : each[1][0].category_description}
                           </p>
-                          <a href="#" className="readmore">
+                          <Link to={`/service-details/${each[0]}`} className="readmore">
                             Read More...
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

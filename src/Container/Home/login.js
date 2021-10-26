@@ -340,7 +340,7 @@ function Login(props) {
 
   const styles = {
     top: {
-      top: "6px",
+      // top: "6px",
     },
     error: {
       borderColor: "#bf1f24",
@@ -502,7 +502,6 @@ function Login(props) {
                                   <label className="input">
                                     <i
                                       className="icon-append fa fa-envelope-o"
-                                      style={styles.top}
                                     ></i>
                                     <input
                                       style={errors["email"] && styles.error}
@@ -527,7 +526,6 @@ function Login(props) {
                                   <label className="input">
                                     <i
                                       className="icon-append fa fa-lock"
-                                      style={styles.top}
                                     ></i>
                                     <input
                                       style={errors["password"] && styles.error}
