@@ -95,20 +95,22 @@ function ContactUs(props) {
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.8595725040977!2d72.82809960000003!3d18.937608900000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1de1c3f1dc9%3A0x88328bf32b9dcd66!2sSNDT+Women's+University!5e0!3m2!1sen!2sin!4v1443429933230" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe> --> */}
             </div>
             <div class="col-md-6">
-              <div class="contactinfo-placeholder">
+              <div class="contactinfo">
                 <h3>Contact Form</h3>
                 <form id="sky-form" class="sky-form" method="POST" action="#">
                   <fieldset>
                     <input type="hidden" name="id" />
                     <div class="row">
-                      <section class="col col-md-6">
+                      <section class="col col-md-12">
                         <label class="input">
                           <p>Name</p>
                           <i style={{top:'18px'}}class="icon-append fa fa-user"></i>
                           <input type="text" name="name" />
                         </label>
-                      </section>
-                      <section class="col col-md-6">
+                      </section> 
+                    </div>
+                    <div class="row">
+                      <section class="col col-md-12">
                         <label class="input">
                           <p>Email</p>
 
@@ -116,7 +118,7 @@ function ContactUs(props) {
                           <input type="text" name="email" />
                         </label>
                       </section>
-                    </div>
+                      </div>
                     <div class="row">
                       <section class="col col-md-12">
                         <label class="input">

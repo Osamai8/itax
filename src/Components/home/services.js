@@ -5,13 +5,14 @@ import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
 import Common from "../../Common/common";
 
-export default function Services() {
+export default function Services(props) {
   const [data, setDate] = useState([]);
 
   useEffect(() => {
     RestApi.categories().then((res) => {
       console.log("service", res);
       if (res.data.status) {
+        props.setService(res.data.data)
         let filtered = res.data.data.filter(i => i.show_on_home_page == 1)
       let groupedData = Common.groupBy(['category_id'])(filtered)
       console.log("groupedData",groupedData)
@@ -57,7 +58,7 @@ export default function Services() {
                             <a href="#"> {each[1][0].category_name}</a>
                           </h3 >
                           <p>
-                            {each[1][0].category_description.length > 74
+                            {each[1][0].category_description.length > 130
                               ? each[1][0].category_description.slice(0, 130) + "..."
                               : each[1][0].category_description}
                           </p>

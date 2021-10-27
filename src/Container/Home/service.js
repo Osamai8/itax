@@ -58,15 +58,13 @@ export default class Service extends Component {
                               <div className="iconimagetitle">
                                 {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                                 <img src={moneyBagIcon} />
-                                <h3>
-                                  <a href="#">
-                                    {" "}
-                                    &nbsp;&nbsp;{each[1][0].category_name}
+                                <h3 className="service-heading">
+                                  <a href="#">{each[1][0].category_name}
                                   </a>
                                 </h3>
                                 <p>
-                                  {each[1][0].category_description.length > 74
-                                    ? each[1][0].category_description.slice(0, 70)+"..."
+                                  {each[1][0].category_description.length > 130
+                                    ? each[1][0].category_description.slice(0, 130)+"..."
                                     : each[1][0].category_description}
                                 </p>
                                 <Link to={`/service-details/${each[0]}`} className="readmore">

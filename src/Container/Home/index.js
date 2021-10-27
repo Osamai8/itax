@@ -19,6 +19,7 @@ export default class Home extends Component {
       bannerData: [],
       featuredVideo: {},
       blogs: [],
+      services:[],
     };
   }
   componentDidMount() {
@@ -52,6 +53,13 @@ export default class Home extends Component {
       year:year
     })
   }
+  handleServices(services){
+    console.log("servicess in index",services)
+    this.setState({services})
+  }
+  handleSearch(e){
+    console.log("e>",e)
+  }
   render() {
     let { featuredVideo, bannerData } = this.state;
     return (
@@ -72,7 +80,7 @@ export default class Home extends Component {
               <div class="col col-12">
                 <label class="input">
                   <a href="service_search_result.php" title="Search"><i class="search-result sr-rslt icon-append fa fa-search"></i></a>
-                  <input type="email" placeholder="Search..." name="search" autocomplete="on"/>
+                  <input type="text" onChange={this.handleSearch} placeholder="Search..." name="search" autocomplete="on"/>
                 </label>
               </div>
             </div>
@@ -126,7 +134,7 @@ export default class Home extends Component {
               </div>
             </div>
           </div>}
-          <Services />
+          <Services setService={(service)=> this.handleServices(service)} />
           <section
             className="our_department_area"
             // style={{ backgroundColor: "#f3f3f3!important" }}

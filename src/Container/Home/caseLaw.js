@@ -142,8 +142,9 @@ export default class CaseLaw extends Component {
             title={this.state.previewHeading}
             close={() => this.setState({ isOpen: false })}
             isOpen={this.state.isOpen}
+            width={'80%'}
             body={ 
-             <CaseLawModal content={this.state.previewContent}/>
+             <CaseLawModal title={this.state.previewHeading} content={this.state.previewContent}/>
             }
           />
         )

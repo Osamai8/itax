@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-export default function ModalRoot({isOpen,body,title,close}) {
+export default function ModalRoot({isOpen,body,title,close,width}) {
   useEffect(()=> {
     if(isOpen){
       document.body.classList.add("modal-open");  
@@ -14,7 +14,7 @@ export default function ModalRoot({isOpen,body,title,close}) {
     <section >
         <div
           className="modal fade in"
-          style={{width:'80%'}}
+         
           id="apply_modal"
           tabindex="-1"
           role="dialog"
@@ -23,7 +23,7 @@ export default function ModalRoot({isOpen,body,title,close}) {
           aria-hidden="true"
           style={isOpen ?  {display: "block"} : {display: "none"} }
         >
-          <div className="modal-dialog custom-modal" role="document">
+          <div className="modal-dialog custom-modal"  style={{width:width? width :'80%'}} role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" onClick={() => close(false)} data-dismiss="modal">

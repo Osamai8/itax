@@ -110,7 +110,8 @@ export default class newsletter extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8">
-                <div className="col-md-6">
+                <div className="current-opening clearfix cal-pad">
+                <div className="col-md-6"  style={{paddingTop:'15px'}}>
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
@@ -264,7 +265,7 @@ export default class newsletter extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6" style={{paddingTop:'15px'}}>
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
@@ -458,6 +459,7 @@ export default class newsletter extends Component {
                     </li>
                   </ul>
                 </nav>
+              </div>
               </div>
               </div>
               {this.state.placeholder?.image &&

@@ -56,7 +56,7 @@ export default class downloadForm extends Component {
               <div className="col-md-12 section-title">
                 <div className="form-group alignitem-horizontal-center clearfix">
                   <div className="pull-left">
-                    <span>SELECT SERVICES</span>
+                    <span>SELECT SERVICES CATEGORY</span>
                   </div>
                   <div className="pull-right col-md-5">
                     <select
@@ -78,12 +78,14 @@ export default class downloadForm extends Component {
             </div>
             <div className="row">
               <div className="col-md-8">
+               <div className="current-opening">
                 <table className="table form-border text-center">
                   <tbody>
                     <tr className="job-summary">
                       <td width="10%" className="cal-right-wht cal-header">
                         Sr. No.
                       </td>
+                      <td width="45%" class="cal-right-wht">Description</td>
                       <td className="cal-right-wht">Form Name</td>
                       <td width="20%" className="text-center">
                         Download
@@ -93,36 +95,37 @@ export default class downloadForm extends Component {
                      console.log(each)
                    return <tr ket={key}>
                       <td>{key + 1}</td>
+                      <th scope="row" class="cal-border cal-header">{each.description} </th>
                       <th scope="row" className="cal-border cal-header">
                        {each.form_name}
                       </th>
                       <td>
                         <ul>
-                          {each.document_doc &&<li>
+                          {<li className="doc-li">
                             <a target="_blank"
                             title="title"
                               href={each.document_doc}
                               download=""
                             >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" />
+                              {each.document_doc ? <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/ms-world-icon.png" /> : <div>{" "}</div>}
                             </a>
                           </li>}
-                          {each.document_pdf &&<li>
+                          {<li className="doc-li">
                             <a
                             target="_blank"
                               href={each.document_pdf}
                               download=""
                             >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />
+                             {each.document_pdf && <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/pdf-icon.png" />}
                             </a>
                           </li>}
                           
-                         { each.document_excel &&<li> <a
+                         { <li className="doc-li"> <a
                          target="_blank"
                               href={each.document_excel}
                               download=""
                             >
-                              <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />
+                             {each.document_excel && <img src="https://itaxdoctor.idossapp.com/assets/front_end/images/excel-icon.png" />}
                             </a>
                           </li>}
                         </ul>
@@ -132,6 +135,7 @@ export default class downloadForm extends Component {
                    
                   </tbody>
                 </table>
+              </div>
               </div>
               {this.state.placeholder?.image && <div className="col-md-4">
                 <div className="blog_right_sidebar text-justify">
