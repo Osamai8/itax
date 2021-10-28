@@ -80,18 +80,18 @@ class Faq extends Component {
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
               <ul class="nav nav-pills flex-column" role="tablist">
-                {Object.entries(services).map((each, key) => {
-                  let category = categories.filter(i => i.id == each[0])
+                {(categories).map((each, key) => {
+                  let category = categories.filter(i => i.id == each.id)
                   console.log("categ",category)
                     return (
-                      <li key={key} onClick={()=>this.handleActiveServie(category[0].id)}  
-                      class={`nav-item ${category[0].id == activeService && 'active'}`}>
+                      <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
+                      class={`nav-item ${each.id == activeService && 'active'}`}>
                         <a
-                          href={`#${category[0].id}`}
-                          aria-controls={category[0].id}
+                          href={`#${each.id}`}
+                          aria-controls={each.id}
                           data-toggle="pill"
                         >
-                          <strong>{category[0].category_name}</strong>
+                          <strong>{each.category_name}</strong>
                         </a>
                       </li>
                     );                  

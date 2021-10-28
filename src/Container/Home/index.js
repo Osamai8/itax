@@ -20,6 +20,7 @@ export default class Home extends Component {
       featuredVideo: {},
       blogs: [],
       services:[],
+      search:''
     };
   }
   componentDidMount() {
@@ -57,8 +58,10 @@ export default class Home extends Component {
     console.log("servicess in index",services)
     this.setState({services})
   }
-  handleSearch(e){
-    console.log("e>",e)
+  handleSearch = (e)=>{
+    this.setState({
+      search:e.target.value
+    })
   }
   render() {
     let { featuredVideo, bannerData } = this.state;
@@ -79,7 +82,7 @@ export default class Home extends Component {
             <div class="row">
               <div class="col col-12">
                 <label class="input">
-                  <a href="service_search_result.php" title="Search"><i class="search-result sr-rslt icon-append fa fa-search"></i></a>
+                  <a href="service_search_result.php" title="Search"> <Link to={`/search/${this.state.search}`}><i class="search-result sr-rslt icon-append fa fa-search"></i></Link></a>
                   <input type="text" onChange={this.handleSearch} placeholder="Search..." name="search" autocomplete="on"/>
                 </label>
               </div>

@@ -1,22 +1,32 @@
 import React, { useRef } from "react";
 import ReactToPdf from "react-to-pdf";
+import jsPDF from 'jspdf'
+import html2canvas from "html2canvas";
 
 function CaseLawModal(props) {
-  const inputEl = useRef(null);
-  const options = {
-    orientation: 'portrait',
-};
+  
+const printDocument = () =>{
+  const input = document.getElementById('HTMLtoPDF');
+  html2canvas(input)
+    .then((canvas) => {
+      let imgWidth = 200;
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+      const imgData = canvas.toDataURL('img/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // pdf.output('dataurlnewwindow');
+      pdf.save(`${props.title}.pdf`);
+    })
+  ;
+}
+
+
   return (
     <div>
-      <ReactToPdf targetRef={inputEl} options={options}   filename={`${props.title}.pdf`}>
-        {({ toPdf }) => (
-          <a onClick={toPdf} style={{ float: "right" }} class="btn button">
+      <a onClick={()=>printDocument()} id="divToPrint" style={{ float: "right" }} class="btn button">
             Download Pdf
           </a>
-        )}
-      </ReactToPdf>
-
-      <div ref={inputEl} className="download-pdf">
+      <div id="HTMLtoPDF" className="download-pdf">
         <div
           dangerouslySetInnerHTML={{
             __html: props.content,
