@@ -3609,3 +3609,9 @@ transform: translateY(-2%);
 .download-pdf{
   padding: 70px 97px;
 }
+.services_list ul li.searchHasService{
+  background-image:linear-gradient(to bottom, #f9e9a2, #edb455)
+}
+.case-law-view:hover{
+  color: rgb(163, 85, 65);
+}

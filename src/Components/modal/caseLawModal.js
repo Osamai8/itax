@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import ReactToPdf from "react-to-pdf";
 import jsPDF from 'jspdf'
 import html2canvas from "html2canvas";
 

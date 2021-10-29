@@ -82,10 +82,10 @@ class Faq extends Component {
               <ul class="nav nav-pills flex-column" role="tablist">
                 {(categories).map((each, key) => {
                   let category = categories.filter(i => i.id == each.id)
-                  console.log("categ",category)
+                  console.log("categ",services[each.id])
                     return (
                       <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
-                      class={`nav-item ${each.id == activeService && 'active'}`}>
+                      class={`nav-item ${services[each.id] && each.id != activeService && "searchHasService"} ${each.id == activeService && 'active'}`}>
                         <a
                           href={`#${each.id}`}
                           aria-controls={each.id}
@@ -107,7 +107,7 @@ class Faq extends Component {
                   class="form-control inputpane"
                   placeholder="Search.."
                 />
-                <button class="but_feild button">search</button>
+                {/* <button class="but_feild button">search</button> */}
               </div>
               <div class="tab-content tab_con">
                 {/* <!----financial-----> */}

@@ -103,7 +103,7 @@ class ServiceSearch extends Component {
       <div>
         <div class="breadcrumbpane">
           <div class="container">
-            <h1 class="pull-left">Frequently Asked Questions</h1>
+            <h1 class="pull-left">SERVICE SEARCH RESULT</h1>
           </div>
         </div>
         <div class="container clearfix">
@@ -113,12 +113,12 @@ class ServiceSearch extends Component {
               <ul class="nav nav-pills flex-column" role="tablist">
                 {Object.entries(categories).map((each, key) => {
                   //   let category = categories.filter(i => i.id == each[0])
-                    // console.log("categ",each)
+                    // console.log("sss",services[each[0]])
                   return (
                     <li
                       key={key}
                       onClick={() => this.handleActiveServie(each[0])}
-                      class={`nav-item ${each[0] == activeService && "active"}`}
+                      class={`nav-item ${services[each[0]]?.length > 0 && each[0] != activeService && "searchHasService"} ${each[0] == activeService && "active"}`}
                     >
                       <a
                         href={`#${each[0]}`}
@@ -138,10 +138,11 @@ class ServiceSearch extends Component {
                 <input
                   onChange={(e) => this.handleSearch(e)}
                   type="text"
+                  value={this.state.search}
                   class="form-control inputpane"
                   placeholder="Search.."
                 />
-                <button class="but_feild button">search</button>
+                {/* <button class="but_feild button">search</button> */}
               </div>
               <div class="tab-content tab_con">
                 {/* <!----financial-----> */}
