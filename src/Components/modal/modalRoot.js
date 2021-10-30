@@ -23,7 +23,7 @@ export default function ModalRoot({isOpen,body,title,close,width}) {
           aria-hidden="true"
           style={isOpen ?  {display: "block"} : {display: "none"} }
         >
-          <div className="modal-dialog custom-modal"  style={{width:width? width :'80%'}} role="document">
+          <div className="modal-dialog custom-modal"  style={{width:width?.length > 0? width :'44.5%'}} role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" onClick={() => close(false)} data-dismiss="modal">

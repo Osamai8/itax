@@ -75,8 +75,8 @@ export default class RestApi {
   static downloadForm() {
     return axios.get(`${baseURL}/download-forms`);
   }
-  static blogs(pageNo) {
-    return axios.get(`${baseURL}/blogs?page=${pageNo}`);
+  static blogs(pageNo,search) {
+    return axios.get(`${baseURL}/blogs?page=${pageNo}&search=${search}`);
   }
   static blogDetails(id) {
     return axios.get(`${baseURL}/blogs/${id}`);
@@ -105,5 +105,8 @@ export default class RestApi {
   }
   static caseLaw() {
     return axios.get(`${baseURL}/case-law`);
+  }
+  static serviceDocument(cId,sId) {
+    return axios.get(`${baseURL}/service-details?category_id=${cId}&service_id=${sId}`);
   }
 }

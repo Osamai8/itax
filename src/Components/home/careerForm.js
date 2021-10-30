@@ -30,7 +30,7 @@ function careerForm() {
                               <label className="input">
                                 <i
                                   className="icon-append fa fa-envelope-o"
-                                  style={{ top: "6px" }}
+                                  
                                 ></i>
                                 <input
                                   type="email"
@@ -42,7 +42,7 @@ function careerForm() {
                               <label className="input">
                                 <i
                                   className="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
+                                  
                                 ></i>
                                 <input
                                   type="textl"
@@ -54,7 +54,7 @@ function careerForm() {
                               <label className="input">
                                 <i
                                   className="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
+                                  
                                 ></i>
                                 <input
                                   type="textl"
@@ -66,7 +66,7 @@ function careerForm() {
                               <label className="input">
                                 <i
                                   className="icon-append fa fa-user-o"
-                                  style={{ top: "6px" }}
+                                  
                                 ></i>
                                 <input
                                   type="textl"
@@ -78,7 +78,7 @@ function careerForm() {
                               <label className="input">
                                 <i
                                   className="icon-append fa fa-mobile"
-                                  style={{ top: "6px" }}
+                                  
                                 ></i>
                                 <input
                                   type="textl"
@@ -88,14 +88,15 @@ function careerForm() {
                                 />
                               </label>
 
+                              <div className="row">
                               <div
                                 className="col-md-6"
-                                style={{ width: "49%", marginRight: "10px" }}
+                                style={{ width: "46%", marginLeft: "6px" }}
                               >
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
+                                    
                                   ></i>
                                   <input
                                     type="textl"
@@ -107,7 +108,7 @@ function careerForm() {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-graduation-cap"
-                                    style={{ top: "6px" }}
+                                    
                                   ></i>
                                   <input
                                     type="textl"
@@ -117,11 +118,13 @@ function careerForm() {
                                   />
                                 </label>
                               </div>
-                              <div className="col-md-6" style={{ width: "49%" }}>
+                              <div className="col-md-6" 
+                              style={{ width: "46%" }}
+                              >
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-map-marker"
-                                    style={{ top: "6px" }}
+                                    
                                   ></i>
                                   <input
                                     type="textl"
@@ -133,7 +136,7 @@ function careerForm() {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-briefcase"
-                                    style={{ top: "6px" }}
+                                    
                                   ></i>
                                   <input
                                     type="textl"
@@ -143,6 +146,7 @@ function careerForm() {
                                   />
                                 </label>
                               </div>
+                                </div>
                               <label className="input">
                                 Attach Your CV
                                 <span style={{ color: "red" }}>

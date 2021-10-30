@@ -3,7 +3,7 @@ import { set } from "react-hook-form";
 import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
-import ApplySerive from '../../Components/home/applyService'
+import ApplySerive from "../../Components/home/applyService";
 
 export default class ServiceDetails extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export default class ServiceDetails extends Component {
       category: {},
       services: [],
       relatedServices: [],
-      applyForm:false,
-      activeService:{}
+      applyForm: false,
+      activeService: {},
     };
   }
   componentDidMount() {
@@ -37,24 +37,29 @@ export default class ServiceDetails extends Component {
       });
     }
   }
-  handelApply(service){
-    if(!this.state.applyForm){
+  handelApply(service) {
+    if (!this.state.applyForm) {
       this.setState({
-        activeService:service,
-        applyForm:true,
-      })
+        activeService: service,
+        applyForm: true,
+      });
+    } else {
+      this.setState({
+        activeService: {},
+        applyForm: false,
+      });
     }
-    else {
-      this.setState({ 
-        activeService:{},
-        applyForm:false,
-      })
-    }
-   
   }
 
   render() {
-    let { title, category, services, relatedServices,applyForm,activeService } = this.state;
+    let {
+      title,
+      category,
+      services,
+      relatedServices,
+      applyForm,
+      activeService,
+    } = this.state;
     return (
       <>
         <div class="breadcrumbpane">
@@ -75,52 +80,53 @@ export default class ServiceDetails extends Component {
 
             <div class="about-info">
               <div class="row">
-                {!applyForm ?
-                  (<div class="col-md-8">
-                  <p class="p-10 mb-0">{category.description}</p>
-                  <div class="panel-group" id="accordion">
-                    {services.length > 0 &&
-                      services.map((each) => {
-                        return (
-                          <div class="panel panel-default">
-                            <a
-                              class="accordion-toggle"
-                              data-toggle="collapse"
-                              data-parent="#accordion"
-                              href={`#collapse${each.id}`}
-                            >
-                              <div class="panel-heading panel-heading-active">
-                                <h4 class="panel-title">
-                                  <i class="fa fa-gg" aria-hidden="true"></i>{" "}
-                                 {each.service_name}
-                                </h4>
-                              </div>
-                            </a>
-                            <div
-                              id={`collapse${each.id}`}
-                              class="panel-collapse collapse in"
-                            >
-                              <div class="panel-body">
-                                <div class="col-md-1">
-                                  <i
-                                    class="fa fa-briefcase fa-3x"
-                                    aria-hidden="true"
-                                  ></i>
+                {!applyForm ? (
+                  <div class="col-md-8">
+                    <p class="p-10 mb-0">{category.description}</p>
+                    <div class="panel-group" id="accordion">
+                      {services.length > 0 &&
+                        services.map((each) => {
+                          return (
+                            <div class="panel panel-default">
+                              <a
+                                class="accordion-toggle"
+                                data-toggle="collapse"
+                                data-parent="#accordion"
+                                href={`#collapse${each.id}`}
+                              >
+                                <div class="panel-heading panel-heading-active">
+                                  <h4 class="panel-title">
+                                    <i class="fa fa-gg" aria-hidden="true"></i>{" "}
+                                    {each.service_name}
+                                  </h4>
                                 </div>
-                                <div class="col-md-11">
-                                  <p>
-                                  {each.description}
-                                  </p>
-                                  <a onClick={()=>this.handelApply(each)} class="readmore">
-                                    Apply Now
-                                  </a>
+                              </a>
+                              <div
+                                id={`collapse${each.id}`}
+                                class="panel-collapse collapse in"
+                              >
+                                <div class="panel-body">
+                                  <div class="col-md-1">
+                                    <i
+                                      class="fa fa-briefcase fa-3x"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </div>
+                                  <div class="col-md-11">
+                                    <p>{each.description}</p>
+                                    <a
+                                      onClick={() => this.handelApply(each)}
+                                      class="readmore"
+                                    >
+                                      Apply Now
+                                    </a>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    {/* <div class="panel panel-default">
+                          );
+                        })}
+                      {/* <div class="panel panel-default">
                       <a
                         data-toggle="collapse"
                         data-parent="#accordion"
@@ -192,96 +198,32 @@ export default class ServiceDetails extends Component {
                         </div>
                       </div>
                     </div> */}
+                    </div>
                   </div>
-                </div>)
-                : <ApplySerive service={activeService}/>
-                }
+                ) : (
+                  <ApplySerive  service={activeService} />
+                )}
 
                 <div class="col-md-4">
+                  <div class="mb-10">
+                    <a href="#" class="readmore create-new-service">
+                      Create Your Own Services
+                    </a>
+                  </div>
                   <div class="servicebox">
                     <h3>Our Related Services</h3>
                     <div class="relatedservicesbox">
                       <a href="">
-                        <h4>Corporate Advisory</h4>
+                        {/* <h4>Financial Funding and Debt Mgmt.</h4> */}
                         <ul>
-                          <li>
-                            <i class="fa fa-cog"></i>Formation of a Company
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>ROC Compliances
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Management Consultancy
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>MIS & Related Reports
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Mergers & Acquisitions
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Project Evaluation &
-                            Viability Studies
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Corporate Law Advisory
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>IFRS Advisory
-                          </li>
-                          {/* <!-- <li><i class="fa fa-cog"></i>CSR Advisory</li>
-                        <li><i class="fa fa-cog"></i>Inventory Management</li>
-                        <li><i class="fa fa-cog"></i>XBRL Filing</li>
-                        <li><i class="fa fa-cog"></i>Certifications for various compliance</li>
-                        <li><i class="fa fa-cog"></i>Restatement as per IAS/ US GAPP</li>
-                        <li><i class="fa fa-cog"></i>Management and Operational Audit</li>
-                        <li><i class="fa fa-cog"></i>Import / Export Consultancy</li>
-                        <li><i class="fa fa-cog"></i>Bulk Income tax return filing</li>
-                        <li><i class="fa fa-cog"></i>Closure of a Company</li> --> */}
-                        </ul>
-                      </a>
-                    </div>
-                    <div class="relatedservicesbox">
-                      <a href="">
-                        <h4>Financial Funding and Debt Mgmt.</h4>
-                        <ul>
-                          <li>
-                            <i class="fa fa-cog"></i>Project Finance
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Restructuring of Finance
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Debt Syndication /
-                            Resolution
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Buyouts & JV Collaboration
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>PE/VC Funding
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Distressed Assets
-                            Recapitalization
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Working Capital Limits
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>ECB and Foreign Currency
-                            Funding
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>LC/Bill Discounting &
-                            Buyers' Credit
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Packing Credit
-                          </li>
-                          <li>
-                            <i class="fa fa-cog"></i>Mortgage Loans
-                          </li>
+                          {relatedServices.length > 0 &&
+                            relatedServices.map((each, key) => {
+                              return (
+                                <li>
+                                  <i class="fa fa-cog"></i>{each.service_name}
+                                </li>
+                              );
+                            })}
                         </ul>
                       </a>
                     </div>
@@ -291,8 +233,8 @@ export default class ServiceDetails extends Component {
             </div>
           </div>
         </section>
-     <Newsletter/>
-     <Footer/>
+        <Newsletter />
+        <Footer />
       </>
     );
   }

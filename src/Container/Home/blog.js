@@ -15,34 +15,45 @@ export default class blog extends Component {
       nextPage: 1,
       prevPage: 1,
       totalPages: 1,
+      monthlyArchives: [],
+      blogsByCategory:[],
+      search:'',
     };
   }
   componentDidMount() {
     this.fetchData();
   }
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.currenPage != this.state.currenPage){
+      this.fetchData();
+    }
+  }
   fetchData() {
-    RestApi.blogs().then((res) => {
+    RestApi.blogs(this.state.currenPage,this.state.search).then((res) => {
       console.log("blog", res);
       if (res.data.status) {
-        let nextPage = res.data.data.next_page_url?.slice(
-          res.data.data.next_page_url.lastIndexOf("=") + 1,
-          res.data.data.next_page_url.length
+        let nextPage = res.data.data.blog_list.next_page_url?.slice(
+          res.data.data.blog_list.next_page_url.lastIndexOf("=") + 1,
+          res.data.data.blog_list.next_page_url.length
         );
-        let prevPage = res.data.data.prev_page_url?.slice(
-          res.data.data.prev_page_url.lastIndexOf("=") + 1,
-          res.data.data.prev_page_url.length
+        let prevPage = res.data.data.blog_list.prev_page_url?.slice(
+          res.data.data.blog_list.prev_page_url.lastIndexOf("=") + 1,
+          res.data.data.blog_list.prev_page_url.length
         );
         this.setState({
-          data: res.data.data.data,
-          totalPages: res.data.data.last_page,
+          data: res.data.data.blog_list.data,
+          totalPages: res.data.data.blog_list.last_page,
           nextPage,
           prevPage,
+          monthlyArchives: res.data.data.months_archive,
+          blogsByCategory: res.data.data.blogs_by_category,
+          
         });
       }
     });
   }
   changePage(currenPage) {
-    console.log(currenPage)
+    console.log(currenPage);
     if (currenPage != this.state.currenPage && !isNaN(currenPage)) {
       this.setState({ currenPage });
     }
@@ -66,8 +77,19 @@ export default class blog extends Component {
     }
     return renderData;
   }
+  handleSearch(e){
+    this.setState({
+      search:e.target.value
+    })
+  }
+  handleSubmit(e){
+    e.preventDefault()
+    this.fetchData();
+  }
   render() {
-    console.log("blog", this.state);
+    // console.log("blog", this.state);
+    let { monthlyArchives, blogsByCategory,data, currenPage, nextPage, totalPages, prevPage } =
+      this.state;
     const styles = {
       display: {
         display: "none",
@@ -88,8 +110,8 @@ export default class blog extends Component {
             <div className="row">
               <div className="col-lg-8">
                 <div className="blog_left_sidebar">
-                  {this.state.data.length > 0 &&
-                    this.state.data.map((each, key) => {
+                  {data.length > 0 &&
+                    data.map((each, key) => {
                       return (
                         <>
                           <div className="media post_item">
@@ -102,25 +124,25 @@ export default class blog extends Component {
                             </div>
                             <div className="col-md-9">
                               <div className="media-body">
-                                <a href="#">
+                              <Link to={`/blog-details/${each.id}`}>
                                   <h3>s{each.heading}</h3>
-                                </a>
+                                  </Link>
                                 <strong>{each.published_date}</strong>
                                 <div
-                      dangerouslySetInnerHTML={{
-                        __html: each.short_description
-                      }}
-                    /> 
-                                
-                               <Link to={`/blog-details/${each.id}`}>
-                               <a
-                                  className="readmore"
-                                  data-toggle="modal"
-                                  data-target="#blogModal"
-                                >
-                                  Read More...
-                                </a>
-                               </Link>
+                                  dangerouslySetInnerHTML={{
+                                    __html: each.short_description,
+                                  }}
+                                />
+
+                                <Link to={`/blog-details/${each.id}`}>
+                                  <a
+                                    className="readmore"
+                                    data-toggle="modal"
+                                    data-target="#blogModal"
+                                  >
+                                    Read More...
+                                  </a>
+                                </Link>
                               </div>
                             </div>
                           </div>
@@ -161,32 +183,38 @@ export default class blog extends Component {
                   <hr />*/}
                   <nav className="blog-pagination">
                     <ul className="pagination">
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                          this.state.currenPage != 1 &&
-                          this.changePage(this.state.prevPage)
-                        }
-                        className={this.state.currenPage != 1  ? "page-link preview" : "page-link preview disabled-pagi"}
-                        aria-label="Previous"
-                      >
-                        <i className="fa fa-angle-double-left"></i> Prev.
-                      </a>
-                    </li>
-                    {this.pageNumbers()}
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                          this.state.currenPage < this.state.totalPages &&
-                          this.changePage(this.state.nextPage)
-                        }
-                        disabled
-                        className={this.state.currenPage < this.state.totalPages ? "page-link next" : "page-link next disabled-pagi"}
-                        aria-label="Next"
-                      >
-                        Next <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
+                      <li className="page-item">
+                        <a
+                          onClick={() =>
+                            currenPage != 1 && this.changePage(prevPage)
+                          }
+                          className={
+                            currenPage != 1
+                              ? "page-link preview"
+                              : "page-link preview disabled-pagi"
+                          }
+                          aria-label="Previous"
+                        >
+                          <i className="fa fa-angle-double-left"></i> Prev.
+                        </a>
+                      </li>
+                      {this.pageNumbers()}
+                      <li className="page-item">
+                        <a
+                          onClick={() =>
+                            currenPage < totalPages && this.changePage(nextPage)
+                          }
+                          disabled
+                          className={
+                            currenPage < totalPages
+                              ? "page-link next"
+                              : "page-link next disabled-pagi"
+                          }
+                          aria-label="Next"
+                        >
+                          Next <i className="fa fa-angle-double-right"></i>
+                        </a>
+                      </li>
                     </ul>
                   </nav>
                 </div>
@@ -201,6 +229,7 @@ export default class blog extends Component {
                             type="text"
                             className="form-control"
                             placeholder="Search Keyword"
+                            onChange={(e)=>this.handleSearch(e)}
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder = 'Search Keyword'"
                           />
@@ -214,6 +243,7 @@ export default class blog extends Component {
                       <button
                         className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                         type="submit"
+                        onClick={(e)=>this.handleSubmit(e)} 
                       >
                         Search
                       </button>
@@ -222,95 +252,38 @@ export default class blog extends Component {
                   <aside className="single_sidebar_widget post_category_widget">
                     <h4 className="widget_title">Blog By Category</h4>
                     <ul className="list cat-list">
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>Business Startup Services</p>
-                          <p>(37)</p>
+                      {blogsByCategory.length > 0 && blogsByCategory.map((each,key)=> {
+                        return <li>
+                        <a  className="d-flex">
+                          <p>{each.category_name}</p>
+                          <p>{`(${each.total_count})`}</p>
                         </a>
                       </li>
-                      <li>
+                      }) }
+                      {/* <li>
                         <a href="#" className="d-flex">
                           <p>Corporate Advisory</p>
                           <p>(10)</p>
                         </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>Financial Funding and Debt Mgmt.</p>
-                          <p>(03)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>Outsourcing Services</p>
-                          <p>(11)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>Foreign Company Setup in India</p>
-                          <p>(21)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>Income tax Advisory</p>
-                          <p>(09)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>International Taxation</p>
-                          <p>(05)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>FEMA and FERA Advisory</p>
-                          <p>(12)</p>
-                        </a>
-                      </li>
+                      </li>  */}
                     </ul>
                   </aside>
                   <aside className="single_sidebar_widget post_category_widget">
                     <h4 className="widget_title">Months / Archive</h4>
                     <ul className="list cat-list">
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>May 2021</p>
-                          <p>(37)</p>
+                      {monthlyArchives.length > 0 && monthlyArchives.map((each,key)=> {
+                        let date = new Date(each.year, each.month - 1);
+                         let month = date.toLocaleString("en-us", {
+                          month: "long",
+                        });
+                        return <li key={key}>
+                        <a className="d-flex">
+                          <p>{`${month} ${each.year} `}</p>
+                          <p>{`(${each.total_count})`}</p>
                         </a>
                       </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>April 2021</p>
-                          <p>(10)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>March 2021</p>
-                          <p>(03)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>June 2021</p>
-                          <p>(11)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>January 2021</p>
-                          <p>(21)</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="d-flex">
-                          <p>February 2021</p>
-                          <p>(09)</p>
-                        </a>
-                      </li>
+                      })
+                      }
                     </ul>
                   </aside>
                 </div>
@@ -346,8 +319,10 @@ export default class blog extends Component {
                         className="form-control inputpane"
                         placeholder="Enter Your Name"
                       />
-                      <span id="error" className="error" 
-                      // style={styles.display}
+                      <span
+                        id="error"
+                        className="error"
+                        // style={styles.display}
                       >
                         Enter User Name
                       </span>
@@ -360,8 +335,10 @@ export default class blog extends Component {
                         className="form-control inputpane"
                         placeholder="Enter Your Email Address"
                       />
-                      <span id="err" className="error" 
-                      // style={styles.display}
+                      <span
+                        id="err"
+                        className="error"
+                        // style={styles.display}
                       >
                         Enter email address
                       </span>

@@ -176,7 +176,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-md"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="text"
@@ -188,7 +188,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-envelope-o"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="email"
@@ -200,7 +200,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -212,7 +212,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -224,7 +224,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -236,7 +236,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-mobile"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -248,7 +248,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-user-o"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -260,7 +260,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-graduation-cap"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -272,7 +272,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-map-marker"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
@@ -284,7 +284,7 @@ export default class career extends Component {
                                 <label className="input">
                                   <i
                                     className="icon-append fa fa-briefcase"
-                                    style={{ top: "6px" }}
+                                    // style={{ top: "6px" }}
                                   ></i>
                                   <input
                                     type="textl"
