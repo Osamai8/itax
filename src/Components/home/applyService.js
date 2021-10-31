@@ -7,7 +7,7 @@ function AppyService(props) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [props.service.category_id,props.service.id]);
 
   const fetchData = () => {
     RestApi.serviceDocument(props.service.category_id, props.service.id).then(
@@ -15,7 +15,7 @@ function AppyService(props) {
         console.log(res);
         if (res.data.status) {
           setDocumentRequried(res.data.data.document_details);
-          setServiceDetails(res.data.data.service_details);
+          if(res.data.data.service_details) {setServiceDetails(res.data.data.service_details);}
         }
       }
     );

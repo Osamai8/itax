@@ -58,6 +58,7 @@ class Main extends Component {
         <Route exact path={`/contact`} component={Contact} />
         <Route exact path={`/services`} component={Service} />
         <Route exact path={`/service-details/:id`} component={ServiceDetails} />
+        <Route exact path={`/service-details/:id/:sId`} component={ServiceDetails} />
         <Route exact path={`/search/:id`} component={ServiceSearch} />
         <Route exact path={`/search/`} component={ServiceSearch} />
         <Route exact path={`/videos`} component={Videos} />

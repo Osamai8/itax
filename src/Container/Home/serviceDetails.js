@@ -4,6 +4,7 @@ import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import ApplySerive from "../../Components/home/applyService";
+import { Link } from "react-router-dom";
 
 export default class ServiceDetails extends Component {
   constructor(props) {
@@ -21,20 +22,35 @@ export default class ServiceDetails extends Component {
     this.fetchData();
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id != this.props.match.params.id || prevProps.match.params.Sid != this.props.match.params.Sid ){
+      this.fetchData();
+    }
+  }
   fetchData() {
     let id = this.props.match.params.id;
+    let sId = this.props.match.params.sId;
     if (id) {
       RestApi.services(id).then((res) => {
         console.log("sevices", res);
+        let activeService={}
+        let applyForm = false
         if (res.data.status) {
+          if(sId){
+            activeService = res.data.data.services.filter((e)=>e.id == sId)
+            applyForm = true
+          }
           this.setState({
-            title: res.data.data.category[0].category_name,
-            category: res.data.data.category[0],
+            title: res.data.data.category.category_name,
+            category: res.data.data.category,
             services: res.data.data.services,
             relatedServices: res.data.data.related_services,
+            activeService,
+            applyForm,
           });
         }
       });
+    
     }
   }
   handelApply(service) {
@@ -52,6 +68,7 @@ export default class ServiceDetails extends Component {
   }
 
   render() {
+  console.log(this.props.match.params.sId,this.state)
     let {
       title,
       category,
@@ -213,15 +230,16 @@ export default class ServiceDetails extends Component {
                   <div class="servicebox">
                     <h3>Our Related Services</h3>
                     <div class="relatedservicesbox">
-                      <a href="">
+                      <a >
                         {/* <h4>Financial Funding and Debt Mgmt.</h4> */}
                         <ul>
                           {relatedServices.length > 0 &&
                             relatedServices.map((each, key) => {
                               return (
-                                <li>
+                              <Link to={`/service-details/${each.category_id}/${each.id}`}>  <li>
                                   <i class="fa fa-cog"></i>{each.service_name}
                                 </li>
+                                </Link>
                               );
                             })}
                         </ul>
