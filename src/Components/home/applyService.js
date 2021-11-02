@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import RestApi from "../../services/api";
 
 function AppyService(props) {
   const [DocumentRequried, setDocumentRequried] = useState([]);
   const [ServiceDetails, setServiceDetails] = useState([]);
-
+  
+    let {id,sId} = useParams();
+     
   useEffect(() => {
+   
     fetchData();
-  }, [props.service.category_id,props.service.id]);
+  }, [id,sId]);
 
   const fetchData = () => {
-    RestApi.serviceDocument(props.service.category_id, props.service.id).then(
+    
+   
+    RestApi.serviceDocument(id, sId).then(
       (res) => {
         console.log(res);
         if (res.data.status) {

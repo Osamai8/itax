@@ -9,18 +9,20 @@ import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 import { Link } from "react-router-dom";
 import Footer from "../../Common/footer";
-import Marquee from 'react-easy-marquee'
-import {Events, Calender, DownloadForm} from "../../Components/home/features";
+import Marquee from "react-easy-marquee";
+import { withRouter } from "react-router-dom";
+import { Events, Calender, DownloadForm } from "../../Components/home/features";
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bannerData: [],
       featuredVideo: {},
       blogs: [],
-      services:[],
-      search:''
+      services: [],
+      search: "",
+      emptyField: false,
     };
   }
   componentDidMount() {
@@ -49,26 +51,47 @@ export default class Home extends Component {
       });
     });
   };
-  changeYear(year){
+  changeYear(year) {
     this.setState({
-      year:year
-    })
+      year: year,
+    });
   }
-  handleServices(services){
-    console.log("servicess in index",services)
-    this.setState({services})
+  handleServices(services) {
+    console.log("servicess in index", services);
+    this.setState({ services });
   }
-  handleSearch = (e)=>{
+  handleSearch = (e) => {
+    let emptyField = false;
+    if (e.target.value.length <= 0) {
+      emptyField = true;
+    }
     this.setState({
-      search:e.target.value
-    })
+      search: e.target.value,
+      emptyField,
+    });
+  };
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.search.length > 0) {
+      this.setState({
+        emptyField: true,
+      });
+      this.props.history.push(`/search/${this.state.search}`);
+    } else {
+      this.setState({
+        emptyField: true,
+      });
+    }
   }
   render() {
     let { featuredVideo, bannerData } = this.state;
     return (
       <>
         <div id="home-page">
-          <header id="header" className="header-wrapper home-parallax home-fade">
+          <header
+            id="header"
+            className="header-wrapper home-parallax home-fade"
+          >
             <div className="header-wrapper-inner introdata">
               <div className="intro intro1">
                 <h1>What are you looking for?</h1>
@@ -76,20 +99,36 @@ export default class Home extends Component {
                   Lorem ipsum, or lipsum as it is sometimes known, is dummy text
                   used in laying out print, graphic or web designs.
                 </p>
-                <form id="sky-form" method="POST" class="sky-form" action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login" novalidate="novalidate">
-        <fieldset>
-          <section>
-            <div class="row">
-              <div class="col col-12">
-                <label class="input">
-                  <a href="service_search_result.php" title="Search"> <Link to={`/search/${this.state.search}`}><i class="search-result sr-rslt icon-append fa fa-search"></i></Link></a>
-                  <input type="text" onChange={this.handleSearch} placeholder="Search..." name="search" autocomplete="on"/>
-                </label>
-              </div>
-            </div>
-          </section> 
-        </fieldset>
-    </form>
+                <form
+                  onSubmit={(e) => this.handleSubmit(e)}
+                  id="sky-form"
+                  method="POST"
+                  class="sky-form"
+                >
+                  <fieldset>
+                    <section>
+                      <div class="row">
+                        <div class="col col-12">
+                          <label class="input">
+                            <button className="search-btn" title="Search">
+                              {/* <Link to={`/search/${this.state.search}`}> */}
+                              <i class="search-result sr-rslt icon-append fa fa-search"></i>
+                              {/* </Link> */}
+                            </button>
+                            <input
+                              type="text"
+                              onChange={this.handleSearch}
+                              placeholder="Search..."
+                              name="search"
+                              autocomplete="on"
+                            />
+                            {/* {this.state.emptyField && <span className="input-error">Field is required</span>} */}
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+                  </fieldset>
+                </form>
               </div>
               <div className="intro intro2">
                 <h1>Schedule A video Call</h1>
@@ -108,36 +147,37 @@ export default class Home extends Component {
             <Slider bannerData={bannerData} />
           </header>
           {/* <!-- /Header --> */}
-          {this.state.blogs.length > 0 && <div className="blog_area">
-            <div className="container">
-              <div className="marquetext marquee">
-                <img src={blogImage} className="blog-home-img"/>
-                <ul>
-                 
-                  <marquee
-                  behavior="scroll"
-                  onMouseOver="stop()"
-                  onMouseOut="start()"
-                  > 
-                    {this.state.blogs.map((each,i) => {
-                      return ( 
-                        <Link key={i} to={`blog-details/${each.id}`}>
-                          <li>
-                            <a >{each.heading}</a>
-                          </li>
-                        </Link> 
-                      );
-                    })}
+          {this.state.blogs.length > 0 && (
+            <div className="blog_area">
+              <div className="container">
+                <div className="marquetext marquee">
+                  <img src={blogImage} className="blog-home-img" />
+                  <ul>
+                    <marquee
+                      behavior="scroll"
+                      onMouseOver="stop()"
+                      onMouseOut="start()"
+                    >
+                      {this.state.blogs.map((each, i) => {
+                        return (
+                          <Link key={i} to={`blog-details/${each.id}`}>
+                            <li>
+                              <a>{each.heading}</a>
+                            </li>
+                          </Link>
+                        );
+                      })}
 
-                    {/* <li>
+                      {/* <li>
                       <a href="p">Companies Filing of documents</a>
                     </li> */}
-                  </marquee>
-                </ul>
+                    </marquee>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>}
-          <Services setService={(service)=> this.handleServices(service)} />
+          )}
+          <Services setService={(service) => this.handleServices(service)} />
           <section
             className="our_department_area"
             // style={{ backgroundColor: "#f3f3f3!important" }}
@@ -166,20 +206,16 @@ export default class Home extends Component {
                           ></iframe>
                         </div>
                       ) : (
-                        <div className='no-video'
-                        >
-                          {" "}
-                          No Video Available{" "}
-                        </div>
+                        <div className="no-video"> No Video Available </div>
                       )}
                       <p>{featuredVideo.description}</p>
                     </div>
                   </div>
                 </div>
-               {/* events */}
-               <Events/>
-                 {/* downloadForm */}
-               <DownloadForm/>
+                {/* events */}
+                <Events />
+                {/* downloadForm */}
+                <DownloadForm />
               </div>
             </div>
           </section>
@@ -193,3 +229,4 @@ export default class Home extends Component {
     );
   }
 }
+export default withRouter(Home);

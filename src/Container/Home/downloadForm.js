@@ -66,7 +66,7 @@ export default class downloadForm extends Component {
                       readonly=""
                       data-style="btn-white"
                     >
-                      <option>--Select Services--</option>
+                      {/* <option>--Select Services--</option> */}
                      { Object.entries(data).map((category,k)=> {
                        console.log(category)
                        return  <option selected={activeCategory == category[0] && 'selected'} key={k} value={category[0]}>{category[1][0].category_name}</option>
@@ -82,11 +82,11 @@ export default class downloadForm extends Component {
                 <table className="table form-border text-center">
                   <tbody>
                     <tr className="job-summary">
-                      <td width="10%" className="cal-right-wht cal-header">
+                      <td width="10%" className="cal-right-wht txt-center cal-header">
                         Sr. No.
                       </td>
-                      <td width="45%" class="cal-right-wht">Description</td>
-                      <td className="cal-right-wht">Form Name</td>
+                      <td width="45%" class="cal-right-wht txt-center">Description</td>
+                      <td className="cal-right-wht txt-center">Form Name</td>
                       <td width="20%" className="text-center">
                         Download
                       </td>

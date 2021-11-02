@@ -54,7 +54,7 @@ export default function Services(props) {
                         <div className="iconimagetitle">
                           {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                           <img src={moneyBagIcon} />
-                          <h3 className="service-heading">
+                          <h3  className={each[1][0].category_name.length < 23 ? `service-heading`: `service-if-text`}>
                             <a href="#"> {each[1][0].category_name}</a>
                           </h3 >
                           <p>
@@ -62,7 +62,7 @@ export default function Services(props) {
                               ? each[1][0].category_description.slice(0, 130) + "..."
                               : each[1][0].category_description}
                           </p>
-                          <Link to={`/service-details/${each[0]}`} className="readmore">
+                          <Link to={`/service-details/${each[0]}`} className={each[1][0].category_name.length < 23 ? `readmore readmore-if-greater-text`: `readmore r`}>
                             Read More...
                           </Link>
                         </div>

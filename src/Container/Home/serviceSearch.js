@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Common from "../../Common/common";
 import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
+
+
 class ServiceSearch extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +101,7 @@ class ServiceSearch extends Component {
   }
   render() {
     console.log("state", this.state);
-    let { services, activeService, categories } = this.state;
+    let { services, search ,activeService, categories } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -118,7 +121,7 @@ class ServiceSearch extends Component {
                     <li
                       key={key}
                       onClick={() => this.handleActiveServie(each[0])}
-                      class={`nav-item ${services[each[0]]?.length > 0 && each[0] != activeService && "searchHasService"} ${each[0] == activeService && "active"}`}
+                      class={`nav-item ${services[each[0]]?.length > 0 && search.length >0  &&each[0] != activeService && "searchHasService"} ${each[0] == activeService && "active"}`}
                     >
                       <a
                         href={`#${each[0]}`}
@@ -203,6 +206,9 @@ class ServiceSearch extends Component {
                                           <>
                                             {" "}
                                             <p>{item.service_description}</p>
+                                            <p>
+                    <Link to={`/service-details/${item.category_id}/${item.service_id}`} class="readmore">Apply Now</Link>
+                </p>
                                           </>
                                     </div>
                                   </div>

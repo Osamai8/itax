@@ -59,6 +59,7 @@ export default class ServiceDetails extends Component {
         activeService: service,
         applyForm: true,
       });
+      this.props.history.push(`/service-details/${service.category_id}/${service.id}`)
     } else {
       this.setState({
         activeService: {},

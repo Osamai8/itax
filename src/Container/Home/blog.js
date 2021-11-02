@@ -50,6 +50,19 @@ export default class blog extends Component {
           
         });
       }
+      else if(res.data.status == false){
+        this.setState({
+          data: [],
+      currenPage: 1,
+      nextPage: 1,
+      prevPage: 1,
+      totalPages: 1,
+      monthlyArchives: [],
+      blogsByCategory:[],
+      search:'',
+          
+        });
+      }
     });
   }
   changePage(currenPage) {
@@ -181,7 +194,7 @@ export default class blog extends Component {
                   </div>
                    
                   <hr />*/}
-                  <nav className="blog-pagination">
+                 {data.length > 0 &&<nav className="blog-pagination">
                     <ul className="pagination">
                       <li className="page-item">
                         <a
@@ -216,7 +229,7 @@ export default class blog extends Component {
                         </a>
                       </li>
                     </ul>
-                  </nav>
+                  </nav>}
                 </div>
               </div>
               <div className="col-lg-4">
@@ -234,7 +247,7 @@ export default class blog extends Component {
                             onblur="this.placeholder = 'Search Keyword'"
                           />
                           <div className="input-group-append">
-                            <button className="btn" type="button">
+                            <button onClick={(e)=>this.handleSubmit(e)} className="btn" type="button">
                               <i className="fa fa-search"></i>
                             </button>
                           </div>

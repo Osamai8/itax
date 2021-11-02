@@ -63,21 +63,22 @@ export default class Calendar extends Component {
             </div>
             <div className="row">
               <div className="col-md-8">
+              <div className="current-opening ">
                 {this.state.data.length > 0 ? (
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
-                        <td width="8%" className="cal-right-wht">
+                        <td width="10%" className="txt-center cal-right-wht">
                           Sr. No.
                         </td>
-                        <td width="12%" className="cal-right-wht">
+                        <td width="12%" className="txt-center cal-right-wht">
                           Due Date
                         </td>
-                        <td width="20%" className="cal-right-wht">
+                        <td width="20%" className="txt-center cal-right-wht">
                           Law
                         </td>
                         <td width="40%">Description</td>
-                        <td width="20%" className=" cal-form cal-right-wht">
+                        <td width="20%" className=" cal-form txt-center cal-right-wht">
                           Form
                         </td>
                       </tr>
@@ -132,6 +133,7 @@ export default class Calendar extends Component {
                 ) : (
                   <h4>No Data Available</h4>
                 )}
+                </div>
               </div>
               {this.state.placeholder?.image && (
                 <div className="col-md-4">
