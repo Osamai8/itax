@@ -57,25 +57,25 @@ export default class CaseLaw extends Component {
                   <table class="table form-border text-center">
                     <tbody>
                       <tr class="job-summary">
-                        <td width="6%" class="cal-right-wht cal-header">
-                          Sr. No.
+                        <td width="6%" class="cal-right-wht txt-center cal-header">
+                          No.
                         </td>
-                        <td width="11%" class="cal-right-wht">
+                        <td width="11%" class="cal-right-wht txt-center">
                           Law
                         </td>
-                        <td width="9%" class="cal-right-wht">
+                        <td width="9%" class="cal-right-wht txt-center">
                           Section
                         </td>
-                        <td width="18%" class="cal-right-wht">
+                        <td width="18%" class="cal-right-wht txt-center">
                           Case Name
                         </td>
-                        <td width="10%" class="cal-right-wht">
+                        <td width="10%" class="cal-right-wht txt-center">
                           Case Number
                         </td>
-                        <td width="8%" class="cal-right-wht">
+                        <td width="8%" class="cal-right-wht txt-center">
                           Order Date
                         </td>
-                        <td width="16%" class="cal-right-wht">
+                        <td width="16%" class="cal-right-wht txt-center">
                           Citation
                         </td>
                         <td width="8%">Judgement</td>

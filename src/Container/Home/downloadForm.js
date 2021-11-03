@@ -82,8 +82,8 @@ export default class downloadForm extends Component {
                 <table className="table form-border text-center">
                   <tbody>
                     <tr className="job-summary">
-                      <td width="10%" className="cal-right-wht txt-center cal-header">
-                        Sr. No.
+                      <td width="8%" className="cal-right-wht txt-center cal-header">
+                      No.
                       </td>
                       <td width="45%" class="cal-right-wht txt-center">Description</td>
                       <td className="cal-right-wht txt-center">Form Name</td>

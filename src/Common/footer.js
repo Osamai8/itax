@@ -49,7 +49,7 @@ function Footer(props) {
                       categoryOne.map((each, key) => {
                         return (
                           <li key={key}>
-                            <Link to={`/`}>{each.category_name}</Link>
+                            <Link to={`/service-details/${each.id}`}>{each.category_name}</Link>
                           </li>
                         );
                       })}

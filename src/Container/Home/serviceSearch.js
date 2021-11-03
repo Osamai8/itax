@@ -113,6 +113,7 @@ class ServiceSearch extends Component {
           <div class="row">
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
+              <div className="current-opening">
               <ul class="nav nav-pills flex-column" role="tablist">
                 {Object.entries(categories).map((each, key) => {
                   //   let category = categories.filter(i => i.id == each[0])
@@ -134,6 +135,7 @@ class ServiceSearch extends Component {
                   );
                 })}
               </ul>
+              </div>
             </div>
 
             <div class="col-md-8">
@@ -171,7 +173,7 @@ class ServiceSearch extends Component {
                     <div
                       key={key}
                       role="tabpanel"
-                      class={`tab-pane ${activeService == each[0] && "active"}`}
+                      class={`current-opening tab-pane ${activeService == each[0] && "active"}`}
                       id={each[0]}
                     >
                       <div class="panel-group" id={`accordion${each[0]}`}>

@@ -68,16 +68,16 @@ export default class Calendar extends Component {
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
-                        <td width="10%" className="txt-center cal-right-wht">
-                          Sr. No.
+                        <td width="8%" className="txt-center cal-right-wht">
+                          No.
                         </td>
-                        <td width="12%" className="txt-center cal-right-wht">
+                        <td width="13%" className="txt-center cal-right-wht">
                           Due Date
                         </td>
                         <td width="20%" className="txt-center cal-right-wht">
                           Law
                         </td>
-                        <td width="40%">Description</td>
+                        <td width="40%" className="txt-center">Description</td>
                         <td width="20%" className=" cal-form txt-center cal-right-wht">
                           Form
                         </td>
@@ -94,28 +94,28 @@ export default class Calendar extends Component {
                         return (
                           <tr key={key} className="passed_date">
                             <td
-                              className={`cal-right ${classBasedOnDate}`}
+                              className={`cal-right cal-border ${classBasedOnDate}`}
                             >
                               {++key}
                             </td>
                             <td
-                              className={`cal-header ${classBasedOnDate}`}
+                              className={`cal-header txt-center cal-border ${classBasedOnDate}`}
                             >
                               {each.schedule_date}
                             </td>
                             <td
-                              className={`cal-header ${classBasedOnDate}`}
+                              className={`cal-header cal-border ${classBasedOnDate}`}
                             >
                               {each.display_name}
                             </td>
                             <td
-                              className={`cal-header align-justify ${classBasedOnDate}`}
+                              className={`cal-header cal-border align-justify ${classBasedOnDate}`}
                             >
                               {each.description}
                             </td>
                             <td
-                              className={`cal-right align-justify ${classBasedOnDate}`}
-                              style={{ border: "1px solid #ddd" }}
+                              className={`cal-right cal-border align-justify ${classBasedOnDate}`}
+                             
                             >
                               {each.form_name_no}
                             </td>

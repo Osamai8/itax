@@ -61,13 +61,14 @@ class Faq extends Component {
     // console.log("-----",data);
     let activeService = Object.keys(services)[0]
     this.setState({
+      search,
       services,
       activeService
     })
   }
   render() {
     console.log("state",this.state)
-    let { services,activeService,categories } = this.state;
+    let { services,activeService,categories,search } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -79,13 +80,14 @@ class Faq extends Component {
           <div class="row">
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
-              <ul class="nav nav-pills flex-column" role="tablist">
+             <div className="current-opening">
+             <ul class="nav nav-pills flex-column" role="tablist">
                 {(categories).map((each, key) => {
                   let category = categories.filter(i => i.id == each.id)
                   console.log("categ",services[each.id])
                     return (
                       <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
-                      class={`nav-item ${services[each.id] && each.id != activeService && "searchHasService"} ${each.id == activeService && 'active'}`}>
+                      class={`nav-item ${services[each.id] && search.length > 0 && each.id != activeService && "searchHasService"} ${each.id == activeService && 'active'}`}>
                         <a
                           href={`#${each.id}`}
                           aria-controls={each.id}
@@ -97,6 +99,7 @@ class Faq extends Component {
                     );                  
                 })}
               </ul>
+             </div>
             </div>
 
             <div class="col-md-8">

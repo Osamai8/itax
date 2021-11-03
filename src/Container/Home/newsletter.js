@@ -115,11 +115,11 @@ export default class newsletter extends Component {
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
-                        <td width="20%" className="cal-right-wht cal-header">
-                          Sr. No.
+                        <td width="20%" className="cal-right-wht txt-center cal-header">
+                          No.
                         </td>
-                        <td>Months</td>
-                        <td width="15%" className="cal-header"></td>
+                        <td className="txt-center"> Months</td>
+                        <td width="15%" className="cal-header "></td>
                       </tr>
                       {/* table one  */}
                       <tr className="newsletter-tr">
@@ -269,10 +269,10 @@ export default class newsletter extends Component {
                   <table className="table form-border text-center">
                     <tbody>
                       <tr className="job-summary">
-                        <td width="20%" className="cal-right-wht cal-header">
-                          Sr. No.
+                        <td width="20%" className="cal-right-wht cal-header txt-center">
+                        No.
                         </td>
-                        <td>Months</td>
+                        <td className="txt-center">Months</td>
                         <td width="15%" className="cal-header"></td>
                       </tr>
                       {/* table two start */}
@@ -422,7 +422,7 @@ export default class newsletter extends Component {
                 </div>
                 <div className="col-md-12">
                 <nav className="blog-pagination">
-                  <ul className="pagination">
+                 {(tableOne.length > 0) && <ul className="pagination">
                     <li className="page-item">
                       <a
                         onClick={() =>
@@ -457,7 +457,7 @@ export default class newsletter extends Component {
                         Next <i className="fa fa-angle-double-right"></i>
                       </a>
                     </li>
-                  </ul>
+                  </ul>}
                 </nav>
               </div>
               </div>
