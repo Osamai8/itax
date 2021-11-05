@@ -75,7 +75,7 @@ class ServiceSearch extends Component {
   }
   handleSearch(e) {
       if(this.props.match.params.id && this.props.match.params.id.length > 0){
-        window.history.pushState({}, document.title, "/" + "search");
+        // window.history.pushState({}, document.title, "/" + "search");
       }
    
     let search = e.target.value;    
@@ -173,7 +173,7 @@ class ServiceSearch extends Component {
                     <div
                       key={key}
                       role="tabpanel"
-                      class={`current-opening tab-pane ${activeService == each[0] && "active"}`}
+                      class={`current-opening tab-pane mt-10 ${activeService == each[0] && "active"}`}
                       id={each[0]}
                     >
                       <div class="panel-group" id={`accordion${each[0]}`}>

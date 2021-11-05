@@ -30,10 +30,10 @@ function AppyService(props) {
   return (
     <>
       <div class="col-lg-8">
-        <h3 class="servicehead">{props.service.service_name}</h3>
+        <h3 class="servicehead">{ServiceDetails.service_name}</h3>
         <div class="servicebody">
           <div class="section-title">
-            <p>{props.service.description}</p>
+            <p>{ServiceDetails.description}</p>
           </div>
           <h2 class="contact-title">Brief Description of Requirements</h2>
           <div

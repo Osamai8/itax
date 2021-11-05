@@ -132,7 +132,7 @@ class Faq extends Component {
                  )} /> */}
                 {Object.entries(services).map((each, key) => {
                   // console.log(each)
-                 return <div key={key} role="tabpanel" class={`tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
+                 return <div key={key} role="tabpanel" class={`current-opening mt-10 tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
                     <div class="panel-group" id={`accordion${each[0]}`}>
                       {Object.entries(each[1]).length > 0 &&
                         Object.entries(each[1]).map((item,iKey) => { 

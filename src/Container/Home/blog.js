@@ -11,25 +11,35 @@ export default class blog extends Component {
     super(props);
     this.state = {
       data: [],
-      currenPage: 1,
+      currentPage: 1,
       nextPage: 1,
       prevPage: 1,
       totalPages: 1,
       monthlyArchives: [],
-      blogsByCategory:[],
-      search:'',
+      blogsByCategory: [],
+      search: "",
+      month: "",
+      year: "",
+      cId: "",
     };
   }
   componentDidMount() {
     this.fetchData();
   }
-  componentDidUpdate(prevProps,prevState){
-    if(prevState.currenPage != this.state.currenPage){
+  componentDidUpdate(prevProps, prevState) {
+    let { month, currentPage, year, cId } = this.state;
+    if (
+      prevState.currentPage != this.state.currentPage ||
+      prevState.month != month ||
+      prevState.year != year ||
+      prevState.cId != cId
+    ) {
       this.fetchData();
     }
   }
   fetchData() {
-    RestApi.blogs(this.state.currenPage,this.state.search).then((res) => {
+    let { currentPage, search, month, year, cId } = this.state;
+    RestApi.blogs(currentPage, search, month, year, cId).then((res) => {
       console.log("blog", res);
       if (res.data.status) {
         let nextPage = res.data.data.blog_list.next_page_url?.slice(
@@ -47,62 +57,132 @@ export default class blog extends Component {
           prevPage,
           monthlyArchives: res.data.data.months_archive,
           blogsByCategory: res.data.data.blogs_by_category,
-          
         });
-      }
-      else if(res.data.status == false){
+      } else if (res.data.status == false) {
         this.setState({
           data: [],
-      currenPage: 1,
-      nextPage: 1,
-      prevPage: 1,
-      totalPages: 1,
-      monthlyArchives: [],
-      blogsByCategory:[],
-      search:'',
-          
+          currentPage: 1,
+          nextPage: 1,
+          prevPage: 1,
+          totalPages: 1,
+          monthlyArchives: [],
+          blogsByCategory: [],
+          search: "",
         });
       }
     });
   }
-  changePage(currenPage) {
-    console.log(currenPage);
-    if (currenPage != this.state.currenPage && !isNaN(currenPage)) {
-      this.setState({ currenPage });
+  changePage(currentPage) {
+    console.log(currentPage);
+    if (currentPage != this.state.currentPage && !isNaN(currentPage)) {
+      this.setState({ currentPage });
     }
   }
   pageNumbers() {
-    let { totalPages } = this.state;
+    let { totalPages, currentPage } = this.state;
     let renderData = [];
-    for (let i = 1; i <= totalPages; i++) {
+    if (totalPages > 7) {
+      let current = currentPage;
+      if (currentPage > totalPages - 6) current = totalPages - 5;
       renderData.push(
         <>
           <li
-            onClick={() => this.changePage(i)}
+            onClick={() => this.changePage(1)}
             className={
-              this.state.currenPage == i ? "page-item active" : "page-item"
+              this.state.currentPage == 1 ? "page-item active" : "page-item"
             }
           >
-            <a className="page-link">{i}</a>
+            <a className="page-link">{"<<"}</a>
           </li>
         </>
       );
+      for (let i = parseInt(current); i <= parseInt(current) + 2; i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
+      renderData.push(
+        <>
+          <li className={"page-item"}>
+            <a className="page-link">{"..."}</a>
+          </li>
+        </>
+      );
+      for (let i = parseInt(totalPages) - 2; i <= parseInt(totalPages); i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(totalPages)}
+            className={
+              this.state.currentPage == totalPages
+                ? "page-item active"
+                : "page-item"
+            }
+          >
+            <a className="page-link">{">>"}</a>
+          </li>
+        </>
+      );
+    } else {
+      for (let i = currentPage; i <= totalPages; i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
     }
     return renderData;
   }
-  handleSearch(e){
+  handleSearch(e) {
     this.setState({
-      search:e.target.value
-    })
+      search: e.target.value,
+    });
   }
-  handleSubmit(e){
-    e.preventDefault()
+  handleSubmit(e) {
+    e.preventDefault();
     this.fetchData();
   }
   render() {
-    // console.log("blog", this.state);
-    let { monthlyArchives, blogsByCategory,data, currenPage, nextPage, totalPages, prevPage } =
-      this.state;
+    console.log("blog", this.state);
+    let {
+      monthlyArchives,
+      blogsByCategory,
+      data,
+      currentPage,
+      nextPage,
+      totalPages,
+      prevPage,
+    } = this.state;
     const styles = {
       display: {
         display: "none",
@@ -137,9 +217,9 @@ export default class blog extends Component {
                             </div>
                             <div className="col-md-9">
                               <div className="media-body">
-                              <Link to={`/blog-details/${each.id}`}>
+                                <Link to={`/blog-details/${each.id}`}>
                                   <h3>s{each.heading}</h3>
-                                  </Link>
+                                </Link>
                                 <strong>{each.published_date}</strong>
                                 <div
                                   dangerouslySetInnerHTML={{
@@ -194,42 +274,45 @@ export default class blog extends Component {
                   </div>
                    
                   <hr />*/}
-                 {data.length > 0 &&<nav className="blog-pagination">
-                    <ul className="pagination">
-                      <li className="page-item">
-                        <a
-                          onClick={() =>
-                            currenPage != 1 && this.changePage(prevPage)
-                          }
-                          className={
-                            currenPage != 1
-                              ? "page-link preview"
-                              : "page-link preview disabled-pagi"
-                          }
-                          aria-label="Previous"
-                        >
-                          <i className="fa fa-angle-double-left"></i> Prev.
-                        </a>
-                      </li>
-                      {this.pageNumbers()}
-                      <li className="page-item">
-                        <a
-                          onClick={() =>
-                            currenPage < totalPages && this.changePage(nextPage)
-                          }
-                          disabled
-                          className={
-                            currenPage < totalPages
-                              ? "page-link next"
-                              : "page-link next disabled-pagi"
-                          }
-                          aria-label="Next"
-                        >
-                          Next <i className="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>}
+                  {data.length > 0 && (
+                    <nav className="blog-pagination">
+                      <ul className="pagination">
+                        <li className="page-item">
+                          <a
+                            onClick={() =>
+                              currentPage != 1 && this.changePage(prevPage)
+                            }
+                            className={
+                              currentPage != 1
+                                ? "page-link preview"
+                                : "page-link preview disabled-pagi"
+                            }
+                            aria-label="Previous"
+                          >
+                            <i className="fa fa-angle-double-left"></i> Prev.
+                          </a>
+                        </li>
+                        {this.pageNumbers()}
+                        <li className="page-item">
+                          <a
+                            onClick={() =>
+                              currentPage < totalPages &&
+                              this.changePage(nextPage)
+                            }
+                            disabled
+                            className={
+                              currentPage < totalPages
+                                ? "page-link next"
+                                : "page-link next disabled-pagi"
+                            }
+                            aria-label="Next"
+                          >
+                            Next <i className="fa fa-angle-double-right"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  )}
                 </div>
               </div>
               <div className="col-lg-4">
@@ -242,12 +325,16 @@ export default class blog extends Component {
                             type="text"
                             className="form-control"
                             placeholder="Search Keyword"
-                            onChange={(e)=>this.handleSearch(e)}
+                            onChange={(e) => this.handleSearch(e)}
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder = 'Search Keyword'"
                           />
                           <div className="input-group-append">
-                            <button onClick={(e)=>this.handleSubmit(e)} className="btn" type="button">
+                            <button
+                              onClick={(e) => this.handleSubmit(e)}
+                              className="btn"
+                              type="button"
+                            >
                               <i className="fa fa-search"></i>
                             </button>
                           </div>
@@ -256,7 +343,7 @@ export default class blog extends Component {
                       <button
                         className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                         type="submit"
-                        onClick={(e)=>this.handleSubmit(e)} 
+                        onClick={(e) => this.handleSubmit(e)}
                       >
                         Search
                       </button>
@@ -265,14 +352,22 @@ export default class blog extends Component {
                   <aside className="single_sidebar_widget post_category_widget">
                     <h4 className="widget_title">Blog By Category</h4>
                     <ul className="list cat-list">
-                      {blogsByCategory.length > 0 && blogsByCategory.map((each,key)=> {
-                        return <li>
-                        <a  className="d-flex">
-                          <p>{each.category_name}</p>
-                          <p>{`(${each.total_count})`}</p>
-                        </a>
-                      </li>
-                      }) }
+                      {blogsByCategory.length > 0 &&
+                        blogsByCategory.map((each, key) => {
+                          return (
+                            <li>
+                              <a   onClick={() =>
+                                  this.setState({
+                                    cId: each.category_id
+                                  })
+                                }
+                                className="d-flex anchor-link">
+                                <p>{each.category_name}</p>
+                                <p>{`(${each.total_count})`}</p>
+                              </a>
+                            </li>
+                          );
+                        })}
                       {/* <li>
                         <a href="#" className="d-flex">
                           <p>Corporate Advisory</p>
@@ -284,19 +379,31 @@ export default class blog extends Component {
                   <aside className="single_sidebar_widget post_category_widget">
                     <h4 className="widget_title">Months / Archive</h4>
                     <ul className="list cat-list">
-                      {monthlyArchives.length > 0 && monthlyArchives.map((each,key)=> {
-                        let date = new Date(each.year, each.month - 1);
-                         let month = date.toLocaleString("en-us", {
-                          month: "long",
-                        });
-                        return <li key={key}>
-                        <a className="d-flex">
-                          <p>{`${month} ${each.year} `}</p>
-                          <p>{`(${each.total_count})`}</p>
-                        </a>
-                      </li>
-                      })
-                      }
+                      {monthlyArchives.length > 0 &&
+                        monthlyArchives.map((each, key) => {
+                          let year = each.year;
+                          let date = new Date(year, each.month - 1);
+                          let month = date.toLocaleString("en-us", {
+                            month: "long",
+                          });
+
+                          return (
+                            <li key={key}>
+                              <a
+                                onClick={() =>
+                                  this.setState({
+                                    month,
+                                    year,
+                                  })
+                                }
+                                className="d-flex anchor-link"
+                              >
+                                <p>{`${month} ${year} `}</p>
+                                <p>{`(${each.total_count})`}</p>
+                              </a>
+                            </li>
+                          );
+                        })}
                     </ul>
                   </aside>
                 </div>

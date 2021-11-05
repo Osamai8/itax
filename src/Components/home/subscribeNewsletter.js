@@ -38,8 +38,14 @@ function Newsletter() {
       if (res.data.message && res.data.status) {
         reset()
         // console.log("subs", res.data.message);
-
-        toast.success(res.data.message);
+        // toast.success(response.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 2000,
+        // });
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       }
     });
   };

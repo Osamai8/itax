@@ -75,13 +75,14 @@ export default class RestApi {
   static downloadForm() {
     return axios.get(`${baseURL}/download-forms`);
   }
-  static blogs(pageNo,search) {
-    return axios.get(`${baseURL}/blogs?page=${pageNo}&search=${search}`);
+  static blogs(pageNo, search, month, year, cId) {
+    return axios.get(
+      `${baseURL}/blogs?page=${pageNo}&search=${search}&month=${month}&year=${year}&category_id=${cId}`
+    );
   }
   static blogDetails(id) {
     return axios.get(`${baseURL}/blogs/${id}`);
   }
-
   static homeEvents() {
     return axios.get(`${baseURL}/events?type=home`);
   }
@@ -103,10 +104,14 @@ export default class RestApi {
   static services(id) {
     return axios.get(`${baseURL}/service-list?category_id=${id}`);
   }
-  static caseLaw() {
-    return axios.get(`${baseURL}/case-law`);
+  static caseLaw(pageNo, filter, search) {
+    return axios.get(
+      `${baseURL}/case-law?page=${pageNo}&filter=${filter}&search=${search}`
+    );
   }
-  static serviceDocument(cId,sId) {
-    return axios.get(`${baseURL}/service-details?category_id=${cId}&service_id=${sId}`);
+  static serviceDocument(cId, sId) {
+    return axios.get(
+      `${baseURL}/service-details?category_id=${cId}&service_id=${sId}`
+    );
   }
 }

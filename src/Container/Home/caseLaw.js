@@ -13,34 +13,154 @@ export default class CaseLaw extends Component {
     this.state = {
       isOpen: false,
       data: [],
+      columns:['law','section','case name','case number','order date','citation'],
       previewContent: "",
-      previewHeading:""
+      previewHeading: "",
+      currentPage: 1,
+      totalPages: 1,
+      selectedColumn: "",
+      search: "",
     };
   }
 
   componentDidMount() {
     this.fetchData();
   }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("update",this.state.currentPage)
+    if (prevState.currentPage != this.state.currentPage) {
+      this.fetchData();
+    }
+  }
   fetchData() {
-    RestApi.caseLaw().then((res) => {
+    let { currentPage, selectedColumn, search } = this.state;
+    RestApi.caseLaw(currentPage, selectedColumn, search).then((res) => {
       console.log(" case law: ", res);
       //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
-      if (res.data.status && res.data.data) {
-        this.setState({ data: res.data.data });
+      if (res.data.status && res.data.data.data) {
+        this.setState({
+          data: res.data.data.data,
+          currenPage: res.data.data.currenPage,
+          totalPages:res.data.data.last_page
+        });
       }
     });
   }
-  handleClick(previewContent,previewHeading) {
+  handleClick(previewContent, previewHeading) {
     this.setState({
       previewContent,
       previewHeading,
       isOpen: true,
     });
   }
-
+  changePage(currentPage) {
+    console.log(currentPage);
+    if (currentPage != this.state.currentPage && !isNaN(currentPage)) {
+      this.setState({ currentPage });
+    }
+  }
+  pageNumbers() {
+    let { totalPages, currentPage } = this.state;
+    let renderData = [];
+    if (totalPages > 7) {
+      let current = currentPage;
+      if (currentPage > totalPages - 6) current = totalPages - 5;
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(1)}
+            className={
+              this.state.currentPage == 1 ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{"<<"}</a>
+          </li>
+        </>
+      );
+      for (let i = parseInt(current); i <= parseInt(current) + 2; i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
+      renderData.push(
+        <>
+          <li className={"page-item"}>
+            <a className="page-link">{"..."}</a>
+          </li>
+        </>
+      );
+      for (let i = parseInt(totalPages) - 2; i <= parseInt(totalPages); i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(totalPages)}
+            className={
+              this.state.currentPage == totalPages
+                ? "page-item active"
+                : "page-item"
+            }
+          >
+            <a className="page-link">{">>"}</a>
+          </li>
+        </>
+      );
+    } else {
+      for (let i = currentPage; i <= totalPages; i++) {
+        renderData.push(
+          <>
+            <li
+              onClick={() => this.changePage(i)}
+              className={
+                this.state.currentPage == i ? "page-item active" : "page-item"
+              }
+            >
+              <a className="page-link">{i}</a>
+            </li>
+          </>
+        );
+      }
+    }
+    return renderData;
+  }
+  handleColumnChange(e) {
+    this.setState({
+      selectedColumn: e.target.value,
+    });
+  }
+  handleSearch(e) {
+    this.setState({
+      search: e.target.value,
+    });
+  }
+  handleSubmit() {
+    console.log("handleSubmit")
+    this.fetchData();
+  }
   render() {
     console.log("state", this.state);
-    let { data } = this.state;
+    let { data,columns,selectedColumn } = this.state;
     console.log(data);
     return (
       <div>
@@ -53,11 +173,37 @@ export default class CaseLaw extends Component {
           <div className="container">
             <div className="row">
               <div class="col-md-12">
+                <div class="col col-md-5"></div>
+                <div class="col col-md-7">
+                    
+                    <div class="search_help case-search">
+                    <select className="form-control case-law-select" onChange={(e) => this.handleColumnChange(e)}>
+                      <option value="">All</option>
+                      {columns.map((each)=> {
+                        return <option selected={selectedColumn == each && 'selected'} value={`${each}`}>{`${each.toUpperCase()}`}</option>
+                      })}
+                    </select>
+                      <input
+                        onChange={(e) => this.handleSearch(e)}
+                        type="text"
+                        value={this.state.search}
+                        class="form-control inputpane"
+                        placeholder="Search.."
+                      />
+                      <button onClick={() => this.handleSubmit()}>
+                        search
+                      </button>
+                    </div> 
+                  {/* <button class="but_feild button">search</button> */}
+                </div>
                 <div class="current-opening">
                   <table class="table form-border text-center">
                     <tbody>
                       <tr class="job-summary">
-                        <td width="6%" class="cal-right-wht txt-center cal-header">
+                        <td
+                          width="6%"
+                          class="cal-right-wht txt-center cal-header"
+                        >
                           No.
                         </td>
                         <td width="11%" class="cal-right-wht txt-center">
@@ -97,7 +243,7 @@ export default class CaseLaw extends Component {
                               <th class="cal-border case-text">
                                 {each.case_number}
                               </th>
-                              <th class="cal-border case-text">
+                              <th class="cal-border txt-center case-text">
                                 {each.date_of_order}
                               </th>
                               <th class="cal-border case-text">
@@ -118,7 +264,12 @@ export default class CaseLaw extends Component {
                                 )}
                                 {each.gist != null && each.gist.length > 0 && (
                                   <Link
-                                    onClick={() => this.handleClick(each.gist,each.case_name)}
+                                    onClick={() =>
+                                      this.handleClick(
+                                        each.gist,
+                                        each.case_name
+                                      )
+                                    }
                                     className="case-law-view"
                                   >
                                     {" "}
@@ -133,20 +284,65 @@ export default class CaseLaw extends Component {
                   </table>
                 </div>
               </div>
+              <div className="col-md-12">
+                <nav className="blog-pagination">
+                  {data.length > 0 && (
+                    <ul className="pagination">
+                      <li className="page-item">
+                        <a
+                          // onClick={() =>
+                          //   this.state.currenPage != 1 &&
+                          //   this.changePage(this.state.prevPage)
+                          // }
+                          className={
+                            this.state.currenPage != 1
+                              ? "page-link preview"
+                              : "page-link preview disabled-pagi"
+                          }
+                          aria-label="Previous"
+                        >
+                          <i className="fa fa-angle-double-left"></i> Prev.
+                        </a>
+                      </li>
+                      {this.pageNumbers()}
+                      <li className="page-item">
+                        <a
+                          // onClick={() =>
+                          //   this.state.currenPage < this.state.totalPages &&
+                          //   this.changePage(this.state.nextPage)
+                          // }
+                          disabled
+                          className={
+                            this.state.currenPage < this.state.totalPages
+                              ? "page-link next"
+                              : "page-link next disabled-pagi"
+                          }
+                          aria-label="Next"
+                        >
+                          Next <i className="fa fa-angle-double-right"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </nav>
+              </div>
             </div>
           </div>
         </section>
         <Newsletter />
         <Footer />
-          <ModalRoot
-            title={this.state.previewHeading}
-            close={() => this.setState({ isOpen: false })}
-            isOpen={this.state.isOpen}
-            width={'80%'}
-            body={ 
-             <CaseLawModal title={this.state.previewHeading} content={this.state.previewContent}/>
-            }
-          />
+        <ModalRoot
+          title={this.state.previewHeading}
+          close={() => this.setState({ isOpen: false })}
+          isOpen={this.state.isOpen}
+          width={"80%"}
+          body={
+            <CaseLawModal
+              title={this.state.previewHeading}
+              content={this.state.previewContent}
+            />
+          }
+        />
         )
       </div>
     );

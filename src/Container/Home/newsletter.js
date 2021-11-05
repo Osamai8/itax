@@ -10,7 +10,7 @@ export default class newsletter extends Component {
       tableOne: [],
       tableTwo: [],
       placeholder: {},
-      currenPage: 1,
+      currentPage: 1,
       nextPage: 1,
       prevPage: 1,
       totalPages: 1,
@@ -21,13 +21,13 @@ export default class newsletter extends Component {
     this.placeHolderAPI();
   }
   componentDidUpdate(prevProps, prevState) {
-    // console.log("update",this.state.currenPage)
-    if (prevState.currenPage != this.state.currenPage) {
+    // console.log("update",this.state.currentPage)
+    if (prevState.currentPage != this.state.currentPage) {
       this.fetchData();
     }
   }
   fetchData() {
-    RestApi.newsletters(this.state.currenPage).then((res) => {
+    RestApi.newsletters(this.state.currentPage).then((res) => {
       console.log("news", res);
       if (res.data.status) {
         let tableOne = [],
@@ -71,22 +71,37 @@ export default class newsletter extends Component {
       }
     });
   }
-  changePage(currenPage) {
-    console.log(currenPage);
-    if (currenPage != this.state.currenPage && !isNaN(currenPage)) {
-      this.setState({ currenPage });
+  changePage(currentPage) {
+    console.log(currentPage);
+    if (currentPage != this.state.currentPage && !isNaN(currentPage)) {
+      this.setState({ currentPage });
     }
   }
   pageNumbers() {
-    let { totalPages } = this.state;
+    let { totalPages,currentPage } = this.state;
     let renderData = [];
-    for (let i = 1; i <= totalPages; i++) {
+    if(totalPages > 7){
+      let current = currentPage;
+      if(currentPage > totalPages - 6) current = totalPages - 5
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(1)}
+            className={
+              this.state.currentPage == 1 ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{"<<"}</a>
+          </li> 
+        </>
+      );
+    for (let i = parseInt(current); i <= parseInt(current)+2; i++) {
       renderData.push(
         <>
           <li
             onClick={() => this.changePage(i)}
             className={
-              this.state.currenPage == i ? "page-item active" : "page-item"
+              this.state.currentPage == i ? "page-item active" : "page-item"
             }
           >
             <a className="page-link">{i}</a>
@@ -94,6 +109,58 @@ export default class newsletter extends Component {
         </>
       );
     }
+    renderData.push(
+      <>
+        <li
+          className={"page-item"}
+        >
+          <a className="page-link">{"..."}</a>
+        </li>
+      </>
+    );
+    for (let i = parseInt(totalPages) - 2; i <= parseInt(totalPages); i++) {
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(i)}
+            className={
+              this.state.currentPage == i ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{i}</a>
+          </li>
+        </>
+      );
+    }
+    renderData.push(
+      <>
+        <li
+          onClick={() => this.changePage(totalPages)}
+          className={
+            this.state.currentPage == totalPages ? "page-item active" : "page-item"
+          }
+        >
+          <a className="page-link">{">>"}</a>
+        </li> 
+      </>
+    );
+  }
+  else {
+    for (let i = currentPage ; i <= totalPages; i++) {
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.changePage(i)}
+            className={
+              this.state.currentPage == i ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{i}</a>
+          </li>
+        </>
+      );
+    }
+  }
     return renderData;
   }
   render() {
@@ -426,11 +493,11 @@ export default class newsletter extends Component {
                     <li className="page-item">
                       <a
                         onClick={() =>
-                          this.state.currenPage != 1 &&
+                          this.state.currentPage != 1 &&
                           this.changePage(this.state.prevPage)
                         }
                         className={
-                          this.state.currenPage != 1
+                          this.state.currentPage != 1
                             ? "page-link preview"
                             : "page-link preview disabled-pagi"
                         }
@@ -443,12 +510,12 @@ export default class newsletter extends Component {
                     <li className="page-item">
                       <a
                         onClick={() =>
-                          this.state.currenPage < this.state.totalPages &&
+                          this.state.currentPage < this.state.totalPages &&
                           this.changePage(this.state.nextPage)
                         }
                         disabled
                         className={
-                          this.state.currenPage < this.state.totalPages
+                          this.state.currentPage < this.state.totalPages
                             ? "page-link next"
                             : "page-link next disabled-pagi"
                         }
