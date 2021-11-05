@@ -29,9 +29,7 @@ function Footer(props) {
       payload: menu,
     });
   };
-  
-
- 
+  console.log("footer: ",props.categories)
 
   return (
     <div>
