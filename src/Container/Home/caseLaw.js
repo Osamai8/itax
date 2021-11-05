@@ -13,7 +13,7 @@ export default class CaseLaw extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      columns:['law','section','case name','case number','order date','citation'],
+      columns:['all','law','section','case name','case number','order date','citation'],
       previewContent: "",
       previewHeading: "",
       currentPage: 1,
@@ -178,7 +178,7 @@ export default class CaseLaw extends Component {
                     
                     <div class="search_help case-search">
                     <select className="form-control case-law-select" onChange={(e) => this.handleColumnChange(e)}>
-                      <option value="">All</option>
+                      {/* <option value="">All</option> */}
                       {columns.map((each)=> {
                         return <option selected={selectedColumn == each && 'selected'} value={`${each}`}>{`${each.toUpperCase()}`}</option>
                       })}
