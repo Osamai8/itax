@@ -14,6 +14,7 @@ export default class newsletter extends Component {
       nextPage: 1,
       prevPage: 1,
       totalPages: 1,
+      paginateSeries:1
     };
   }
   componentDidMount() {
@@ -56,10 +57,19 @@ export default class newsletter extends Component {
         this.setState({
           tableOne,
           tableTwo,
-          totalPages: res.data.data.last_page,
+          totalPages: 28, // res.data.data.last_page,
           nextPage,
           prevPage,
         });
+      }
+      else {
+        // this.setState({
+        //   tableOne: [],
+        //   tableTwo: [],
+        //   currentPage: 1,
+        //   totalPages: 1,
+        //   paginateSeries:1
+        // });
       }
     });
   }
@@ -77,48 +87,34 @@ export default class newsletter extends Component {
       this.setState({ currentPage });
     }
   }
+  handlePagination(paginateSeries){
+    this.setState({
+      currentPage:paginateSeries,
+      paginateSeries
+    })
+  }
   pageNumbers() {
-    let { totalPages,currentPage } = this.state;
+    let { totalPages,currentPage,paginateSeries } = this.state;
     let renderData = [];
-    if(totalPages > 7){
-      let current = currentPage;
-      if(currentPage > totalPages - 6) current = totalPages - 5
-      renderData.push(
-        <>
-          <li
-            onClick={() => this.changePage(1)}
-            className={
-              this.state.currentPage == 1 ? "page-item active" : "page-item"
-            }
-          >
-            <a className="page-link">{"<<"}</a>
-          </li> 
-        </>
-      );
-    for (let i = parseInt(current); i <= parseInt(current)+2; i++) {
-      renderData.push(
-        <>
-          <li
-            onClick={() => this.changePage(i)}
-            className={
-              this.state.currentPage == i ? "page-item active" : "page-item"
-            }
-          >
-            <a className="page-link">{i}</a>
-          </li>
-        </>
-      );
-    }
-    renderData.push(
-      <>
-        <li
-          className={"page-item"}
-        >
-          <a className="page-link">{"..."}</a>
-        </li>
-      </>
-    );
-    for (let i = parseInt(totalPages) - 2; i <= parseInt(totalPages); i++) {
+        if(totalPages > 10){
+          renderData.push(
+            <>
+              <li
+                onClick={() => this.handlePagination(1)}
+                className={
+                  this.state.currentPage == 1 ? "page-item active" : "page-item"
+                }
+              >
+                <a className="page-link">{"<<"}</a>
+              </li>
+            </>
+          );
+        }
+    let series = totalPages > 9 ? paginateSeries + 9 : totalPages
+       for (let i = paginateSeries; i <= series; i++) {
+         if(i >totalPages) {
+           break;
+         }
       renderData.push(
         <>
           <li
@@ -132,35 +128,36 @@ export default class newsletter extends Component {
         </>
       );
     }
-    renderData.push(
-      <>
-        <li
-          onClick={() => this.changePage(totalPages)}
-          className={
-            this.state.currentPage == totalPages ? "page-item active" : "page-item"
-          }
-        >
-          <a className="page-link">{">>"}</a>
-        </li> 
-      </>
-    );
-  }
-  else {
-    for (let i = currentPage ; i <= totalPages; i++) {
+    if(totalPages > 10){
       renderData.push(
         <>
           <li
-            onClick={() => this.changePage(i)}
+            onClick={() => this.handlePagination(totalPages - 10)}
             className={
-              this.state.currentPage == i ? "page-item active" : "page-item"
+              this.state.currentPage == totalPages ? "page-item active" : "page-item"
             }
           >
-            <a className="page-link">{i}</a>
+            <a className="page-link">{">>"}</a>
           </li>
         </>
       );
     }
-  }
+  // else {
+  //   for (let i = currentPage ; i <= totalPages; i++) {
+  //     renderData.push(
+  //       <>
+  //         <li
+  //           onClick={() => this.changePage(i)}
+  //           className={
+  //             this.state.currentPage == i ? "page-item active" : "page-item"
+  //           }
+  //         >
+  //           <a className="page-link">{i}</a>
+  //         </li>
+  //       </>
+  //     );
+  //   }
+  // }
     return renderData;
   }
   render() {
@@ -493,11 +490,11 @@ export default class newsletter extends Component {
                     <li className="page-item">
                       <a
                         onClick={() =>
-                          this.state.currentPage != 1 &&
-                          this.changePage(this.state.prevPage)
+                          // this.state.currentPage != 1 &&
+                          this.handlePagination(this.state.paginateSeries > 10 ? this.state.paginateSeries - 10 : 1 )
                         }
                         className={
-                          this.state.currentPage != 1
+                          this.state.paginateSeries != 1
                             ? "page-link preview"
                             : "page-link preview disabled-pagi"
                         }
@@ -510,12 +507,12 @@ export default class newsletter extends Component {
                     <li className="page-item">
                       <a
                         onClick={() =>
-                          this.state.currentPage < this.state.totalPages &&
-                          this.changePage(this.state.nextPage)
+                         
+                          this.handlePagination( this.state.paginateSeries + 10 < this.state.totalPages ? this.state.paginateSeries + 10 : this.state.paginateSeries  )
                         }
                         disabled
                         className={
-                          this.state.currentPage < this.state.totalPages
+                          this.state.paginateSeries + 10 < this.state.totalPages
                             ? "page-link next"
                             : "page-link next disabled-pagi"
                         }

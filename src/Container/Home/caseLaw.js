@@ -13,13 +13,14 @@ export default class CaseLaw extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      columns:['all','law','section','case name','case number','order date','citation'],
+      columns:['all','under_law','under_section','case_name','case_number','citation'],
       previewContent: "",
       previewHeading: "",
       currentPage: 1,
       totalPages: 1,
-      selectedColumn: "",
+      selectedColumn: 'all',
       search: "",
+      paginateSeries:1,
     };
   }
 
@@ -34,7 +35,7 @@ export default class CaseLaw extends Component {
   }
   fetchData() {
     let { currentPage, selectedColumn, search } = this.state;
-    RestApi.caseLaw(currentPage, selectedColumn, search).then((res) => {
+    RestApi.caseLaw(1, selectedColumn, search).then((res) => {
       console.log(" case law: ", res);
       //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
       if (res.data.status && res.data.data.data) {
@@ -59,89 +60,77 @@ export default class CaseLaw extends Component {
       this.setState({ currentPage });
     }
   }
+  handlePagination(paginateSeries){
+    this.setState({
+      currentPage:paginateSeries,
+      paginateSeries
+    })
+  }
   pageNumbers() {
-    let { totalPages, currentPage } = this.state;
+    let { totalPages,currentPage,paginateSeries } = this.state;
     let renderData = [];
-    if (totalPages > 7) {
-      let current = currentPage;
-      if (currentPage > totalPages - 6) current = totalPages - 5;
+        if(totalPages > 10){
+          renderData.push(
+            <>
+              <li
+                onClick={() => this.handlePagination(1)}
+                className={
+                  this.state.currentPage == 1 ? "page-item active" : "page-item"
+                }
+              >
+                <a className="page-link">{"<<"}</a>
+              </li>
+            </>
+          );
+        }
+    let series = totalPages > 9 ? paginateSeries + 9 : totalPages
+       for (let i = paginateSeries; i <= series; i++) {
+         if(i > totalPages) {
+           break;
+         }
       renderData.push(
         <>
           <li
-            onClick={() => this.changePage(1)}
+            onClick={() => this.changePage(i)}
             className={
-              this.state.currentPage == 1 ? "page-item active" : "page-item"
+              this.state.currentPage == i ? "page-item active" : "page-item"
             }
           >
-            <a className="page-link">{"<<"}</a>
+            <a className="page-link">{i}</a>
           </li>
         </>
       );
-      for (let i = parseInt(current); i <= parseInt(current) + 2; i++) {
-        renderData.push(
-          <>
-            <li
-              onClick={() => this.changePage(i)}
-              className={
-                this.state.currentPage == i ? "page-item active" : "page-item"
-              }
-            >
-              <a className="page-link">{i}</a>
-            </li>
-          </>
-        );
-      }
-      renderData.push(
-        <>
-          <li className={"page-item"}>
-            <a className="page-link">{"..."}</a>
-          </li>
-        </>
-      );
-      for (let i = parseInt(totalPages) - 2; i <= parseInt(totalPages); i++) {
-        renderData.push(
-          <>
-            <li
-              onClick={() => this.changePage(i)}
-              className={
-                this.state.currentPage == i ? "page-item active" : "page-item"
-              }
-            >
-              <a className="page-link">{i}</a>
-            </li>
-          </>
-        );
-      }
+    }
+    if(totalPages > 10){
       renderData.push(
         <>
           <li
-            onClick={() => this.changePage(totalPages)}
+            onClick={() => this.handlePagination(totalPages - 10)}
             className={
-              this.state.currentPage == totalPages
-                ? "page-item active"
-                : "page-item"
+              this.state.currentPage == totalPages ? "page-item active" : "page-item"
             }
           >
             <a className="page-link">{">>"}</a>
           </li>
         </>
       );
-    } else {
-      for (let i = currentPage; i <= totalPages; i++) {
-        renderData.push(
-          <>
-            <li
-              onClick={() => this.changePage(i)}
-              className={
-                this.state.currentPage == i ? "page-item active" : "page-item"
-              }
-            >
-              <a className="page-link">{i}</a>
-            </li>
-          </>
-        );
-      }
     }
+  // else {
+  //   for (let i = currentPage ; i <= totalPages; i++) {
+  //     renderData.push(
+  //       <>
+  //         <li
+  //           onClick={() => this.changePage(i)}
+  //           className={
+  //             this.state.currentPage == i ? "page-item active" : "page-item"
+  //           }
+  //         >
+  //           <a className="page-link">{i}</a>
+  //         </li>
+  //       </>
+  //     );
+  //   }
+  // }
     return renderData;
   }
   handleColumnChange(e) {
@@ -288,41 +277,41 @@ export default class CaseLaw extends Component {
                 <nav className="blog-pagination">
                   {data.length > 0 && (
                     <ul className="pagination">
-                      <li className="page-item">
-                        <a
-                          // onClick={() =>
-                          //   this.state.currenPage != 1 &&
-                          //   this.changePage(this.state.prevPage)
-                          // }
-                          className={
-                            this.state.currenPage != 1
-                              ? "page-link preview"
-                              : "page-link preview disabled-pagi"
-                          }
-                          aria-label="Previous"
-                        >
-                          <i className="fa fa-angle-double-left"></i> Prev.
-                        </a>
-                      </li>
-                      {this.pageNumbers()}
-                      <li className="page-item">
-                        <a
-                          // onClick={() =>
-                          //   this.state.currenPage < this.state.totalPages &&
-                          //   this.changePage(this.state.nextPage)
-                          // }
-                          disabled
-                          className={
-                            this.state.currenPage < this.state.totalPages
-                              ? "page-link next"
-                              : "page-link next disabled-pagi"
-                          }
-                          aria-label="Next"
-                        >
-                          Next <i className="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
+                    <li className="page-item">
+                      <a
+                        onClick={() =>
+                          // this.state.currentPage != 1 &&
+                          this.handlePagination(this.state.paginateSeries > 10 ? this.state.paginateSeries - 10 : 1 )
+                        }
+                        className={
+                          this.state.paginateSeries != 1
+                            ? "page-link preview"
+                            : "page-link preview disabled-pagi"
+                        }
+                        aria-label="Previous"
+                      >
+                        <i className="fa fa-angle-double-left"></i> Prev.
+                      </a>
+                    </li>
+                    {this.pageNumbers()}
+                    <li className="page-item">
+                      <a
+                        onClick={() =>
+                         
+                          this.handlePagination( this.state.paginateSeries + 10 < this.state.totalPages ? this.state.paginateSeries + 10 : this.state.paginateSeries  )
+                        }
+                        disabled
+                        className={
+                          this.state.paginateSeries + 10 < this.state.totalPages
+                            ? "page-link next"
+                            : "page-link next disabled-pagi"
+                        }
+                        aria-label="Next"
+                      >
+                        Next <i className="fa fa-angle-double-right"></i>
+                      </a>
+                    </li>
+                  </ul>
                   )}
                 </nav>
               </div>

@@ -33,7 +33,10 @@ function Newsletter() {
       console.log("subs", res);
 
       if (res.data.message && res.data.status == false) {
-        toast.error(res.data.message);
+        toast.error(res.data.message,{
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       }
       if (res.data.message && res.data.status) {
         reset()
