@@ -35,7 +35,7 @@ export default class CaseLaw extends Component {
   }
   fetchData() {
     let { currentPage, selectedColumn, search } = this.state;
-    RestApi.caseLaw(1, selectedColumn, search).then((res) => {
+    RestApi.caseLaw(currentPage, selectedColumn, search).then((res) => {
       console.log(" case law: ", res);
       //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
       if (res.data.status && res.data.data.data) {
@@ -252,7 +252,7 @@ export default class CaseLaw extends Component {
                                   </a>
                                 )}
                                 {each.gist != null && each.gist.length > 0 && (
-                                  <Link
+                                  <a
                                     onClick={() =>
                                       this.handleClick(
                                         each.gist,
@@ -263,7 +263,7 @@ export default class CaseLaw extends Component {
                                   >
                                     {" "}
                                     View
-                                  </Link>
+                                  </a>
                                 )}
                               </td>
                             </tr>
