@@ -159,7 +159,6 @@ export default class CaseLaw extends Component {
     this.fetchData(1);
   }
   render() {
-    let index = this.state.paginateSeries
     console.log("state", this.state);
     let { data, columns, selectedColumn } = this.state;
     console.log(data);
@@ -234,10 +233,9 @@ export default class CaseLaw extends Component {
                       </tr>
                       {data.length > 0 &&
                         data.map((each, key) => {
-                         
                           return (
                             <tr>
-                              <td>{index++}</td>
+                              <td>{++key}</td>
                               <th class="cal-border case-text">
                                 {each.under_law}
                               </th>
