@@ -13,36 +13,44 @@ export default class CaseLaw extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      columns:['all','under_law','under_section','case_name','case_number','citation'],
+      columns: [
+        {key:'all',value:'All'},
+        {key:'under_law',value:'Under Law'},
+        {key:'under_section',value:'Under Section'},
+        {key:'case_name',value:'Case Name'},
+        {key:'case_number',value:'Case No.'},
+        {key:'citation',value:'Citation'},
+        {key:'date_of_order',value:'Date Of Order'},
+      ],
       previewContent: "",
       previewHeading: "",
       currentPage: 1,
       totalPages: 1,
-      selectedColumn: 'all',
+      selectedColumn: "all",
       search: "",
-      paginateSeries:1,
+      paginateSeries: 1,
     };
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.fetchData(1);
   }
   componentDidUpdate(prevProps, prevState) {
     // console.log("update",this.state.currentPage)
     if (prevState.currentPage != this.state.currentPage) {
-      this.fetchData();
+      this.fetchData(this.state.currentPage);
     }
   }
-  fetchData() {
+  fetchData(pageNo) {
     let { currentPage, selectedColumn, search } = this.state;
-    RestApi.caseLaw(currentPage, selectedColumn, search).then((res) => {
+    RestApi.caseLaw(pageNo, selectedColumn, search).then((res) => {
       console.log(" case law: ", res);
       //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
       if (res.data.status && res.data.data.data) {
         this.setState({
           data: res.data.data.data,
-          currenPage: res.data.data.currenPage,
-          totalPages:res.data.data.last_page
+          currentPage: res.data.data.current_page,
+          totalPages: res.data.data.last_page,
         });
       }
     });
@@ -60,34 +68,34 @@ export default class CaseLaw extends Component {
       this.setState({ currentPage });
     }
   }
-  handlePagination(paginateSeries){
+  handlePagination(paginateSeries) {
     this.setState({
-      currentPage:paginateSeries,
-      paginateSeries
-    })
+      currentPage: paginateSeries,
+      paginateSeries,
+    });
   }
   pageNumbers() {
-    let { totalPages,currentPage,paginateSeries } = this.state;
+    let { totalPages, currentPage, paginateSeries } = this.state;
     let renderData = [];
-        if(totalPages > 10){
-          renderData.push(
-            <>
-              <li
-                onClick={() => this.handlePagination(1)}
-                className={
-                  this.state.currentPage == 1 ? "page-item active" : "page-item"
-                }
-              >
-                <a className="page-link">{"<<"}</a>
-              </li>
-            </>
-          );
-        }
-    let series = totalPages > 9 ? paginateSeries + 9 : totalPages
-       for (let i = paginateSeries; i <= series; i++) {
-         if(i > totalPages) {
-           break;
-         }
+    if (totalPages > 10) {
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.handlePagination(1)}
+            className={
+              this.state.currentPage == 1 ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{"<<"}</a>
+          </li>
+        </>
+      );
+    }
+    let series = totalPages > 9 ? paginateSeries + 9 : totalPages;
+    for (let i = paginateSeries; i <= series; i++) {
+      if (i > totalPages) {
+        break;
+      }
       renderData.push(
         <>
           <li
@@ -101,13 +109,15 @@ export default class CaseLaw extends Component {
         </>
       );
     }
-    if(totalPages > 10){
+    if (totalPages > 10) {
       renderData.push(
         <>
           <li
             onClick={() => this.handlePagination(totalPages - 10)}
             className={
-              this.state.currentPage == totalPages ? "page-item active" : "page-item"
+              this.state.currentPage == totalPages
+                ? "page-item active"
+                : "page-item"
             }
           >
             <a className="page-link">{">>"}</a>
@@ -115,27 +125,28 @@ export default class CaseLaw extends Component {
         </>
       );
     }
-  // else {
-  //   for (let i = currentPage ; i <= totalPages; i++) {
-  //     renderData.push(
-  //       <>
-  //         <li
-  //           onClick={() => this.changePage(i)}
-  //           className={
-  //             this.state.currentPage == i ? "page-item active" : "page-item"
-  //           }
-  //         >
-  //           <a className="page-link">{i}</a>
-  //         </li>
-  //       </>
-  //     );
-  //   }
-  // }
+    // else {
+    //   for (let i = currentPage ; i <= totalPages; i++) {
+    //     renderData.push(
+    //       <>
+    //         <li
+    //           onClick={() => this.changePage(i)}
+    //           className={
+    //             this.state.currentPage == i ? "page-item active" : "page-item"
+    //           }
+    //         >
+    //           <a className="page-link">{i}</a>
+    //         </li>
+    //       </>
+    //     );
+    //   }
+    // }
     return renderData;
   }
   handleColumnChange(e) {
     this.setState({
       selectedColumn: e.target.value,
+      search:''
     });
   }
   handleSearch(e) {
@@ -144,12 +155,13 @@ export default class CaseLaw extends Component {
     });
   }
   handleSubmit() {
-    console.log("handleSubmit")
-    this.fetchData();
+    console.log("handleSubmit");
+    this.fetchData(1);
   }
   render() {
+    let index = this.state.paginateSeries
     console.log("state", this.state);
-    let { data,columns,selectedColumn } = this.state;
+    let { data, columns, selectedColumn } = this.state;
     console.log(data);
     return (
       <div>
@@ -164,25 +176,30 @@ export default class CaseLaw extends Component {
               <div class="col-md-12">
                 <div class="col col-md-5"></div>
                 <div class="col col-md-7">
-                    
-                    <div class="search_help case-search">
-                    <select className="form-control case-law-select" onChange={(e) => this.handleColumnChange(e)}>
+                  <div class="search_help case-search">
+                    <select
+                      className="form-control case-law-select"
+                      onChange={(e) => this.handleColumnChange(e)}
+                    >
                       {/* <option value="">All</option> */}
-                      {columns.map((each)=> {
-                        return <option selected={selectedColumn == each && 'selected'} value={`${each}`}>{`${each.toUpperCase()}`}</option>
+                      {columns.map((each) => {
+                        return (
+                          <option
+                            selected={selectedColumn == each && "selected"}
+                            value={`${each.key}`}
+                          >{`${each.value}`}</option>
+                        );
                       })}
                     </select>
-                      <input
-                        onChange={(e) => this.handleSearch(e)}
-                        type="text"
-                        value={this.state.search}
-                        class="form-control inputpane"
-                        placeholder="Search.."
-                      />
-                      <button onClick={() => this.handleSubmit()}>
-                        search
-                      </button>
-                    </div> 
+                    <input
+                      onChange={(e) => this.handleSearch(e)}
+                      type={selectedColumn == 'date_of_order' ? "date" : "text"}
+                      value={this.state.search}
+                      class={selectedColumn == 'date_of_order' ? 'date form-control inputpane':"form-control inputpane"}
+                      placeholder={selectedColumn == 'date_of_order' ? 'dd-mm-yyyy':"Search.."}
+                    />
+                    <button onClick={() => this.handleSubmit()}>search</button>
+                  </div>
                   {/* <button class="but_feild button">search</button> */}
                 </div>
                 <div class="current-opening">
@@ -217,9 +234,10 @@ export default class CaseLaw extends Component {
                       </tr>
                       {data.length > 0 &&
                         data.map((each, key) => {
+                         
                           return (
                             <tr>
-                              <td>{++key}</td>
+                              <td>{index++}</td>
                               <th class="cal-border case-text">
                                 {each.under_law}
                               </th>
@@ -277,41 +295,50 @@ export default class CaseLaw extends Component {
                 <nav className="blog-pagination">
                   {data.length > 0 && (
                     <ul className="pagination">
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                          // this.state.currentPage != 1 &&
-                          this.handlePagination(this.state.paginateSeries > 10 ? this.state.paginateSeries - 10 : 1 )
-                        }
-                        className={
-                          this.state.paginateSeries != 1
-                            ? "page-link preview"
-                            : "page-link preview disabled-pagi"
-                        }
-                        aria-label="Previous"
-                      >
-                        <i className="fa fa-angle-double-left"></i> Prev.
-                      </a>
-                    </li>
-                    {this.pageNumbers()}
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                         
-                          this.handlePagination( this.state.paginateSeries + 10 < this.state.totalPages ? this.state.paginateSeries + 10 : this.state.paginateSeries  )
-                        }
-                        disabled
-                        className={
-                          this.state.paginateSeries + 10 < this.state.totalPages
-                            ? "page-link next"
-                            : "page-link next disabled-pagi"
-                        }
-                        aria-label="Next"
-                      >
-                        Next <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
+                      <li className="page-item">
+                        <a
+                          onClick={() =>
+                            // this.state.currentPage != 1 &&
+                            this.handlePagination(
+                              this.state.paginateSeries > 10
+                                ? this.state.paginateSeries - 10
+                                : 1
+                            )
+                          }
+                          className={
+                            this.state.paginateSeries != 1
+                              ? "page-link preview"
+                              : "page-link preview disabled-pagi"
+                          }
+                          aria-label="Previous"
+                        >
+                          <i className="fa fa-angle-double-left"></i> Prev.
+                        </a>
+                      </li>
+                      {this.pageNumbers()}
+                      <li className="page-item">
+                        <a
+                          onClick={() =>
+                            this.handlePagination(
+                              this.state.paginateSeries + 10 <
+                                this.state.totalPages
+                                ? this.state.paginateSeries + 10
+                                : this.state.paginateSeries
+                            )
+                          }
+                          disabled
+                          className={
+                            this.state.paginateSeries + 10 <
+                            this.state.totalPages
+                              ? "page-link next"
+                              : "page-link next disabled-pagi"
+                          }
+                          aria-label="Next"
+                        >
+                          Next <i className="fa fa-angle-double-right"></i>
+                        </a>
+                      </li>
+                    </ul>
                   )}
                 </nav>
               </div>
