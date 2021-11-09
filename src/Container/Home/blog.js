@@ -25,21 +25,21 @@ export default class blog extends Component {
     };
   }
   componentDidMount() {
-    this.fetchData();
+    let { currentPage, search, month, year, cId } = this.state;
+    this.fetchData(currentPage, search, month, year, cId);
   }
   componentDidUpdate(prevProps, prevState) {
-    let { month, currentPage, year, cId } = this.state;
+    let { currentPage, search, month, year, cId  } = this.state;
     if (
-      prevState.currentPage != this.state.currentPage ||
+      prevState.currentPage != currentPage ||
       prevState.month != month ||
       prevState.year != year ||
       prevState.cId != cId
     ) {
-      this.fetchData();
+      this.fetchData(currentPage, search, month, year, cId );
     }
   }
-  fetchData() {
-    let { currentPage, search, month, year, cId } = this.state;
+  fetchData(currentPage, search, month, year, cId) {
     RestApi.blogs(currentPage, search, month, year, cId).then((res) => {
       console.log("blog", res);
       if (res.data.status) {
@@ -159,7 +159,8 @@ export default class blog extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.fetchData();
+    let { currentPage, search, month, year, cId } = this.state;
+    this.fetchData(currentPage, search, month, year, cId );
   }
   render() {
     console.log("blog", this.state);
@@ -207,7 +208,7 @@ export default class blog extends Component {
                             <div className="col-md-9">
                               <div className="media-body">
                                 <Link to={`/blog-details/${each.id}`}>
-                                  <h3>s{each.heading}</h3>
+                                  <h3>{each.heading}</h3>
                                 </Link>
                                 <strong>{each.published_date}</strong>
                                 <div
@@ -263,7 +264,7 @@ export default class blog extends Component {
                   </div>
                    
                   <hr />*/}
-                  {data.length > 0 && (
+                  {data.length > 0 ? (
                     <nav className="blog-pagination">
                       <ul className="pagination">
                     <li className="page-item">
@@ -302,7 +303,7 @@ export default class blog extends Component {
                     </li>
                   </ul>
                     </nav>
-                  )}
+                  ) :<center> No Data</center>}
                 </div>
               </div>
               <div className="col-lg-4">
@@ -348,7 +349,9 @@ export default class blog extends Component {
                             <li>
                               <a   onClick={() =>
                                   this.setState({
-                                    cId: each.category_id
+                                    cId: each.category_id,
+                                    month:'',
+                                    year:''
                                   })
                                 }
                                 className="d-flex anchor-link">
@@ -384,6 +387,7 @@ export default class blog extends Component {
                                   this.setState({
                                     month,
                                     year,
+                                    cId:''
                                   })
                                 }
                                 className="d-flex anchor-link"

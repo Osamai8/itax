@@ -114,4 +114,7 @@ export default class RestApi {
       `${baseURL}/service-details?category_id=${cId}&service_id=${sId}`
     );
   }
+  static contactUs(data) {
+    return axios.post(`${baseURL}/contact-form/submit`, data);
+  }
 }

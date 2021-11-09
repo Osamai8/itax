@@ -5,6 +5,8 @@
 :root {
   --toastify-color-success: #fff;
   --toastify-color-error: #fff;
+  --toastify-toast-width: 400px;
+  --toastify-toast-min-height: 104px;
 }
 .Toastify__toast--success {
   background: #1c8503;

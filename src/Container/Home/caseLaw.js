@@ -21,6 +21,7 @@ export default class CaseLaw extends Component {
         {key:'case_number',value:'Case No.'},
         {key:'citation',value:'Citation'},
         {key:'date_of_order',value:'Date Of Order'},
+        {key:'keyword',value:'Keyword'},
       ],
       previewContent: "",
       previewHeading: "",
@@ -170,7 +171,7 @@ export default class CaseLaw extends Component {
           </div>
         </div>
         <section>
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <div class="col-md-12">
                 <div class="col col-md-5"></div>
@@ -226,9 +227,12 @@ export default class CaseLaw extends Component {
                         <td width="8%" class="cal-right-wht txt-center">
                           Order Date
                         </td>
-                        <td width="16%" class="cal-right-wht txt-center">
-                          Citation
-                        </td>
+                          <td width="16%" class="cal-right-wht txt-center">
+                            Citation
+                          </td>
+                          <td width="16%" class="cal-right-wht txt-center">
+                            Keyword
+                          </td>
                         <td width="8%">Judgement</td>
                       </tr>
                       {data.length > 0 &&
@@ -253,6 +257,9 @@ export default class CaseLaw extends Component {
                               </th>
                               <th class="cal-border case-text">
                                 {each.citation != null ? each.citation : "NA"}
+                              </th>
+                              <th class="cal-border case-text">
+                                {each.keyword != null ? each.keyword : "NA"}
                               </th>
                               <td>
                                 {each.judgement != null && (

@@ -35,7 +35,7 @@ function Newsletter() {
       if (res.data.message && res.data.status == false) {
         toast.error(res.data.message,{
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+          autoClose: 5000,
         });
       }
       if (res.data.message && res.data.status) {
@@ -47,7 +47,7 @@ function Newsletter() {
         // });
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+          autoClose: 5000,
         });
       }
     });

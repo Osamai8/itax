@@ -1,10 +1,56 @@
-import React, { Component } from "react";
+import React, {useState } from "react";
 import { connect } from "react-redux";
 import Footer from "../../Common/footer";
 import Header from "../../Common/header";
 import NewsLetter from "../../Components/home/subscribeNewsletter";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import RestApi from '../../services/api'
+import { toast } from "react-toastify";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email must be a valid email")
+    .required("Email is required"),
+  name: yup.string().required("Name is required"),
+  phone: yup.string().required("Mobile is required"),
+  subject: yup.string().required("Subject is required"),
+  message: yup.string().required("Message is required"),
+});
 function ContactUs(props) {
+  const  [message, setMessage] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmitHandle = (data) => {
+    console.log(data)
+    RestApi.contactUs(data).then((res)=>{
+      console.log(res)
+      if(res.data.message){
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000,
+        });
+        setMessage(res.data.message)
+      }
+    })
+    
+  };
+  console.log("errors",errors)
+
+  const styles = {
+    error: {
+      borderColor: "#bf1f24",
+    },
+  };
   return (
     <div>
       <Header />
@@ -38,93 +84,66 @@ function ContactUs(props) {
                     }}
                   />
                 )}
-                {/* <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-home" aria-hidden="true"></i> Head Office:
-                    </div>
-                    <div className="rightcontactpane adr">
-                    {props.contactDetails.}
-                    </div>
-                  </div>
-                  <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-home" aria-hidden="true"></i> Mumbai
-                      Office:
-                    </div>
-                    <div className="rightcontactpane adr">
-                      A-203, Keval Tower, Opp. SNDT Girls College, B J Patel
-                      Marg, Malad West, Mumbai- 400 064
-                    </div>
-                  </div>
-                  <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-home" aria-hidden="true"></i> Singapore
-                      Office:
-                    </div>
-                    <div className="rightcontactpane adr">
-                      A-203, Keval Tower, Opp. SNDT Girls College, B J Patel
-                      Marg, Malad West, Mumbai- 400 064
-                    </div>
-                  </div>
-                  <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-globe" aria-hidden="true"></i> Website:
-                    </div>
-                    <div className="rightcontactpane">
-                      &nbsp; https://itaxdoctor.co.in
-                    </div>
-                  </div>
-                  <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-phone" aria-hidden="true"></i> Call Us:
-                    </div>
-                    <div className="rightcontactpane">
-                      &nbsp; +91 9870201645 / +91 9987655194
-                    </div>
-                  </div>
-                  <div className="contactinfopane clearfix">
-                    <div className="leftcontactpane">
-                      <i className="fa fa-envelope" aria-hidden="true"></i> Email:
-                    </div>
-                    <div className="rightcontactpane">
-                      &nbsp; info@itaxdoctor.co.in
-                    </div>
-                  </div> */}
               </div>
               {/* <!-- <hr>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.8595725040977!2d72.82809960000003!3d18.937608900000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1de1c3f1dc9%3A0x88328bf32b9dcd66!2sSNDT+Women's+University!5e0!3m2!1sen!2sin!4v1443429933230" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe> --> */}
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.8595725040977!2d72.82809960000003!3d18.937608900000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1de1c3f1dc9%3A0x88328bf32b9dcd66!2sSNDT+Women's+University!5e0!3m2!1sen!2sin!4v1443429933230" 
+                width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe> --> */}
             </div>
             <div class="col-md-6">
               <div class="contactinfo">
                 <h3>Contact Form</h3>
-                <form id="sky-form" class="sky-form" method="POST" action="#">
+                <form
+                  onSubmit={handleSubmit(onSubmitHandle)}
+                  id="sky-form"
+                  class="sky-form"
+                  method="POST"
+                  action="#"
+                >
                   <fieldset>
                     <input type="hidden" name="id" />
                     <div class="row">
                       <section class="col col-md-12">
                         <label class="input">
                           <p>Name</p>
-                          <i style={{top:'18px'}}class="icon-append fa fa-user"></i>
-                          <input type="text" name="name" />
+                          <i
+                            style={{ top: "18px" }}
+                            class="icon-append fa fa-user"
+                          ></i>
+                          <input 
+                          style={errors["name"] && styles.error}
+                          {...register("name")}
+                           type="text"  />
                         </label>
-                      </section> 
+                      </section>
                     </div>
                     <div class="row">
                       <section class="col col-md-12">
                         <label class="input">
                           <p>Email</p>
 
-                          <i style={{top:'18px'}}class="icon-append fa fa-envelope"></i>
-                          <input type="text" name="email" />
+                          <i
+                            style={{ top: "18px" }}
+                            class="icon-append fa fa-envelope"
+                          ></i>
+                          <input
+                          style={errors["email"] && styles.error}
+                          {...register("email")}
+                           type="text"  />
                         </label>
                       </section>
-                      </div>
+                    </div>
                     <div class="row">
                       <section class="col col-md-12">
                         <label class="input">
                           <p>Mobile</p>
-                          <i style={{top:'18px'}}class="icon-append fa fa-phone"></i>
-                          <input type="text" name="mobile" />
+                          <i
+                            style={{ top: "18px" }}
+                            class="icon-append fa fa-phone"
+                          ></i>
+                          <input
+                          style={errors["phone"] && styles.error}
+                          {...register("phone")}
+                            type="text" />
                         </label>
                       </section>
                     </div>
@@ -132,8 +151,14 @@ function ContactUs(props) {
                       <section class="col col-md-12">
                         <label class="input">
                           <p>Subject</p>
-                          <i style={{top:'18px'}}class="icon-append fa fa-tag"></i>
-                          <input type="text" name="subject" />
+                          <i
+                            style={{ top: "18px" }}
+                            class="icon-append fa fa-tag"
+                          ></i>
+                          <input
+                          style={errors["subject"] && styles.error}
+                          {...register("subject")}
+                            type="text"  />
                         </label>
                       </section>
                     </div>
@@ -141,12 +166,20 @@ function ContactUs(props) {
                       <section class="col col-md-12">
                         <label class="textarea">
                           <p>Message</p>
-                          <i style={{top:'18px'}}class="icon-append fa fa-comment"></i>
-                          <textarea name="info" rows="5"></textarea>
+                          <i
+                            style={{ top: "18px" }}
+                            class="icon-append fa fa-comment"
+                          ></i>
+                          <textarea 
+                          style={errors["message"] && styles.error}
+                          {...register("message")}
+                            rows="5"></textarea>
                         </label>
                       </section>
                     </div>
-                    <div class="row" style={{textAlign: '-webkit-center'}}>
+                    <div class="row" style={{ textAlign: "-webkit-center" }}>
+                     {message.length > 0 && 
+                      <div className="alert alert-success">{message}</div>}
                       <button class="button col" type="submit">
                         Submit
                       </button>
