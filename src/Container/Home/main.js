@@ -53,7 +53,7 @@ class Main extends Component {
         <Route exact path={`/about`} component={About} />
         <Route exact path={`/partner_with_us`} component={PartnerWithUs} />
         <Route exact path={`/blog`} component={Blog} />
-        <Route exact path={`/blog/:month/:year`} component={Blog} />
+        <Route exact path={`/blog/:search`} component={Blog} />
         <Route exact path={`/blog-details/:id`} component={BlogDetails} />
         <Route exact path={`/career`} component={Career} />
         <Route exact path={`/contact`} component={Contact} />

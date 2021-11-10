@@ -44,10 +44,15 @@ export default class blogDetails extends Component {
         id
       })
     }
-    handleSearch(e){
+    handleSearch = (e)=>{
       this.setState({
         search:e.target.value
       })
+    }
+    handleSubmit = (e) =>{
+      e.preventDefault();
+      let { currentPage, search, month, year, cId } = this.state;
+      this.props.history.push(`/blog/${search}`)
     }
   render() {
     let {data,relatedBlogs} = this.state
@@ -99,26 +104,6 @@ export default class blogDetails extends Component {
                     </div>
                   </article>
 
-                  {/* <!-- <nav className="blog-pagination">
-<ul className="pagination">
-<li className="page-item">
-<a href="#" className="page-link preview" aria-label="Previous">
-<i className="fa fa-angle-double-left"></i> Prev.
-</a>
-</li>
-<li className="page-item active">
-<a href="#" className="page-link">1</a>
-</li>
-<li className="page-item">
-<a href="#" className="page-link">2</a> 
-</li>
-<li className="page-item">
-<a href="#" className="page-link next" aria-label="Next">
-Next <i className="fa fa-angle-double-right"></i>
-</a>
-</li>
-</ul>
-</nav> --> */}
                 </div>
               </div>
               <div className="col-lg-4">
@@ -142,6 +127,7 @@ Next <i className="fa fa-angle-double-right"></i>
                         </div>
                       </div>
                       <button
+                      onClick={(e)=>this.handleSubmit(e)}
                         className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                         type="submit"
                       >

@@ -17,7 +17,7 @@ export default class blog extends Component {
       totalPages: 1,
       monthlyArchives: [],
       blogsByCategory: [],
-      search: "",
+      search: this.props.match.params.search ? this.props.match.params.search : "",
       month: "",
       year: "",
       cId: "",
@@ -26,7 +26,13 @@ export default class blog extends Component {
   }
   componentDidMount() {
     let { currentPage, search, month, year, cId } = this.state;
-    this.fetchData(currentPage, search, month, year, cId);
+    if(this.props.match.params.search){
+      this.fetchData(1, search, "", "", "");
+    }
+    else {
+      this.fetchData(currentPage, search, month, year, cId);
+    }
+   
   }
   componentDidUpdate(prevProps, prevState) {
     let { currentPage, search, month, year, cId  } = this.state;
@@ -160,7 +166,7 @@ export default class blog extends Component {
   handleSubmit(e) {
     e.preventDefault();
     let { currentPage, search, month, year, cId } = this.state;
-    this.fetchData(currentPage, search, month, year, cId );
+    this.fetchData(1, search, "", "", "" );
   }
   render() {
     console.log("blog", this.state);
@@ -315,6 +321,7 @@ export default class blog extends Component {
                           <input
                             type="text"
                             className="form-control"
+                            value={this.state.search}
                             placeholder="Search Keyword"
                             onChange={(e) => this.handleSearch(e)}
                             onfocus="this.placeholder = ''"
@@ -385,8 +392,8 @@ export default class blog extends Component {
                               <a
                                 onClick={() =>
                                   this.setState({
-                                    month,
-                                    year,
+                                    month:each.month,
+                                    year:each.year,
                                     cId:''
                                   })
                                 }

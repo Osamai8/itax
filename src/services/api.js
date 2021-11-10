@@ -104,9 +104,9 @@ export default class RestApi {
   static services(id) {
     return axios.get(`${baseURL}/service-list?category_id=${id}`);
   }
-  static caseLaw(pageNo, filter, search) {
+  static caseLaw(pageNo, filter, search,limit) {
     return axios.get(
-      `${baseURL}/case-law?page=${pageNo}&filter=${filter}&search=${search}`
+      `${baseURL}/case-law?page=${pageNo}&filter=${filter}&search=${search}&pageList=${limit}`
     );
   }
   static serviceDocument(cId, sId) {
@@ -116,5 +116,8 @@ export default class RestApi {
   }
   static contactUs(data) {
     return axios.post(`${baseURL}/contact-form/submit`, data);
+  }
+  static careerForm(data){
+    return axios.post(`${baseURL}/career-opportunities/apply`, data);
   }
 }

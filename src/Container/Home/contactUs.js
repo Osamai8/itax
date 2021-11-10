@@ -15,7 +15,9 @@ const schema = yup.object().shape({
     .email("Email must be a valid email")
     .required("Email is required"),
   name: yup.string().required("Name is required"),
-  phone: yup.string().required("Mobile is required"),
+  phone: yup.string()
+    .required("Phone is required")
+    .matches("^[0-9]{10}$", "Phone number is not valid"),
   subject: yup.string().required("Subject is required"),
   message: yup.string().required("Message is required"),
 });
@@ -113,6 +115,11 @@ function ContactUs(props) {
                           style={errors["name"] && styles.error}
                           {...register("name")}
                            type="text"  />
+                           {errors["name"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["name"].message}
+                                </span>
+                              )}
                         </label>
                       </section>
                     </div>
@@ -129,6 +136,11 @@ function ContactUs(props) {
                           style={errors["email"] && styles.error}
                           {...register("email")}
                            type="text"  />
+                            {errors["email"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["email"].message}
+                                </span>
+                              )}
                         </label>
                       </section>
                     </div>
@@ -144,6 +156,11 @@ function ContactUs(props) {
                           style={errors["phone"] && styles.error}
                           {...register("phone")}
                             type="text" />
+                              {errors["phone"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["phone"].message}
+                                </span>
+                              )}
                         </label>
                       </section>
                     </div>
@@ -159,6 +176,11 @@ function ContactUs(props) {
                           style={errors["subject"] && styles.error}
                           {...register("subject")}
                             type="text"  />
+                              {errors["subject"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["subject"].message}
+                                </span>
+                              )}
                         </label>
                       </section>
                     </div>
@@ -174,6 +196,11 @@ function ContactUs(props) {
                           style={errors["message"] && styles.error}
                           {...register("message")}
                             rows="5"></textarea>
+                              {errors["message"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["message"].message}
+                                </span>
+                              )}
                         </label>
                       </section>
                     </div>

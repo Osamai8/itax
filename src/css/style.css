@@ -11,6 +11,7 @@
 .Toastify__toast--success {
   background: #1c8503;
   color: #fff;
+  font-size:17px;
 }
 .Toastify__toast--error {
   background: #bc2b07;
@@ -3656,4 +3657,12 @@ transform: translateY(-2%);
 }
 .mt-10 {
   margin-top: 10px;
+}
+.showRecords{
+  width: 90px!important;
+  /* background-color: #fff; */
+}
+.showText {
+  color: #000;
+  margin-right: 5px;
 }
