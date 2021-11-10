@@ -30,6 +30,8 @@ export default class CaseLaw extends Component {
       selectedColumn: "all",
       search: "",
       paginateSeries: 1,
+      perPage: 5,
+      sNo:0,
     };
   }
 
@@ -41,10 +43,13 @@ export default class CaseLaw extends Component {
     if (prevState.currentPage != this.state.currentPage) {
       this.fetchData(this.state.currentPage);
     }
+    if (prevState.perPage != this.state.perPage) {
+      this.fetchData(1);
+    }
   }
   fetchData(pageNo) {
-    let { currentPage, selectedColumn, search } = this.state;
-    RestApi.caseLaw(pageNo, selectedColumn, search).then((res) => {
+    let { currentPage, selectedColumn, search,perPage } = this.state;
+    RestApi.caseLaw(pageNo, selectedColumn, search,perPage).then((res) => {
       console.log(" case law: ", res);
       //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
       if (res.data.status && res.data.data.data) {
@@ -52,6 +57,7 @@ export default class CaseLaw extends Component {
           data: res.data.data.data,
           currentPage: res.data.data.current_page,
           totalPages: res.data.data.last_page,
+          sNo: res.data.sno,
         });
       }
     });
@@ -161,7 +167,7 @@ export default class CaseLaw extends Component {
   }
   render() {
     console.log("state", this.state);
-    let { data, columns, selectedColumn } = this.state;
+    let { sNo, data, columns, selectedColumn } = this.state;
     console.log(data);
     return (
       <div>
@@ -239,7 +245,7 @@ export default class CaseLaw extends Component {
                         data.map((each, key) => {
                           return (
                             <tr>
-                              <td>{++key}</td>
+                              <td>{++sNo}</td>
                               <th class="cal-border case-text">
                                 {each.under_law}
                               </th>
@@ -298,8 +304,22 @@ export default class CaseLaw extends Component {
               </div>
               <div className="col-md-12">
                 <nav className="blog-pagination">
+                
                   {data.length > 0 && (
-                    <ul className="pagination">
+                    <ul className="pagination"> 
+                      <li className="page-item">
+                        
+                      <a className="page-link showRecords">
+                        <span className="showText">Show</span>
+                     <select onChange={(e)=>this.setState({perPage:e.target.value})}>
+                         <option value="10">10</option>
+                         <option value="20">20</option>
+                         <option value="30">30</option>
+                         <option value="40">40</option>
+                         <option value="50">50</option>
+                       </select>
+                      </a>
+                      </li>
                       <li className="page-item">
                         <a
                           onClick={() =>
