@@ -39,6 +39,7 @@ function Header(props) {
       payload:menu
     })
   }
+  console.log("header props: ",props)
   return (
     //  site-navigation start
     <nav id="mainNavigation" className="navbar navbar-fixed-top" role="navigation">
@@ -161,18 +162,18 @@ function Header(props) {
             {/* <li><a href="#" className="btn btn-success"><i className="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
           </ul>
           <ul className="nav navbar-nav navbar-right text-uppercase">
-            <li className={props.activeMenu == 'home' && "active"}>
-              <Link  onClick={()=>changeMenu('home')}  to="/">home</Link>
+            <li className={props.history.location.pathname == '/' && "active"}>
+              <Link to="/">home</Link>
               {/* <a href="/"></a> */}
             </li>
-            <li className={props.activeMenu == 'about' && "active"}>
-              <Link onClick={()=>changeMenu('about')} to="/about">about us</Link>
+            <li className={props.history.location.pathname == '/about' && "active"}>
+              <Link to='/about'>about us</Link>
             </li>
-            <li className={props.activeMenu == 'services' && "active"}>
-              <Link onClick={()=>changeMenu('services')}  to="/services">Services</Link>
+            <li className={props.history.location.pathname.indexOf('service') != -1 && "active"}>
+              <Link to="/services">Services</Link>
             </li>
-            <li className={props.activeMenu == 'partner_with_us' && "active"}>
-              <Link onClick={()=>changeMenu('partner_with_us')}  to="/partner_with_us">Partners With Us</Link>
+            <li className={props.history.location.pathname == '/partner_with_us' && "active"}>
+              <Link   to="/partner_with_us">Partners With Us</Link>
             </li>
             {/* <li className="dropdown" id="consultancy_tab">
               <a className="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -189,14 +190,14 @@ function Header(props) {
                 </li>
               </ul>
             </li> */}
-            <li className={props.activeMenu == 'blog' && "active"}>
-              <Link  onClick={()=>changeMenu('blog')} to="/blog">Blog</Link>
+            <li className={props.history.location.pathname.indexOf('blog') != -1  && "active"}>
+              <Link to="/blog">Blog</Link>
             </li>
-            <li className={props.activeMenu == 'career' && "active"}>
-              <Link  onClick={()=>changeMenu('career')} to="/career">Career</Link>
+            <li className={props.history.location.pathname.indexOf('career') != -1 && "active"}>
+              <Link  to="/career">Career</Link>
             </li>
-            <li className={props.activeMenu == 'contact' && "active"}>
-              <Link  onClick={()=>changeMenu('contact')} to="/contact">contact Us</Link>
+            <li className={props.history.location.pathname == '/contact' && "active"}>
+              <Link to="/contact">contact Us</Link>
             </li>
           </ul>
         </div>

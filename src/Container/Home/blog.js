@@ -37,10 +37,7 @@ export default class blog extends Component {
   componentDidUpdate(prevProps, prevState) {
     let { currentPage, search, month, year, cId  } = this.state;
     if (
-      prevState.currentPage != currentPage ||
-      prevState.month != month ||
-      prevState.year != year ||
-      prevState.cId != cId
+      prevState.currentPage != currentPage 
     ) {
       this.fetchData(currentPage, search, month, year, cId );
     }
@@ -167,6 +164,10 @@ export default class blog extends Component {
     e.preventDefault();
     let { currentPage, search, month, year, cId } = this.state;
     this.fetchData(1, search, "", "", "" );
+  }
+  handleBlogVariant = (month,year,cId) =>{
+    this.setState({ month,cId, search:'' })
+    this.fetchData(1, '', month, year, cId );
   }
   render() {
     console.log("blog", this.state);
@@ -309,7 +310,7 @@ export default class blog extends Component {
                     </li>
                   </ul>
                     </nav>
-                  ) :<center> No Data</center>}
+                  ) :<center> No Such Blog Found</center>}
                 </div>
               </div>
               <div className="col-lg-4">
@@ -354,13 +355,7 @@ export default class blog extends Component {
                         blogsByCategory.map((each, key) => {
                           return (
                             <li>
-                              <a   onClick={() =>
-                                  this.setState({
-                                    cId: each.category_id,
-                                    month:'',
-                                    year:''
-                                  })
-                                }
+                              <a onClick={() =>this.handleBlogVariant('','',each.category_id)}
                                 className="d-flex anchor-link">
                                 <p>{each.category_name}</p>
                                 <p>{`(${each.total_count})`}</p>
@@ -390,13 +385,7 @@ export default class blog extends Component {
                           return (
                             <li key={key}>
                               <a
-                                onClick={() =>
-                                  this.setState({
-                                    month:each.month,
-                                    year:each.year,
-                                    cId:''
-                                  })
-                                }
+                                onClick={() => this.handleBlogVariant(each.month,each.year,'') }
                                 className="d-flex anchor-link"
                               >
                                 <p>{`${month} ${year} `}</p>

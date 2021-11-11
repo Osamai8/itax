@@ -30,7 +30,7 @@ export default class CaseLaw extends Component {
       selectedColumn: "all",
       search: "",
       paginateSeries: 1,
-      perPage: 5,
+      perPage: 10,
       sNo:0,
     };
   }
