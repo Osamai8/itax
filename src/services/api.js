@@ -118,6 +118,10 @@ export default class RestApi {
     return axios.post(`${baseURL}/contact-form/submit`, data);
   }
   static careerForm(data){
-    return axios.post(`${baseURL}/career-opportunities/apply`, data);
+    return axios.post(`${baseURL}/career-opportunities/apply`, data,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 }

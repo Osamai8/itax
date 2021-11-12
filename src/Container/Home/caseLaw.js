@@ -60,7 +60,15 @@ export default class CaseLaw extends Component {
           sNo: res.data.sno,
         });
       }
-    });
+    }).catch((e)=>{
+      console.log("Error: ",e)
+      this.setState({
+        data: [],
+        currentPage: 1,
+        totalPages: 1,
+        sNo:0,
+      })
+    })
   }
   handleClick(previewContent, previewHeading) {
     this.setState({
@@ -167,7 +175,7 @@ export default class CaseLaw extends Component {
   }
   render() {
     console.log("state", this.state);
-    let { sNo, data, columns, selectedColumn } = this.state;
+    let { sNo, data, columns,pageNo, selectedColumn } = this.state;
     console.log(data);
     return (
       <div>
@@ -209,7 +217,7 @@ export default class CaseLaw extends Component {
                   {/* <button class="but_feild button">search</button> */}
                 </div>
                 <div class="current-opening">
-                  <table class="table form-border text-center">
+                 {data.length > 0 ? <table class="table form-border text-center">
                     <tbody>
                       <tr class="job-summary">
                         <td
@@ -241,8 +249,7 @@ export default class CaseLaw extends Component {
                           </td>
                         <td width="8%">Judgement</td>
                       </tr>
-                      {data.length > 0 &&
-                        data.map((each, key) => {
+                      {data.map((each, key) => {
                           return (
                             <tr>
                               <td>{++sNo}</td>
@@ -299,7 +306,7 @@ export default class CaseLaw extends Component {
                           );
                         })}
                     </tbody>
-                  </table>
+                  </table>: <center>No such Case Law found</center>}
                 </div>
               </div>
               <div className="col-md-12">
@@ -311,7 +318,7 @@ export default class CaseLaw extends Component {
                         
                       <a className="page-link showRecords">
                         <span className="showText">Show</span>
-                     <select onChange={(e)=>this.setState({perPage:e.target.value})}>
+                     <select onChange={(e)=>this.setState({perPage:e.target.value })}>
                          <option value="10">10</option>
                          <option value="20">20</option>
                          <option value="30">30</option>

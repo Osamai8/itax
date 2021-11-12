@@ -29,7 +29,11 @@ const schema = yup.object().shape({
   location: yup.string().required("Location is required"),
   total_experience: yup.string().required("Experiance is required"),
   // attachment: yup.mixed().required('A file is required'),
-  attachment:  yup.mixed().required('File is required'),
+  attachment:  yup.mixed().required('File is required')
+  .test("FILE_SIZE", "Uploaded file is too big.", 
+  value => !value[0] || (value[0] && value[0].size <= 2000000))
+// .test("FILE_FORMAT", "Uploaded file has unsupported format.", 
+//   value => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
 });
 
 export default function CareerFormModal () {
@@ -236,12 +240,13 @@ export const CareerPageForm = () => {
 
   const onSubmitHandle = (data) => {
     console.log(data);
+    // data.attachment = data.attachment[0]
     RestApi.careerForm(data).then((res) => {
       console.log(res);
       if (res.data.status) {
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 5000,
+          autoClose: 10000,
         });
         setMessage(res.data.message);
       }
@@ -250,16 +255,25 @@ export const CareerPageForm = () => {
           let { error } = res.data;
           //  console.log(err)
           // setResponseError(err);
-          error.attachment && toast.error(error.attachment[0]);
-          error.qualifications && toast.error(error.qualifications[0]);
-          res.data.message && toast.error(res.data.message);
+          error.attachment && toast.error(error.attachment[0],{
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
+          error.qualifications && toast.error(error.qualifications[0],{
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
+          res.data.message && toast.error(res.data.message,{
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
   
           // alert(res.data.message);
         } 
       }
     });
   };
-  console.log("abcd", errors);
+  console.log("errors", errors);
 
   const styles = {
     error: {
@@ -479,7 +493,7 @@ export const CareerPageForm = () => {
                       </span>
                       <input
                         type="file"
-                        name="fileToUpload"
+                        name="attachment"
                         id="fileToUpload"
                         style={errors["attachment"] && styles.error}
                         {...register("attachment")}

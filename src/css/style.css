@@ -16,6 +16,7 @@
 .Toastify__toast--error {
   background: #bc2b07;
   color: #fff;
+  font-size:17px;
 }
 .Toastify__toast-container--top-center {
   margin-top: 250px;

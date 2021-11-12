@@ -167,7 +167,7 @@ class ServiceSearch extends Component {
                      })}
                    </div>
                  )} /> */}
-                {Object.entries(services).map((each, key) => {
+                {Object.entries(services).length > 0 ? Object.entries(services).map((each, key) => {
                   // console.log(each)
                   return (
                     <div
@@ -221,7 +221,7 @@ class ServiceSearch extends Component {
                       </div>
                     </div>
                   );
-                })}
+                }): "No such Service found"}
               </div>
             </div>
           </div>
