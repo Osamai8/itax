@@ -306,7 +306,7 @@ export default class CaseLaw extends Component {
                           );
                         })}
                     </tbody>
-                  </table>: <center>No such Case Law found</center>}
+                  </table>: <center><b>No such Case Law found</b></center>}
                 </div>
               </div>
               <div className="col-md-12">

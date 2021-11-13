@@ -40,14 +40,14 @@ function Header(props) {
     })
   }
   const checkHome = () => {
-    let routes = ['/','/faq','/newsletters','/case-law','/calender','/videos','/events']
+    let routes = ['/','/faq','/newsletters','/case-law','/videos','/events']
     let s = routes.filter((r) => r == props.location.pathname)
-    if(s.length == 1) {
+    if(s.length == 1 || props.location.pathname.match(/calendar/)) {
       console.log(s,"found",props.location.pathname)
       return true
     }
     else {
-      console.log(s,"found not",props.location.pathname)
+      console.log(s,"found not",props)
       return false
     }
   }

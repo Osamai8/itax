@@ -41,6 +41,14 @@ class Faq extends Component {
           categories:category,
         });
       }
+    }).catch((e)=> {
+      console.log("Error: ",e)
+      this.setState({
+        services: [],
+        responseData: [],
+        activeService: "",
+        categories:[],
+      });
     });
   }
   handleActiveServie(serviceId){
@@ -83,7 +91,6 @@ class Faq extends Component {
              <div className="current-opening">
              <ul class="nav nav-pills flex-column" role="tablist">
                 {(categories).map((each, key) => {
-                  let category = categories.filter(i => i.id == each.id)
                   console.log("categ",services[each.id])
                     return (
                       <li key={key} onClick={()=>this.handleActiveServie(each.id)}  
@@ -112,7 +119,7 @@ class Faq extends Component {
                 />
                 {/* <button class="but_feild button">search</button> */}
               </div>
-              <div class="tab-content tab_con">
+              <div class="tab-content tab_con current-opening">
                 {/* <!----financial-----> */}
                 {/* <ReactFilter
                  value={this.state.search}
@@ -130,9 +137,9 @@ class Faq extends Component {
                      })}
                    </div>
                  )} /> */}
-                {Object.entries(services).map((each, key) => {
+                {Object.entries(services).length > 0 ? Object.entries(services).map((each, key) => {
                   // console.log(each)
-                 return <div key={key} role="tabpanel" class={`current-opening mt-10 tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
+                 return <div key={key} role="tabpanel" class={` mt-10 tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
                     <div class="panel-group" id={`accordion${each[0]}`}>
                       {Object.entries(each[1]).length > 0 &&
                         Object.entries(each[1]).map((item,iKey) => { 
@@ -177,7 +184,7 @@ class Faq extends Component {
                         })}
                     </div>
                   </div>;
-                })}
+                }) :  <div className="txt-center"> <b>No such FAQ found</b></div>}
               </div>
             </div>
           </div>

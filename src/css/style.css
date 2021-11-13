@@ -5,18 +5,21 @@
 :root {
   --toastify-color-success: #fff;
   --toastify-color-error: #fff;
-  --toastify-toast-width: 400px;
-  --toastify-toast-min-height: 104px;
+  --toastify-toast-width: 430px;
+  --toastify-toast-min-height: 134px;
 }
 .Toastify__toast--success {
   background: #1c8503;
   color: #fff;
-  font-size:17px;
+  font-size:20px;
 }
 .Toastify__toast--error {
   background: #bc2b07;
   color: #fff;
-  font-size:17px;
+  font-size:20px;
+}
+.Toastify__zoom-enter {
+  width: 38px;
 }
 .Toastify__toast-container--top-center {
   margin-top: 250px;
@@ -721,7 +724,8 @@ body {
   color: #e1a71e;
 }
 .login-content .partner_reg {
-  width: 94%;
+  width: 92%;
+  margin: 0 auto;
 }
 .area_expertise .chkbox-group a {
   color: #000;
@@ -3666,4 +3670,12 @@ transform: translateY(-2%);
 .showText {
   color: #000;
   margin-right: 5px;
+}
+.m-10{
+  margin: 10px 0px;
+}
+.socialtop ul li .insta:hover{
+  background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+  border: medium none;
+  color: #ffffff !important;
 }

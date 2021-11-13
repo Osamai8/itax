@@ -7,8 +7,8 @@ import Blog from "./blog";
 import Career from "./careerWithUs";
 import Contact from "./contactUs";
 import Login from "./login";
-import CustomerRegister from "./partnerRegister";
-import PartnerRegister from "./customerRegister";
+import CustomerRegister from "./customerRegister";
+import PartnerRegister from "./partnerRegister";
 import Pages from "./pages";
 import Index from "./index";
 import Newsletter from "./newsletter";
@@ -93,13 +93,15 @@ class Main extends Component {
             <Login activeForm={this.state.activeForm} setActiveForm={(changeForm) =>this.setActiveForm(changeForm)} />
           )}
         />
-        <Route exact path={`/register`}>
+         <Route exact path={`/register`}> <CustomerRegister /></Route>
+         <Route exact path={`/partner-register`}> <PartnerRegister /></Route>
+        {/* <Route exact path={`/register`}>
           {this.state.activeForm == "customer" ? (
             <PartnerRegister />
           ) : (
             <CustomerRegister />
           )}
-        </Route>
+        </Route> */}
 
 
 

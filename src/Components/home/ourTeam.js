@@ -27,16 +27,16 @@ function ourTeam(props) {
                         <span>{each.team_qualification}</span>
                         <p>{each.description}</p>
                       </div>
-                      <div className="social-links">
-                        <ul className="team-social">
+                      <div class="cont-detail logreg hidden-xs social-links m-10">
+                      <div className="team-social socialtop">
+                        <ul >
                           {each.facebook && (
                             <li>
                               <a
                                 href={each.facebook}
-                                className="facebook"
                                 target="_blank"
                               >
-                                <i className="fa fa-facebook"></i>
+                                <i className="fa fa-facebook fb"></i>
                               </a>
                             </li>
                           )}
@@ -44,10 +44,9 @@ function ourTeam(props) {
                           {each.twitter &&(<li>
                             <a
                               href={each.twitter}
-                              className="twitter"
                               target="_blank"
                             >
-                              <i className="fa fa-twitter"></i>
+                              <i className="fa fa-twitter twitt"></i>
                             </a>
                           </li>)}
                          {each.instagram &&( <li>
@@ -56,7 +55,7 @@ function ourTeam(props) {
                               className="instagram"
                               target="_blank"
                             >
-                              <i className="fa fa-instagram"></i>
+                              <i className="fa fa-instagram insta"></i>
                             </a>
                           </li>)}
                          {each.linkedin &&( <li>
@@ -65,10 +64,11 @@ function ourTeam(props) {
                               className="linkedin"
                               target="_blank"
                             >
-                              <i className="fa fa-linkedin"></i>
+                              <i className="fa fa-linkedin in"></i>
                             </a>
                           </li>)}
                         </ul>
+                      </div>
                       </div>
                     </div>
                   </div>

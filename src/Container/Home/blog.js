@@ -310,7 +310,7 @@ export default class blog extends Component {
                     </li>
                   </ul>
                     </nav>
-                  ) :<center> No Such Blog Found</center>}
+                  ) :<center><b> No such Blog found</b></center>}
                 </div>
               </div>
               <div className="col-lg-4">

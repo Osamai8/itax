@@ -569,7 +569,7 @@ function Login(props) {
                         </form>
                         <div className="login-footer clearfix">
                           <p className="pull-left">Don't have any account?</p>
-                          <Link to="/register" className="btn btn-login pull-right">
+                          <Link to={props.activeForm == "partners" ? "/partner-register" :'/register'} className="btn btn-login pull-right">
                             Create Account
                           </Link>
                         </div>

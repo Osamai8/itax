@@ -10,15 +10,18 @@ import * as Yup from "yup";
 import userImage from "../../images/user.png";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 const schema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email ")
     .required("Email is required"),
-  first_name: Yup.string().required("First name is required"),
+  // first_name: Yup.string().required("First name is required"),
   agree: Yup.boolean().oneOf([true]),
 
   //   last_name: Yup.string().required("Last name is required"),
+  // area_of_expertise: Yup.object({checked: Yup.array()
+  //   .min(1, 'Select atleast one option of your interest') }),
 
   phone: Yup.string()
     .required("Phone is required")
@@ -35,16 +38,21 @@ const schema = Yup.object().shape({
     })
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
-function PartnerRegister() {
+function PartnerRegister(props) {
   const history = useHistory();
   const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
+  const [registerType, setRegisterType] = useState("");
+  const [categoryOne,setCategoryOne] = useState([])
+  const [categoryTwo,setCategoryTwo] = useState([])
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    getValues,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -54,6 +62,20 @@ function PartnerRegister() {
       console.log("placeHolder: business-partner-register: ", res);
       setPlaceHolder(res.data.data);
     });
+    let categoryOne = []
+    let categoryTwo = []
+    
+   if(props.categories && props.categories.length > 0) {
+    props.categories.map((each,i)=> {
+      if (i <= 9) {
+        categoryOne.push(each);
+      } else {
+        categoryTwo.push(each);
+      }
+    })
+    setCategoryOne(categoryOne)
+    setCategoryTwo(categoryTwo)
+   }
   }, []);
 
   const onSubmitHandle = (data) => {
@@ -63,7 +85,7 @@ function PartnerRegister() {
       if (res.data.status == true) {
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+          autoClose: 10000,
         });
         reset();
         //if get token after registration
@@ -77,9 +99,21 @@ function PartnerRegister() {
         let { error } = res.data;
         //  console.log(err)
         // setResponseError(err);
-        error.email && toast.error(error.email[0]);
-        error.password && toast.error(error.password[0]);
-        res.data.message && toast.error(res.data.message);
+        error.email &&
+          toast.error(error.email[0], {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
+        error.password &&
+          toast.error(error.password[0], {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
+        res.data.message &&
+          toast.error(res.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 10000,
+          });
 
         // alert(res.data.message);
       } else {
@@ -94,7 +128,11 @@ function PartnerRegister() {
       borderColor: "#bf1f24",
     },
   };
-
+  const handleChange =(e)=> {
+    setRegisterType(e.target.value)
+    setValue("register_as", e.target.value)
+   console.log( getValues("register_as"))
+  }
   return (
     <div>
       <Header />
@@ -124,17 +162,16 @@ function PartnerRegister() {
                           <label class="input">
                             {/* <!-- <i class="icon-append fa fa-angle-down"></i> --> */}
                             <select
+                              onChange={(e) => handleChange(e) }
                               id="register"
+                              // {...register("register_as")}
                               class="form-control selectpicker customer_down_arrow"
                               data-style="btn-white"
                               style={{ width: "95.6%" }}
                             >
-                              <option selected="1" disabled="">
-                                Register As
-                              </option>
-                              <option>Individual</option>
-                              <option>Company</option>
-                              <option>Partner</option>
+                              <option selected={registerType == "Individual" && "selected"} value="Individual">Individual</option>
+                              <option selected={registerType == "Company" && "selected"} value="Company">Company</option>
+                              <option selected={registerType == "Partner" && "selected"} value="Partner">Partner</option>
                             </select>
                           </label>
                         </div>
@@ -145,9 +182,13 @@ function PartnerRegister() {
                         <div className="col col-10">
                           <input
                             type="hidden"
+                            {...register("register_as")}
+                            value=""
+                          />
+                          <input
+                            type="hidden"
                             {...register("is_service_provider")}
                             value="yes"
-                            autocomplete="off"
                           />
                           <label className="input">
                             <i className="icon-append fa fa-envelope-o"></i>
@@ -167,6 +208,105 @@ function PartnerRegister() {
                         </div>
                       </div>
                     </section>
+                    {/* handleChange */}
+                    {registerType == "Individual" ? (
+                      <>
+                        {" "}
+                        <section>
+                          <div className="row">
+                            <div className="col col-10">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  {...register("first_name")}
+                                  type="text"
+                                  style={errors["first_name"] && styles.error}
+                                  placeholder="First Name"
+                                  autocomplete="off"
+                                />
+                                {errors["first_name"] && (
+                                  <span style={{ color: "#bf1f24" }}>
+                                    {errors["first_name"].message}
+                                  </span>
+                                )}
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-10">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  {...register("middle_name")}
+                                  type="text"
+                                  placeholder="Middle Name"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-10">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("last_name")}
+                                  placeholder="Last Name"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                      </>
+                    ) : (
+                      <>
+                        <section>
+                          <div className="row">
+                            <div className="col col-10">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("company_name")}
+                                  placeholder="Company Name"
+                                  autocomplete="off"
+                                />
+                                {/* To be removed */}
+                                <input
+                                  {...register("first_name")}
+                                  value="test"
+                                  type="hidden"
+                                />
+                                {/* To be removed */}
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-10">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("sign_in_authority")}
+                                  placeholder="Sign In Authority"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                      </>
+                    )}
+                    {/* handleChange */}
+
                     <section>
                       <div class="row">
                         <div className="col col-10">
@@ -188,28 +328,8 @@ function PartnerRegister() {
                         </div>
                       </div>
                     </section>
-                    <section>
-                      <div className="row">
-                        <div className="col col-10">
-                          <label className="input">
-                            <i className="icon-append fa fa-user-o"></i>
-                            <input
-                              {...register("first_name")}
-                              type="text"
-                              style={errors["first_name"] && styles.error}
-                              placeholder="First Name"
-                              autocomplete="off"
-                            />
-                            {errors["first_name"] && (
-                              <span style={{ color: "#bf1f24" }}>
-                                {errors["first_name"].message}
-                              </span>
-                            )}
-                          </label>
-                        </div>
-                      </div>
-                    </section>
-                    <section>
+
+                    {/* <section>
                       <div class="row">
                         <div className="col col-10">
                           <label className="input">
@@ -223,22 +343,8 @@ function PartnerRegister() {
                           </label>
                         </div>
                       </div>
-                    </section>
-                    <section>
-                      <div className="row">
-                        <div className="col col-10">
-                          <label className="input">
-                            <i className="icon-append fa fa-user-o"></i>
-                            <input
-                              {...register("middle_name")}
-                              type="text"
-                              placeholder="Middle Name"
-                              autocomplete="off"
-                            />
-                          </label>
-                        </div>
-                      </div>
-                    </section>
+                    </section> */}
+
                     <section>
                       <div class="row">
                         <div className="col col-10">
@@ -259,24 +365,8 @@ function PartnerRegister() {
                         </div>
                       </div>
                     </section>
-                    <section>
-                      <div class="row"></div>
-                    </section>
-                    <section>
-                      <div className="row">
-                        <div className="col col-10">
-                          <label className="input">
-                            <i className="icon-append fa fa-user-o"></i>
-                            <input
-                              type="text"
-                              {...register("last_name")}
-                              placeholder="Last Name"
-                              autocomplete="off"
-                            />
-                          </label>
-                        </div>
-                      </div>
-                    </section>
+                    <section></section>
+
                     <section>
                       <div class="row">
                         <div className="col col-10">
@@ -302,12 +392,20 @@ function PartnerRegister() {
 
                     <div className="area_expertise clearfix">
                       <h4>Area of expertise</h4>
+                      {errors["area_of_expertise"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["area_of_expertise"].message}
+                              </span>
+                            )}
                       <div className="expertise_left">
-                        <div className="chkbox-group">
-                          <input type="checkbox" name="agree" />
-                          <a href="#">Business Startup Services</a>
-                        </div>
-                        <div className="chkbox-group">
+                       {categoryOne.length > 0 && 
+                       categoryOne.map((e)=> {
+                         return <div className="chkbox-group">
+                         <input type="checkbox" {...register("area_of_expertise")} />
+                         <a href="#">{e.category_name}</a>
+                       </div>
+                       }) }
+                        {/* <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">Corporate Advisory</a>
                         </div>
@@ -318,14 +416,17 @@ function PartnerRegister() {
                         <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">Financial Funding and Debt Mgmt.</a>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="expertise_right">
-                        <div className="chkbox-group">
-                          <input type="checkbox" name="agree" />
-                          <a href="#">Outsourcing Services</a>
-                        </div>
-                        <div className="chkbox-group">
+                       {categoryTwo.length > 0 &&
+                       categoryTwo.map((e)=> {
+                        return <div className="chkbox-group">
+                        <input type="checkbox" value={e.category_id} {...register("area_of_expertise")} />
+                        <a href="#">{e.category_name}</a>
+                      </div>
+                      }) }
+                        {/* <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">International Taxation</a>
                         </div>
@@ -336,7 +437,8 @@ function PartnerRegister() {
                         <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">Foreign Company Setup in India</a>
-                        </div>
+                        </div> */}
+                       
                       </div>
                     </div>
 
@@ -402,4 +504,13 @@ function PartnerRegister() {
   );
 }
 
-export default PartnerRegister;
+// export default PartnerRegister;
+PartnerRegister.defaultProps = {
+  categories: [],
+};
+export default connect((state, props) => {
+  return {
+    categories: state?.categories,
+    // categoryTwo: state?.categoryTwo,
+  };
+})(PartnerRegister);

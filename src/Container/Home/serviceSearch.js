@@ -149,7 +149,7 @@ class ServiceSearch extends Component {
                 />
                 {/* <button class="but_feild button">search</button> */}
               </div>
-              <div class="tab-content tab_con">
+              <div class="tab-content current-opening tab_con">
                 {/* <!----financial-----> */}
                 {/* <ReactFilter
                  value={this.state.search}
@@ -173,7 +173,7 @@ class ServiceSearch extends Component {
                     <div
                       key={key}
                       role="tabpanel"
-                      class={`current-opening tab-pane mt-10 ${activeService == each[0] && "active"}`}
+                      class={` tab-pane mt-10 ${activeService == each[0] && "active"}`}
                       id={each[0]}
                     >
                       <div class="panel-group" id={`accordion${each[0]}`}>
@@ -221,7 +221,7 @@ class ServiceSearch extends Component {
                       </div>
                     </div>
                   );
-                }): "No such Service found"}
+                }): <div className="txt-center"> <b>No such Service found</b></div>}
               </div>
             </div>
           </div>
