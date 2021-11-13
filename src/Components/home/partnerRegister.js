@@ -87,6 +87,11 @@ function PartnerRegister() {
       }
     });
   };
+  const styles = {
+    error: {
+      borderColor: "#bf1f24",
+    },
+  };
   console.log(errors);
   return (
     <div className="col-md-4 partner_form">
@@ -144,11 +149,6 @@ function PartnerRegister() {
                     name="email"
                     autocomplete="off"
                   />
-                   {errors["email"] && (
-                              <span style={{ color: "#bf1f24" }}>
-                                {errors["email"].message}
-                              </span>
-                            )}
                 </label>
               </div>
             </div>
