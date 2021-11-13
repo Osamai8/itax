@@ -39,6 +39,18 @@ function Header(props) {
       payload:menu
     })
   }
+  const checkHome = () => {
+    let routes = ['/','/faq','/newsletters','/case-law','/calender','/videos','/events']
+    let s = routes.filter((r) => r == props.location.pathname)
+    if(s.length == 1) {
+      console.log(s,"found",props.location.pathname)
+      return true
+    }
+    else {
+      console.log(s,"found not",props.location.pathname)
+      return false
+    }
+  }
   console.log("header props: ",props)
   return (
     //  site-navigation start
@@ -162,7 +174,7 @@ function Header(props) {
             {/* <li><a href="#" className="btn btn-success"><i className="fa fa-file-text" aria-hidden="true"></i> Register</a></li> */}
           </ul>
           <ul className="nav navbar-nav navbar-right text-uppercase">
-            <li className={props.history.location.pathname == '/' && "active"}>
+            <li className={checkHome() && "active"}>
               <Link to="/">home</Link>
               {/* <a href="/"></a> */}
             </li>
