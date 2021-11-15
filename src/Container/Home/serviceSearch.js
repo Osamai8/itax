@@ -6,7 +6,6 @@ import Footer from "../../Common/footer";
 import Newsletter from "../../Components/home/subscribeNewsletter";
 import RestApi from "../../services/api";
 
-
 class ServiceSearch extends Component {
   constructor(props) {
     super(props);
@@ -23,50 +22,51 @@ class ServiceSearch extends Component {
   }
 
   fetchData() {
-    RestApi.categories().then((res) => {
-      console.log(res);
-      if (res.data.status) {
-        let data = [];
-       if(this.state.search && this.state.search.length > 0){
-           data = Common.filterArray(res.data.data, this.state.search, [
-          "service_name",
-          "service_description",
-          "category_name",
-        ]);
-       }
-       else {
-        data = res.data.data
-       }
-        // console.log("data",data)
-        let groupedServices = Common.groupBy(["category_id"])(data); 
-        let allCategories = Common.groupBy(["category_id"])(res.data.data); 
-        // console.log("res", res.data.data);
-        // let categoryIDs = [];
-        // res.data.data.map((c) => {
-        //   if (!categoryIDs.includes(c.category_id)) {
-        //     categoryIDs.push(c.category_id);
-        //   }
-        // });
-        // let category = this.props.categories.filter((i)=> categoryIDs.includes(i.id))
-        // console.log("categories",categoryIDs)
-        // console.log("categories",category)
+    RestApi.categories()
+      .then((res) => {
+        console.log(res);
+        if (res.data.status) {
+          let data = [];
+          if (this.state.search && this.state.search.length > 0) {
+            data = Common.filterArray(res.data.data, this.state.search, [
+              "service_name",
+              "service_description",
+              "category_name",
+            ]);
+          } else {
+            data = res.data.data;
+          }
+          // console.log("data",data)
+          let groupedServices = Common.groupBy(["category_id"])(data);
+          let allCategories = Common.groupBy(["category_id"])(res.data.data);
+          // console.log("res", res.data.data);
+          // let categoryIDs = [];
+          // res.data.data.map((c) => {
+          //   if (!categoryIDs.includes(c.category_id)) {
+          //     categoryIDs.push(c.category_id);
+          //   }
+          // });
+          // let category = this.props.categories.filter((i)=> categoryIDs.includes(i.id))
+          // console.log("categories",categoryIDs)
+          // console.log("categories",category)
+          this.setState({
+            services: groupedServices,
+            responseData: res.data.data,
+            activeService: Object.keys(groupedServices)[0],
+            categories: allCategories,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log("Error: ", e);
         this.setState({
-          services: groupedServices,
-          responseData: res.data.data,
-          activeService: Object.keys(groupedServices)[0], 
-          categories: allCategories
+          services: [],
+          activeService: "",
+          responseData: [],
+          search: this.props.match.params.id,
+          categories: [],
         });
-      }
-    }).catch((e)=> {
-        console.log("Error: ",e)
-        this.setState({
-            services: [],
-            activeService: "",
-            responseData: [],
-            search: this.props.match.params.id,
-            categories: [],
-          })
-    });
+      });
   }
   handleActiveServie(serviceId) {
     this.setState({
@@ -74,11 +74,11 @@ class ServiceSearch extends Component {
     });
   }
   handleSearch(e) {
-      if(this.props.match.params.id && this.props.match.params.id.length > 0){
-        // window.history.pushState({}, document.title, "/" + "search");
-      }
-   
-    let search = e.target.value;    
+    if (this.props.match.params.id && this.props.match.params.id.length > 0) {
+      // window.history.pushState({}, document.title, "/" + "search");
+    }
+
+    let search = e.target.value;
     let data = [];
     if (search.length > 0) {
       // filterArray takes (array,keyword,and keys) parameters and returns search result
@@ -99,9 +99,15 @@ class ServiceSearch extends Component {
       search,
     });
   }
+  handleReset = () => {
+    this.setState({
+      search: "",
+      activeService: Object.keys(this.state.services)[0],
+    });
+  };
   render() {
     console.log("state", this.state);
-    let { services, search ,activeService, categories } = this.state;
+    let { services, search, activeService, categories } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -114,32 +120,63 @@ class ServiceSearch extends Component {
             <div class="col-md-4 services_list services_heading">
               <h3>Our services list</h3>
               <div className="current-opening">
-              <ul class="nav nav-pills flex-column" role="tablist">
-                {Object.entries(categories).map((each, key) => {
-                  //   let category = categories.filter(i => i.id == each[0])
+                <ul class="nav nav-pills flex-column" role="tablist">
+                  {Object.entries(categories).map((each, key) => {
+                    //   let category = categories.filter(i => i.id == each[0])
                     // console.log("sss",services[each[0]])
-                  return (
-                    <li
-                      key={key}
-                      onClick={() => this.handleActiveServie(each[0])}
-                      class={`nav-item ${services[each[0]]?.length > 0 && search.length >0  &&each[0] != activeService && "searchHasService"} ${each[0] == activeService && "active"}`}
-                    >
-                      <a
-                        href={`#${each[0]}`}
-                        aria-controls={each[0]}
-                        data-toggle="pill"
+                    return (
+                      <li
+                        key={key}
+                        onClick={() => this.handleActiveServie(each[0])}
+                        class={`nav-item ${
+                          services[each[0]]?.length > 0 &&
+                          search.length > 0 &&
+                          each[0] != activeService &&
+                          "searchHasService"
+                        } ${each[0] == activeService && "active"}`}
                       >
-                        <strong>{each[1][0].category_name}</strong>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
+                        <a
+                          href={`#${each[0]}`}
+                          aria-controls={each[0]}
+                          data-toggle="pill"
+                        >
+                          <strong>{each[1][0].category_name}</strong>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
 
+            <div className="center-align-content">
             <div class="col-md-8">
               <div class="search_help">
+                <form class="sky-form" novalidate="novalidate">
+                  <fieldset>
+                    <section>
+                      <div class="row">
+                        <div class="col col-12">
+                          <label class="input">
+                              <i class="s-search-icon icon-append fa fa-search"></i>
+                            
+                            <input
+                              onChange={(e) => this.handleSearch(e)}
+                              type="text"
+                              value={this.state.search}
+                              placeholder="Search.."
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+                  </fieldset>
+                </form>
+              </div>
+              </div>
+            </div>
+              <div class="col-md-8">
+              {/* <div class="search_help"> 
                 <input
                   onChange={(e) => this.handleSearch(e)}
                   type="text"
@@ -147,9 +184,9 @@ class ServiceSearch extends Component {
                   class="form-control inputpane"
                   placeholder="Search.."
                 />
-                {/* <button class="but_feild button">search</button> */}
-              </div>
-              <div class="tab-content current-opening tab_con">
+                <button class="but_feild button">search</button>
+              </div> */}
+              <div class="tab-content serviceSearchBox current-opening tab_con">
                 {/* <!----financial-----> */}
                 {/* <ReactFilter
                  value={this.state.search}
@@ -167,61 +204,99 @@ class ServiceSearch extends Component {
                      })}
                    </div>
                  )} /> */}
-                {Object.entries(services).length > 0 ? Object.entries(services).map((each, key) => {
-                  // console.log(each)
-                  return (
-                    <div
-                      key={key}
-                      role="tabpanel"
-                      class={` tab-pane mt-10 ${activeService == each[0] && "active"}`}
-                      id={each[0]}
-                    >
-                      <div class="panel-group" id={`accordion${each[0]}`}>
-                        {(each[1]).length > 0 &&
-                          (each[1]).map((item, iKey) => {
-                            // console.log("item",item)
-                            return (
-                              <div class="panel panel-default services_details clearfix">
-                                <a
-                                  class="accordion-toggle collapsed"
-                                  data-toggle="collapse"
-                                  data-parent={`#accordion${each[0]}`}
-                                  href={`#collapse${each[0]}${iKey}`}
-                                  aria-expanded="false"
-                                >
-                                  <h4 class="panel-title">
-                                    <i
-                                      class="fa fa-asterisk"
-                                      aria-hidden="true"
-                                    ></i>{" "}
-                                    {item.service_name}
-                                    <i class="arrow fa fa-angle-down"></i>
-                                  </h4>
-                                </a>
-                                <div
-                                  id={`collapse${each[0]}${iKey}`}
-                                  class="panel-collapse collapse"
-                                  aria-expanded="false"
-                                >
-                                  <div class="panel-body">
-                                    <div class="col-md-12">
-                                          <>
-                                            {" "}
-                                            <p>{item.service_description}</p>
-                                            <p>
-                    <Link to={`/service-details/${item.category_id}/${item.service_id}`} class="readmore">Apply Now</Link>
-                </p>
-                                          </>
+                {Object.entries(services).length > 0 ? (
+                  Object.entries(services).map((each, key) => {
+                    // console.log(each)
+                    return (
+                      <div
+                        key={key}
+                        role="tabpanel"
+                        class={` tab-pane mt-10 ${
+                          activeService == each[0] && "active"
+                        }`}
+                        id={each[0]}
+                      >
+                        {search.length > 0 && (
+                          <div className="serviceSearchResults">
+                            {Object.entries(services).length} results found for
+                            search keyword "{search}".{" "}
+                            <span
+                              className="select-click-here "
+                              onClick={() => {
+                                this.handleReset();
+                              }}
+                            >
+                              <u> Click to view all services</u>
+                            </span>{" "}
+                            or search using some other keywords.{" "}
+                          </div>
+                        )}
+                        <div class="panel-group" id={`accordion${each[0]}`}>
+                          {each[1].length > 0 &&
+                            each[1].map((item, iKey) => {
+                              // console.log("item",item)
+                              return (
+                                <div class="panel panel-default services_details clearfix">
+                                  <a
+                                    class="accordion-toggle collapsed"
+                                    data-toggle="collapse"
+                                    data-parent={`#accordion${each[0]}`}
+                                    href={`#collapse${each[0]}${iKey}`}
+                                    aria-expanded="false"
+                                  >
+                                    <h4 class="panel-title">
+                                      <i
+                                        class="fa fa-asterisk"
+                                        aria-hidden="true"
+                                      ></i>{" "}
+                                      {item.service_name}
+                                      <i class="arrow fa fa-angle-down"></i>
+                                    </h4>
+                                  </a>
+                                  <div
+                                    id={`collapse${each[0]}${iKey}`}
+                                    class="panel-collapse collapse"
+                                    aria-expanded="false"
+                                  >
+                                    <div class="panel-body">
+                                      <div class="col-md-12">
+                                        <>
+                                          {" "}
+                                          <p>{item.service_description}</p>
+                                          <p>
+                                            <Link
+                                              to={`/service-details/${item.category_id}/${item.service_id}`}
+                                              class="readmore"
+                                            >
+                                              Apply Now
+                                            </Link>
+                                          </p>
+                                        </>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                }): <div className="txt-center"> <b>No such Service found</b></div>}
+                    );
+                  })
+                ) : (
+                  <div className="serviceSearchResults">
+                    {" "}
+                    No search results found for the keyword "{search}". Try
+                    using some other keywords or{" "}
+                    <span
+                      className="select-click-here "
+                      onClick={() => {
+                        this.handleReset();
+                      }}
+                    >
+                      <u> click to view all services</u>{" "}
+                    </span>{" "}
+                  </div>
+                )}
               </div>
             </div>
           </div>

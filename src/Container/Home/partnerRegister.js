@@ -18,7 +18,16 @@ const schema = Yup.object().shape({
     .required("Email is required"),
   // first_name: Yup.string().required("First name is required"),
   agree: Yup.boolean().oneOf([true]),
-
+  // area_of_expertise: up
+  // .array()
+  // .of(
+  //   up.object().shape({
+  //     id: up.string(),
+  //     name: up.string()
+  //   })
+  // )
+  // .default([])
+  // .oneOf([true], "Must choose one"),
   //   last_name: Yup.string().required("Last name is required"),
   // area_of_expertise: Yup.object({checked: Yup.array()
   //   .min(1, 'Select atleast one option of your interest') }),
@@ -42,9 +51,10 @@ function PartnerRegister(props) {
   const history = useHistory();
   const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
-  const [registerType, setRegisterType] = useState("");
+  const [registerType, setRegisterType] = useState("Individual");
   const [categoryOne,setCategoryOne] = useState([])
   const [categoryTwo,setCategoryTwo] = useState([])
+
 
   const {
     register,
@@ -190,6 +200,11 @@ function PartnerRegister(props) {
                             {...register("is_service_provider")}
                             value="yes"
                           />
+                          <input
+                            type="hidden"
+                            {...register("is_customer")}
+                            value="no"
+                          />
                           <label className="input">
                             <i className="icon-append fa fa-envelope-o"></i>
                             <input
@@ -277,13 +292,15 @@ function PartnerRegister(props) {
                                   placeholder="Company Name"
                                   autocomplete="off"
                                 />
-                                {/* To be removed */}
+                                {/* extra */}
                                 <input
-                                  {...register("first_name")}
-                                  value="test"
                                   type="hidden"
+                                  {...register("first_name")}
+                                  value={getValues("company_name")}
+                                  placeholder="Company Name"
+                                  autocomplete="off"
                                 />
-                                {/* To be removed */}
+                                {/* extra */}
                               </label>
                             </div>
                           </div>
@@ -329,22 +346,6 @@ function PartnerRegister(props) {
                       </div>
                     </section>
 
-                    {/* <section>
-                      <div class="row">
-                        <div className="col col-10">
-                          <label className="input">
-                            <i className="icon-append fa fa-map-marker"></i>
-                            <input
-                              {...register("address")}
-                              type="text"
-                              placeholder="Address"
-                              autocomplete="off"
-                            />
-                          </label>
-                        </div>
-                      </div>
-                    </section> */}
-
                     <section>
                       <div class="row">
                         <div className="col col-10">
@@ -365,8 +366,6 @@ function PartnerRegister(props) {
                         </div>
                       </div>
                     </section>
-                    <section></section>
-
                     <section>
                       <div class="row">
                         <div className="col col-10">

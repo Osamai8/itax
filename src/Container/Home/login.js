@@ -81,10 +81,10 @@ function Login(props) {
         }
         if (response.data.access_token && response.data.status == true) {
           reset({ email: "", password: "" });
-          toast.success(response.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
+          // toast.success(response.data.message, {
+          //   position: toast.POSITION.TOP_CENTER,
+          //   autoClose: 2000,
+          // });
           handleResponse(response);
          
         }
@@ -202,10 +202,10 @@ function Login(props) {
       RestApi.socialLogin(data).then((res) => {
         console.log("socialLogin: ", res);
         if (res.data.access_token && res.data.status == true) {
-          toast.success(res.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
+          // toast.success(res.data.message, {
+          //   position: toast.POSITION.TOP_CENTER,
+          //   autoClose: 2000,
+          // });
           handleResponse(res);
          
         }
@@ -252,10 +252,10 @@ function Login(props) {
     RestApi.login(data).then((response) => {
       if (response.data.access_token && response.data.status == true) {
         reset({ email: "", password: "" });
-        toast.success(response.data.message, {
-          position: toast.POSITION.CENTER,
-          autoClose: 2000,
-        });
+        // toast.success(response.data.message, {
+        //   position: toast.POSITION.CENTER,
+        //   autoClose: 2000,
+        // });
         RestApi.defaultToken(response.data.access_token);
         let res = response.data;
         let data = {
@@ -299,10 +299,10 @@ function Login(props) {
       data.is_service_provider = "yes";
       RestApi.login(data).then((res) => {
         if (res.data.access_token && res.data.status == true) {
-          toast.success(res.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
+          // toast.success(res.data.message, {
+          //   position: toast.POSITION.TOP_CENTER,
+          //   autoClose: 2000,
+          // });
           handleResponse(res);
           setShowRegisterModal({ status: false, message: "", data: {} });
           console.log(res);
@@ -318,10 +318,10 @@ function Login(props) {
       }
       RestApi.login(data).then((res) => {
         if (res.data.access_token && res.data.status == true) {
-          toast.success(res.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
+          // toast.success(res.data.message, {
+          //   position: toast.POSITION.TOP_CENTER,
+          //   autoClose: 2000,
+          // });
           handleResponse(res);
           setShowRegisterModal({ status: false, message: "", data: {} });
           console.log(res);

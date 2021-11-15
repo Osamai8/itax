@@ -37,6 +37,7 @@ function PartnerRegister() {
     handleSubmit,
     formState: { errors },
     reset,
+    getValues,
     setValue,
   } = useForm({
     resolver: yupResolver(schema),
@@ -87,6 +88,11 @@ function PartnerRegister() {
       }
     });
   };
+  const handleChange =(e)=> {
+    setRegisterType(e.target.value)
+    setValue("register_as", e.target.value)
+   console.log( getValues("register_as"))
+  }
   const styles = {
     error: {
       borderColor: "#bf1f24",
@@ -109,20 +115,17 @@ function PartnerRegister() {
             <div className="row">
               <div className="col col-12">
                 <label className="input">
-                  <select
-                              onChange={(e) =>
-                                setValue("register_as", e.target.value)
-                              }
+                <select
+                              onChange={(e) => handleChange(e) }
                               id="register"
-                              {...register("register_as")}
                               // {...register("register_as")}
                               class="form-control selectpicker customer_down_arrow"
                               data-style="btn-white"
                               style={{ width: "95.6%" }}
                             >
-                              <option value="Individual">Individual</option>
-                              <option value="Company">Company</option>
-                              <option value="Partner">Partner</option>
+                              <option selected={registerType == "Individual" && "selected"} value="Individual">Individual</option>
+                              <option selected={registerType == "Company" && "selected"} value="Company">Company</option>
+                              <option selected={registerType == "Partner" && "selected"} value="Partner">Partner</option>
                             </select>
                 </label>
               </div>
@@ -136,7 +139,12 @@ function PartnerRegister() {
                     className="icon-append fa fa-envelope-o"
                     // style={styles.top}
                   ></i>
-                   <input
+                  <input
+                            type="hidden"
+                            {...register("register_as")}
+                            value=""
+                          />
+                          <input
                             type="hidden"
                             {...register("is_service_provider")}
                             value="yes"
@@ -149,64 +157,113 @@ function PartnerRegister() {
                     name="email"
                     autocomplete="off"
                   />
+                   {errors["email"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["email"].message}
+                              </span>
+                            )}
                 </label>
               </div>
             </div>
           </section>
-          <section>
-            <div className="row">
-              <div className="col col-12">
-                <label className="input">
-                  <i
-                    className="icon-append fa fa-user-o"
-                    // style={styles.top}
-                  ></i>
-                  <input
-                    type="textl"
-                    placeholder="First Name"
-                    name="name"
-                    autocomplete="off"
-                  />
-                </label>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="row">
-              <div className="col col-12">
-                <label className="input">
-                  <i
-                    className="icon-append fa fa-user-o"
-                    // style={styles.top}
-                  ></i>
-                  <input
-                    type="textl"
-                    placeholder="Middle Name"
-                    name="name"
-                    autocomplete="off"
-                  />
-                </label>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="row">
-              <div className="col col-12">
-                <label className="input">
-                  <i
-                    className="icon-append fa fa-user-o"
-                    // style={styles.top}
-                  ></i>
-                  <input
-                    type="textl"
-                    placeholder="Last Name"
-                    name="name"
-                    autocomplete="off"
-                  />
-                </label>
-              </div>
-            </div>
-          </section>
+          {/* handleChange */}
+          {registerType == "Individual" ? (
+                      <>
+                        {" "}
+                        <section>
+                          <div className="row">
+                            <div className="col col-12">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  {...register("first_name")}
+                                  type="text"
+                                  style={errors["first_name"] && styles.error}
+                                  placeholder="First Name"
+                                  autocomplete="off"
+                                />
+                                {errors["first_name"] && (
+                                  <span style={{ color: "#bf1f24" }}>
+                                    {errors["first_name"].message}
+                                  </span>
+                                )}
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-12">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  {...register("middle_name")}
+                                  type="text"
+                                  placeholder="Middle Name"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-12">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("last_name")}
+                                  placeholder="Last Name"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                      </>
+                    ) : (
+                      <>
+                        <section>
+                          <div className="row">
+                            <div className="col col-12">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("company_name")}
+                                  placeholder="Company Name"
+                                  autocomplete="off"
+                                />
+                                {/* To be removed */}
+                                <input
+                                  {...register("first_name")}
+                                  value="test"
+                                  type="hidden"
+                                />
+                                {/* To be removed */}
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                        <section>
+                          <div className="row">
+                            <div className="col col-12">
+                              <label className="input">
+                                <i className="icon-append fa fa-user-o"></i>
+                                <input
+                                  type="text"
+                                  {...register("sign_in_authority")}
+                                  placeholder="Sign In Authority"
+                                  autocomplete="off"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </section>
+                      </>
+                    )}
+                    {/* handleChange */}
           <section>
             <div className="row">
               <div className="col col-12">
@@ -215,12 +272,18 @@ function PartnerRegister() {
                     className="icon-append fa fa-mobile"
                     // style={styles.top}
                   ></i>
-                  <input
-                    type="textl"
-                    placeholder="Mobile"
-                    name="name"
-                    autocomplete="off"
-                  />
+                 <input
+                              type="text"
+                              placeholder="Mobile"
+                              style={errors["phone"] && styles.error}
+                              {...register("phone")}
+                              autocomplete="off"
+                            />
+                             {errors["phone"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["phone"].message}
+                              </span>
+                            )}
                 </label>
               </div>
             </div>
@@ -233,11 +296,17 @@ function PartnerRegister() {
                     className="icon-append fa fa-lock"
                     // style={styles.top}
                   ></i>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                  />
+                 <input
+                              {...register("password")}
+                              style={errors["password"] && styles.error}
+                              type="password"
+                              placeholder="Password"
+                            />
+                            {errors["password"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["password"].message}
+                              </span>
+                            )}
                 </label>
               </div>
             </div>
@@ -250,11 +319,19 @@ function PartnerRegister() {
                     className="icon-append fa fa-lock"
                     // style={styles.top}
                   ></i>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Confirm Password"
-                  />
+                   <input
+                              {...register("passwordConfirmation")}
+                              type="password"
+                              style={
+                                errors["passwordConfirmation"] && styles.error
+                              }
+                              placeholder="Confirm Password"
+                            />
+                            {errors["passwordConfirmation"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["passwordConfirmation"].message}
+                              </span>
+                            )}
                 </label>
               </div>
             </div>
@@ -302,7 +379,7 @@ function PartnerRegister() {
           <a href="#">Term & Condition</a>
         </div>
         <div className="sign-btn">
-          <button type="submit" name="sign_in" className="button col">
+          <button type="submit" name="sign_in" className="partner-btn button col">
             Submit
           </button>
         </div>

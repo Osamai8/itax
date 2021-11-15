@@ -153,6 +153,23 @@ class Home extends Component {
                 <div className="marquetext marquee">
                   <img src={blogImage} className="blog-home-img" />
                   <ul>
+                    {/* <Marquee
+                      duration={15000}
+                      pauseOnHover={true}
+                      background="#fafafa"
+                      height="25px"
+                      reverse={true}
+                    >
+                      {this.state.blogs.map((each, i) => {
+                        return (
+                          <Link key={i} to={`blog-details/${each.id}`}>
+                            <li>
+                              <a>{each.heading}</a>
+                            </li>
+                          </Link>
+                        );
+                      })}
+                    </Marquee> */}
                     <marquee
                       behavior="scroll"
                       onMouseOver="stop()"
@@ -167,10 +184,6 @@ class Home extends Component {
                           </Link>
                         );
                       })}
-
-                      {/* <li>
-                      <a href="p">Companies Filing of documents</a>
-                    </li> */}
                     </marquee>
                   </ul>
                 </div>

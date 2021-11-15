@@ -109,16 +109,34 @@ class Faq extends Component {
              </div>
             </div>
 
+            <div className="center-align-content">
             <div class="col-md-8">
               <div class="search_help">
-                <input
-                onChange={(e)=>this.handleSearch(e)}
-                  type="text"
-                  class="form-control inputpane"
-                  placeholder="Search.."
-                />
-                {/* <button class="but_feild button">search</button> */}
+                <form class="sky-form" novalidate="novalidate">
+                  <fieldset>
+                    <section>
+                      <div class="row">
+                        <div class="col col-12">
+                          <label class="input">
+                              <i class="s-search-icon icon-append fa fa-search"></i>
+                            
+                            <input
+                              onChange={(e) => this.handleSearch(e)}
+                              type="text"
+                              value={this.state.search}
+                              placeholder="Search.."
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+                  </fieldset>
+                </form>
               </div>
+              </div>
+            </div>
+              <div class="col-md-8">
+              
               <div class="tab-content tab_con current-opening">
                 {/* <!----financial-----> */}
                 {/* <ReactFilter

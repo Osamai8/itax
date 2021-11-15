@@ -211,7 +211,7 @@ body {
 }
 .logreg li .btn {
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   margin: 0;
 }
 .logreg li .btn:hover {
@@ -880,7 +880,7 @@ body {
 .cont-detail li {
   display: inline-block;
   font-size: 13px;
-  margin-left: 3px;
+  margin-left: 8px;
   vertical-align: middle;
 }
 .cont-detail li a {
@@ -888,7 +888,7 @@ body {
   text-decoration: none;
 }
 .cont-detail li a i {
-  color: #e1a71e !important;
+  color: #e1a71e ;
 }
 /* =-=--=-=-=-=-=-==-=-=-=-  2.4 Form   =-=-=-=-==-=-==-====-==-=- */
 
@@ -901,7 +901,7 @@ body {
   border-radius: 4px;
   box-shadow: none;
   height: auto;
-  padding: 8px 8px;
+  padding: 5px 8px;
 }
 .customer_down_arrow {
   /* background-image: url("../../image/down-arrow.png"); */
@@ -2740,6 +2740,7 @@ cite .by {
 }
 .newsletter.button {
   padding-right: 50px;
+  margin-top:8px
 }
 .button.save-btn {
   background-color: #e1a71e;
@@ -2763,11 +2764,11 @@ button,
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   line-height: normal;
   margin: 6px 0 10px;
-  padding: 8px 10px;
+  padding: 6px 10px;
   position: relative;
   text-align: left;
   text-decoration: none;
@@ -2814,7 +2815,7 @@ button,
   background-image: -o-linear-gradient(top, #ffd200, #ffa200);
   background-image: linear-gradient(to bottom, #ffd200, #ffa200);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ffd200, endColorstr=#ffa200);
-  padding: 16px 20px;
+  padding: 14px 20px;
   border-radius: 0px 5px 5px 0px;
   -moz-border-radius: 0px 5px 5px 0px;
   -webkit-border-radius: 0px 5px 5px 0px;
@@ -3652,10 +3653,11 @@ transform: translateY(-2%);
 .case-law-select{
   width: 20%;
   display: inline;
-  margin-right: 2px;
+  margin-right: 10px;
+  height: 38px;
 }
 .case-search button {
-  margin-left: 0px;
+  margin-left: 10px;
 }
 .anchor-link{
   cursor: pointer;
@@ -3678,4 +3680,29 @@ transform: translateY(-2%);
   background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
   border: medium none;
   color: #ffffff !important;
+}
+.reg_btn {
+  color: #fff !important;
+    position: relative;
+    top: 2px;
+}
+.reg_btn i{
+  color: #fff !important;
+}
+.select-click-here {
+  cursor: pointer;
+}
+.serviceSearchResults{
+  text-align: center;
+  margin-bottom: 12px ;
+  /* margin-top: 12px ; */
+}
+.serviceSearchBox {
+  margin-top:16px;
+}
+.partner-btn{
+  width: 80%;
+}
+.s-search-icon{
+  border-left: 0px!important;
 }
