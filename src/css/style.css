@@ -3698,11 +3698,15 @@ transform: translateY(-2%);
   /* margin-top: 12px ; */
 }
 .serviceSearchBox {
-  margin-top:16px;
+  margin-top:12px;
 }
 .partner-btn{
-  width: 80%;
+  width: 87%!important;
 }
 .s-search-icon{
   border-left: 0px!important;
+}
+.file-upload-msg{
+  color: red;
+  font-size: 11px;
 }

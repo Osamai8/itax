@@ -78,7 +78,7 @@ class ServiceSearch extends Component {
       // window.history.pushState({}, document.title, "/" + "search");
     }
 
-    let search = e.target.value;
+    let search = e;
     let data = [];
     if (search.length > 0) {
       // filterArray takes (array,keyword,and keys) parameters and returns search result
@@ -99,12 +99,12 @@ class ServiceSearch extends Component {
       search,
     });
   }
-  handleReset = () => {
-    this.setState({
-      search: "",
-      activeService: Object.keys(this.state.services)[0],
-    });
-  };
+  // handleReset = () => {
+  //   this.setState({
+  //     search: "",
+  //     activeService: Object.keys(this.state.services)[0],
+  //   });
+  // };
   render() {
     console.log("state", this.state);
     let { services, search, activeService, categories } = this.state;
@@ -161,7 +161,7 @@ class ServiceSearch extends Component {
                               <i class="s-search-icon icon-append fa fa-search"></i>
                             
                             <input
-                              onChange={(e) => this.handleSearch(e)}
+                              onChange={(e) => this.handleSearch(e.target.value)}
                               type="text"
                               value={this.state.search}
                               placeholder="Search.."
@@ -204,6 +204,21 @@ class ServiceSearch extends Component {
                      })}
                    </div>
                  )} /> */}
+                  {search.length > 0 && Object.entries(services).length > 0 &&  (
+                          <div className="serviceSearchResults">
+                            {Object.entries(services).length} results found for
+                            search keyword "{search}".{" "}
+                            <span
+                              className="select-click-here "
+                              onClick={() => {
+                                this.handleSearch("");
+                              }}
+                            >
+                              <u> Click to view all services</u>
+                            </span>{" "}
+                            or search using some other keywords.{" "}
+                          </div>
+                        )}
                 {Object.entries(services).length > 0 ? (
                   Object.entries(services).map((each, key) => {
                     // console.log(each)
@@ -216,21 +231,7 @@ class ServiceSearch extends Component {
                         }`}
                         id={each[0]}
                       >
-                        {search.length > 0 && (
-                          <div className="serviceSearchResults">
-                            {Object.entries(services).length} results found for
-                            search keyword "{search}".{" "}
-                            <span
-                              className="select-click-here "
-                              onClick={() => {
-                                this.handleReset();
-                              }}
-                            >
-                              <u> Click to view all services</u>
-                            </span>{" "}
-                            or search using some other keywords.{" "}
-                          </div>
-                        )}
+                       
                         <div class="panel-group" id={`accordion${each[0]}`}>
                           {each[1].length > 0 &&
                             each[1].map((item, iKey) => {

@@ -22,7 +22,7 @@ function Footer(props) {
     setCategoryTwo(categoryTwo)
    }
     window.scrollTo(0, 0);
-  }, []);
+  }, [props.categories]);
   const changeMenu = (menu) => {
     props.dispatch({
       type: "MENU",

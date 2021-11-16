@@ -86,7 +86,7 @@ function PartnerRegister(props) {
     setCategoryOne(categoryOne)
     setCategoryTwo(categoryTwo)
    }
-  }, []);
+  }, [props.categories]);
 
   const onSubmitHandle = (data) => {
     console.log(data);

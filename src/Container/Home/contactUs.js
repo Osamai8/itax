@@ -37,10 +37,10 @@ function ContactUs(props) {
     RestApi.contactUs(data).then((res)=>{
       console.log(res)
       if(res.data.message){
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 5000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 5000,
+        // });
         setMessage(res.data.message)
       }
     })
