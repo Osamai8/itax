@@ -93,10 +93,10 @@ function PartnerRegister(props) {
     RestApi.register(data).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
         reset();
         //if get token after registration
         // props.dispatch({
@@ -108,22 +108,26 @@ function PartnerRegister(props) {
       if (res.data.error) {
         let { error } = res.data;
         //  console.log(err)
-        // setResponseError(err);
-        error.email &&
-          toast.error(error.email[0], {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
-        error.password &&
-          toast.error(error.password[0], {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
-        res.data.message &&
-          toast.error(res.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
+        let array = Object.entries(error).map((e) => {
+          console.log(e);
+          return { [e[0]]: e[1][0] };
+        });
+        setResponseError(array);
+        // error.email &&
+        //   toast.error(error.email[0], {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
+        // error.password &&
+        //   toast.error(error.password[0], {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
+        // res.data.message &&
+        //   toast.error(res.data.message, {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
 
         // alert(res.data.message);
       } else {
@@ -193,7 +197,7 @@ function PartnerRegister(props) {
                           <input
                             type="hidden"
                             {...register("register_as")}
-                            value=""
+                            value={registerType}
                           />
                           <input
                             type="hidden"
@@ -457,6 +461,20 @@ function PartnerRegister(props) {
                         Term & Condition
                       </a>
                     </div>
+                    <br/>
+                    {responseError.length > 0 &&
+              responseError.map((er) => {
+                console.log(er);
+                return (
+                  <div className="careerErrorMessage">
+                  
+                    {" "}
+                    <span className="alert alert-danger">
+                      {Object.values(er)}
+                    </span>
+                  </div>
+                );
+              })}
                   </fieldset>
                   <div className="sign-btn">
                     <button type="submit" name="sign_in" className="button col">

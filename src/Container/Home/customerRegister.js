@@ -37,6 +37,7 @@ const schema = Yup.object().shape({
 function CustomerRegister(props) {
   const history = useHistory();
   const [placeHolder, setPlaceHolder] = useState({});
+  const [responseError, setResponseError] = useState([]);
 
   useEffect(() => {
     RestApi.placeholder("customer-register").then((res) => {
@@ -60,10 +61,10 @@ function CustomerRegister(props) {
     RestApi.register(data).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 2000,
+        // });
         reset({ ...data, password: "", confirmPassword: "" });
         //if get token after registration
         // props.dispatch({
@@ -75,10 +76,14 @@ function CustomerRegister(props) {
       if (res.data.error) {
         let { error } = res.data;
         //  console.log(err)
-        // setResponseError(err);
-        error.email && toast.error(error.email[0]);
-        error.password && toast.error(error.password[0]);
-        res.data.message && toast.error(res.data.message);
+        let array = Object.entries(error).map((e) => {
+          console.log(e);
+          return { [e[0]]: e[1][0] };
+        });
+        setResponseError(array);
+        // error.email && toast.error(error.email[0]);
+        // error.password && toast.error(error.password[0]);
+        // res.data.message && toast.error(res.data.message);
 
         // alert(res.data.message);
       } else {
@@ -347,7 +352,20 @@ function CustomerRegister(props) {
                         </a>
                       </div>
                     </fieldset>
-
+                    <br/>
+                    {responseError.length > 0 &&
+              responseError.map((er) => {
+                console.log(er);
+                return (
+                  <div className="careerErrorMessage">
+                  
+                    {" "}
+                    <span className="alert alert-danger">
+                      {Object.values(er)}
+                    </span>
+                  </div>
+                );
+              })}
                     <div className="sign-btn">
                       <button type="submit" name="sign_in" className="button col">
                         Create Account
