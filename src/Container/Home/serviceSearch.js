@@ -291,7 +291,7 @@ class ServiceSearch extends Component {
                     <span
                       className="select-click-here "
                       onClick={() => {
-                        this.handleReset();
+                        this.handleSearch("");
                       }}
                     >
                       <u> click to view all services</u>{" "}
