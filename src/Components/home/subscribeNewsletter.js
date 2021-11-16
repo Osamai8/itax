@@ -15,6 +15,8 @@ const schema = yup.object().shape({
 });
 
 function Newsletter() {
+  const [message,setMessage]=useState("")
+  const [errorMessage,setErrorMessage]=useState("")
   const {
     register,
     handleSubmit,
@@ -33,22 +35,26 @@ function Newsletter() {
       console.log("subs", res);
 
       if (res.data.message && res.data.status == false) {
-        toast.error(res.data.message,{
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        // toast.error(res.data.message,{
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
+        setErrorMessage(res.data.message)
+        setMessage("")
       }
       if (res.data.message && res.data.status) {
-        reset()
+        reset();
+        setMessage(res.data.message)
+        setErrorMessage("")
         // console.log("subs", res.data.message);
         // toast.success(response.data.message, {
         //   position: toast.POSITION.TOP_CENTER,
         //   autoClose: 2000,
         // });
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
       }
     });
   };
@@ -137,6 +143,13 @@ function Newsletter() {
                       </span>
                     </button>
                   </div>
+                  {message.length > 0 && <div className=" m-10 subscirbeMessage col-md-10">
+                    <br/>
+                    <div className="alert alert-success">{message}</div>
+                    </div>}
+                    {errorMessage.length > 0 && <div className="m-10 subscirbeMessage col-md-10">
+                    <br/><div className="alert alert-danger">{errorMessage}</div>
+                    </div>}
                 </form>
               </div>
             </div>

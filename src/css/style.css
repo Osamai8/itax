@@ -3710,3 +3710,7 @@ transform: translateY(-2%);
   color: red;
   font-size: 11px;
 }
+.subscirbeMessage {
+  display: flex;
+  justify-content: center;
+}
