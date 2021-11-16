@@ -37,6 +37,7 @@ function ContactUs(props) {
     RestApi.contactUs(data).then((res)=>{
       console.log(res)
       if(res.data.message){
+        reset()
         // toast.success(res.data.message, {
         //   position: toast.POSITION.TOP_CENTER,
         //   autoClose: 5000,
@@ -206,7 +207,10 @@ function ContactUs(props) {
                     </div>
                     <div class="row" style={{ textAlign: "-webkit-center" }}>
                      {message.length > 0 && 
-                      <div className="alert alert-success">{message}</div>}
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div>
+                        }
                       <button class="button col" type="submit">
                         Submit
                       </button>

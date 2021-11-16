@@ -12,7 +12,7 @@ const schema = yup.object().shape({
     .required("Email is required"),
   first_name: yup.string().required("First Name is required"),
   // middle_name: yup.string().required("Name is required"),
-  // last_name: yup.string().required("Name is required"),
+  last_name: yup.string().required("Last Name is required"),
   position: yup.string().required("Position is required"),
   phone: yup
     .string()
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
   qualifications: yup.string().required("Qualification is required"),
   location: yup.string().required("Location is required"),
   total_experience: yup.string().required("Experiance is required"),
-  // attachment: yup.mixed().required('A file is required'),
+  attachment: yup.mixed().required('A file is required'),
   attachment: yup
     .mixed()
     .required("File is required")
@@ -35,8 +35,9 @@ const schema = yup.object().shape({
   //   value => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
 });
 
-export default function CareerFormModal() {
+export default function CareerFormModal(props) {
   const [message, setMessage] = useState("");
+  const [responseError, setResponseError] = useState([]);
   const {
     register,
     handleSubmit,
@@ -47,7 +48,18 @@ export default function CareerFormModal() {
   });
 
   const onSubmitHandle = (data) => {
-    console.log(data);
+    let form = new FormData();
+    for (var i in data) {
+      console.log("f0orm", data[i]);
+      if (i == "attachment") {
+        form.append(i, data[i][0]);
+        // form.append(i, data[i][0]);
+      }
+      else {
+        form.append(i, data[i]);
+      }
+    }
+    console.log("data",data);
     // data.attachment = data.attachment[0]
     RestApi.careerForm(data).then((res) => {
       console.log(res);
@@ -61,29 +73,34 @@ export default function CareerFormModal() {
         if (res.data.error) {
           let { error } = res.data;
           //  console.log(err)
-          // setResponseError(err);
-          error.attachment &&
-            toast.error(error.attachment[0], {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
-          error.qualifications &&
-            toast.error(error.qualifications[0], {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
-          res.data.message &&
-            toast.error(res.data.message, {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
+          let array = Object.entries(error).map((e) => {
+            console.log(e);
+            return { [e[0]]: e[1][0] };
+          });
+          setResponseError(array);
+
+          // error.attachment &&
+          //   toast.error(error.attachment[0], {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
+          // error.qualifications &&
+          //   toast.error(error.qualifications[0], {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
+          // res.data.message &&
+          //   toast.error(res.data.message, {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
 
           // alert(res.data.message);
         }
       }
     });
   };
-  console.log("errors", errors);
+  console.log("errors", responseError);
 
   const styles = {
     error: {
@@ -106,7 +123,7 @@ export default function CareerFormModal() {
             <div className="row">
               <div className="col col-10 carrer_oppr">
                 <h3 className="job-summary" style={{ marginLeft: "15px" }}>
-                  Position : Financial Analyst
+                  Position : {props.service.position}
                 </h3>
               </div>
             </div>
@@ -118,17 +135,22 @@ export default function CareerFormModal() {
                   <label className="input">
                     <i className="icon-append fa fa-envelope-o"></i>
                     <input
+                      type="hidden"  
+                      value={props.service.position} 
+                      {...register("position")}
+                    />
+                    <input
                       type="email"
                       placeholder="Email"
                       autocomplete="off"
                       style={errors["email"] && styles.error}
                       {...register("email")}
                     />
-                      {errors["email"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["email"].message}
-                        </span>
-                      )}
+                    {errors["email"] && (
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["email"].message}
+                      </span>
+                    )}
                   </label>
                   <label className="input">
                     <i className="icon-append fa fa-user-o"></i>
@@ -140,11 +162,11 @@ export default function CareerFormModal() {
                       style={errors["first_name"] && styles.error}
                       {...register("first_name")}
                     />
-                     {errors["first_name"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["first_name"].message}
-                        </span>
-                      )}
+                    {errors["first_name"] && (
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["first_name"].message}
+                      </span>
+                    )}
                   </label>
                   <label className="input">
                     <i className="icon-append fa fa-user-o"></i>
@@ -156,11 +178,11 @@ export default function CareerFormModal() {
                       style={errors["middle_name"] && styles.error}
                       {...register("middle_name")}
                     />
-                     {errors["middle_name"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["middle_name"].message}
-                        </span>
-                      )}
+                    {errors["middle_name"] && (
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["middle_name"].message}
+                      </span>
+                    )}
                   </label>
                   <label className="input">
                     <i className="icon-append fa fa-user-o"></i>
@@ -172,11 +194,11 @@ export default function CareerFormModal() {
                       style={errors["last_name"] && styles.error}
                       {...register("last_name")}
                     />
-                     {errors["last_name"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["email"].message}
-                        </span>
-                      )}
+                    {errors["last_name"] && (
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["last_name"].message}
+                      </span>
+                    )}
                   </label>
                   <label className="input">
                     <i className="icon-append fa fa-mobile"></i>
@@ -189,10 +211,10 @@ export default function CareerFormModal() {
                       {...register("phone")}
                     />
                     {errors["phone"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["phone"].message}
-                        </span>
-                      )}
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["phone"].message}
+                      </span>
+                    )}
                   </label>
 
                   <div className="row">
@@ -209,11 +231,11 @@ export default function CareerFormModal() {
                           style={errors["gender"] && styles.error}
                           {...register("gender")}
                         />
-                         {errors["gender"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["gender"].message}
-                        </span>
-                      )}
+                        {errors["gender"] && (
+                          <span style={{ color: "#bf1f24" }}>
+                            {errors["gender"].message}
+                          </span>
+                        )}
                       </label>
                       <label className="input">
                         <i className="icon-append fa fa-graduation-cap"></i>
@@ -226,10 +248,10 @@ export default function CareerFormModal() {
                           {...register("qualifications")}
                         />
                         {errors["qualifications"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["qualifications"].message}
-                        </span>
-                      )}
+                          <span style={{ color: "#bf1f24" }}>
+                            {errors["qualifications"].message}
+                          </span>
+                        )}
                       </label>
                     </div>
                     <div className="col-md-6" style={{ width: "46%" }}>
@@ -244,10 +266,10 @@ export default function CareerFormModal() {
                           {...register("location")}
                         />
                         {errors["location"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["location"].message}
-                        </span>
-                      )}
+                          <span style={{ color: "#bf1f24" }}>
+                            {errors["location"].message}
+                          </span>
+                        )}
                       </label>
                       <label className="input">
                         <i className="icon-append fa fa-briefcase"></i>
@@ -259,11 +281,11 @@ export default function CareerFormModal() {
                           style={errors["total_experience"] && styles.error}
                           {...register("total_experience")}
                         />
-                         {errors["total_experience"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["total_experience"].message}
-                        </span>
-                      )}
+                        {errors["total_experience"] && (
+                          <span style={{ color: "#bf1f24" }}>
+                            {errors["total_experience"].message}
+                          </span>
+                        )}
                       </label>
                     </div>
                   </div>
@@ -272,13 +294,18 @@ export default function CareerFormModal() {
                     <span style={{ color: "red" }}>
                       * (Only .doc /.docx / .pdf file allowed. Size: Max 2 MB)
                     </span>
-                    <input type="file" name="fileToUpload" id="fileToUpload" />
+                    <input
+                      type="file"
+                      {...register("attachment")}
+                      name="fileToUpload"
+                      id="fileToUpload"
+                    />
                     {errors["attachment"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["attachment"].message}
-                        </span>
-                      )}
-                </label>
+                      <span style={{ color: "#bf1f24" }}>
+                        {errors["attachment"].message}
+                      </span>
+                    )}
+                  </label>
                 </div>
               </div>
             </div>
@@ -287,6 +314,18 @@ export default function CareerFormModal() {
 
         <div className="form-group text-center mt-10">
           <center>
+            {responseError.length > 0 &&
+              responseError.map((er) => {
+                console.log(er);
+                return (
+                  <div className="careerErrorMessage">
+                    {" "}
+                    <span className="alert alert-danger">
+                      {Object.values(er)}
+                    </span>
+                  </div>
+                );
+              })}
             <button type="submit" className="button" style={{ margin: "0" }}>
               SUBMIT
             </button>
@@ -300,6 +339,7 @@ export default function CareerFormModal() {
 
 export const CareerPageForm = () => {
   const [message, setMessage] = useState("");
+  const [responseError, setResponseError] = useState([]);
   const {
     register,
     handleSubmit,
@@ -310,9 +350,20 @@ export const CareerPageForm = () => {
   });
 
   const onSubmitHandle = (data) => {
-    console.log(data);
     // data.attachment = data.attachment[0]
-    RestApi.careerForm(data).then((res) => {
+    let form = new FormData();
+    for (var i in data) {
+      // console.log("f0orm", data[i]);
+      if (i == "attachment") {
+        form.append(i, data[i][0]);
+        // form.append(i, data[i][0]);
+      }
+      else {
+        form.append(i, data[i]);
+      }
+    }
+    // console.log("console",form);
+    RestApi.careerForm(form).then((res) => {
       console.log(res);
       if (res.data.status) {
         toast.success(res.data.message, {
@@ -324,29 +375,33 @@ export const CareerPageForm = () => {
         if (res.data.error) {
           let { error } = res.data;
           //  console.log(err)
-          // setResponseError(err);
-          error.attachment &&
-            toast.error(error.attachment[0], {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
-          error.qualifications &&
-            toast.error(error.qualifications[0], {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
-          res.data.message &&
-            toast.error(res.data.message, {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 10000,
-            });
+          let array = Object.entries(error).map((e) => {
+            console.log(e);
+            return { [e[0]]: e[1][0] };
+          });
+          setResponseError(array);
+          // error.attachment &&
+          //   toast.error(error.attachment[0], {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
+          // error.qualifications &&
+          //   toast.error(error.qualifications[0], {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
+          // res.data.message &&
+          //   toast.error(res.data.message, {
+          //     position: toast.POSITION.TOP_CENTER,
+          //     autoClose: 10000,
+          //   });
 
           // alert(res.data.message);
         }
       }
     });
   };
-  console.log("errors", errors);
+  console.log("errors", responseError);
 
   const styles = {
     error: {
@@ -364,6 +419,7 @@ export const CareerPageForm = () => {
           id="sky-form"
           method="POST"
           className="sky-form"
+          encType="multipart/form-data"
         >
           <fieldset>
             <section>
@@ -460,7 +516,7 @@ export const CareerPageForm = () => {
                       />
                       {errors["last_name"] && (
                         <span style={{ color: "#bf1f24" }}>
-                          {errors["email"].message}
+                          {errors["last_name"].message}
                         </span>
                       )}
                     </label>
@@ -583,7 +639,18 @@ export const CareerPageForm = () => {
 
           <div className="form-group text-center mt-10">
             <center>
-              {" "}
+              {responseError.length > 0 &&
+                responseError.map((er) => {
+                  console.log(er);
+                  return (
+                    <div className="careerErrorMessage">
+                      {" "}
+                      <span className="alert alert-danger">
+                        {Object.values(er)}
+                      </span>
+                    </div>
+                  );
+                })}
               <button type="submit" className="button" style={{ margin: "0" }}>
                 SUBMIT
               </button>

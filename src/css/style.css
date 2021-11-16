@@ -2843,7 +2843,7 @@ button,
   display: block;
   left: 50%;
   margin-left: -9px;
-  margin-top: -9px;
+  margin-top: -7px;
   position: absolute;
   top: 50%;
   text-shadow: -1px -1px 0 rgb(0 0 0 / 30%);
@@ -3713,4 +3713,16 @@ transform: translateY(-2%);
 .subscirbeMessage {
   display: flex;
   justify-content: center;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  margin-left: 13px;
+}
+.careerErrorMessage{
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  text-align: center; 
+  font-size: 14px;
 }

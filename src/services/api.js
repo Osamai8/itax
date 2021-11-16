@@ -3,7 +3,7 @@
  * @description This file contains all the API methods which are used in the application
  */
 import axios from "axios";
-window.axios = axios;
+// window.axios = axios;
 var baseURL = "https://itaxadmin.idossapp.in/api/v1";
 
 let defaultToken;
@@ -118,10 +118,11 @@ export default class RestApi {
     return axios.post(`${baseURL}/contact-form/submit`, data);
   }
   static careerForm(data){
+   
     return axios.post(`${baseURL}/career-opportunities/apply`, data,{
       headers: {
-        "Content-Type": "multipart/form-data",
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     });
   }
 }
