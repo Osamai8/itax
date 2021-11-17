@@ -554,7 +554,7 @@ export default class newsletter extends Component {
                               className={
                                 this.state.paginateSeries != 1
                                   ? "page-link preview"
-                                  : "page-link preview disabled-pagi"
+                                  : "disabled-pagi"
                               }
                               aria-label="Previous"
                             >
@@ -577,7 +577,7 @@ export default class newsletter extends Component {
                                 this.state.paginateSeries + 10 <
                                 this.state.totalPages
                                   ? "page-link next"
-                                  : "page-link next disabled-pagi"
+                                  : "disabled-pagi"
                               }
                               aria-label="Next"
                             >

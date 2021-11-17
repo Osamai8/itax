@@ -1,3 +1,9 @@
+/**
+ * @author ArishArish
+ * @description This is the root file for modal pop up.
+ *  Requires isOpen, title, close callback,body
+ */
+
 import React, { useEffect } from 'react';
 
 export default function ModalRoot({isOpen,body,title,close,width}) {

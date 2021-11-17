@@ -173,7 +173,7 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div class="col col-10">
-                          <label class="input">
+                          <label className="input" style={{marginLeft:'2px'}}>
                             {/* <!-- <i class="icon-append fa fa-angle-down"></i> --> */}
                             <select
                               onChange={(e) => handleChange(e) }
@@ -209,7 +209,7 @@ function PartnerRegister(props) {
                             {...register("is_customer")}
                             value="no"
                           />
-                          <label className="input">
+                          <label className="input" style={{marginLeft:'2px'}}>
                             <i className="icon-append fa fa-envelope-o"></i>
                             <input
                               type="email"
@@ -234,7 +234,7 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input">
+                              <label className="input" style={{marginLeft:'2px'}}>
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   {...register("first_name")}
@@ -255,7 +255,7 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input">
+                              <label className="input" style={{marginLeft:'2px'}}>
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   {...register("middle_name")}
@@ -270,7 +270,7 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input">
+                              <label className="input" style={{marginLeft:'2px'}}>
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -288,7 +288,7 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input">
+                              <label className="input" style={{marginLeft:'2px'}}>
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -312,7 +312,7 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input">
+                              <label className="input" style={{marginLeft:'2px'}}>
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -331,7 +331,7 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input">
+                          <label className="input" style={{marginLeft:'2px'}}>
                             <i className="icon-append fa fa-mobile"></i>
                             <input
                               type="text"
@@ -353,7 +353,7 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input">
+                          <label className="input" style={{marginLeft:'2px'}}>
                             <i className="icon-append fa fa-lock"></i>
                             <input
                               {...register("password")}
@@ -373,7 +373,7 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input">
+                          <label className="input" style={{marginLeft:'2px'}}>
                             <i className="icon-append fa fa-lock"></i>
                             <input
                               {...register("passwordConfirmation")}
@@ -477,7 +477,7 @@ function PartnerRegister(props) {
               })}
                   </fieldset>
                   <div className="sign-btn">
-                    <button type="submit" name="sign_in" className="button col">
+                    <button style={{width:'96%',marginLeft:'2px'}} type="submit" name="sign_in" className="button col">
                       Create Account
                     </button>
                   </div>

@@ -11,12 +11,12 @@
 .Toastify__toast--success {
   background: #1c8503;
   color: #fff;
-  font-size:20px;
+  font-size: 20px;
 }
 .Toastify__toast--error {
   background: #bc2b07;
   color: #fff;
-  font-size:20px;
+  font-size: 20px;
 }
 .Toastify__zoom-enter {
   width: 38px;
@@ -231,7 +231,7 @@ body {
   background-image: linear-gradient(to bottom, #ffd200, #ffa200);
 }
 .readmore-if-greater-text {
-  margin-top:19px
+  margin-top: 19px;
 }
 .readmore:hover {
   font-size: 12px;
@@ -316,7 +316,7 @@ body {
 
 .login_register_box {
   box-shadow: 0 0 4px 3px #e9e9e9;
-  /* background-color: #fffafa; */
+  background-color: #fffafa;
 }
 .login_register_box h4 {
   margin-bottom: 20px;
@@ -527,6 +527,7 @@ body {
 }
 .sky-form section {
   margin-bottom: 12px;
+  margin-left: 12px;
 }
 .sky-form .row {
   margin: 0 -15px;
@@ -736,6 +737,7 @@ body {
   margin-bottom: 14px;
   padding: 14px 5px;
   box-shadow: 0 0 2px 1px #e9e9e9;
+  width: 94%;
 }
 .area_expertise h4 {
   margin-bottom: 10px;
@@ -888,7 +890,7 @@ body {
   text-decoration: none;
 }
 .cont-detail li a i {
-  color: #e1a71e ;
+  color: #e1a71e;
 }
 /* =-=--=-=-=-=-=-==-=-=-=-  2.4 Form   =-=-=-=-==-=-==-====-==-=- */
 
@@ -2740,7 +2742,7 @@ cite .by {
 }
 .newsletter.button {
   padding-right: 50px;
-  margin-top:8px
+  margin-top: 8px;
 }
 .button.save-btn {
   background-color: #e1a71e;
@@ -3260,7 +3262,7 @@ button,
                    Calendar Shedules Css Start From Here
 ===========================================================================*/
 .passed_date {
-  color: #b9b7bd;
+  color: #615e66;
 }
 .current_date {
   font-weight: 600 !important;
@@ -3604,7 +3606,7 @@ transform: translateY(-2%);
   height: 29px !important;
   margin-left: 30px !important;
 }
-.service-if-text{
+.service-if-text {
   height: 40px !important;
   margin-left: 30px !important;
 }
@@ -3618,95 +3620,102 @@ transform: translateY(-2%);
 .cal-form {
   border: 1px solid #fff;
 }
-.doc-li{
+.doc-li {
   width: 40px;
 }
 
-.download-pdf{
+.download-pdf {
   padding: 70px 97px;
 }
-.services_list ul li.searchHasService{
-  background-image:linear-gradient(to bottom, #ffe058, #f3f3e6)
+.services_list ul li.searchHasService {
+  background-image: linear-gradient(to bottom, #ffe058, #f3f3e6);
 }
-.case-law-view:hover{
+.case-law-view:hover {
   color: rgb(163, 85, 65);
 }
-.create-new-service{
+.create-new-service {
   width: 100%;
   text-align: center;
   margin-top: 0;
   text-align: center;
-  font-size: 15px!important;
+  font-size: 15px !important;
 }
-.pointer{
+.pointer {
   cursor: pointer;
 }
-.txt-center{
+.txt-center {
   text-align: center;
 }
-.search-btn{
+.search-btn {
   float: right;
 }
-.input-error{
-  color:#bf1f24
+.input-error {
+  color: #bf1f24;
 }
-.case-law-select{
+.case-law-select {
   width: 20%;
   display: inline;
   margin-right: 10px;
-  height: 38px;
+  height: 31px;
 }
 .case-search button {
   margin-left: 10px;
 }
-.anchor-link{
+.anchor-link {
   cursor: pointer;
 }
 .mt-10 {
   margin-top: 10px;
 }
-.showRecords{
-  width: 90px!important;
+.showRecords {
+  width: 90px !important;
   /* background-color: #fff; */
 }
 .showText {
   color: #000;
   margin-right: 5px;
 }
-.m-10{
+.m-10 {
   margin: 10px 0px;
 }
-.socialtop ul li .insta:hover{
-  background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+.socialtop ul li .insta:hover {
+  background: radial-gradient(
+    circle at 33% 100%,
+    #fed373 4%,
+    #f15245 30%,
+    #d92e7f 62%,
+    #9b36b7 85%,
+    #515ecf
+  );
   border: medium none;
   color: #ffffff !important;
 }
 .reg_btn {
   color: #fff !important;
-    position: relative;
-    top: 2px;
+  position: relative;
+  top: 2px;
 }
-.reg_btn i{
+.reg_btn i {
   color: #fff !important;
 }
 .select-click-here {
   cursor: pointer;
 }
-.serviceSearchResults{
+.serviceSearchResults {
   text-align: center;
-  margin-bottom: 12px ;
+  margin-bottom: 12px;
   /* margin-top: 12px ; */
 }
 .serviceSearchBox {
-  margin-top:12px;
+  margin-top: 12px;
 }
-.partner-btn{
-  width: 87%!important;
+.partner-btn {
+  width: 87% !important;
 }
-.s-search-icon{
-  border-left: 0px!important;
+.s-search-icon {
+  border-left: 0px !important;
 }
-.file-upload-msg{
+.file-upload-msg {
   color: red;
   font-size: 11px;
 }
@@ -3719,10 +3728,45 @@ transform: translateY(-2%);
   font-size: 14px;
   margin-left: 13px;
 }
-.careerErrorMessage{
+.careerErrorMessage {
   display: flex;
   justify-content: center;
   font-weight: 600;
-  text-align: center; 
+  text-align: center;
   font-size: 14px;
+}
+.disabled-pagi {
+  background-image: linear-gradient(180deg, #ffec9f, #ffbe4c) !important;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+  width: 70px;
+  height: 45px;
+  border-radius: 0 !important;
+  margin-right: 10px;
+  color: #aeabab !important;
+  line-height: 35px !important;
+}
+
+.case-law-btn {
+  bottom: 1px;
+}
+.bold {
+  font-weight: 600;
+}
+.faqAnswer {
+  margin-top: -9px;
+}
+.create_own_services {
+  width: -webkit-fill-available;
+  margin-top: 0;
+  color: #fff;
+  text-shadow: none;
+  background: #e1a71e;
+  padding: 1.5px;
+  display: inline-block;
+}
+.create_own_services h4 {
+  font-size: 16px !important;
+  display: inline-block;
 }

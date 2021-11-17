@@ -57,7 +57,7 @@ class Faq extends Component {
     })
   }
   handleSearch(e) {
-    let search = e.target.value
+    let search = e
     let data = []
     if(search.length > 0) { 
       // filterArray takes (array,keyword,and keys) parameters and returns search result
@@ -121,7 +121,7 @@ class Faq extends Component {
                               <i class="s-search-icon icon-append fa fa-search"></i>
                             
                             <input
-                              onChange={(e) => this.handleSearch(e)}
+                              onChange={(e) => this.handleSearch(e.target.value)}
                               type="text"
                               value={this.state.search}
                               placeholder="Search.."
@@ -155,6 +155,21 @@ class Faq extends Component {
                      })}
                    </div>
                  )} /> */}
+                 {search.length > 0 && Object.entries(services).length > 0 &&  (
+                          <div className="serviceSearchResults">
+                            {Object.entries(services).length} results found for
+                            search keyword "{search}".{" "}
+                            <span
+                              className="select-click-here "
+                              onClick={() => {
+                                this.handleSearch("");
+                              }}
+                            >
+                              <u> Click to view all services</u>
+                            </span>{" "}
+                            or search using some other keywords.{" "}
+                          </div>
+                        )}
                 {Object.entries(services).length > 0 ? Object.entries(services).map((each, key) => {
                   // console.log(each)
                  return <div key={key} role="tabpanel" class={` mt-10 tab-pane ${activeService == each[0] && 'active'}`}  id={each[0]}>
@@ -188,9 +203,9 @@ class Faq extends Component {
                                 <div class="panel-body">
                                   <div class="col-md-12">
                                    { item[1].map((i)=> {
-                                     return   (<> <h5>{i.question}</h5>
-                                      <p>{i.answer}</p>
-                                      </>)
+                                     return   (<div > <h5 className="bold">Q.{"  "}&nbsp; {i.question}</h5>
+                                      <p className="faqAnswer"><b>A.</b> {i.answer}</p> 
+                                      </div>)
                                    })
                                    
                                    }
@@ -202,7 +217,21 @@ class Faq extends Component {
                         })}
                     </div>
                   </div>;
-                }) :  <div className="txt-center"> <b>No such FAQ found</b></div>}
+                }) : 
+                <div className="serviceSearchResults">
+                {" "}
+                No search results found for the keyword "{search}". Try
+                using some other keywords or{" "}
+                <span
+                  className="select-click-here "
+                  onClick={() => {
+                    this.handleSearch("");
+                  }}
+                >
+                  <u> click to view all services</u>{" "}
+                </span>{" "}
+              </div>
+              }
               </div>
             </div>
           </div>

@@ -103,9 +103,9 @@ export default class ServiceDetails extends Component {
                     <p class="p-10 mb-0">{category.description}</p>
                     <div class="panel-group" id="accordion">
                       {services.length > 0 &&
-                        services.map((each) => {
+                        services.map((each, key) => {
                           return (
-                            <div class="panel panel-default">
+                            <div key={key} class="panel panel-default">
                               <a
                                 class="accordion-toggle"
                                 data-toggle="collapse"
@@ -121,7 +121,7 @@ export default class ServiceDetails extends Component {
                               </a>
                               <div
                                 id={`collapse${each.id}`}
-                                class="panel-collapse collapse in"
+                                class={`panel-collapse collapse ${key==0 && "in"} `}
                               >
                                 <div class="panel-body">
                                   <div class="col-md-1">
@@ -223,10 +223,10 @@ export default class ServiceDetails extends Component {
                 )}
 
                 <div class="col-md-4">
-                  <div class="mb-10">
-                    <a href="#" class="readmore create-new-service">
-                      Create Your Own Services
-                    </a>
+                <div class="mb-10">
+                  <a href="create_own_services.php" class="create_own_services">
+                    <i class="fa fa-gg" aria-hidden="true" style={{marginLeft: '14px'}}></i>&nbsp;<h4>Create Your Own Services</h4>
+                  </a>
                   </div>
                   <div class="servicebox">
                     <h3>Our Related Services</h3>

@@ -14,14 +14,14 @@ export default class CaseLaw extends Component {
       isOpen: false,
       data: [],
       columns: [
-        {key:'all',value:'All'},
-        {key:'under_law',value:'Under Law'},
-        {key:'under_section',value:'Under Section'},
-        {key:'case_name',value:'Case Name'},
-        {key:'case_number',value:'Case No.'},
-        {key:'citation',value:'Citation'},
-        {key:'date_of_order',value:'Date Of Order'},
-        {key:'keyword',value:'Keyword'},
+        { key: "all", value: "All" },
+        { key: "under_law", value: "Under Law" },
+        { key: "under_section", value: "Under Section" },
+        { key: "case_name", value: "Case Name" },
+        { key: "case_number", value: "Case No." },
+        { key: "citation", value: "Citation" },
+        { key: "date_of_order", value: "Date Of Order" },
+        { key: "keyword", value: "Keyword" },
       ],
       previewContent: "",
       previewHeading: "",
@@ -31,7 +31,10 @@ export default class CaseLaw extends Component {
       search: "",
       paginateSeries: 1,
       perPage: 10,
-      sNo:0,
+      sNo: 0,
+      isSearch: false,
+      keyword: "",
+      totalRecords: 0,
     };
   }
 
@@ -48,27 +51,38 @@ export default class CaseLaw extends Component {
     }
   }
   fetchData(pageNo) {
-    let { currentPage, selectedColumn, search,perPage } = this.state;
-    RestApi.caseLaw(pageNo, selectedColumn, search,perPage).then((res) => {
-      console.log(" case law: ", res);
-      //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
-      if (res.data.status && res.data.data.data) {
-        this.setState({
-          data: res.data.data.data,
-          currentPage: res.data.data.current_page,
-          totalPages: res.data.data.last_page,
-          sNo: res.data.sno,
-        });
-      }
-    }).catch((e)=>{
-      console.log("Error: ",e)
-      this.setState({
-        data: [],
-        currentPage: 1,
-        totalPages: 1,
-        sNo:0,
+    let { currentPage, selectedColumn, search, perPage } = this.state;
+    RestApi.caseLaw(pageNo, selectedColumn, search, perPage)
+      .then((res) => {
+        console.log(" case law: ", res);
+        //   let grouped = Common.groupBy(['Service_category_id'])(res.data.data);
+        if (res.data.status && res.data.data.data) {
+          let isSearch = false,
+            keyword = "";
+          if (search.length > 0) {
+            isSearch = true;
+            keyword = search;
+          }
+          this.setState({
+            data: res.data.data.data,
+            currentPage: res.data.data.current_page,
+            totalPages: res.data.data.last_page,
+            sNo: res.data.sno,
+            isSearch,
+            keyword,
+            totalRecords: res.data.data.total,
+          });
+        }
       })
-    })
+      .catch((e) => {
+        console.log("Error: ", e);
+        this.setState({
+          data: [],
+          currentPage: 1,
+          totalPages: 1,
+          sNo: 0,
+        });
+      });
   }
   handleClick(previewContent, previewHeading) {
     this.setState({
@@ -161,7 +175,7 @@ export default class CaseLaw extends Component {
   handleColumnChange(e) {
     this.setState({
       selectedColumn: e.target.value,
-      search:''
+      search: "",
     });
   }
   handleSearch(e) {
@@ -173,9 +187,26 @@ export default class CaseLaw extends Component {
     console.log("handleSubmit");
     this.fetchData(1);
   }
+  handleReset() {
+    this.setState({
+      search: "",
+    });
+   setTimeout(() => {
+    this.fetchData(1);
+   }, 20);
+  }
   render() {
     console.log("state", this.state);
-    let { sNo, data, columns,pageNo, selectedColumn } = this.state;
+    let {
+      sNo,
+      data,
+      columns,
+      pageNo,
+      totalRecords,
+      selectedColumn,
+      keyword,
+      isSearch,
+    } = this.state;
     console.log(data);
     return (
       <div>
@@ -207,49 +238,78 @@ export default class CaseLaw extends Component {
                     </select>
                     <input
                       onChange={(e) => this.handleSearch(e)}
-                      type={selectedColumn == 'date_of_order' ? "date" : "text"}
+                      type={selectedColumn == "date_of_order" ? "date" : "text"}
                       value={this.state.search}
-                      class={selectedColumn == 'date_of_order' ? 'date form-control inputpane':"form-control inputpane"}
-                      placeholder={selectedColumn == 'date_of_order' ? 'dd-mm-yyyy':"Search.."}
+                      class={
+                        selectedColumn == "date_of_order"
+                          ? "date form-control inputpane"
+                          : "form-control inputpane"
+                      }
+                      placeholder={
+                        selectedColumn == "date_of_order"
+                          ? "dd-mm-yyyy"
+                          : "Search.."
+                      }
                     />
-                    <button onClick={() => this.handleSubmit()}>search</button>
+                    <button
+                      className="case-law-btn"
+                      onClick={() => this.handleSubmit()}
+                    >
+                      search
+                    </button>
                   </div>
                   {/* <button class="but_feild button">search</button> */}
                 </div>
                 <div class="current-opening">
-                 {data.length > 0 ? <table class="table form-border text-center">
-                    <tbody>
-                      <tr class="job-summary">
-                        <td
-                          width="6%"
-                          class="cal-right-wht txt-center cal-header"
-                        >
-                          No.
-                        </td>
-                        <td width="11%" class="cal-right-wht txt-center">
-                          Law
-                        </td>
-                        <td width="9%" class="cal-right-wht txt-center">
-                          Section
-                        </td>
-                        <td width="18%" class="cal-right-wht txt-center">
-                          Case Name
-                        </td>
-                        <td width="10%" class="cal-right-wht txt-center">
-                          Case Number
-                        </td>
-                        <td width="8%" class="cal-right-wht txt-center">
-                          Order Date
-                        </td>
+                  {isSearch && (
+                    <div className="serviceSearchResults">
+                      {totalRecords} results found for search keyword "{keyword}
+                      ".{" "}
+                      <span
+                        className="select-click-here "
+                        onClick={() => {
+                          this.handleReset();
+                        }}
+                      >
+                        <u> Click to view all services</u>
+                      </span>{" "}
+                      or search using some other keywords.{" "}
+                    </div>
+                  )}
+                  {data.length > 0 && (
+                    <table class="table form-border text-center">
+                      <tbody>
+                        <tr class="job-summary">
+                          <td
+                            width="6%"
+                            class="cal-right-wht txt-center cal-header"
+                          >
+                            No.
+                          </td>
+                          <td width="11%" class="cal-right-wht txt-center">
+                            Law
+                          </td>
+                          <td width="9%" class="cal-right-wht txt-center">
+                            Section
+                          </td>
+                          <td width="18%" class="cal-right-wht txt-center">
+                            Case Name
+                          </td>
+                          <td width="10%" class="cal-right-wht txt-center">
+                            Case Number
+                          </td>
+                          <td width="8%" class="cal-right-wht txt-center">
+                            Order Date
+                          </td>
                           <td width="16%" class="cal-right-wht txt-center">
                             Citation
                           </td>
                           <td width="16%" class="cal-right-wht txt-center">
                             Keyword
                           </td>
-                        <td width="8%">Judgement</td>
-                      </tr>
-                      {data.map((each, key) => {
+                          <td width="8%">Judgement</td>
+                        </tr>
+                        {data.map((each, key) => {
                           return (
                             <tr>
                               <td>{++sNo}</td>
@@ -305,27 +365,30 @@ export default class CaseLaw extends Component {
                             </tr>
                           );
                         })}
-                    </tbody>
-                  </table>: <center><b>No such Case Law found</b></center>}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </div>
               <div className="col-md-12">
                 <nav className="blog-pagination">
-                
                   {data.length > 0 && (
-                    <ul className="pagination"> 
+                    <ul className="pagination">
                       <li className="page-item">
-                        
-                      <a className="page-link showRecords">
-                        <span className="showText">Show</span>
-                     <select onChange={(e)=>this.setState({perPage:e.target.value })}>
-                         <option value="10">10</option>
-                         <option value="20">20</option>
-                         <option value="30">30</option>
-                         <option value="40">40</option>
-                         <option value="50">50</option>
-                       </select>
-                      </a>
+                        <a className="page-link showRecords">
+                          <span className="showText">Show</span>
+                          <select
+                            onChange={(e) =>
+                              this.setState({ perPage: e.target.value })
+                            }
+                          >
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                          </select>
+                        </a>
                       </li>
                       <li className="page-item">
                         <a
@@ -340,7 +403,7 @@ export default class CaseLaw extends Component {
                           className={
                             this.state.paginateSeries != 1
                               ? "page-link preview"
-                              : "page-link preview disabled-pagi"
+                              : "disabled-pagi"
                           }
                           aria-label="Previous"
                         >
@@ -363,7 +426,7 @@ export default class CaseLaw extends Component {
                             this.state.paginateSeries + 10 <
                             this.state.totalPages
                               ? "page-link next"
-                              : "page-link next disabled-pagi"
+                              : "disabled-pagi"
                           }
                           aria-label="Next"
                         >

@@ -367,7 +367,7 @@ function CustomerRegister(props) {
                 );
               })}
                     <div className="sign-btn">
-                      <button type="submit" name="sign_in" className="button col">
+                      <button style={{width:'94%'}} type="submit" name="sign_in" className="button col">
                         Create Account
                       </button>
                     </div>

@@ -1,3 +1,7 @@
+/**
+ * @author ArishArish
+ * @description This file contains all the commonly methods
+ */
 export default class Common {
   static saveState(data, dashboard) {
     let userDetails = JSON.stringify(data);

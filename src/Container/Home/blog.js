@@ -17,29 +17,29 @@ export default class blog extends Component {
       totalPages: 1,
       monthlyArchives: [],
       blogsByCategory: [],
-      search: this.props.match.params.search ? this.props.match.params.search : "",
+      search: this.props.match.params.search
+        ? this.props.match.params.search
+        : "",
       month: "",
       year: "",
       cId: "",
-      paginateSeries:1
+      paginateSeries: 1,
+      isSearch: false, 
+      keyword:""
     };
   }
   componentDidMount() {
     let { currentPage, search, month, year, cId } = this.state;
-    if(this.props.match.params.search){
+    if (this.props.match.params.search) {
       this.fetchData(1, search, "", "", "");
-    }
-    else {
+    } else {
       this.fetchData(currentPage, search, month, year, cId);
     }
-   
   }
   componentDidUpdate(prevProps, prevState) {
-    let { currentPage, search, month, year, cId  } = this.state;
-    if (
-      prevState.currentPage != currentPage 
-    ) {
-      this.fetchData(currentPage, search, month, year, cId );
+    let { currentPage, search, month, year, cId } = this.state;
+    if (prevState.currentPage != currentPage) {
+      this.fetchData(currentPage, search, month, year, cId);
     }
   }
   fetchData(currentPage, search, month, year, cId) {
@@ -54,6 +54,11 @@ export default class blog extends Component {
           res.data.data.blog_list.prev_page_url.lastIndexOf("=") + 1,
           res.data.data.blog_list.prev_page_url.length
         );
+        let isSearch = false,keyword="";
+        if (search.length > 0) {
+          isSearch = true;
+          keyword = search
+        }
         this.setState({
           data: res.data.data.blog_list.data,
           totalPages: res.data.data.blog_list.last_page,
@@ -61,6 +66,8 @@ export default class blog extends Component {
           prevPage,
           monthlyArchives: res.data.data.months_archive,
           blogsByCategory: res.data.data.blogs_by_category,
+          isSearch,
+          keyword
         });
       } else if (res.data.status == false) {
         this.setState({
@@ -82,34 +89,34 @@ export default class blog extends Component {
       this.setState({ currentPage });
     }
   }
-  handlePagination(paginateSeries){
+  handlePagination(paginateSeries) {
     this.setState({
-      currentPage:paginateSeries,
-      paginateSeries
-    })
+      currentPage: paginateSeries,
+      paginateSeries,
+    });
   }
   pageNumbers() {
-    let { totalPages,currentPage,paginateSeries } = this.state;
+    let { totalPages, currentPage, paginateSeries } = this.state;
     let renderData = [];
-        if(totalPages > 10){
-          renderData.push(
-            <>
-              <li
-                onClick={() => this.handlePagination(1)}
-                className={
-                  this.state.currentPage == 1 ? "page-item active" : "page-item"
-                }
-              >
-                <a className="page-link">{"<<"}</a>
-              </li>
-            </>
-          );
-        }
-    let series = totalPages > 9 ? paginateSeries + 9 : totalPages
-       for (let i = paginateSeries; i <= series; i++) {
-         if(i >totalPages) {
-           break;
-         }
+    if (totalPages > 10) {
+      renderData.push(
+        <>
+          <li
+            onClick={() => this.handlePagination(1)}
+            className={
+              this.state.currentPage == 1 ? "page-item active" : "page-item"
+            }
+          >
+            <a className="page-link">{"<<"}</a>
+          </li>
+        </>
+      );
+    }
+    let series = totalPages > 9 ? paginateSeries + 9 : totalPages;
+    for (let i = paginateSeries; i <= series; i++) {
+      if (i > totalPages) {
+        break;
+      }
       renderData.push(
         <>
           <li
@@ -123,13 +130,15 @@ export default class blog extends Component {
         </>
       );
     }
-    if(totalPages > 10){
+    if (totalPages > 10) {
       renderData.push(
         <>
           <li
             onClick={() => this.handlePagination(totalPages - 10)}
             className={
-              this.state.currentPage == totalPages ? "page-item active" : "page-item"
+              this.state.currentPage == totalPages
+                ? "page-item active"
+                : "page-item"
             }
           >
             <a className="page-link">{">>"}</a>
@@ -137,22 +146,22 @@ export default class blog extends Component {
         </>
       );
     }
-  // else {
-  //   for (let i = currentPage ; i <= totalPages; i++) {
-  //     renderData.push(
-  //       <>
-  //         <li
-  //           onClick={() => this.changePage(i)}
-  //           className={
-  //             this.state.currentPage == i ? "page-item active" : "page-item"
-  //           }
-  //         >
-  //           <a className="page-link">{i}</a>
-  //         </li>
-  //       </>
-  //     );
-  //   }
-  // }
+    // else {
+    //   for (let i = currentPage ; i <= totalPages; i++) {
+    //     renderData.push(
+    //       <>
+    //         <li
+    //           onClick={() => this.changePage(i)}
+    //           className={
+    //             this.state.currentPage == i ? "page-item active" : "page-item"
+    //           }
+    //         >
+    //           <a className="page-link">{i}</a>
+    //         </li>
+    //       </>
+    //     );
+    //   }
+    // }
     return renderData;
   }
   handleSearch(e) {
@@ -160,25 +169,29 @@ export default class blog extends Component {
       search: e.target.value,
     });
   }
+  handleReset() {
+    this.setState({
+      search: "",
+    });
+    this.fetchData(1, "", "", "", "");
+  }
   handleSubmit(e) {
     e.preventDefault();
     let { currentPage, search, month, year, cId } = this.state;
-    this.fetchData(1, search, "", "", "" );
+    this.fetchData(1, search, "", "", "");
   }
-  handleBlogVariant = (month,year,cId) =>{
-    this.setState({ month,cId, search:'' })
-    this.fetchData(1, '', month, year, cId );
-  }
+  handleBlogVariant = (month, year, cId) => {
+    this.setState({ month, cId, search: "" });
+    this.fetchData(1, "", month, year, cId);
+  };
   render() {
     console.log("blog", this.state);
     let {
       monthlyArchives,
       blogsByCategory,
       data,
-      currentPage,
-      nextPage,
-      totalPages,
-      prevPage,
+      isSearch,
+      keyword  
     } = this.state;
     const styles = {
       display: {
@@ -200,6 +213,20 @@ export default class blog extends Component {
             <div className="row">
               <div className="col-lg-8">
                 <div className="blog_left_sidebar">
+                  {isSearch && (
+                   <div className="serviceSearchResults">
+                   {data.length} results found for search keyword "{keyword}".{" "}
+                   <span
+                     className="select-click-here "
+                     onClick={() => {
+                       this.handleReset();
+                     }}
+                   >
+                     <u> Click to view all services</u>
+                   </span>{" "}
+                   or search using some other keywords.{" "}
+                 </div>
+                  )}
                   {data.length > 0 &&
                     data.map((each, key) => {
                       return (
@@ -271,46 +298,55 @@ export default class blog extends Component {
                   </div>
                    
                   <hr />*/}
-                  {data.length > 0 ? (
+                  {data.length > 0 && (
                     <nav className="blog-pagination">
                       <ul className="pagination">
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                          // this.state.currentPage != 1 &&
-                          this.handlePagination(this.state.paginateSeries > 10 ? this.state.paginateSeries - 10 : 1 )
-                        }
-                        className={
-                          this.state.paginateSeries != 1
-                            ? "page-link preview"
-                            : "page-link preview disabled-pagi"
-                        }
-                        aria-label="Previous"
-                      >
-                        <i className="fa fa-angle-double-left"></i> Prev.
-                      </a>
-                    </li>
-                    {this.pageNumbers()}
-                    <li className="page-item">
-                      <a
-                        onClick={() =>
-                         
-                          this.handlePagination( this.state.paginateSeries + 10 < this.state.totalPages ? this.state.paginateSeries + 10 : this.state.paginateSeries  )
-                        }
-                        disabled
-                        className={
-                          this.state.paginateSeries + 10 < this.state.totalPages
-                            ? "page-link next"
-                            : "page-link next disabled-pagi"
-                        }
-                        aria-label="Next"
-                      >
-                        Next <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
+                        <li className="page-item">
+                          <a
+                            onClick={() =>
+                              // this.state.currentPage != 1 &&
+                              this.handlePagination(
+                                this.state.paginateSeries > 10
+                                  ? this.state.paginateSeries - 10
+                                  : 1
+                              )
+                            }
+                            className={
+                              this.state.paginateSeries != 1
+                                ? "page-link preview"
+                                : "disabled-pagi"
+                            }
+                            aria-label="Previous"
+                          >
+                            <i className="fa fa-angle-double-left"></i> Prev.
+                          </a>
+                        </li>
+                        {this.pageNumbers()}
+                        <li className="page-item">
+                          <a
+                            onClick={() =>
+                              this.handlePagination(
+                                this.state.paginateSeries + 10 <
+                                  this.state.totalPages
+                                  ? this.state.paginateSeries + 10
+                                  : this.state.paginateSeries
+                              )
+                            }
+                            disabled
+                            className={
+                              this.state.paginateSeries + 10 <
+                              this.state.totalPages
+                                ? "page-link next"
+                                : "disabled-pagi"
+                            }
+                            aria-label="Next"
+                          >
+                            Next <i className="fa fa-angle-double-right"></i>
+                          </a>
+                        </li>
+                      </ul>
                     </nav>
-                  ) :<center><b> No such Blog found</b></center>}
+                  ) }
                 </div>
               </div>
               <div className="col-lg-4">
@@ -355,8 +391,16 @@ export default class blog extends Component {
                         blogsByCategory.map((each, key) => {
                           return (
                             <li>
-                              <a onClick={() =>this.handleBlogVariant('','',each.category_id)}
-                                className="d-flex anchor-link">
+                              <a
+                                onClick={() =>
+                                  this.handleBlogVariant(
+                                    "",
+                                    "",
+                                    each.category_id
+                                  )
+                                }
+                                className="d-flex anchor-link"
+                              >
                                 <p>{each.category_name}</p>
                                 <p>{`(${each.total_count})`}</p>
                               </a>
@@ -385,7 +429,13 @@ export default class blog extends Component {
                           return (
                             <li key={key}>
                               <a
-                                onClick={() => this.handleBlogVariant(each.month,each.year,'') }
+                                onClick={() =>
+                                  this.handleBlogVariant(
+                                    each.month,
+                                    each.year,
+                                    ""
+                                  )
+                                }
                                 className="d-flex anchor-link"
                               >
                                 <p>{`${month} ${year} `}</p>
