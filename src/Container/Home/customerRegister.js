@@ -16,7 +16,7 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email ")
     .required("Email is required"),
-  first_name: Yup.string().required("First name is required"),
+  // first_name: Yup.string().required("First name is required"),
   agree: Yup.boolean().oneOf([true]),
 
   phone: Yup.string()
@@ -38,6 +38,7 @@ function CustomerRegister(props) {
   const history = useHistory();
   const [placeHolder, setPlaceHolder] = useState({});
   const [responseError, setResponseError] = useState([]);
+  const [registerType, setRegisterType] = useState("Individual");
 
   useEffect(() => {
     RestApi.placeholder("customer-register").then((res) => {
@@ -51,14 +52,22 @@ function CustomerRegister(props) {
     handleSubmit,
     formState: { errors },
     reset,
+    getValues,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmitHandle = (data) => {
     console.log(data);
-
-    RestApi.register(data).then((res) => {
+    let form = new FormData();
+    for (var i in data) {
+      form.append(i, data[i]);
+    }
+    if (registerType != "Individual") {
+      form.append("first_name", getValues("company_name"));
+    }
+    RestApi.register(form).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
         // toast.success(res.data.message, {
@@ -92,12 +101,17 @@ function CustomerRegister(props) {
       }
     });
   };
-
+  const handleChange = (e) => {
+    setRegisterType(e.target.value);
+    setValue("register_as", e.target.value);
+    console.log(getValues("register_as"));
+  };
   const styles = {
     error: {
       borderColor: "#bf1f24",
     },
   };
+  console.log(errors)
 
   return (
     <div>
@@ -123,14 +137,52 @@ function CustomerRegister(props) {
                   >
                     <fieldset>
                       <section>
-                        <br />
+                        <div class="row">
+                          <div class="col col-10">
+                            <label class="input">
+                              <select
+                                onChange={(e) => handleChange(e)}
+                                id="register"
+                                class="customer-register-type form-control selectpicker customer_down_arrow"
+                                data-style="btn-white"
+                              >
+                                <option selected="1" disabled>
+                                  Register As
+                                </option>
+                                <option
+                                  selected={
+                                    registerType == "Individual" && "selected"
+                                  }
+                                  value="Individual"
+                                >
+                                  Individual
+                                </option>
+                                <option
+                                  selected={
+                                    registerType == "Company" && "selected"
+                                  }
+                                  value="Company"
+                                >
+                                  Company
+                                </option>
+                                <option
+                                  selected={
+                                    registerType == "Partner" && "selected"
+                                  }
+                                  value="Partner"
+                                >
+                                  Partner
+                                </option>
+                              </select>
+                            </label>
+                          </div>
+                        </div>
+                      </section>
+                      <section>
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-envelope-o"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-envelope-o"></i>
                               {/* {errors["email"] && (
                                 <>
                                   <br />
@@ -145,6 +197,11 @@ function CustomerRegister(props) {
                                 {...register("is_customer")}
                                 value="yes"
                                 autocomplete="off"
+                              />
+                              <input
+                                type="hidden"
+                                {...register("is_service_provider")}
+                                value="no"
                               />
                               <input
                                 style={errors["email"] && styles.error}
@@ -162,14 +219,13 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
+                      {registerType == "Individual" ? (
+                        <>
                       <section>
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-user-o"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-user-o"></i>
                               <input
                                 style={errors["first_name"] && styles.error}
                                 type="text"
@@ -190,10 +246,7 @@ function CustomerRegister(props) {
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-user-o"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-user-o"></i>
 
                               <input
                                 type="text"
@@ -210,19 +263,7 @@ function CustomerRegister(props) {
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-user-o"
-                                
-                              ></i>
-                              {/* {errors["last_name"] && (
-                                <>
-                                  <br />
-                                  <p className="alert-danger alert">
-                                    {" "}
-                                    {errors["last_name"]?.message}
-                                  </p>
-                                </>
-                              )} */}
+                              <i className="icon-append fa fa-user-o"></i>
                               <input
                                 type="text"
                                 placeholder="Last Name"
@@ -234,14 +275,57 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
+                      </>
+                      ) :  <>
+                      <section>
+                        <div className="row">
+                          <div className="col col-10">
+                            <label
+                              className="input" 
+                            >
+                              <i className="icon-append fa fa-user-o"></i>
+                              <input
+                                type="text"
+                                {...register("company_name")}
+                                placeholder="Company Name"
+                                autocomplete="off"
+                              />
+                              {/* extra */}
+                              {/* <input
+                                type="hidden"
+                                {...register("first_name")}
+                                value={getValues("company_name")}
+                                placeholder="Company Name"
+                                autocomplete="off"
+                              /> */}
+                              {/* extra */}
+                            </label>
+                          </div>
+                        </div>
+                      </section>
+                      <section>
+                        <div className="row">
+                          <div className="col col-10">
+                            <label
+                              className="input"
+                            >
+                              <i className="icon-append fa fa-user-o"></i>
+                              <input
+                                type="text"
+                                {...register("sign_in_authority")}
+                                placeholder="Sign In Authority"
+                                autocomplete="off"
+                              />
+                            </label>
+                          </div>
+                        </div>
+                      </section>
+                    </>}
                       <section>
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-mobile"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-mobile"></i>
                               {/* {errors["phone"] && (
                                 <>
                                   <br />
@@ -271,10 +355,7 @@ function CustomerRegister(props) {
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-lock"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-lock"></i>
                               {/* {errors["password"] && (
                                 <>
                                   <br />
@@ -304,10 +385,7 @@ function CustomerRegister(props) {
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
-                              <i
-                                className="icon-append fa fa-lock"
-                                
-                              ></i>
+                              <i className="icon-append fa fa-lock"></i>
                               {/* {errors["confirmPassword"] && (
                                 <>
                                   <br />
@@ -335,7 +413,10 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <div style={{marginLeft:'13px'}} className="chkbox-group">
+                      <div
+                        style={{ marginLeft: "13px" }}
+                        className="chkbox-group"
+                      >
                         <input
                           type="checkbox"
                           name="agree"
@@ -352,28 +433,37 @@ function CustomerRegister(props) {
                         </a>
                       </div>
                     </fieldset>
-                    <br/>
+                    <br />
                     {responseError.length > 0 &&
-              responseError.map((er) => {
-                console.log(er);
-                return (
-                  <div className="careerErrorMessage">
-                  
-                    {" "}
-                    <span className="alert alert-danger">
-                      {Object.values(er)}
-                    </span>
-                  </div>
-                );
-              })}
+                      responseError.map((er) => {
+                        console.log(er);
+                        return (
+                          <div className="careerErrorMessage">
+                            {" "}
+                            <span className="alert alert-danger">
+                              {Object.values(er)}
+                            </span>
+                          </div>
+                        );
+                      })}
                     <div className="sign-btn">
-                      <button style={{width:'88%', marginLeft:'13px'}} type="submit" name="sign_in" className="button col">
+                      <button
+                        style={{ width: "88%", marginLeft: "13px" }}
+                        type="submit"
+                        name="sign_in"
+                        className="button col"
+                      >
                         Create Account
                       </button>
                     </div>
                   </form>
-                  <div style={{marginLeft: '13px'}} className="login-footer clearfix">
-                    <p className="pull-left cust_log">Already have an account?</p>
+                  <div
+                    style={{ marginLeft: "13px" }}
+                    className="login-footer clearfix"
+                  >
+                    <p className="pull-left cust_log">
+                      Already have an account?
+                    </p>
                     <Link
                       to="/login"
                       className="btn btn-login pull-right cust_login"

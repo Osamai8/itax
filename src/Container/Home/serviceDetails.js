@@ -16,6 +16,7 @@ export default class ServiceDetails extends Component {
       relatedServices: [],
       applyForm: false,
       activeService: {},
+      serviceInView:0
     };
   }
   componentDidMount() {
@@ -77,6 +78,7 @@ export default class ServiceDetails extends Component {
       relatedServices,
       applyForm,
       activeService,
+      serviceInView,
     } = this.state;
     return (
       <>
@@ -112,7 +114,8 @@ export default class ServiceDetails extends Component {
                                 data-parent="#accordion"
                                 href={`#collapse${each.id}`}
                               >
-                                <div class={`panel-heading`}>
+                                <div class={`panel-heading ${serviceInView == key && 'panel-heading-active'}`}
+                                onClick={()=>this.setState({serviceInView:key})}>
                                   <h4 class="panel-title">
                                     <i class="fa fa-gg" aria-hidden="true"></i>{" "}
                                     {each.service_name}

@@ -908,10 +908,11 @@ body {
   padding: 5px 8px;
 }
 .customer_down_arrow {
-  /* background-image: url("../../image/down-arrow.png"); */
+  background-image: url(../images/down-arrow.png);
   background-repeat: no-repeat;
   background-position: calc(100% - 1rem);
   font: 14px/19px "Open Sans", Helvetica, Arial, sans-serif;
+  -webkit-appearance: none;
 }
 .is_comapny {
   display: none;
@@ -3783,4 +3784,7 @@ transform: translateY(-2%);
 }
 .not-hover{
   color: #444!important;
+}
+.customer-register-type{
+  width: 95.6%;
 }

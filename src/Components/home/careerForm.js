@@ -117,6 +117,7 @@ export default function CareerFormModal(props) {
         className="sky-form"
         // action="https://itaxdoctor.idossapp.com/index.php/Itax/user_login"
         novalidate="novalidate"
+        encType="multipart/form-data"
       >
         <fieldset>
           <section>
@@ -349,20 +350,18 @@ export const CareerPageForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitHandle = (data) => {
-    // data.attachment = data.attachment[0]
+  const onSubmitHandle = (data) => { 
     let form = new FormData();
     for (var i in data) {
       // console.log("f0orm", data[i]);
       if (i == "attachment") {
-        form.append(i, data[i][0]);
-        // form.append(i, data[i][0]);
+        form.append(i, data[i][0]); 
       }
       else {
         form.append(i, data[i]);
       }
-    }
-    // console.log("console",form);
+    } 
+    
     RestApi.careerForm(form).then((res) => {
       console.log(res);
       if (res.data.status) {
@@ -399,7 +398,9 @@ export const CareerPageForm = () => {
           // alert(res.data.message);
         }
       }
-    });
+    }).catch((e)=>{
+      console.log("Error",e)
+    });;
   };
   console.log("errors", responseError);
 

@@ -52,10 +52,9 @@ function PartnerRegister(props) {
   const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
   const [registerType, setRegisterType] = useState("Individual");
-  const [categoryOne,setCategoryOne] = useState([])
-  const [categoryTwo,setCategoryTwo] = useState([])
-  const [areaOfExpertise,setAreaOfExpertise] = useState([])
-
+  const [categoryOne, setCategoryOne] = useState([]);
+  const [categoryTwo, setCategoryTwo] = useState([]);
+  const [areaOfExpertise, setAreaOfExpertise] = useState([]);
 
   const {
     register,
@@ -73,37 +72,36 @@ function PartnerRegister(props) {
       console.log("placeHolder: business-partner-register: ", res);
       setPlaceHolder(res.data.data);
     });
-    let categoryOne = []
-    let categoryTwo = []
-    
-   if(props.categories && props.categories.length > 0) {
-    let middle = props.categories.length / 2
+    let categoryOne = [];
+    let categoryTwo = [];
 
-    props.categories.map((each,i)=> {
-     
-      if (i <= parseInt(middle)) {
-        categoryOne.push(each);
-      } else {
-        categoryTwo.push(each);
-      }
-    })
-    setCategoryOne(categoryOne)
-    setCategoryTwo(categoryTwo)
-   }
+    if (props.categories && props.categories.length > 0) {
+      let middle = props.categories.length / 2;
+
+      props.categories.map((each, i) => {
+        if (i <= parseInt(middle)) {
+          categoryOne.push(each);
+        } else {
+          categoryTwo.push(each);
+        }
+      });
+      setCategoryOne(categoryOne);
+      setCategoryTwo(categoryTwo);
+    }
   }, [props.categories]);
 
   const onSubmitHandle = (data) => {
     console.log(data);
     let form = new FormData();
     for (var i in data) {
-      // console.log("form", data[i]);   
-        form.append(i, data[i]);
+      // console.log("form", data[i]);
+      form.append(i, data[i]);
     }
     // console.log('area_of_expertise',areaOfExpertise)
-    
-    form.append('area_of_expertise',areaOfExpertise)
-    if(registerType != "Individual"){
-      form.append('first_name',getValues("company_name"))
+
+    form.append("area_of_expertise", areaOfExpertise);
+    if (registerType != "Individual") {
+      form.append("first_name", getValues("company_name"));
     }
     RestApi.register(form).then((res) => {
       console.log("resss", res);
@@ -151,30 +149,29 @@ function PartnerRegister(props) {
       }
     });
   };
-  const handleCheckbox=(e)=>{
-    let checkboxes = areaOfExpertise
-    console.log(e.target.checked)
-    if(e.target.checked){
-      checkboxes.push(e.target.value)
-      setAreaOfExpertise(checkboxes)
-    }else {
-    let filter = checkboxes.filter((i)=> i !=e.target.value)
-    setAreaOfExpertise(filter)
-
+  const handleCheckbox = (e) => {
+    let checkboxes = areaOfExpertise;
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      checkboxes.push(e.target.value);
+      setAreaOfExpertise(checkboxes);
+    } else {
+      let filter = checkboxes.filter((i) => i != e.target.value);
+      setAreaOfExpertise(filter);
     }
-    console.log(areaOfExpertise)
-  }
+    console.log(areaOfExpertise);
+  };
   console.log(errors);
   const styles = {
     error: {
       borderColor: "#bf1f24",
     },
   };
-  const handleChange =(e)=> {
-    setRegisterType(e.target.value)
-    setValue("register_as", e.target.value)
-   console.log( getValues("register_as"))
-  }
+  const handleChange = (e) => {
+    setRegisterType(e.target.value);
+    setValue("register_as", e.target.value);
+    console.log(getValues("register_as"));
+  };
   return (
     <div>
       <Header />
@@ -201,19 +198,47 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div class="col col-10">
-                          <label className="input" style={{marginLeft:'2px'}}>
+                          <label
+                            className="input"
+                            style={{ marginLeft: "2px" }}
+                          >
                             {/* <!-- <i class="icon-append fa fa-angle-down"></i> --> */}
                             <select
-                              onChange={(e) => handleChange(e) }
+                              onChange={(e) => handleChange(e)}
                               id="register"
                               // {...register("register_as")}
                               class="form-control selectpicker customer_down_arrow"
                               data-style="btn-white"
                               style={{ width: "96%" }}
                             >
-                              <option selected={registerType == "Individual" && "selected"} value="Individual">Individual</option>
-                              <option selected={registerType == "Company" && "selected"} value="Company">Company</option>
-                              <option selected={registerType == "Partner" && "selected"} value="Partner">Partner</option>
+                              {" "}
+                              <option selected="1" disabled>
+                                Register As
+                              </option>
+                              <option
+                                selected={
+                                  registerType == "Individual" && "selected"
+                                }
+                                value="Individual"
+                              >
+                                Individual
+                              </option>
+                              <option
+                                selected={
+                                  registerType == "Company" && "selected"
+                                }
+                                value="Company"
+                              >
+                                Company
+                              </option>
+                              <option
+                                selected={
+                                  registerType == "Partner" && "selected"
+                                }
+                                value="Partner"
+                              >
+                                Partner
+                              </option>
                             </select>
                           </label>
                         </div>
@@ -237,7 +262,10 @@ function PartnerRegister(props) {
                             {...register("is_customer")}
                             value="no"
                           />
-                          <label className="input" style={{marginLeft:'2px'}}>
+                          <label
+                            className="input"
+                            style={{ marginLeft: "2px" }}
+                          >
                             <i className="icon-append fa fa-envelope-o"></i>
                             <input
                               type="email"
@@ -262,7 +290,10 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input" style={{marginLeft:'2px'}}>
+                              <label
+                                className="input"
+                                style={{ marginLeft: "2px" }}
+                              >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   {...register("first_name")}
@@ -283,7 +314,10 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input" style={{marginLeft:'2px'}}>
+                              <label
+                                className="input"
+                                style={{ marginLeft: "2px" }}
+                              >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   {...register("middle_name")}
@@ -298,7 +332,10 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input" style={{marginLeft:'2px'}}>
+                              <label
+                                className="input"
+                                style={{ marginLeft: "2px" }}
+                              >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -316,7 +353,10 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input" style={{marginLeft:'2px'}}>
+                              <label
+                                className="input"
+                                style={{ marginLeft: "2px" }}
+                              >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -340,7 +380,10 @@ function PartnerRegister(props) {
                         <section>
                           <div className="row">
                             <div className="col col-10">
-                              <label className="input" style={{marginLeft:'2px'}}>
+                              <label
+                                className="input"
+                                style={{ marginLeft: "2px" }}
+                              >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
                                   type="text"
@@ -359,7 +402,10 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input" style={{marginLeft:'2px'}}>
+                          <label
+                            className="input"
+                            style={{ marginLeft: "2px" }}
+                          >
                             <i className="icon-append fa fa-mobile"></i>
                             <input
                               type="text"
@@ -381,7 +427,10 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input" style={{marginLeft:'2px'}}>
+                          <label
+                            className="input"
+                            style={{ marginLeft: "2px" }}
+                          >
                             <i className="icon-append fa fa-lock"></i>
                             <input
                               {...register("password")}
@@ -401,7 +450,10 @@ function PartnerRegister(props) {
                     <section>
                       <div class="row">
                         <div className="col col-10">
-                          <label className="input" style={{marginLeft:'2px'}}>
+                          <label
+                            className="input"
+                            style={{ marginLeft: "2px" }}
+                          >
                             <i className="icon-append fa fa-lock"></i>
                             <input
                               {...register("passwordConfirmation")}
@@ -424,18 +476,25 @@ function PartnerRegister(props) {
                     <div className="area_expertise clearfix">
                       <h4>Area of expertise</h4>
                       {errors["area_of_expertise"] && (
-                              <span style={{ color: "#bf1f24" }}>
-                                {errors["area_of_expertise"].message}
-                              </span>
-                            )}
+                        <span style={{ color: "#bf1f24" }}>
+                          {errors["area_of_expertise"].message}
+                        </span>
+                      )}
                       <div className="expertise_left">
-                       {categoryOne.length > 0 && 
-                       categoryOne.map((e)=> {
-                         return <div className="chkbox-group">
-                         <input type="checkbox" onChange={(e)=>handleCheckbox(e)} name="area_of_expertise[]" value={e.id} />
-                         <a href="#">{e.category_name}</a>
-                       </div>
-                       }) }
+                        {categoryOne.length > 0 &&
+                          categoryOne.map((e) => {
+                            return (
+                              <div className="chkbox-group">
+                                <input
+                                  type="checkbox"
+                                  onChange={(e) => handleCheckbox(e)}
+                                  name="area_of_expertise[]"
+                                  value={e.id}
+                                />
+                                <a href="#">{e.category_name}</a>
+                              </div>
+                            );
+                          })}
                         {/* <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">Corporate Advisory</a>
@@ -450,13 +509,19 @@ function PartnerRegister(props) {
                         </div> */}
                       </div>
                       <div className="expertise_right">
-                       {categoryTwo.length > 0 &&
-                       categoryTwo.map((e)=> {
-                        return <div className="chkbox-group">
-                        <input type="checkbox"name="area_of_expertise[]" value={e.id}  />
-                        <a href="#">{e.category_name}</a>
-                      </div>
-                      }) }
+                        {categoryTwo.length > 0 &&
+                          categoryTwo.map((e) => {
+                            return (
+                              <div className="chkbox-group">
+                                <input
+                                  type="checkbox"
+                                  name="area_of_expertise[]"
+                                  value={e.id}
+                                />
+                                <a href="#">{e.category_name}</a>
+                              </div>
+                            );
+                          })}
                         {/* <div className="chkbox-group">
                           <input type="checkbox" name="agree" />
                           <a href="#">International Taxation</a>
@@ -469,7 +534,6 @@ function PartnerRegister(props) {
                           <input type="checkbox" name="agree" />
                           <a href="#">Foreign Company Setup in India</a>
                         </div> */}
-                       
                       </div>
                     </div>
 
@@ -489,23 +553,27 @@ function PartnerRegister(props) {
                         Term & Condition
                       </a>
                     </div>
-                    <br/>
+                    <br />
                     {responseError.length > 0 &&
-              responseError.map((er) => {
-                console.log(er);
-                return (
-                  <div className="careerErrorMessage">
-                  
-                    {" "}
-                    <span className="alert alert-danger">
-                      {Object.values(er)}
-                    </span>
-                  </div>
-                );
-              })}
+                      responseError.map((er) => {
+                        console.log(er);
+                        return (
+                          <div className="careerErrorMessage">
+                            {" "}
+                            <span className="alert alert-danger">
+                              {Object.values(er)}
+                            </span>
+                          </div>
+                        );
+                      })}
                   </fieldset>
                   <div className="sign-btn">
-                    <button style={{width:'92%',marginLeft:'2px'}} type="submit" name="sign_in" className="button col">
+                    <button
+                      style={{ width: "92%", marginLeft: "2px" }}
+                      type="submit"
+                      name="sign_in"
+                      className="button col"
+                    >
                       Create Account
                     </button>
                   </div>
