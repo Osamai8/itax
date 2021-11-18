@@ -266,7 +266,7 @@ export function DownloadForm() {
                   <Link to="/case-law">
                     {" "}
                     <li>
-                      <i className="fa fa-file-video-o"></i>Case Law
+                      <i className="fa fa-briefcase"></i>Case Law
                     </li>
                   </Link>
                 </a>

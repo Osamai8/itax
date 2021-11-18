@@ -214,7 +214,7 @@ class ServiceSearch extends Component {
                                 this.handleSearch("");
                               }}
                             >
-                              <u> Click to view all services</u>
+                              Click to view all services 
                             </span>{" "}
                             or search using some other keywords.{" "}
                           </div>

@@ -112,7 +112,7 @@ export default class ServiceDetails extends Component {
                                 data-parent="#accordion"
                                 href={`#collapse${each.id}`}
                               >
-                                <div class="panel-heading panel-heading-active">
+                                <div class={`panel-heading`}>
                                   <h4 class="panel-title">
                                     <i class="fa fa-gg" aria-hidden="true"></i>{" "}
                                     {each.service_name}

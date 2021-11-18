@@ -335,7 +335,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <div className="chkbox-group">
+                      <div style={{marginLeft:'13px'}} className="chkbox-group">
                         <input
                           type="checkbox"
                           name="agree"
@@ -367,12 +367,12 @@ function CustomerRegister(props) {
                 );
               })}
                     <div className="sign-btn">
-                      <button style={{width:'94%'}} type="submit" name="sign_in" className="button col">
+                      <button style={{width:'88%', marginLeft:'13px'}} type="submit" name="sign_in" className="button col">
                         Create Account
                       </button>
                     </div>
                   </form>
-                  <div className="login-footer clearfix">
+                  <div style={{marginLeft: '13px'}} className="login-footer clearfix">
                     <p className="pull-left cust_log">Already have an account?</p>
                     <Link
                       to="/login"

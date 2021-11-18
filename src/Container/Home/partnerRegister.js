@@ -54,6 +54,7 @@ function PartnerRegister(props) {
   const [registerType, setRegisterType] = useState("Individual");
   const [categoryOne,setCategoryOne] = useState([])
   const [categoryTwo,setCategoryTwo] = useState([])
+  const [areaOfExpertise,setAreaOfExpertise] = useState([])
 
 
   const {
@@ -76,8 +77,11 @@ function PartnerRegister(props) {
     let categoryTwo = []
     
    if(props.categories && props.categories.length > 0) {
+    let middle = props.categories.length / 2
+
     props.categories.map((each,i)=> {
-      if (i <= 9) {
+     
+      if (i <= parseInt(middle)) {
         categoryOne.push(each);
       } else {
         categoryTwo.push(each);
@@ -90,7 +94,18 @@ function PartnerRegister(props) {
 
   const onSubmitHandle = (data) => {
     console.log(data);
-    RestApi.register(data).then((res) => {
+    let form = new FormData();
+    for (var i in data) {
+      // console.log("form", data[i]);   
+        form.append(i, data[i]);
+    }
+    // console.log('area_of_expertise',areaOfExpertise)
+    
+    form.append('area_of_expertise',areaOfExpertise)
+    if(registerType != "Individual"){
+      form.append('first_name',getValues("company_name"))
+    }
+    RestApi.register(form).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
         // toast.success(res.data.message, {
@@ -136,6 +151,19 @@ function PartnerRegister(props) {
       }
     });
   };
+  const handleCheckbox=(e)=>{
+    let checkboxes = areaOfExpertise
+    console.log(e.target.checked)
+    if(e.target.checked){
+      checkboxes.push(e.target.value)
+      setAreaOfExpertise(checkboxes)
+    }else {
+    let filter = checkboxes.filter((i)=> i !=e.target.value)
+    setAreaOfExpertise(filter)
+
+    }
+    console.log(areaOfExpertise)
+  }
   console.log(errors);
   const styles = {
     error: {
@@ -181,7 +209,7 @@ function PartnerRegister(props) {
                               // {...register("register_as")}
                               class="form-control selectpicker customer_down_arrow"
                               data-style="btn-white"
-                              style={{ width: "95.6%" }}
+                              style={{ width: "96%" }}
                             >
                               <option selected={registerType == "Individual" && "selected"} value="Individual">Individual</option>
                               <option selected={registerType == "Company" && "selected"} value="Company">Company</option>
@@ -297,13 +325,13 @@ function PartnerRegister(props) {
                                   autocomplete="off"
                                 />
                                 {/* extra */}
-                                <input
+                                {/* <input
                                   type="hidden"
                                   {...register("first_name")}
                                   value={getValues("company_name")}
                                   placeholder="Company Name"
                                   autocomplete="off"
-                                />
+                                /> */}
                                 {/* extra */}
                               </label>
                             </div>
@@ -404,7 +432,7 @@ function PartnerRegister(props) {
                        {categoryOne.length > 0 && 
                        categoryOne.map((e)=> {
                          return <div className="chkbox-group">
-                         <input type="checkbox" {...register("area_of_expertise")} />
+                         <input type="checkbox" onChange={(e)=>handleCheckbox(e)} name="area_of_expertise[]" value={e.id} />
                          <a href="#">{e.category_name}</a>
                        </div>
                        }) }
@@ -425,7 +453,7 @@ function PartnerRegister(props) {
                        {categoryTwo.length > 0 &&
                        categoryTwo.map((e)=> {
                         return <div className="chkbox-group">
-                        <input type="checkbox" value={e.category_id} {...register("area_of_expertise")} />
+                        <input type="checkbox"name="area_of_expertise[]" value={e.id}  />
                         <a href="#">{e.category_name}</a>
                       </div>
                       }) }
@@ -477,7 +505,7 @@ function PartnerRegister(props) {
               })}
                   </fieldset>
                   <div className="sign-btn">
-                    <button style={{width:'96%',marginLeft:'2px'}} type="submit" name="sign_in" className="button col">
+                    <button style={{width:'92%',marginLeft:'2px'}} type="submit" name="sign_in" className="button col">
                       Create Account
                     </button>
                   </div>

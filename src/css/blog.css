@@ -397,7 +397,7 @@ ul {
   transition: all 0.3s linear;
 }
 .post_item .media-body a:hover {
-  color: #fff;
+  /* color: #fff; */
 }
 .post_item .media-body p {
   font-size: 13px;

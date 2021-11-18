@@ -444,6 +444,7 @@ body {
   border-top: 1px solid #797979;
   margin-top: 20px;
   padding-top: 10px;
+  margin-right: 18px;
 }
 .login-footer p {
   font-size: 13px;
@@ -730,7 +731,7 @@ body {
 }
 .area_expertise .chkbox-group a {
   color: #000;
-  margin-left: 8px;
+  margin-left: 4px;
 }
 .area_expertise {
   background: #ffffff;
@@ -744,10 +745,11 @@ body {
 }
 .expertise_left {
   float: left;
-  margin-left: 14px;
+  margin-left: 6px;
 }
 .expertise_right {
   float: right;
+  width: 44%;
 }
 .chkbox-group span {
   color: #000;
@@ -2005,7 +2007,7 @@ aside .tag-widget .tags a:hover {
 
 /*=================================  client  =====================================*/
 #clients {
-  /* background-image: url(../../image/testi-bg.jpg); */
+  background-image: url(../images/testi-bg.jpg);
   background-color: rgba(0, 0, 0, 0.55);
   background-blend-mode: color-burn;
   background-attachment: fixed;
@@ -2121,7 +2123,7 @@ aside .tag-widget .tags a:hover {
 }
 .socialtop ul li {
   display: inline-block;
-  margin: 0 0 0 5px;
+  margin: 0px 5px;
 }
 .socialtop ul li a {
   background-image: none;
@@ -3616,6 +3618,7 @@ transform: translateY(-2%);
 }
 .case-law-view {
   color: rgb(163, 85, 65);
+  cursor: pointer;
 }
 .cal-form {
   border: 1px solid #fff;
@@ -3704,7 +3707,15 @@ transform: translateY(-2%);
 .serviceSearchResults {
   text-align: center;
   margin-bottom: 12px;
+  color:#5c2f2f
   /* margin-top: 12px ; */
+}
+.serviceSearchResults span {
+  color:#454574;
+  text-decoration: none;
+}
+.serviceSearchResults span:hover {
+  text-decoration: underline;
 }
 .serviceSearchBox {
   margin-top: 12px;
@@ -3769,4 +3780,7 @@ transform: translateY(-2%);
 .create_own_services h4 {
   font-size: 16px !important;
   display: inline-block;
+}
+.not-hover{
+  color: #444!important;
 }

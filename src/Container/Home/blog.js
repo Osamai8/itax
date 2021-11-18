@@ -222,7 +222,7 @@ export default class blog extends Component {
                        this.handleReset();
                      }}
                    >
-                     <u> Click to view all services</u>
+                     Click to view all blogs
                    </span>{" "}
                    or search using some other keywords.{" "}
                  </div>
@@ -241,9 +241,9 @@ export default class blog extends Component {
                             </div>
                             <div className="col-md-9">
                               <div className="media-body">
-                                <Link to={`/blog-details/${each.id}`}>
+                                <a className="not-hover">
                                   <h3>{each.heading}</h3>
-                                </Link>
+                                </a>
                                 <strong>{each.published_date}</strong>
                                 <div
                                   dangerouslySetInnerHTML={{

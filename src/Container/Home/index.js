@@ -177,7 +177,7 @@ class Home extends Component {
                     >
                       {this.state.blogs.map((each, i) => {
                         return (
-                          <Link key={i} to={`blog-details/${each.id}`}>
+                          <Link className="not-hover " key={i} to={`blog-details/${each.id}`}>
                             <li>
                               <a>{each.heading}</a>
                             </li>
@@ -192,8 +192,7 @@ class Home extends Component {
           )}
           <Services setService={(service) => this.handleServices(service)} />
           <section
-            className="our_department_area"
-            // style={{ backgroundColor: "#f3f3f3!important" }}
+            className="our_department_area"style={{backgroundColor:'#f3f3f3'}}
           >
             <div className="container">
               <div className="row">

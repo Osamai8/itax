@@ -271,7 +271,7 @@ export default class CaseLaw extends Component {
                           this.handleReset();
                         }}
                       >
-                        <u> Click to view all services</u>
+                        <u> Click to view all Case's</u>
                       </span>{" "}
                       or search using some other keywords.{" "}
                     </div>
