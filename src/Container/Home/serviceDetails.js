@@ -102,7 +102,7 @@ export default class ServiceDetails extends Component {
               <div class="row">
                 {!applyForm ? (
                   <div class="col-md-8">
-                    <p class="p-10 mb-0">{category.description}</p>
+                   {category.description}
                     <div class="panel-group" id="accordion">
                       {services.length > 0 &&
                         services.map((each, key) => {
@@ -228,7 +228,7 @@ export default class ServiceDetails extends Component {
                 <div class="col-md-4">
                 <div class="mb-10">
                   <a href="create_own_services.php" class="create_own_services">
-                    <i class="fa fa-gg" aria-hidden="true" style={{marginLeft: '14px'}}></i>&nbsp;<h4>Create Your Own Services</h4>
+                    <i class="fa fa-gg" aria-hidden="true"></i>&nbsp;<h4>Create Your Own Services</h4>
                   </a>
                   </div>
                   <div class="servicebox">

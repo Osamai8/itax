@@ -22,15 +22,15 @@ const schema = yup.object().shape({
   qualifications: yup.string().required("Qualification is required"),
   location: yup.string().required("Location is required"),
   total_experience: yup.string().required("Experiance is required"),
-  attachment: yup.mixed().required('A file is required'),
-  attachment: yup
-    .mixed()
-    .required("File is required")
-    .test(
-      "FILE_SIZE",
-      "Uploaded file is too big.",
-      (value) => !value[0] || (value[0] && value[0].size <= 2000000)
-    ),
+  // attachment: yup.mixed().required('A file is required'),
+  // attachment: yup
+  //   .mixed()
+  //   .required("File is required")
+  //   .test(
+  //     "FILE_SIZE",
+  //     "Uploaded file is too big.",
+  //     (value) => !value[0] || (value[0] && value[0].size <= 2000000)
+  //   ),
   // .test("FILE_FORMAT", "Uploaded file has unsupported format.",
   //   value => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
 });

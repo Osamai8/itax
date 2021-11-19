@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
     .required("Email is required"),
   // first_name: Yup.string().required("First name is required"),
   agree: Yup.boolean().oneOf([true]),
-
+  register_as:Yup.string().required('').default('Individual'),
   phone: Yup.string()
     .required("Phone is required")
     .matches("^[0-9]{10}$", "Phone number is not valid"),
@@ -33,11 +33,26 @@ const schema = Yup.object().shape({
       if (password) return schema.required("Confirm Password is required");
     })
     .oneOf([Yup.ref("password")], "Passwords must match"),
+}) .when((values, schema) => {
+  if (values.register_as == 'Individual' || values.register_as == '' ) {
+    console.log("values.register_as",values.register_as)
+    return schema.shape({
+      first_name: Yup.string().required("First name is required"),
+      last_name: Yup.string().required("Last name is required"),
+    });
+  }
+  else {
+    return schema.shape({
+      company_name: Yup.string().required("Company name is required"),
+      sign_in_authority: Yup.string().required("Sign in authority name is required"),
+    }); 
+  }
 });
 function CustomerRegister(props) {
   const history = useHistory();
   const [placeHolder, setPlaceHolder] = useState({});
   const [responseError, setResponseError] = useState([]);
+  const [message, setMessage] = useState('');
   const [registerType, setRegisterType] = useState("Individual");
 
   useEffect(() => {
@@ -80,7 +95,10 @@ function CustomerRegister(props) {
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
+        setMessage(res.data.message)
+      setInterval(() => {
         history.push(`/login`);
+      }, 2000);
       }
       if (res.data.error) {
         let { error } = res.data;
@@ -136,7 +154,7 @@ function CustomerRegister(props) {
                     className="sky-form"
                   >
                     <fieldset>
-                      <section>
+                      <section className="customer-reg-section">
                         <div class="row">
                           <div class="col col-10">
                             <label class="input">
@@ -178,7 +196,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -221,7 +239,7 @@ function CustomerRegister(props) {
                       </section>
                       {registerType == "Individual" ? (
                         <>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -242,7 +260,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -259,7 +277,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -271,13 +289,18 @@ function CustomerRegister(props) {
                                 name="name"
                                 autocomplete="off"
                               />
+                               {errors["last_name"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["last_name"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
                       </section>
                       </>
                       ) :  <>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label
@@ -290,6 +313,11 @@ function CustomerRegister(props) {
                                 placeholder="Company Name"
                                 autocomplete="off"
                               />
+                               {errors["company_name"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["company_name"].message}
+                                </span>
+                              )}
                               {/* extra */}
                               {/* <input
                                 type="hidden"
@@ -303,7 +331,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label
@@ -316,12 +344,17 @@ function CustomerRegister(props) {
                                 placeholder="Sign In Authority"
                                 autocomplete="off"
                               />
+                                {errors["sign_in_authority"] && (
+                                <span style={{ color: "#bf1f24" }}>
+                                  {errors["sign_in_authority"].message}
+                                </span>
+                              )}
                             </label>
                           </div>
                         </div>
                       </section>
                     </>}
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -351,7 +384,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -381,7 +414,7 @@ function CustomerRegister(props) {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className="customer-reg-section">
                         <div className="row">
                           <div className="col col-10">
                             <label className="input">
@@ -414,7 +447,7 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <div
-                        style={{ marginLeft: "13px" }}
+                        style={{ marginLeft: "28px" }}
                         className="chkbox-group"
                       >
                         <input
@@ -446,9 +479,12 @@ function CustomerRegister(props) {
                           </div>
                         );
                       })}
+                      {message && 
+                        <span className="alert alert-success"></span>
+                      }
                     <div className="sign-btn">
                       <button
-                        style={{ width: "88%", marginLeft: "13px" }}
+                        style={{ width: "83.5%", marginLeft: "28px" }}
                         type="submit"
                         name="sign_in"
                         className="button col"

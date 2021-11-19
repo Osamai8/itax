@@ -499,7 +499,7 @@ function Login(props) {
                                   }
                                 />
                                 <div className="col col-12">
-                                  <label className="input">
+                                  <label className="input login-form-input">
                                     <i
                                       className="icon-append fa fa-envelope-o"
                                     ></i>
@@ -523,7 +523,7 @@ function Login(props) {
                             <section>
                               <div className="row">
                                 <div className="col col-12">
-                                  <label className="input">
+                                  <label className="input login-form-input">
                                     <i
                                       className="icon-append fa fa-lock"
                                     ></i>
@@ -557,7 +557,7 @@ function Login(props) {
                             </div>
                             <div className="text-center">
                               <button
-                                style={{ width: "312px" }}
+                                style={{ width: "95%",marginLeft:'0px' }}
                                 type="submit"
                                 name="sign_in"
                                 className="button sign_in col"
@@ -567,7 +567,7 @@ function Login(props) {
                             </div>
                           </div>
                         </form>
-                        <div className="login-footer clearfix">
+                        <div className="login-footer clearfix" style={{marginRight:'0px'}}>
                           <p className="pull-left">Don't have any account?</p>
                           <Link to={props.activeForm == "partners" ? "/partner-register" :'/register'} className="btn btn-login pull-right">
                             Create Account

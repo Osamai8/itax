@@ -229,6 +229,7 @@ body {
   color: #444;
   background-color: #ffa600;
   background-image: linear-gradient(to bottom, #ffd200, #ffa200);
+  cursor: pointer;
 }
 .readmore-if-greater-text {
   margin-top: 19px;
@@ -474,6 +475,7 @@ body {
 }
 .forgot-pw {
   color: #000;
+  font-size: 14px;
 }
 .forgot-pw:hover {
   color: #01bfef;
@@ -520,7 +522,7 @@ body {
 .sky-form {
   outline: none;
   font: 12px/1.55 "Roboto", Helvetica, Arial, sans-serif;
-  color: #666;
+  /* color: #666; */
 }
 .sky-form fieldset {
   display: block;
@@ -528,7 +530,7 @@ body {
 }
 .sky-form section {
   margin-bottom: 12px;
-  margin-left: 12px;
+  /* margin-left: 12px; */
 }
 .sky-form .row {
   margin: 0 -15px;
@@ -3787,4 +3789,23 @@ transform: translateY(-2%);
 }
 .customer-register-type{
   width: 95.6%;
+}
+.create_own_services .fa {
+  position: relative;
+  top: -1px;
+  margin-left: 12px;
+}
+.panel-title .fa {
+  position: relative;
+  top: -1px;
+}
+.login-form-input {
+  margin-left: 15px!important;
+}
+.customer-reg-section{
+  margin-left: 27px;
+}
+.contactUs-input{
+  margin-left: 8px!important;
+  margin-right: 18px!important;
 }

@@ -106,7 +106,7 @@ function ContactUs(props) {
                     <input type="hidden" name="id" />
                     <div class="row">
                       <section class="col col-md-12">
-                        <label class="input">
+                        <label class="input contactUs-input">
                           <p>Name</p>
                           <i
                             style={{ top: "18px" }}
@@ -126,7 +126,7 @@ function ContactUs(props) {
                     </div>
                     <div class="row">
                       <section class="col col-md-12">
-                        <label class="input">
+                        <label class="input contactUs-input">
                           <p>Email</p>
 
                           <i
@@ -147,7 +147,7 @@ function ContactUs(props) {
                     </div>
                     <div class="row">
                       <section class="col col-md-12">
-                        <label class="input">
+                        <label class="input contactUs-input">
                           <p>Mobile</p>
                           <i
                             style={{ top: "18px" }}
@@ -167,7 +167,7 @@ function ContactUs(props) {
                     </div>
                     <div class="row">
                       <section class="col col-md-12">
-                        <label class="input">
+                        <label class="input contactUs-input">
                           <p>Subject</p>
                           <i
                             style={{ top: "18px" }}
@@ -187,7 +187,7 @@ function ContactUs(props) {
                     </div>
                     <div class="row">
                       <section class="col col-md-12">
-                        <label class="textarea">
+                        <label class="textarea contactUs-input">
                           <p>Message</p>
                           <i
                             style={{ top: "18px" }}

@@ -7,8 +7,8 @@ import './css/blog.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js' 
 import './css/owl.carousel.css';
-import './css/style.css';
 import './css/w3.css';
+import './css/style.css';
 import {Provider} from 'react-redux'
 import store from './store/store'
 ReactDOM.render(

@@ -200,7 +200,7 @@ function PartnerRegister(props) {
                         <div class="col col-10">
                           <label
                             className="input"
-                            style={{ marginLeft: "2px" }}
+                           
                           >
                             {/* <!-- <i class="icon-append fa fa-angle-down"></i> --> */}
                             <select
@@ -264,7 +264,7 @@ function PartnerRegister(props) {
                           />
                           <label
                             className="input"
-                            style={{ marginLeft: "2px" }}
+                           
                           >
                             <i className="icon-append fa fa-envelope-o"></i>
                             <input
@@ -292,7 +292,7 @@ function PartnerRegister(props) {
                             <div className="col col-10">
                               <label
                                 className="input"
-                                style={{ marginLeft: "2px" }}
+                               
                               >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
@@ -316,7 +316,7 @@ function PartnerRegister(props) {
                             <div className="col col-10">
                               <label
                                 className="input"
-                                style={{ marginLeft: "2px" }}
+                               
                               >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
@@ -334,7 +334,7 @@ function PartnerRegister(props) {
                             <div className="col col-10">
                               <label
                                 className="input"
-                                style={{ marginLeft: "2px" }}
+                               
                               >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
@@ -355,7 +355,7 @@ function PartnerRegister(props) {
                             <div className="col col-10">
                               <label
                                 className="input"
-                                style={{ marginLeft: "2px" }}
+                               
                               >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
@@ -382,7 +382,7 @@ function PartnerRegister(props) {
                             <div className="col col-10">
                               <label
                                 className="input"
-                                style={{ marginLeft: "2px" }}
+                               
                               >
                                 <i className="icon-append fa fa-user-o"></i>
                                 <input
@@ -404,7 +404,7 @@ function PartnerRegister(props) {
                         <div className="col col-10">
                           <label
                             className="input"
-                            style={{ marginLeft: "2px" }}
+                           
                           >
                             <i className="icon-append fa fa-mobile"></i>
                             <input
@@ -429,7 +429,7 @@ function PartnerRegister(props) {
                         <div className="col col-10">
                           <label
                             className="input"
-                            style={{ marginLeft: "2px" }}
+                           
                           >
                             <i className="icon-append fa fa-lock"></i>
                             <input
@@ -452,7 +452,7 @@ function PartnerRegister(props) {
                         <div className="col col-10">
                           <label
                             className="input"
-                            style={{ marginLeft: "2px" }}
+                           
                           >
                             <i className="icon-append fa fa-lock"></i>
                             <input
