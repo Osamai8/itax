@@ -15,6 +15,7 @@ class ServiceSearch extends Component {
       responseData: [],
       search: this.props.match.params.id,
       categories: [],
+      totalRecords:0
     };
   }
   componentDidMount() {
@@ -36,6 +37,7 @@ class ServiceSearch extends Component {
           } else {
             data = res.data.data;
           }
+          let totalRecords = data.length
           // console.log("data",data)
           let groupedServices = Common.groupBy(["category_id"])(data);
           let allCategories = Common.groupBy(["category_id"])(res.data.data);
@@ -54,6 +56,7 @@ class ServiceSearch extends Component {
             responseData: res.data.data,
             activeService: Object.keys(groupedServices)[0],
             categories: allCategories,
+            totalRecords
           });
         }
       })
@@ -90,6 +93,7 @@ class ServiceSearch extends Component {
     } else {
       data = this.state.responseData;
     }
+    let totalRecords = data.length
     let services = Common.groupBy(["category_id"])(data);
     // console.log("-----",data);
     let activeService = Object.keys(services)[0];
@@ -97,6 +101,7 @@ class ServiceSearch extends Component {
       services,
       activeService,
       search,
+      totalRecords
     });
   }
   // handleReset = () => {
@@ -107,7 +112,7 @@ class ServiceSearch extends Component {
   // };
   render() {
     console.log("state", this.state);
-    let { services, search, activeService, categories } = this.state;
+    let { services, search, activeService, totalRecords,categories } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -204,9 +209,11 @@ class ServiceSearch extends Component {
                      })}
                    </div>
                  )} /> */}
+                 { console.log(Object.entries(services))}
                   {search.length > 0 && Object.entries(services).length > 0 &&  (
+                   
                           <div className="serviceSearchResults">
-                            {Object.entries(services).length} results found for
+                            {totalRecords} results found for
                             search keyword "{search}".{" "}
                             <span
                               className="select-click-here "

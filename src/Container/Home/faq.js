@@ -26,6 +26,7 @@ class Faq extends Component {
         let grouped = Common.groupBy(["category_id",'service_name'])(res.data.data);
         console.log("res", res.data.data);
         let categoryIDs =[];
+        let totalRecords = res.data.data
         res.data.data.map((c)=> {
           if(!categoryIDs.includes(c.category_id)){
             categoryIDs.push(c.category_id)
@@ -39,6 +40,7 @@ class Faq extends Component {
           responseData: res.data.data,
           activeService: category[0]?.id,
           categories:category,
+          totalRecords
         });
       }
     }).catch((e)=> {
@@ -65,18 +67,20 @@ class Faq extends Component {
     } else { 
       data = this.state.responseData
     }
+    let totalRecords = data.length
     let services = Common.groupBy(["category_id",'service_name'])(data);
-    // console.log("-----",data);
+    console.log("-----",data);
     let activeService = Object.keys(services)[0]
     this.setState({
       search,
       services,
-      activeService
+      activeService,
+      totalRecords
     })
   }
   render() {
     console.log("state",this.state)
-    let { services,activeService,categories,search } = this.state;
+    let { services,activeService,categories,search,totalRecords } = this.state;
     return (
       <div>
         <div class="breadcrumbpane">
@@ -157,7 +161,7 @@ class Faq extends Component {
                  )} /> */}
                  {search.length > 0 && Object.entries(services).length > 0 &&  (
                           <div className="serviceSearchResults">
-                            {Object.entries(services).length} results found for
+                            {totalRecords} results found for
                             search keyword "{search}".{" "}
                             <span
                               className="select-click-here "
