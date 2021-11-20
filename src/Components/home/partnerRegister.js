@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import userImage from "../../images/user.png";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 const schema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email ")
@@ -15,7 +15,7 @@ const schema = Yup.object().shape({
   agree: Yup.boolean().oneOf([true]),
 
   //   last_name: Yup.string().required("Last name is required"),
-
+  agree: Yup.boolean().oneOf([true]),
   phone: Yup.string()
     .required("Phone is required")
     .matches("^[0-9]{10}$", "Phone number is not valid"),
@@ -33,7 +33,11 @@ const schema = Yup.object().shape({
 });
 
 function PartnerRegister(props) {
+  const history = useHistory();
   const [registerType, setRegisterType] = useState("Individual");
+  const [responseError, setResponseError] = useState({});
+  const [areaOfExpertise, setAreaOfExpertise] = useState([]);
+  const [message, setMessage] = useState("");
 
   const {
     register,
@@ -42,46 +46,75 @@ function PartnerRegister(props) {
     reset,
     getValues,
     setValue,
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmitHandle = (data) => {
+    setResponseError([])
+    setMessage("")
+    console.log("asd", areaOfExpertise.length);
+    if (areaOfExpertise.length < 1) {
+      setError("area_of_expertise", {
+        type: "manual",
+        message: "Atleast one Area of Expertise is required",
+      });
+      return false;
+    }
     console.log(data);
-    RestApi.register(data).then((res) => {
+    let form = new FormData();
+    for (var i in data) {
+      // console.log("form", data[i]);
+      form.append(i, data[i]);
+    }
+    // console.log('area_of_expertise',areaOfExpertise)
+
+    form.append("area_of_expertise", areaOfExpertise);
+    if (registerType != "Individual") {
+      form.append("first_name", getValues("company_name"));
+    }
+    RestApi.register(form).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        setMessage(res.data.message);
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
         reset();
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
-        // history.push(`/login`);
+      setTimeout(()=> {
+        history.push(`/login`);
+      },5000)
       }
       if (res.data.error) {
         let { error } = res.data;
         //  console.log(err)
-        // setResponseError(err);
-        error.email &&
-          toast.error(error.email[0], {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
-        error.password &&
-          toast.error(error.password[0], {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
-        res.data.message &&
-          toast.error(res.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 10000,
-          });
+        let array = Object.entries(error).map((e) => {
+          console.log(e);
+          return { [e[0]]: e[1][0] };
+        });
+        setResponseError(array);
+        // error.email &&
+        //   toast.error(error.email[0], {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
+        // error.password &&
+        //   toast.error(error.password[0], {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
+        // res.data.message &&
+        //   toast.error(res.data.message, {
+        //     position: toast.POSITION.TOP_CENTER,
+        //     autoClose: 10000,
+        //   });
 
         // alert(res.data.message);
       } else {
@@ -94,6 +127,21 @@ function PartnerRegister(props) {
     setRegisterType(e.target.value);
     setValue("register_as", e.target.value);
     console.log(getValues("register_as"));
+  };
+  const handleCheckbox = (e) => {
+    let checkboxes = areaOfExpertise;
+   
+    if (e.target.checked) {
+      checkboxes.push(e.target.value);
+      // console.log(checkboxes);
+      setAreaOfExpertise(checkboxes);
+    } else {
+      
+      let filter = checkboxes.filter((i) => i != e.target.value);
+      // console.log(filter);
+      setAreaOfExpertise(filter);
+    }
+    
   };
   const styles = {
     error: {
@@ -116,14 +164,17 @@ function PartnerRegister(props) {
           <section>
             <div className="row">
               <div className="col col-12">
-                <label className="input">
+                <label
+                  className="input partner-reg-input"
+                  style={{ marginRight: "20px!important" }}
+                >
                   <select
                     onChange={(e) => handleChange(e)}
                     id="register"
                     // {...register("register_as")}
                     class="form-control selectpicker customer_down_arrow"
                     data-style="btn-white"
-                    style={{ width: "95.6%" }}
+                    style={{ width: "95.6%", height: "23px" }}
                   >
                     <option
                       selected={registerType == "Individual" && "selected"}
@@ -151,12 +202,16 @@ function PartnerRegister(props) {
           <section>
             <div className="row">
               <div className="col col-12">
-                <label className="input">
+                <label className="input partner-reg-input">
                   <i
                     className="icon-append fa fa-envelope-o"
                     // style={styles.top}
                   ></i>
-                  <input type="hidden" {...register("register_as")} value={registerType} />
+                  <input
+                    type="hidden"
+                    {...register("register_as")}
+                    value={registerType}
+                  />
                   <input
                     type="hidden"
                     {...register("is_service_provider")}
@@ -191,7 +246,7 @@ function PartnerRegister(props) {
               <section>
                 <div className="row">
                   <div className="col col-12">
-                    <label className="input">
+                    <label className="input partner-reg-input">
                       <i className="icon-append fa fa-user-o"></i>
                       <input
                         {...register("first_name")}
@@ -212,7 +267,7 @@ function PartnerRegister(props) {
               <section>
                 <div className="row">
                   <div className="col col-12">
-                    <label className="input">
+                    <label className="input partner-reg-input">
                       <i className="icon-append fa fa-user-o"></i>
                       <input
                         {...register("middle_name")}
@@ -227,7 +282,7 @@ function PartnerRegister(props) {
               <section>
                 <div className="row">
                   <div className="col col-12">
-                    <label className="input">
+                    <label className="input partner-reg-input">
                       <i className="icon-append fa fa-user-o"></i>
                       <input
                         type="text"
@@ -245,7 +300,7 @@ function PartnerRegister(props) {
               <section>
                 <div className="row">
                   <div className="col col-12">
-                    <label className="input">
+                    <label className="input partner-reg-input">
                       <i className="icon-append fa fa-user-o"></i>
                       <input
                         type="text"
@@ -269,7 +324,7 @@ function PartnerRegister(props) {
               <section>
                 <div className="row">
                   <div className="col col-12">
-                    <label className="input">
+                    <label className="input partner-reg-input">
                       <i className="icon-append fa fa-user-o"></i>
                       <input
                         type="text"
@@ -287,7 +342,7 @@ function PartnerRegister(props) {
           <section>
             <div className="row">
               <div className="col col-12">
-                <label className="input">
+                <label className="input partner-reg-input">
                   <i
                     className="icon-append fa fa-mobile"
                     // style={styles.top}
@@ -311,7 +366,7 @@ function PartnerRegister(props) {
           <section>
             <div className="row">
               <div className="col col-12">
-                <label className="input">
+                <label className="input partner-reg-input">
                   <i
                     className="icon-append fa fa-lock"
                     // style={styles.top}
@@ -334,7 +389,7 @@ function PartnerRegister(props) {
           <section>
             <div className="row">
               <div className="col col-12">
-                <label className="input">
+                <label className="input partner-reg-input">
                   <i
                     className="icon-append fa fa-lock"
                     // style={styles.top}
@@ -362,16 +417,27 @@ function PartnerRegister(props) {
             props.categories.map((e, i) => {
               return (
                 <div className="chkbox-group">
-                  <input type="checkbox" name="area_of_expertise[]" />
+                  <input
+                    type="checkbox"
+                    name="area_of_expertise[]"
+                    onChange={(e) => handleCheckbox(e)}
+                    style={{ position: "relative", top: "-3px" }}
+                    value={e.id} 
+                  />
                   <a href="#">{e.category_name}</a>
                 </div>
               );
             })}
+             {errors["area_of_expertise"] && (
+                        <span style={{ color: "#bf1f24" }}>
+                          {errors["area_of_expertise"].message}
+                        </span>
+                      )}
         </div>
-        <div className="chkbox-group">
-          <input type="checkbox" name="agree" />
-          <span>I have read and agree to all the </span>
-          <a href="#">Term & Condition</a>
+        <div className="chkbox-group chkbox-partnerReg">
+          <input   {...register("agree")} type="checkbox" name="agree" />
+          <span  style={errors["agree"] && { color: "#bf1f24" }} >I have read and agree to all the </span>
+          <a  style={errors["agree"] && { color: "#bf1f24" }} href="#">Term & Condition</a>
         </div>
         <div className="sign-btn">
           <button
@@ -382,6 +448,27 @@ function PartnerRegister(props) {
             Submit
           </button>
         </div>
+        {message.length > 0 && 
+                  <>
+                    <br/>
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div></>
+                        }
+        {responseError.length > 0 &&
+                      responseError.map((er) => {
+                        console.log(er);
+                        return (
+                          <><br/>
+                          <div className="careerErrorMessage">
+                            {" "}
+                            <span className="alert alert-danger">
+                              {Object.values(er)}
+                            </span>
+                          </div>
+                          </>
+                        );
+                      })}
       </form>
     </div>
   );

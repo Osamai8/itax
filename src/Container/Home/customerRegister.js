@@ -74,6 +74,8 @@ function CustomerRegister(props) {
   });
 
   const onSubmitHandle = (data) => {
+    setResponseError([])
+    setMessage("")
     console.log(data);
     let form = new FormData();
     for (var i in data) {
@@ -89,16 +91,16 @@ function CustomerRegister(props) {
         //   position: toast.POSITION.TOP_CENTER,
         //   autoClose: 2000,
         // });
-        reset({ ...data, password: "", confirmPassword: "" });
+        reset();  
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
         setMessage(res.data.message)
-      setInterval(() => {
-        history.push(`/login`);
-      }, 2000);
+      // setInterval(() => {
+        // history.push(`/login`);
+      // }, 2000);
       }
       if (res.data.error) {
         let { error } = res.data;
@@ -129,7 +131,7 @@ function CustomerRegister(props) {
       borderColor: "#bf1f24",
     },
   };
-  console.log(errors)
+  console.log(message, errors)
 
   return (
     <div>
@@ -157,8 +159,9 @@ function CustomerRegister(props) {
                       <section className="customer-reg-section">
                         <div class="row">
                           <div class="col col-10">
-                            <label class="input">
+                            <label class="input"  style={{marginRight:'20px'}}>
                               <select
+                              style={{height:'23px'}}
                                 onChange={(e) => handleChange(e)}
                                 id="register"
                                 class="customer-register-type form-control selectpicker customer_down_arrow"
@@ -214,7 +217,7 @@ function CustomerRegister(props) {
                                 type="hidden"
                                 {...register("is_customer")}
                                 value="yes"
-                                autocomplete="off"
+                                autoComplete="off"
                               />
                               <input
                                 type="hidden"
@@ -226,7 +229,7 @@ function CustomerRegister(props) {
                                 type="email"
                                 placeholder="Email"
                                 {...register("email")}
-                                autocomplete="off"
+                                autoComplete="off"
                               />
                               {errors["email"] && (
                                 <span style={{ color: "#bf1f24" }}>
@@ -249,7 +252,7 @@ function CustomerRegister(props) {
                                 type="text"
                                 placeholder="First Name"
                                 {...register("first_name")}
-                                autocomplete="off"
+                                autoComplete="off"
                               />
                               {errors["first_name"] && (
                                 <span style={{ color: "#bf1f24" }}>
@@ -271,7 +274,7 @@ function CustomerRegister(props) {
                                 placeholder="Middle Name"
                                 name="middle_name"
                                 {...register("middle_name")}
-                                autocomplete="off"
+                                autoComplete="off"
                               />
                             </label>
                           </div>
@@ -447,7 +450,7 @@ function CustomerRegister(props) {
                         </div>
                       </section>
                       <div
-                        style={{ marginLeft: "28px" }}
+                        style={{ marginLeft: "30px" }}
                         className="chkbox-group"
                       >
                         <input
@@ -465,23 +468,23 @@ function CustomerRegister(props) {
                           Term & Condition
                         </a>
                       </div>
-                    </fieldset>
-                    <br />
+                    </fieldset> 
                     {responseError.length > 0 &&
                       responseError.map((er) => {
                         console.log(er);
                         return (
+                          <>
+                          <br/>
                           <div className="careerErrorMessage">
                             {" "}
                             <span className="alert alert-danger">
                               {Object.values(er)}
                             </span>
                           </div>
+                          </>
                         );
                       })}
-                      {message && 
-                        <span className="alert alert-success"></span>
-                      }
+                    
                     <div className="sign-btn">
                       <button
                         style={{ width: "83.5%", marginLeft: "28px" }}
@@ -492,10 +495,16 @@ function CustomerRegister(props) {
                         Create Account
                       </button>
                     </div>
+                    {message.length > 0 && 
+                  <> <br/>
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div></>
+                        }
                   </form>
                   <div
-                    style={{ marginLeft: "13px" }}
-                    className="login-footer clearfix"
+                    
+                    className="login-footer clearfix login-footer-customer"
                   >
                     <p className="pull-left cust_log">
                       Already have an account?

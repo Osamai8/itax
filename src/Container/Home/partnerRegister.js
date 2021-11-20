@@ -52,6 +52,7 @@ function PartnerRegister(props) {
   const [responseError, setResponseError] = useState({});
   const [placeHolder, setPlaceHolder] = useState({});
   const [registerType, setRegisterType] = useState("Individual");
+  const [message, setMessage] = useState("");
   const [categoryOne, setCategoryOne] = useState([]);
   const [categoryTwo, setCategoryTwo] = useState([]);
   const [areaOfExpertise, setAreaOfExpertise] = useState([]);
@@ -63,6 +64,7 @@ function PartnerRegister(props) {
     reset,
     getValues,
     setValue,
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -91,6 +93,17 @@ function PartnerRegister(props) {
   }, [props.categories]);
 
   const onSubmitHandle = (data) => {
+    setResponseError([])
+    setMessage("")
+    console.log("asd",areaOfExpertise.length)
+    if(areaOfExpertise.length < 1) {
+      
+      setError("area_of_expertise", {
+        type: "manual",
+        message: "Atleast one Area of Expertise is required",
+      });
+      return false
+    }
     console.log(data);
     let form = new FormData();
     for (var i in data) {
@@ -106,6 +119,7 @@ function PartnerRegister(props) {
     RestApi.register(form).then((res) => {
       console.log("resss", res);
       if (res.data.status == true) {
+        setMessage(res.data.message)
         // toast.success(res.data.message, {
         //   position: toast.POSITION.TOP_CENTER,
         //   autoClose: 10000,
@@ -116,7 +130,7 @@ function PartnerRegister(props) {
         //   type: "LOGIN",
         //   payload: res.data.data,
         // });
-        history.push(`/login`);
+        // history.push(`/login`);
       }
       if (res.data.error) {
         let { error } = res.data;
@@ -475,11 +489,7 @@ function PartnerRegister(props) {
 
                     <div className="area_expertise clearfix">
                       <h4>Area of expertise</h4>
-                      {errors["area_of_expertise"] && (
-                        <span style={{ color: "#bf1f24" }}>
-                          {errors["area_of_expertise"].message}
-                        </span>
-                      )}
+                     
                       <div className="expertise_left">
                         {categoryOne.length > 0 &&
                           categoryOne.map((e) => {
@@ -516,6 +526,7 @@ function PartnerRegister(props) {
                                 <input
                                   type="checkbox"
                                   name="area_of_expertise[]"
+                                  onChange={(e) => handleCheckbox(e)}
                                   value={e.id}
                                 />
                                 <a href="#">{e.category_name}</a>
@@ -536,8 +547,12 @@ function PartnerRegister(props) {
                         </div> */}
                       </div>
                     </div>
-
-                    <div className="chkbox-group">
+                    {errors["area_of_expertise"] && (
+                        <span style={{ color: "#bf1f24" }}>
+                          {errors["area_of_expertise"].message}
+                        </span>
+                      )}
+                    <div className="chkbox-group chkbox-partnerReg">
                       <input
                         {...register("agree")}
                         type="checkbox"
@@ -577,6 +592,14 @@ function PartnerRegister(props) {
                       Create Account
                     </button>
                   </div>
+                
+                  {message.length > 0 && 
+                  <>
+                    <br/>
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div></>
+                        }
                 </form>
 
                 <div className="login-footer clearfix">

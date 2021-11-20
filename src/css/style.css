@@ -561,8 +561,8 @@ body {
 .sky-form .button {
   position: relative;
   display: block;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 .sky-form .input input,
 .sky-form .select select,
@@ -740,7 +740,8 @@ body {
   margin-bottom: 14px;
   padding: 14px 5px;
   box-shadow: 0 0 2px 1px #e9e9e9;
-  width: 94%;
+  width: 92.3%;
+  margin-left: 3px;
 }
 .area_expertise h4 {
   margin-bottom: 10px;
@@ -3724,7 +3725,8 @@ transform: translateY(-2%);
   margin-top: 12px;
 }
 .partner-btn {
-  width: 87% !important;
+  width: 91% !important;
+  margin-left: 8px!important;
 }
 .s-search-icon {
   border-left: 0px !important;
@@ -3807,5 +3809,15 @@ transform: translateY(-2%);
 }
 .contactUs-input{
   margin-left: 8px!important;
+  margin-right: 23px!important;
+}
+.partner-reg-input{
+  margin-left: 20px!important;
   margin-right: 18px!important;
+}
+.chkbox-partnerReg{
+  margin-left: 9px;
+}
+.login-footer-customer{
+  margin-left: 29px;
 }

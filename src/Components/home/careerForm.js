@@ -48,26 +48,27 @@ export default function CareerFormModal(props) {
   });
 
   const onSubmitHandle = (data) => {
+    setResponseError([])
+    setMessage("")
     let form = new FormData();
     for (var i in data) {
       console.log("f0orm", data[i]);
       if (i == "attachment") {
-        form.append(i, data[i][0]);
-        // form.append(i, data[i][0]);
+        form.append(i, data[i][0]); 
       }
       else {
         form.append(i, data[i]);
       }
-    }
-    console.log("data",data);
-    // data.attachment = data.attachment[0]
-    RestApi.careerForm(data).then((res) => {
+    } 
+
+    RestApi.careerForm(form).then((res) => {
       console.log(res);
       if (res.data.status) {
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
+        reset()
         setMessage(res.data.message);
       } else {
         if (res.data.error) {
@@ -78,7 +79,6 @@ export default function CareerFormModal(props) {
             return { [e[0]]: e[1][0] };
           });
           setResponseError(array);
-
           // error.attachment &&
           //   toast.error(error.attachment[0], {
           //     position: toast.POSITION.TOP_CENTER,
@@ -98,7 +98,9 @@ export default function CareerFormModal(props) {
           // alert(res.data.message);
         }
       }
-    });
+    }).catch((e)=>{
+      console.log("Error",e)
+    });;
   };
   console.log("errors", responseError);
 
@@ -139,6 +141,11 @@ export default function CareerFormModal(props) {
                       type="hidden"  
                       value={props.service.position} 
                       {...register("position")}
+                    />
+                    <input
+                      type="hidden"  
+                      value={props.service.id} 
+                      {...register("career_id")}
                     />
                     <input
                       type="email"
@@ -298,7 +305,6 @@ export default function CareerFormModal(props) {
                     <input
                       type="file"
                       {...register("attachment")}
-                      name="fileToUpload"
                       id="fileToUpload"
                     />
                     {errors["attachment"] && (
@@ -332,6 +338,13 @@ export default function CareerFormModal(props) {
             </button>
           </center>
           &nbsp;&nbsp;&nbsp;&nbsp;
+          {message.length > 0 && 
+                  <>
+                    <br/>
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div></>
+                        }
         </div>
       </form>
     </div>
@@ -350,7 +363,9 @@ export const CareerPageForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitHandle = (data) => { 
+  const onSubmitHandle = (data) => {
+      setMessage("")
+      setResponseError([])
     let form = new FormData();
     for (var i in data) {
       // console.log("f0orm", data[i]);
@@ -365,10 +380,11 @@ export const CareerPageForm = () => {
     RestApi.careerForm(form).then((res) => {
       console.log(res);
       if (res.data.status) {
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 10000,
-        });
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 10000,
+        // });
+        reset()
         setMessage(res.data.message);
       } else {
         if (res.data.error) {
@@ -402,6 +418,7 @@ export const CareerPageForm = () => {
       console.log("Error",e)
     });;
   };
+
   console.log("errors", responseError);
 
   const styles = {
@@ -657,6 +674,13 @@ export const CareerPageForm = () => {
               </button>
             </center>
             &nbsp;&nbsp;&nbsp;&nbsp;
+            {message.length > 0 && 
+                  <>
+                    <br/>
+                     <div className="subscirbeMessage">
+                        <div className="alert alert-success">
+                        {message}</div></div></>
+                        }
           </div>
         </form>
       </aside>
