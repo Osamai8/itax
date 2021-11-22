@@ -18,6 +18,7 @@ const schema = Yup.object().shape({
     .required("Email is required"),
   // first_name: Yup.string().required("First name is required"),
   agree: Yup.boolean().oneOf([true]),
+  register_as:Yup.string().required('').default('Individual'),
   // area_of_expertise: up
   // .array()
   // .of(
@@ -46,6 +47,21 @@ const schema = Yup.object().shape({
       if (password) return schema.required("Confirm Password is required");
     })
     .oneOf([Yup.ref("password")], "Passwords must match"),
+}) .when((values, schema) => {
+  if (values.register_as == 'Company' || values.register_as == 'Partner' ) {
+    console.log("values.register_as",values.register_as)
+    return schema.shape({
+      company_name: Yup.string().required("Company name is required"),
+      sign_in_authority: Yup.string().required("Sign in authority name is required"),
+     
+    });
+  }
+  else {
+    return schema.shape({
+      first_name: Yup.string().required("First name is required"),
+      last_name: Yup.string().required("Last name is required"),
+    }); 
+  }
 });
 function PartnerRegister(props) {
   const history = useHistory();
@@ -357,6 +373,11 @@ function PartnerRegister(props) {
                                   placeholder="Last Name"
                                   autocomplete="off"
                                 />
+                                 {errors["last_name"] && (
+                              <span style={{ color: "#bf1f24" }}>
+                                {errors["last_name"].message}
+                              </span>
+                            )}
                               </label>
                             </div>
                           </div>
