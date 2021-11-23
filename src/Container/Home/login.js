@@ -30,15 +30,21 @@ function Login(props) {
     message: "",
   });
   const [placeHolder, setPlaceHolder] = useState({});
+  const [apiResponse, setApiResponse] = useState({message:'',error:''});
+  const [responseError, setResponseError] = useState("");
   useEffect(() => {
     let params =
       props.activeForm == "partners"
         ? "business-partner-login"
         : "customer-login";
-    RestApi.placeholder(params).then((res) => {
-      console.log("placeholder login: ", res);
-      setPlaceHolder(res.data.data);
-    });
+    RestApi.placeholder(params)
+      .then((res) => {
+        console.log("placeholder login: ", res);
+        setPlaceHolder(res.data.data);
+      })
+      .catch((e) => {
+        console.log("Error", e);
+      });
   }, []);
 
   const {
@@ -50,6 +56,79 @@ function Login(props) {
     resolver: yupResolver(schema),
   });
   const onSubmitHandle = (data) => {
+   handleFormLogin(data)
+  };
+
+
+  const handleResponse = (response) => {
+    setApiResponse({error:'',message: "Login SuccessFull"});
+    console.log(response);
+    RestApi.defaultToken(response.data.access_token);
+    let res = response.data;
+    let data = {
+      name: res.data.first_name,
+      email: res.data.email,
+      phone: res.data.phone,
+      last_name: res.data.last_name,
+      middle_name: res.data.middle_name,
+      photo: res.data.photo,
+      isCustomer: res.data.is_customer,
+      isServiceProvider: res.data.is_service_provider,
+      isSubscribed: res.data.is_subscribed,
+      _token: res.access_token,
+    };
+    Common.saveState(data, props.activeForm);
+    props.dispatch({
+      type: "LOGIN",
+      payload: data,
+    });
+    props.dispatch({
+      type: "DASHBOARD",
+      payload: props.activeForm,
+    });
+   
+
+    // setMessage("Login SuccessFull");
+
+    setTimeout(() => {
+      history.push(`/dashboard`);
+    }, 1000);
+  };
+  const responseFacebook = (res) => {
+    // handleShowMessageClick()
+    console.log(res);
+    console.log("data", res);
+    if (res.userID) {
+      let data = {
+        login_type: "facebook",
+        profile_id: res.userID,
+        first_name: res.name,
+        is_customer: props.activeForm == "customer" ? "yes" : "no",
+        is_service_provider: props.activeForm == "partner" ? "yes" : "no",
+      };
+      handleSocialLogin(data)
+    } else {
+      // alert("something went wrong");
+    }
+  };
+  const responseGoogle = (googleRes) => {
+    console.log("data", googleRes);
+    if (googleRes.googleId) {
+      let data = {
+        email: googleRes.profileObj.email,
+        login_type: "google",
+        profile_id: googleRes.googleId,
+        first_name: googleRes.profileObj.givenName,
+        last_name: googleRes.profileObj.familyName,
+        is_customer: props.activeForm == "customer" ? "yes" : "no",
+        is_service_provider: props.activeForm == "partners" ? "yes" : "no",
+      };
+      handleSocialLogin(data)
+    } else {
+      // alert("something went wrong");
+    }
+  };
+  const handleFormLogin = (data) => {
     let { email, password } = data;
     RestApi.login(data).then((response) => {
       console.log("reponse", response);
@@ -58,6 +137,10 @@ function Login(props) {
         reset({ email: email, password: "" });
         let { error } = response.data;
         console.log("error: ", error);
+        if(response.data.message){
+          setApiResponse({message:'',error: response.data.message});
+        }
+       
       } else {
         // alert(response.data.message);
         if (response.data.status == false) {
@@ -76,7 +159,8 @@ function Login(props) {
               type: "login",
             });
           } else {
-            toast.error(response.data.message);
+            setApiResponse({message:'',error: response.data.message});
+            // toast.error(response.data.message);
           }
         }
         if (response.data.access_token && response.data.status == true) {
@@ -86,157 +170,30 @@ function Login(props) {
           //   autoClose: 2000,
           // });
           handleResponse(response);
-         
         }
       }
     });
-  };
-
-  const handleResponse = (response) => {
-    console.log(response);
-    RestApi.defaultToken(response.data.access_token);
-    let res = response.data;
-    let data = {
-      name: res.data.first_name,
-      email: res.data.email,
-      phone: res.data.phone,
-      last_name: res.data.last_name,
-      middle_name: res.data.middle_name,
-      photo: res.data.photo,
-      isCustomer: res.data.is_customer,
-      isServiceProvider: res.data.is_service_provider,
-      isSubscribed: res.data.is_subscribed,
-      _token: res.access_token,
-    };
-    Common.saveState(data,props.activeForm)
-    props.dispatch({
-      type: "LOGIN",
-      payload: data,
-    });
-    props.dispatch({
-      type: "DASHBOARD",
-      payload: props.activeForm,
-    });
-    // setMessage("Login SuccessFull");
-
-    setTimeout(() => {
-      history.push(`/dashboard`);
-    }, 2000);
-  };
-  const responseFacebook = (res) => {
-    // handleShowMessageClick()
-    console.log(res);
-    console.log("data", res);
-    if (res.userID) {
-      let data = {
-        login_type: "facebook",
-        profile_id: res.userID,
-        first_name: res.name,
-        is_customer: props.activeForm == "customer" ? "yes" : "no",
-        is_service_provider: props.activeForm == "partner" ? "yes" : "no",
-      };
-      RestApi.socialLogin(data)
-        .then((backRes) => {
-          console.log("socialLogin: ", backRes);
-          if (backRes.data.access_token && backRes.data.status == true) {
-            props.dispatch({
-              type: "LOGIN",
-              payload: backRes.data.data,
-            });
-            if (
-              backRes.data.data.is_customer == "yes" &&
-              backRes.data.data.is_service_provider == "yes"
-            ) {
-              props.activeForm == "customer"
-                ? history.push(`/customer/dashboard`)
-                : history.push(`/partner/dashboard`);
-            } else if (backRes.data.data.is_customer == "yes") {
-              history.push(`/customer/dashboard`);
-            } else if (backRes.data.data.is_service_provider == "yes") {
-              history.push(`/partner/dashboard`);
-            }
-          }
-          if (backRes.data.status == false && backRes.data.status_code == 300) {
-            // props.dispatch({
-            //   type: "LOGIN",
-            //   payload: backRes.data.data,
-            // });
-            setShowRegisterModal({
-              status: true,
-              message: backRes.data.message,
-              data: {
-                email: res.profileObj.email,
-                login_type: "google",
-                profile_id: res.googleId,
-                first_name: res.profileObj.givenName,
-                last_name: res.profileObj.familyName,
-              },
-              type: "socialLogin",
-            });
-
-            // RestApi.socialLogin(data).then((res) => {
-            //   console.log(res);
-            // });
-          }
-        })
-        .catch(function (error) {
-          console.log("Show error notification!");
-          return Promise.reject(error);
-        });
-    } else {
-      // alert("something went wrong");
+  }
+const handleSocialLogin = (loginData) => {
+  RestApi.socialLogin(loginData).then((res) => {
+    console.log("socialLogin: ", res);
+    if (res.data.access_token && res.data.status == true) {
+      handleResponse(res);
     }
-  };
-  const responseGoogle = (res) => {
-    console.log("data", res);
-    if (res.googleId) {
-      let data = {
-        email: res.profileObj.email,
-        login_type: "google",
-        profile_id: res.googleId,
-        first_name: res.profileObj.givenName,
-        last_name: res.profileObj.familyName,
-        is_customer: props.activeForm == "customer" ? "yes" : "no",
-        is_service_provider: props.activeForm == "partners" ? "yes" : "no",
-      };
-      RestApi.socialLogin(data).then((res) => {
-        console.log("socialLogin: ", res);
-        if (res.data.access_token && res.data.status == true) {
-          // toast.success(res.data.message, {
-          //   position: toast.POSITION.TOP_CENTER,
-          //   autoClose: 2000,
-          // });
-          handleResponse(res);
-         
-        }
-        if (res.data.status == false && res.data.status_code == 300) {
-          // props.dispatch({
-          //   type: "LOGIN",
-          //   payload: backRes.data.data,
-          // });
-          setShowRegisterModal({
-            status: true,
-            message: res.data.message,
-            data: {
-              email: res.profileObj.email,
-              login_type: "google",
-              profile_id: res.googleId,
-              first_name: res.profileObj.givenName,
-              last_name: res.profileObj.familyName,
-            },
-            type: "socialLogin",
-          });
-
-          // RestApi.socialLogin(data).then((res) => {
-          //   console.log(res);
-          // });
-        }
+    if (res.data.status == false && res.data.status_code == 300) {
+      console.log("res", res);
+      setShowRegisterModal({
+        status: true,
+        message: res.data.message,
+        data: loginData,
+        type: "socialLogin",
       });
-    } else {
-      // alert("something went wrong");
     }
-  };
-
+  }).catch(function (error) {
+    console.log("Show error notification!");
+    return Promise.reject(error);
+  });;
+}
   const handleCloseRegisterModal = () => {
     console.log("close");
     setShowRegisterModal({ status: false });
@@ -294,39 +251,43 @@ function Login(props) {
   const changeUser = (r) => {
     let data = showRegisterModal.data;
     if (r == true) {
-      let data = showRegisterModal.data;
       data.is_customer = "yes";
       data.is_service_provider = "yes";
-      RestApi.login(data).then((res) => {
-        if (res.data.access_token && res.data.status == true) {
-          // toast.success(res.data.message, {
-          //   position: toast.POSITION.TOP_CENTER,
-          //   autoClose: 2000,
-          // });
-          handleResponse(res);
-          setShowRegisterModal({ status: false, message: "", data: {} });
-          console.log(res);
-        }
-      });
+      // if(showRegisterModal.type == 'socialLogin') {
+      //   handleSocialLogin(data)
+      // }
+      // else{
+      //   handleFormLogin(data)
+        // RestApi.login(data).then((res) => {
+        //   if (res.data.access_token && res.data.status == true) {
+        //     // toast.success(res.data.message, {
+        //     //   position: toast.POSITION.TOP_CENTER,
+        //     //   autoClose: 2000,
+        //     // });
+        //     handleResponse(res);
+        //     setShowRegisterModal({ status: false, message: "", data: {} });
+        //     console.log(res);
+        //   }
+        // });
+      // }
     } else {
+      
       if (data.is_customer == "yes") {
         data.is_customer = "no";
         data.is_service_provider = "yes";
+        // changeForm('partners')
       } else if (data.is_service_provider == "yes") {
         data.is_customer = "yes";
         data.is_service_provider = "no";
+        
       }
-      RestApi.login(data).then((res) => {
-        if (res.data.access_token && res.data.status == true) {
-          // toast.success(res.data.message, {
-          //   position: toast.POSITION.TOP_CENTER,
-          //   autoClose: 2000,
-          // });
-          handleResponse(res);
-          setShowRegisterModal({ status: false, message: "", data: {} });
-          console.log(res);
-        }
-      });
+     
+    }
+    if(showRegisterModal.type == 'socialLogin') {
+      handleSocialLogin(data)
+    }
+    else{
+      handleFormLogin(data)
     }
   };
   const changeForm = (form) => {
@@ -336,12 +297,9 @@ function Login(props) {
     showRegisterModal({ status: false, message: "" });
   };
 
-  console.log("showregister", showRegisterModal);
+  console.log("message", apiResponse);
 
   const styles = {
-    top: {
-      // top: "6px",
-    },
     error: {
       borderColor: "#bf1f24",
     },
@@ -446,7 +404,9 @@ function Login(props) {
                                 <div className="box-icon">
                                   <i className="fa fa-google"></i>
                                 </div>
-                                <div className="gp-box-txt">Log in with Google</div>
+                                <div className="gp-box-txt">
+                                  Log in with Google
+                                </div>
                               </a>
                             </div>
                           )}
@@ -488,7 +448,7 @@ function Login(props) {
                                   }
                                 />
                                 <input
-                                  {...register("is_servive_provider")}
+                                  {...register("is_service_provider")}
                                   type="hidden"
                                   name="is_customer"
                                   autocomplete="off"
@@ -500,9 +460,7 @@ function Login(props) {
                                 />
                                 <div className="col col-12">
                                   <label className="input login-form-input">
-                                    <i
-                                      className="icon-append fa fa-envelope-o"
-                                    ></i>
+                                    <i className="icon-append fa fa-envelope-o"></i>
                                     <input
                                       style={errors["email"] && styles.error}
                                       {...register("email")}
@@ -524,9 +482,7 @@ function Login(props) {
                               <div className="row">
                                 <div className="col col-12">
                                   <label className="input login-form-input">
-                                    <i
-                                      className="icon-append fa fa-lock"
-                                    ></i>
+                                    <i className="icon-append fa fa-lock"></i>
                                     <input
                                       style={errors["password"] && styles.error}
                                       {...register("password")}
@@ -557,7 +513,7 @@ function Login(props) {
                             </div>
                             <div className="text-center">
                               <button
-                                style={{ width: "95%",marginLeft:'0px' }}
+                                style={{ width: "95%", marginLeft: "0px" }}
                                 type="submit"
                                 name="sign_in"
                                 className="button sign_in col"
@@ -566,10 +522,42 @@ function Login(props) {
                               </button>
                             </div>
                           </div>
+                          { apiResponse?.message.length > 0 &&
+                            <>
+                            <br/>
+                                <div style={{marginBottom:'-20px'}} className="careerErrorMessage">
+                                  {" "}
+                                  <span className="alert alert-success">
+                                    {apiResponse?.message}
+                                  </span>
+                                </div>
+                                </>
+                          }
+                          {apiResponse?.error.length > 0 &&
+                      <>
+                      <br/>
+                          <div style={{marginBottom:'-20px'}} className="careerErrorMessage">
+                            {" "}
+                            <span className="alert alert-danger">
+                              {apiResponse?.error}
+                            </span>
+                          </div>
+                          </>
+                      }
                         </form>
-                        <div className="login-footer clearfix" style={{marginRight:'0px'}}>
+                        <div
+                          className="login-footer clearfix"
+                          style={{ marginRight: "0px" }}
+                        >
                           <p className="pull-left">Don't have any account?</p>
-                          <Link to={props.activeForm == "partners" ? "/partner-register" :'/register'} className="btn btn-login pull-right">
+                          <Link
+                            to={
+                              props.activeForm == "partners"
+                                ? "/partner-register"
+                                : "/register"
+                            }
+                            className="btn btn-login pull-right"
+                          >
                             Create Account
                           </Link>
                         </div>
@@ -643,7 +631,7 @@ function Login(props) {
         }
       />
       <NewsLetter />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

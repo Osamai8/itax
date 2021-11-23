@@ -111,6 +111,7 @@ function PartnerRegister(props) {
   const onSubmitHandle = (data) => {
     setResponseError([])
     setMessage("")
+   
     console.log("asd",areaOfExpertise.length)
     if(areaOfExpertise.length < 1) {
       
@@ -126,8 +127,6 @@ function PartnerRegister(props) {
       // console.log("form", data[i]);
       form.append(i, data[i]);
     }
-    // console.log('area_of_expertise',areaOfExpertise)
-
     form.append("area_of_expertise", areaOfExpertise);
     if (registerType != "Individual") {
       form.append("first_name", getValues("company_name"));
@@ -141,6 +140,7 @@ function PartnerRegister(props) {
         //   autoClose: 10000,
         // });
         reset();
+        setAreaOfExpertise([])
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",
@@ -569,9 +569,10 @@ function PartnerRegister(props) {
                       </div>
                     </div>
                     {errors["area_of_expertise"] && (
-                        <span style={{ color: "#bf1f24" }}>
+                       <div style={{margin: '4px'}}> <span style={{ color: "#bf1f24" }}>
                           {errors["area_of_expertise"].message}
                         </span>
+                        </div>
                       )}
                     <div className="chkbox-group chkbox-partnerReg">
                       <input

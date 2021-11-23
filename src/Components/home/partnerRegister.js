@@ -99,6 +99,7 @@ function PartnerRegister(props) {
         // });
         reset();
         setRegisterType('Individual')
+        setAreaOfExpertise([])
         //if get token after registration
         // props.dispatch({
         //   type: "LOGIN",

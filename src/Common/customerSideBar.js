@@ -39,7 +39,7 @@ class sideBar extends Component {
             <i className="fa fa-eye fa-fw"></i>  Sevice Request
           </Link>
           <Link to="#" className="w3-bar-item w3-button w3-padding">
-            <i className="fa fa-eye fa-fw"></i>  Meating Schedule
+            <i className="fa fa-eye fa-fw"></i>  Meeting Schedule
           </Link>
           <Link to="#" className="w3-bar-item w3-button w3-padding">
             <i className="fa fa-eye fa-fw"></i>  Report
