@@ -174,6 +174,7 @@ function Header(props) {
                     type="submit"
                     className="button save-btn dash-logout"
                     title="Logout"
+                    style={{borderRadius:'0px 3px 0px 0px rgb(178 89 1)'}}
                     onClick={() => handleLogout()}
                   >
                     <i className="fa fa-power-off"></i>

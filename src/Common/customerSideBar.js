@@ -8,20 +8,26 @@ class sideBar extends Component {
     console.log("props sidebar", props);
     super(props);
     this.state = {
+      isServiceProvider: this.props.userDetails.isServiceProvider,
+      isCustomer: this.props.userDetails.isCustomer,
+      activeDashboard: this.props.dashboard,
       drawerSwitch: false,
     };
   }
-  componentDidMount(){
-
+  componentDidMount() {
+    let { isServiceProvider, isCustomer, activeDashboard } = this.state;
+    if (isServiceProvider == "yes" && isCustomer == "yes") {
+      activeDashboard = this.props.dashboard;
+    } else if (isServiceProvider == "yes") {
+      activeDashboard = "serviceProvider";
+    } else if (isCustomer == "yes") {
+      activeDashboard = "customer";
+    }
   }
-  
 
-  changeDashboard(e){
-    console.log(e.target.value)
-    this.props.dispatch({
-      type:"DASHBOARD",
-      payload: e.target.value
-    })
+  changeDashboard(e) {
+    console.log(e.target.value);
+    this.setState({ activeDashboard: e.target.value });
   }
   handleSidebar() {
     this.setState({
@@ -29,7 +35,8 @@ class sideBar extends Component {
     });
   }
   dashboardMenu() {
-    if (this.props.dashboard == "customer") {
+    console.log("this.state.activeDashboard",this.state.activeDashboard)
+    if (this.state.activeDashboard == "customer") {
       return (
         <>
           <Link
@@ -50,10 +57,9 @@ class sideBar extends Component {
           </Link>
         </>
       );
-    } else if (this.props.dashboard == "partners") {
+    } else if (this.state.activeDashboard == "serviceProvider") {
       return (
         <>
-         
           <a
             onclick="myFunc1()"
             href="javascript:void(0)"
@@ -166,7 +172,8 @@ class sideBar extends Component {
 
   render() {
     let { userDetails } = this.props;
-    console.log(this.props);
+    let { isServiceProvider, isCustomer, activeDashboard } = this.state;
+    console.log(this.state);
     const styles = {
       sideBarMenu: {
         zIndex: "3",
@@ -244,35 +251,38 @@ class sideBar extends Component {
             <p className="w3-left w3-medium">
               <span>
                 <strong>
-                  {this.props.userDetails && `${userDetails.name} ${
-                    userDetails.middle_name != null
-                      ? userDetails.middle_name
-                      : ""
-                  } ${
-                    userDetails.last_name != null ? userDetails.last_name : ""
-                  }`}
+                  {this.props.userDetails &&
+                    `${userDetails.name} ${
+                      userDetails.middle_name != null
+                        ? userDetails.middle_name
+                        : ""
+                    } ${
+                      userDetails.last_name != null ? userDetails.last_name : ""
+                    }`}
                 </strong>
                 {",  "}
-                {this.props.userDetails && this.props.userDetails.isServiceProvider == "yes" &&
-                this.props.userDetails.isCustomer == "yes" ? (
-                  <select onChange={(e)=> this.changeDashboard(e)} className="user-change-select">
+                {isServiceProvider == "yes" && isCustomer == "yes" ? (
+                  <select
+                    onChange={(e) => this.changeDashboard(e)}
+                    className="user-change-select"
+                  >
                     {" "}
-                    <option value="customer"
-                      selected={
-                        this.props.dashboard == "customer" && "selected"
-                      }
+                    <option
+                      value="customer"
+                      selected={activeDashboard == "customer" && "selected"}
                     >
                       Customer
                     </option>
-                    <option value="partners"
+                    <option
+                      value="serviceProvider"
                       selected={
-                        this.props.dashboard == "partners" && "selected"
+                        activeDashboard == "serviceProvider" && "selected"
                       }
                     >
                       Service Provider
                     </option>{" "}
                   </select>
-                ) : this.props.userDetails.isServiceProvider == "yes" ? (
+                ) : isServiceProvider == "yes" ? (
                   "Service Provider"
                 ) : (
                   "Customer"
@@ -302,11 +312,11 @@ class sideBar extends Component {
   }
 }
 sideBar.defaultProps = {
-  dashboard: ['customer'],
+  dashboard: ["customer"],
 };
 export default connect((state) => {
   return {
     dashboard: state?.dashboard,
-    userDetails: state?.userDetails
+    userDetails: state?.userDetails,
   };
 })(sideBar);

@@ -83,6 +83,9 @@ class Home extends Component {
       });
     }
   }
+  viewBlog(id){
+    this.props.history.push('blog-details/'+id)
+  }
   render() {
     let { featuredVideo, bannerData } = this.state;
     return (
@@ -153,7 +156,7 @@ class Home extends Component {
                 <div className="marquetext marquee">
                   <img src={blogImage} className="blog-home-img" />
                   <ul>
-                    {/* <Marquee
+                    <Marquee
                       duration={15000}
                       pauseOnHover={true}
                       background="#fafafa"
@@ -162,29 +165,29 @@ class Home extends Component {
                     >
                       {this.state.blogs.map((each, i) => {
                         return (
-                          <Link key={i} to={`blog-details/${each.id}`}>
-                            <li>
-                              <a>{each.heading}</a>
+                          <Link className="not-hover" key={i} to={`blog-details/${each.id}`}>
+                            <li onClick={()=> this.viewBlog(each.id)} className="pointer">
+                              <Link className="not-hover" to={`blog-details/${each.id}`}>{each.heading}</Link >
                             </li>
                           </Link>
                         );
                       })}
-                    </Marquee> */}
-                    <marquee
+                    </Marquee>
+                    {/* <marquee
                       behavior="scroll"
                       onMouseOver="stop()"
                       onMouseOut="start()"
                     >
                       {this.state.blogs.map((each, i) => {
                         return (
-                          <Link className="not-hover " key={i} to={`blog-details/${each.id}`}>
+                          <Link  key={i} to={`blog-details/${each.id}`}>
                             <li>
-                              <a>{each.heading}</a>
+                              <a className="not-hover">{each.heading}</a>
                             </li>
                           </Link>
                         );
                       })}
-                    </marquee>
+                    </marquee> */}
                   </ul>
                 </div>
               </div>

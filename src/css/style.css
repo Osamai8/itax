@@ -404,7 +404,7 @@ body {
   border-radius: 4px;
 }
 .or-box {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   text-align: center;
   position: relative;
 }
@@ -3816,8 +3816,24 @@ transform: translateY(-2%);
   margin-right: 18px!important;
 }
 .chkbox-partnerReg{
-  margin-left: 4px;
+  margin-left: 9px;
 }
 .login-footer-customer{
   margin-left: 29px;
+}
+.yes-no-btn{
+  display:flex;
+  justify-content: center;
+}
+.yes-no-btn button {
+  margin-top:12px;
+  width:55px;
+  text-align: center;
+}
+.dash-logout {
+  margin: 0;
+  margin-left: 1.5px;
+  top: 0.2rem;
+  -webkit-border-radius: 0px 5px 5px 0px;
+  padding: 8px 10px;
 }

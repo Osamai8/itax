@@ -239,7 +239,7 @@ function PartnerRegister(props) {
                               // {...register("register_as")}
                               class="form-control selectpicker customer_down_arrow"
                               data-style="btn-white"
-                              style={{ width: "96%" }}
+                              style={{ width: "96%",height:'23px' }}
                             >
                               {" "}
                               <option selected="1" disabled>
@@ -590,7 +590,7 @@ function PartnerRegister(props) {
                         Term & Condition
                       </a>
                     </div>
-                    <br />
+                    
                     {responseError.length > 0 &&
                       responseError.map((er) => {
                         console.log(er);
@@ -606,7 +606,7 @@ function PartnerRegister(props) {
                   </fieldset>
                   <div className="sign-btn">
                     <button
-                      style={{ width: "92%", marginLeft: "2px" }}
+                      style={{ width: "91%", marginLeft: "2px" }}
                       type="submit"
                       name="sign_in"
                       className="button col"
@@ -624,7 +624,7 @@ function PartnerRegister(props) {
                         }
                 </form>
 
-                <div className="login-footer clearfix">
+                <div className="login-footer clearfix" style={{marginRight:'24px',marginLeft:'4px'}}>
                   <p className="pull-left part_log">Already have an account?</p>
                   <Link
                     to="/login"

@@ -34,12 +34,12 @@ function Login(props) {
   const [responseError, setResponseError] = useState("");
   useEffect(() => {
     let params =
-      props.activeForm == "partners"
+      props.activeForm == "serviceProvider"
         ? "business-partner-login"
         : "customer-login";
     RestApi.placeholder(params)
       .then((res) => {
-        console.log("placeholder login: ", res);
+        // console.log("placeholder login: ", res);
         setPlaceHolder(res.data.data);
       })
       .catch((e) => {
@@ -82,9 +82,17 @@ function Login(props) {
       type: "LOGIN",
       payload: data,
     });
+    let activeDashboard = '';
+    if(data.isCustomer == 'yes' && data.isServiceProvider == 'yes'){
+      activeDashboard = props.activeForm
+    } else if (data.isServiceProvider == "yes") {
+      activeDashboard = "serviceProvider";
+    } else if (data.isCustomer == "yes") {
+      activeDashboard = "customer";
+    }
     props.dispatch({
       type: "DASHBOARD",
-      payload: props.activeForm,
+      payload: activeDashboard,
     });
    
 
@@ -121,7 +129,7 @@ function Login(props) {
         first_name: googleRes.profileObj.givenName,
         last_name: googleRes.profileObj.familyName,
         is_customer: props.activeForm == "customer" ? "yes" : "no",
-        is_service_provider: props.activeForm == "partners" ? "yes" : "no",
+        is_service_provider: props.activeForm == "serviceProvider" ? "yes" : "no",
       };
       handleSocialLogin(data)
     } else {
@@ -154,7 +162,7 @@ function Login(props) {
                 password: password,
                 is_customer: props.activeForm == "cutsomer" ? "yes" : "no",
                 is_service_provider:
-                  props.activeForm == "partners" ? "yes" : "no",
+                  props.activeForm == "serviceProvider" ? "yes" : "no",
               },
               type: "login",
             });
@@ -194,89 +202,21 @@ const handleSocialLogin = (loginData) => {
     return Promise.reject(error);
   });;
 }
-  const handleCloseRegisterModal = () => {
-    console.log("close");
-    setShowRegisterModal({ status: false });
-    let { data } = showRegisterModal;
-    if (data.is_customer == "yes") {
-      data.is_customer = "no";
-      data.is_service_provider = "yes";
-      history.push(`/customer/dashboard`);
-    } else if (data.is_service_provider == "yes") {
-      data.is_customer = "yes";
-      data.is_service_provider = "no";
-    }
-    RestApi.login(data).then((response) => {
-      if (response.data.access_token && response.data.status == true) {
-        reset({ email: "", password: "" });
-        // toast.success(response.data.message, {
-        //   position: toast.POSITION.CENTER,
-        //   autoClose: 2000,
-        // });
-        RestApi.defaultToken(response.data.access_token);
-        let res = response.data;
-        let data = {
-          name: res.data.first_name,
-          email: res.data.email,
-          phone: res.data.phone,
-          last_name: res.data.last_name,
-          middle_name: res.data.middle_name,
-          photo: res.data.photo,
-          isCustomer: res.data.is_customer,
-          isServiceProvider: res.data.is_service_provider,
-          _token: res.access_token,
-        };
-        props.dispatch({
-          type: "LOGIN",
-          payload: data,
-        });
-
-        setTimeout(() => {
-          // if (
-          //   response.data.data.is_customer == "yes" &&
-          //   response.data.data.is_service_provider == "yes"
-          // ) {
-          //   props.activeForm == "customer"
-          //     ? history.push(`/customer/dashboard`)
-          //     : history.push(`/partner/dashboard`);
-          // } else if (response.data.data.is_customer == "yes") {
-          //   history.push(`/customer/dashboard`);
-          // } else if (response.data.data.is_service_provider == "yes") {
-          //   history.push(`/partner/dashboard`);
-          // }
-        }, 2000);
-      }
-    });
-  };
+ 
   const changeUser = (r) => {
     let data = showRegisterModal.data;
     if (r == true) {
       data.is_customer = "yes";
       data.is_service_provider = "yes";
-      // if(showRegisterModal.type == 'socialLogin') {
-      //   handleSocialLogin(data)
-      // }
-      // else{
-      //   handleFormLogin(data)
-        // RestApi.login(data).then((res) => {
-        //   if (res.data.access_token && res.data.status == true) {
-        //     // toast.success(res.data.message, {
-        //     //   position: toast.POSITION.TOP_CENTER,
-        //     //   autoClose: 2000,
-        //     // });
-        //     handleResponse(res);
-        //     setShowRegisterModal({ status: false, message: "", data: {} });
-        //     console.log(res);
-        //   }
-        // });
-      // }
     } else {
       
       if (data.is_customer == "yes") {
+        props.setActiveForm('serviceProvider');
         data.is_customer = "no";
         data.is_service_provider = "yes";
-        // changeForm('partners')
+        // changeForm('serviceProvider')
       } else if (data.is_service_provider == "yes") {
+        props.setActiveForm('customer');
         data.is_customer = "yes";
         data.is_service_provider = "no";
         
@@ -346,13 +286,13 @@ const handleSocialLogin = (loginData) => {
                       </li>
                       <li
                         role="presentation"
-                        onClick={() => changeForm("partners")}
+                        onClick={() => changeForm("serviceProvider")}
                         className={`${
-                          props.activeForm == "partners" ? "active" : ""
+                          props.activeForm == "serviceProvider" ? "active" : ""
                         }`}
                       >
                         <a
-                          // href="#partners"
+                          // href="#serviceProvider"
                           aria-controls="profile"
                           role="tab"
                           data-toggle="tab"
@@ -414,7 +354,7 @@ const handleSocialLogin = (loginData) => {
                         <div className="or-box">
                           <span>OR</span>
                         </div>
-                        <form
+                        <form style={{marginTop:'-9px'}}
                           onSubmit={handleSubmit(onSubmitHandle)}
                           id="sky-form"
                           method="POST"
@@ -453,7 +393,7 @@ const handleSocialLogin = (loginData) => {
                                   name="is_customer"
                                   autocomplete="off"
                                   value={
-                                    props.activeForm == "partners"
+                                    props.activeForm == "serviceProvider"
                                       ? "yes"
                                       : "no"
                                   }
@@ -503,7 +443,7 @@ const handleSocialLogin = (loginData) => {
 
                           <div className="form-group clearfix">
                             <div className="chkbox-group pull-left">
-                              <input type="checkbox" name="remember" />
+                              <input style={{marginBottom:'2px'}} type="checkbox" name="remember" />
                               <label> Remember me</label>
                             </div>
                             <div className="pull-right">
@@ -552,7 +492,7 @@ const handleSocialLogin = (loginData) => {
                           <p className="pull-left">Don't have any account?</p>
                           <Link
                             to={
-                              props.activeForm == "partners"
+                              props.activeForm == "serviceProvider"
                                 ? "/partner-register"
                                 : "/register"
                             }
@@ -612,14 +552,15 @@ const handleSocialLogin = (loginData) => {
         body={
           <div className="col">
             {showRegisterModal.message}
-            <div>
+            <div className="yes-no-btn" >
               <button
-                style={{ marginRight: "20px" }}
+                style={{marginRight: "20px" }}
                 onClick={() => changeUser(true)}
               >
                 Yes
               </button>
               <button
+              style={{ }}
                 onClick={() => changeUser(false)}
                 className="button save-btn"
               >

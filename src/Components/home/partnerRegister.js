@@ -457,7 +457,7 @@ function PartnerRegister(props) {
                       )}
         </div>
         <div className="chkbox-group chkbox-partnerReg">
-          <input   {...register("agree")} type="checkbox" name="agree" />
+          <input   {...register("agree")} style={{marginBottom:'1px'}} type="checkbox" name="agree" />
           <span  style={errors["agree"] && { color: "#bf1f24" }} >I have read and agree to all the </span>
           <a  style={errors["agree"] && { color: "#bf1f24" }} href="#">Term & Condition</a>
         </div>
