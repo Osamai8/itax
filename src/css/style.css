@@ -3837,3 +3837,13 @@ transform: translateY(-2%);
   -webkit-border-radius: 0px 5px 5px 0px;
   padding: 8px 10px;
 }
+.case-modal {
+  text-align: center;
+  font-weight: 600;
+}
+.citation{
+  font-size: 18px;
+}
+.marquee-ul section{
+  /* position: initial!important;; */
+}

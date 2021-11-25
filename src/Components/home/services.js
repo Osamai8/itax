@@ -14,7 +14,7 @@ export default function Services(props) {
       if (res.data.status) {
         props.setService(res.data.data)
         let filtered = res.data.data.filter(i => i.show_on_home_page == 1)
-      let groupedData = Common.groupBy(['sequence_no'])(filtered)
+        let groupedData = Common.groupBy(['sequence_no'])(filtered)
      
      
         setDate(groupedData);
@@ -62,7 +62,7 @@ export default function Services(props) {
                               ? each[1][0].category_description.slice(0, 130) + "..."
                               : each[1][0].category_description}
                           </p>
-                          <Link to={`/service-details/${each[0]}`} className={each[1][0].category_name.length < 34 ? `readmore readmore-if-greater-text`: `readmore r`}>
+                          <Link to={`/service-details/${each[1][0].category_id}`} className={each[1][0].category_name.length < 34 ? `readmore readmore-if-greater-text`: `readmore r`}>
                             Read More...
                           </Link>
                         </div>

@@ -350,10 +350,7 @@ export default class CaseLaw extends Component {
                                 {each.gist != null && each.gist.length > 0 && (
                                   <a
                                     onClick={() =>
-                                      this.handleClick(
-                                        each.gist,
-                                        each.case_name
-                                      )
+                                      this.handleClick(each)
                                     }
                                     className="case-law-view"
                                   >
@@ -443,13 +440,13 @@ export default class CaseLaw extends Component {
         <Newsletter />
         <Footer />
         <ModalRoot
-          title={this.state.previewHeading}
+          title={this.state.previewContent.case_name}
           close={() => this.setState({ isOpen: false })}
           isOpen={this.state.isOpen}
           width={"80%"}
           body={
             <CaseLawModal
-              title={this.state.previewHeading}
+              title={this.state.previewContent.case_name}
               content={this.state.previewContent}
             />
           }

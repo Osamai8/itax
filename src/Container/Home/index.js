@@ -155,7 +155,7 @@ class Home extends Component {
               <div className="container">
                 <div className="marquetext marquee">
                   <img src={blogImage} className="blog-home-img" />
-                  <ul>
+                  <ul className="marquee-ul">
                     <Marquee
                       duration={15000}
                       pauseOnHover={true}
@@ -165,11 +165,9 @@ class Home extends Component {
                     >
                       {this.state.blogs.map((each, i) => {
                         return (
-                          <Link className="not-hover" key={i} to={`blog-details/${each.id}`}>
                             <li onClick={()=> this.viewBlog(each.id)} className="pointer">
                               <Link className="not-hover" to={`blog-details/${each.id}`}>{each.heading}</Link >
                             </li>
-                          </Link>
                         );
                       })}
                     </Marquee>
