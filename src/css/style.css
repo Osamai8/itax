@@ -3839,10 +3839,28 @@ transform: translateY(-2%);
 }
 .case-modal {
   text-align: center;
-  font-weight: 600;
+  font-weight: bold;
 }
 .citation{
-  font-size: 18px;
+  font-size: 16px;
+}
+.case-name {
+  font-size: 16px;
+}
+.court-name {
+  /* font-weight: 600; */
+  color:#000000;
+  font-size: 19px;
+}
+.case-number {
+  color:#000000
+}
+.case-date {
+  justify-content: center;
+}
+.head-note{
+  font-weight: 400;
+  text-decoration: underline;
 }
 .marquee-ul section{
   /* position: initial!important;; */

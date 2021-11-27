@@ -23,10 +23,12 @@ export default class Service extends Component {
   fetchData() {
     RestApi.categories().then((res) => {
       console.log("servicePage: ", res.data.data);
-      let grouped = Common.groupBy(['category_id'])(res.data.data);
+        let groupedData = Common.groupBy(['sequence_no'])(res.data.data)
+     
+      // let groupedData = Common.groupBy(['category_id'])(res.data.data);
       if (res.data.status) {
         this.setState({
-          data: grouped,
+          data: groupedData,
         });
       }
     });
@@ -59,15 +61,15 @@ export default class Service extends Component {
                                 {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                                 <img src={moneyBagIcon} />
                                 <h3  className={each[1][0].category_name.length < 34 ? `service-heading`: `service-if-text`}>
-                                  <a href="#">{each[1][0].category_name}
-                                  </a>
+                                  <Link to={`/service-details/${each[1][0].category_id}`}>{each[1][0].category_name}
+                                  </Link>
                                 </h3>
                                 <p>
                                   {each[1][0].category_description.length > 130
                                     ? each[1][0].category_description.slice(0, 130)+"..."
                                     : each[1][0].category_description}
                                 </p>
-                                <Link to={`/service-details/${each[0]}`} className={each[1][0].category_name.length < 34 ? `readmore readmore-if-greater-text`: `readmore r`}>
+                                <Link to={`/service-details/${each[1][0].category_id}`} className={each[1][0].category_name.length < 34 ? `readmore readmore-if-greater-text`: `readmore r`}>
                             Read More...
                             
                           </Link>

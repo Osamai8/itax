@@ -443,7 +443,7 @@ export default class CaseLaw extends Component {
           title={this.state.previewContent.case_name}
           close={() => this.setState({ isOpen: false })}
           isOpen={this.state.isOpen}
-          width={"80%"}
+          width={"75%"}
           body={
             <CaseLawModal
               title={this.state.previewContent.case_name}

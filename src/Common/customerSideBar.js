@@ -5,12 +5,16 @@ import { connect } from "react-redux";
 
 class sideBar extends Component {
   constructor(props) {
-    console.log("props sidebar", props);
     super(props);
+    let {dashboard,userDetails}  = this.props
+    let d = dashboard ? dashboard :
+            userDetails.isServiceProvider ==  'yes' ? userDetails.isServiceProvider :
+            userDetails.isCustomer ==  'yes' && userDetails.isCustomer 
+    console.log("props sidebar", props);
     this.state = {
-      isServiceProvider: this.props.userDetails.isServiceProvider,
-      isCustomer: this.props.userDetails.isCustomer,
-      activeDashboard: this.props.dashboard,
+      isServiceProvider: userDetails.isServiceProvider,
+      isCustomer: userDetails.isCustomer,
+      activeDashboard: d,
       drawerSwitch: false,
     };
   }

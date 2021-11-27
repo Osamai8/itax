@@ -55,7 +55,7 @@ export default function Services(props) {
                           {/* <!-- <i className="fa fa-usd" aria-hidden="true"></i> -->  */}
                           <img src={moneyBagIcon} />
                           <h3  className={each[1][0].category_name.length < 34 ? `service-heading`: `service-if-text`}>
-                            <a href="#"> {each[1][0].category_name}</a>
+                            <Link to={`/service-details/${each[1][0].category_id}`} > {each[1][0].category_name}</Link>
                           </h3 >
                           <p>
                             {each[1][0].category_description.length > 130
