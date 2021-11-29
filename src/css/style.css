@@ -3878,6 +3878,9 @@ transform: translateY(-2%);
   text-align: left;
   padding: 4px 6px;
 }
+.apply-form hr {
+  margin:2px 0px!important
+}
 .service-charges ol {
   padding-left: 15px;
 }
