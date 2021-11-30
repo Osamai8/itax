@@ -3889,6 +3889,12 @@ transform: translateY(-2%);
     border-collapse: collapse;
     width:100%
 }
-.marquee-ul section{
-  /* position: initial!important;; */
+.marquee-ul section:last-of-type{
+  position: unset!important;
 }
+.events-marquee section:last-of-type{
+  position: unset!important;
+}
+/* .events-marquee section div {
+  align-items:unset!important;
+}  */

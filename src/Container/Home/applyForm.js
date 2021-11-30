@@ -179,21 +179,21 @@ export default class ApplyForm extends Component {
                     <tr>
                       <th width="30%">
                         <div class="pull-left">Monthly Filing</div>
-                        <div class="pull-right">&nbsp;&nbsp;Fee</div>
+                       {!isQuotation && <div class="pull-right">&nbsp;&nbsp;Fee</div>}
                         <div class="pull-right">
                           All <input  type="checkbox" name="month" />
                         </div>
                       </th>
                       <th width="30%">
                         <div class="pull-left">Quarterly Filing</div>
-                        <div class="pull-right">&nbsp;&nbsp;Fee</div>
+                        {!isQuotation && <div class="pull-right">&nbsp;&nbsp;Fee</div>}
                         <div class="pull-right">
                           All <input type="checkbox" name="quarter" />
                         </div>
                       </th>
                       <th width="25%">
                         Annual Filing
-                        <div class="pull-right">&nbsp;&nbsp;Fee</div>
+                       {!isQuotation && <div class="pull-right">&nbsp;&nbsp;Fee</div>}
                       </th>
                       <th width="30%">Total Charges</th>
                     </tr>
@@ -202,11 +202,12 @@ export default class ApplyForm extends Component {
                         {options.Monthly?.length > 0 &&
                         options.Monthly.map((m,k)=> {
                         return <><div key={k} class="pull-left">{m.frequency_stage_period}</div>
-                        <div class="pull-right">
-                          &nbsp;&nbsp;<i class="fa fa-rupee"></i> {!isQuotation ? m.fee : 0}
+                       {!isQuotation && <div class="pull-right">
+                          &nbsp;&nbsp;<i class="fa fa-rupee"></i>  {m.fee }
                         </div>
+                        }
                         <div class="pull-right">
-                          <input onChange={(e)=>this.handleCheckbox(e)} value={!isQuotation ? m.fee : 0} type="checkbox" name="monthly"  />
+                          <input onChange={(e)=>this.handleCheckbox(e)} value={m.fee} type="checkbox" name="monthly"  />
                         </div>
                         <br />
                         <hr /> 
@@ -227,9 +228,9 @@ export default class ApplyForm extends Component {
                       {options.Quarterly?.length > 0 &&
                         options.Quarterly.map((m,k)=> {
                         return <><div k={k} class="pull-left">{m.frequency_stage_period}</div>
-                        <div class="pull-right">
-                          &nbsp;&nbsp;<i class="fa fa-rupee"></i> {!isQuotation ? m.fee : 0}
-                        </div>
+                        {!isQuotation && <div class="pull-right">
+                          &nbsp;&nbsp;<i class="fa fa-rupee"></i> {m.fee}
+                        </div>}
                         <div class="pull-right">
                           <input onChange={(e)=>this.handleCheckbox(e)} value={!isQuotation ? m.fee : 0} type="checkbox" name="quarterly"  />
                         </div>
@@ -251,9 +252,9 @@ export default class ApplyForm extends Component {
                       {options.Yearly?.length > 0 &&
                         options.Yearly.map((m,k)=> {
                         return <> <div  k={k} class="pull-left">{m.frequency_stage_period}</div>
-                        <div class="pull-right">
-                          &nbsp;&nbsp;<i class="fa fa-rupee"></i> {!isQuotation ? m.fee : 0}
-                        </div>
+                        {!isQuotation  && <div class="pull-right">
+                          &nbsp;&nbsp;<i class="fa fa-rupee"></i> {m.fee }
+                        </div>}
                         <div class="pull-right">
                           <input onChange={(e)=>this.handleCheckbox(e)} value={!isQuotation ? m.fee : 0} type="checkbox" name="yearly"  />
                         </div>
@@ -348,9 +349,11 @@ export default class ApplyForm extends Component {
                   <div class="service-charges">
                     <p>
                       <b>
-                        Service Charges: Rs. <i className="fa fa-rupee" /> {!isQuotation ? totalAmount 
+                    {!isQuotation ?
+                        <>Service Charges: Rs. <i className="fa fa-rupee" />  totalAmount </>
                         :'Service Charges To Be Provided After Review'}
                       </b>
+                      
                     </p>
                     {!isQuotation && 
                     <> <h4>Payable Option</h4>
