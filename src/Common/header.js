@@ -12,22 +12,24 @@ function Header(props) {
 
   const handleLogout = () => {
     // setOpenLogoutModal(false);
+    // props.history.push("/");
     RestApi.logout()
       .then((res) => {
         console.log(res);
+        props.history.push("/");
         props.dispatch({
           type: "LOGOUT",
         });
         RestApi.defaultToken(null);
         Common.logout();
-        props.history.replace("/");
+        
         // toast.success("Logout successfully");
       })
-
       .catch((error) => {
         Common.logout();
         console.log("error!", error);
       });
+
   };
   const handleClose = () => {
     setOpenLogoutModal(false);
